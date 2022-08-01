@@ -161,7 +161,7 @@ For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
 **Type:** Bool<br />
 **Default:** `true`
 
-For example, `var sourcelUrl` becomes `var sourceURL`.
+For example, `var sourceUrl` becomes `var sourceURL`.
 
 <br/>
 
@@ -724,7 +724,7 @@ Rename operations when using the `"operations"` style for path generation
 **Type:** [String: String]<br />
 **Default:** `[:]`
 
-Rename anynomous collection elements. By default, use a singularized form of the property name
+Rename anonymous collection elements. By default, use a singularized form of the property name
 
 <br/>
 

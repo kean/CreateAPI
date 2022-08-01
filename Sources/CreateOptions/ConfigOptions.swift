@@ -76,7 +76,7 @@ public struct ConfigOptions: Encodable {
     /// For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
     public var isInliningTypealiases: Bool = true
 
-    /// For example, `var sourcelUrl` becomes `var sourceURL`.
+    /// For example, `var sourceUrl` becomes `var sourceURL`.
     public var isReplacingCommonAcronyms: Bool = true
 
     /// Acronyms to add to the default list
@@ -342,7 +342,7 @@ public struct ConfigOptions: Encodable {
         /// Rename operations when using the `"operations"` style for path generation
         public var operations: [String: String] = [:]
 
-        /// Rename anynomous collection elements. By default, use a singularized form of the property name
+        /// Rename anonymous collection elements. By default, use a singularized form of the property name
         public var collectionElements: [String: String] = [:]
     }
 }
