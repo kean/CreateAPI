@@ -259,12 +259,7 @@ Customize specific behaviors when generating comments on entities/paths/properti
 **Type:** Bool<br />
 **Default:** `true`
 
-Set to false to disable the generation of comments, for example:
-
-```yaml
-comments:
-  isEnabled: false
-```
+Set to false to disable the generation of comments
 
 <br/>
 
@@ -518,6 +513,25 @@ The style used when generating path definitions
 
 - `rest` - Generates nest structs to represent path components
 - `operations` - Generates a plain list of request operations
+
+<details>
+<summary>Examples</summary>
+
+**Rest**
+```swift
+// Uses namespaces and names based on the path for each request
+Paths.pets.get(limit: nil) // GET /pets
+Paths.pets.petID("1").get // GET /pets/1
+```
+
+**Operations**
+```swift
+// Uses the `operationId` defined in the schema for each request
+Paths.listPets(limit: nil) // GET /pets
+Paths.showPetById(petID: "1") // GET /pets/1
+```
+
+</details>
 
 <br/>
 
