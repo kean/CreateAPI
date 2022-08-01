@@ -96,7 +96,7 @@ public struct ConfigOptions: Encodable {
     /// - `tabs`
     public var indentation: ConfigOptions.Indentation = .spaces
 
-    /// Number of spaces to use when `indentation` is set to `spaces`.
+    /// Number of spaces to use when [`indentation`](#indentation) is set to `spaces`.
     public var spaceWidth: Int = 4
 
     /// For example, `public var file: [File]` becomes `public var files: [File]`
@@ -211,11 +211,11 @@ public struct ConfigOptions: Encodable {
         public var isStrippingParentNameInNestedObjects: Bool = false
 
         /// When set to a non-empty value, entities with the given names will be ignored during generation.
-        /// Cannot be used in conjunction with `include`.
+        /// Cannot be used in conjunction with [`include`](#entitiesinclude).
         public var exclude: Set<String> = []
 
         /// When set to a non-empty value, only entities matching the given names will be generated.
-        /// This cannot be used in conjunction with `exclude`.
+        /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).
         public var include: Set<String> = []
     }
 
@@ -307,11 +307,11 @@ public struct ConfigOptions: Encodable {
         public var isRemovingRedundantPaths: Bool = true
 
         /// When set to a non-empty value, the given paths will be ignored during generation.
-        /// Cannot be used in conjunction with `include`.
+        /// Cannot be used in conjunction with [`include`](#pathsinclude).
         public var exclude: Set<String> = []
 
         /// When set to a non-empty value, only the given paths will be generated.
-        /// This cannot be used in conjunction with `exclude`.
+        /// This cannot be used in conjunction with [`exclude`](#pathsexclude).
         public var include: Set<String> = []
     }
 

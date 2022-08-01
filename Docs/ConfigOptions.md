@@ -199,7 +199,7 @@ Change the style of indentation. Supported values:
 **Type:** Int<br />
 **Default:** `4`
 
-Number of spaces to use when `indentation` is set to `spaces`.
+Number of spaces to use when [`indentation`](#indentation) is set to `spaces`.
 
 <br/>
 
@@ -484,7 +484,7 @@ Strips the parent name of enum cases within objects that are `oneOf` / `allOf` /
 **Default:** `[]`
 
 When set to a non-empty value, entities with the given names will be ignored during generation.
-Cannot be used in conjunction with `include`.
+Cannot be used in conjunction with [`include`](#entitiesinclude).
 
 <br/>
 
@@ -494,7 +494,7 @@ Cannot be used in conjunction with `include`.
 **Default:** `[]`
 
 When set to a non-empty value, only entities matching the given names will be generated.
-This cannot be used in conjunction with `exclude`.
+This cannot be used in conjunction with [`exclude`](#entitiesexclude).
 
 <br/>
 
@@ -647,7 +647,7 @@ Remove redundant paths if possible
 **Default:** `[]`
 
 When set to a non-empty value, the given paths will be ignored during generation.
-Cannot be used in conjunction with `include`.
+Cannot be used in conjunction with [`include`](#pathsinclude).
 
 <br/>
 
@@ -657,7 +657,7 @@ Cannot be used in conjunction with `include`.
 **Default:** `[]`
 
 When set to a non-empty value, only the given paths will be generated.
-This cannot be used in conjunction with `exclude`.
+This cannot be used in conjunction with [`exclude`](#pathsexclude).
 
 <br/>
 
