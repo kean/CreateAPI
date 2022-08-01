@@ -11,7 +11,7 @@
 
 {% for type in types.all|annotated:"document" %}
 {% if not type.annotations.root %}
-## {{ type.localName }}
+# {{ type.localName }}
 {% endif %}
 
 {% call format_documentation type.documentation %}
@@ -29,14 +29,16 @@
 - [{{ variable.name }}](#{{ variable.name|lowercase }})
 {% endif %}
 {% endfor %}
+
+---
 {% endif %}
 
 {% for variable in type.variables|stored %}
 {% if not variable.type.annotations.document and not variable.annotations.skip %}
 {% if type.annotations.root %}
-### {{ variable.name }}
+## {{ variable.name }}
 {% else %}
-### {{ type.localName|lowercase }}.{{ variable.name }}
+## {{ type.localName|lowercase }}.{{ variable.name }}
 {% endif %}
 
 **Type:** {{ variable.typeName|replace:"?","" }}<br />
@@ -44,6 +46,7 @@
 
 {% call format_documentation variable.documentation %}
 
+<br/>
 
 {% endif %}
 {% endfor %}
