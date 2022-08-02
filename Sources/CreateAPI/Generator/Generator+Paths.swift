@@ -687,7 +687,7 @@ extension Generator {
         if content.values.isEmpty {
             return BodyType("Void")
         }
-        
+
         if !options.paths.overriddenBodyTypes.isEmpty {
             for key in content.keys {
                 if let type = options.paths.overriddenBodyTypes[key.rawValue] {
