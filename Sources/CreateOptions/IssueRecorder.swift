@@ -22,19 +22,20 @@ class IssueRecorder {
 
 extension IssueRecorder.Issue: CustomStringConvertible {
     var propertyName: String {
-        let completePath = path + [key]
-        return completePath
-            .map(\.stringValue)
-            .joined(separator: ".")
+        var value = "'\(key.stringValue)'"
+        if !path.isEmpty {
+            value += " (in '\(path.map(\.stringValue).joined(separator: "."))')"
+        }
+        return value
     }
 
     var description: String {
         let summary: String
         switch type {
         case .deprecated:
-            summary = "The property '\(propertyName)' has been deprecated."
+            summary = "The property \(propertyName) has been deprecated."
         case .unexpected:
-            summary = "Found an unexpected property '\(propertyName)'."
+            summary = "Found an unexpected property \(propertyName)."
         }
 
         if message.isEmpty {
