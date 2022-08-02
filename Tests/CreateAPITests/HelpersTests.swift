@@ -1,7 +1,3 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
-
 @testable import CreateOptions
 import XCTest
 import class Foundation.Bundle
