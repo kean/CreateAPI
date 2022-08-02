@@ -3,7 +3,7 @@
 
 
 extension ConfigOptions: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         case access
         case isAddingDeprecations
         case isGeneratingEnums
@@ -26,7 +26,7 @@ extension ConfigOptions: Decodable {
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
         access = try container.decode(String.self,
             forKey: .access,
@@ -122,11 +122,14 @@ extension ConfigOptions: Decodable {
             forKey: .rename,
             defaultValue: .init()
         )
+
+        container.recordPotentialIssues(deprecations: [
+        ])
     }
 }
 
 extension ConfigOptions.Comments: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         case isEnabled
         case isAddingTitles
         case isAddingDescription
@@ -136,7 +139,7 @@ extension ConfigOptions.Comments: Decodable {
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
         isEnabled = try container.decode(Bool.self,
             forKey: .isEnabled,
@@ -167,11 +170,14 @@ extension ConfigOptions.Comments: Decodable {
             forKey: .isCapitalizationEnabled,
             defaultValue: true
         )
+
+        container.recordPotentialIssues(deprecations: [
+        ])
     }
 }
 
 extension ConfigOptions.Entities: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         case isGeneratingStructs
         case entitiesGeneratedAsClasses
         case entitiesGeneratedAsStructs
@@ -197,7 +203,7 @@ extension ConfigOptions.Entities: Decodable {
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
         isGeneratingStructs = try container.decode(Bool.self,
             forKey: .isGeneratingStructs,
@@ -308,11 +314,14 @@ extension ConfigOptions.Entities: Decodable {
             forKey: .include,
             defaultValue: []
         )
+
+        container.recordPotentialIssues(deprecations: [
+        ])
     }
 }
 
 extension ConfigOptions.Paths: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         case style
         case namespace
         case isGeneratingResponseHeaders
@@ -330,7 +339,7 @@ extension ConfigOptions.Paths: Decodable {
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
         style = try container.decode(ConfigOptions.PathsStyle.self,
             forKey: .style,
@@ -401,11 +410,14 @@ extension ConfigOptions.Paths: Decodable {
             forKey: .include,
             defaultValue: []
         )
+
+        container.recordPotentialIssues(deprecations: [
+        ])
     }
 }
 
 extension ConfigOptions.Rename: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         case properties
         case parameters
         case enumCases
@@ -415,7 +427,7 @@ extension ConfigOptions.Rename: Decodable {
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
         properties = try container.decode([String: String].self,
             forKey: .properties,
@@ -446,6 +458,9 @@ extension ConfigOptions.Rename: Decodable {
             forKey: .collectionElements,
             defaultValue: [:]
         )
+
+        container.recordPotentialIssues(deprecations: [
+        ])
     }
 }
 

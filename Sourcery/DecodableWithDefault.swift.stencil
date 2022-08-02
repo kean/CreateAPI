@@ -1,13 +1,13 @@
 {% for type in types.all|annotated:"decodableWithDefault" %}
 extension {{ type.name }}: Decodable {
-    enum CodingKeys: String, CodingKey {
+    enum KnownKeys: String {
         {% for variable in type.variables|stored %}
         case {{ variable.name }}
         {% endfor %}
     }
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
         {% for variable in type.variables|stored %}
 
         {{ variable.name }} = try container.decode({{ variable.typeName }}.self,
@@ -15,6 +15,14 @@ extension {{ type.name }}: Decodable {
             defaultValue: {{ variable.defaultValue }}
         )
         {% endfor %}
+
+        container.recordPotentialIssues(deprecations: [
+        {% for variable in type.variables|stored %}
+        {% if variable.annotations.deprecated %}
+            (.{{ variable.name }}, "{{ variable.annotations.message }}"),
+        {% endif %}
+        {% endfor %}
+        ])
     }
 }
 
