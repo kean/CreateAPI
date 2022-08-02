@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/kean/Get",
         "state": {
           "branch": null,
-          "revision": "be3879cb580c141b6d4cbb80fba18c7b5028c552",
-          "version": "0.6.0"
+          "revision": "b1137bf8315479cddc79fcb04d9db7bc8117e16f",
+          "version": "0.8.0"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/CreateAPI/HTTPHeaders",
         "state": {
           "branch": null,
-          "revision": "edfbb55b30e0b925d5c31c7a6da39f9585007906",
-          "version": "0.1.0"
+          "revision": "96c4cb3fcb904c12891c9d65c902fbb691453562",
+          "version": "0.1.1"
         }
       },
       {
