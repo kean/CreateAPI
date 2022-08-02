@@ -9,7 +9,11 @@ extension {{ type.name }}: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         {% for variable in type.variables|stored %}
-        {{ variable.name }} = try container.decodeIfPresent({{ variable.typeName|replace:"?","" }}.self, forKey: .{{ variable.name }}) ?? {{ variable.defaultValue }}
+
+        {{ variable.name }} = try container.decode({{ variable.typeName }}.self,
+            forKey: .{{ variable.name }},
+            defaultValue: {{ variable.defaultValue }}
+        )
         {% endfor %}
     }
 }
