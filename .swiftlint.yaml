@@ -1,5 +1,5 @@
 included:
-    - Sources/
+  - Sources/
 
 disabled_rules:
   - todo

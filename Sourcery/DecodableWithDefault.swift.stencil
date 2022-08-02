@@ -1,3 +1,5 @@
+// swiftlint:disable all
+
 {% for type in types.all|annotated:"decodableWithDefault" %}
 extension {{ type.name }}: Decodable {
     enum CodingKeys: String, CodingKey {

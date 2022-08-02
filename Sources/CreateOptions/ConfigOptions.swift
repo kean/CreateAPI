@@ -1,5 +1,7 @@
 import Foundation
 
+// swiftlint:disable redundant_optional_initialization
+
 // The `ConfigOptions` type defined in this source file serves multiple purposes:
 //
 // 1. A Decodable type that can deserialize the .create-api.yaml options
@@ -170,7 +172,7 @@ public struct ConfigOptions: Encodable {
         public var isGeneratingMutableStructProperties: Bool = true
 
         /// Base class used when generating `class` types
-        public var baseClass: String?
+        public var baseClass: String? = nil
 
         /// Protocols to be adopted by each generated entity
         public var protocols: Set<String> = ["Codable"]

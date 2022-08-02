@@ -1,5 +1,7 @@
-// Generated using Sourcery 1.8.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.8.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
+// swiftlint:disable all
 
 extension ConfigOptions: Decodable {
     enum CodingKeys: String, CodingKey {
@@ -104,7 +106,7 @@ extension ConfigOptions.Entities: Decodable {
         isMakingClassesFinal = try container.decodeIfPresent(Bool.self, forKey: .isMakingClassesFinal) ?? true
         isGeneratingMutableClassProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableClassProperties) ?? false
         isGeneratingMutableStructProperties = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingMutableStructProperties) ?? true
-        baseClass = try container.decodeIfPresent(String.self, forKey: .baseClass)
+        baseClass = try container.decodeIfPresent(String.self, forKey: .baseClass) ?? nil
         protocols = try container.decodeIfPresent(Set<String>.self, forKey: .protocols) ?? ["Codable"]
         isGeneratingIdentifiableConformance = try container.decodeIfPresent(Bool.self, forKey: .isGeneratingIdentifiableConformance) ?? false
         isSkippingRedundantProtocols = try container.decodeIfPresent(Bool.self, forKey: .isSkippingRedundantProtocols) ?? true
@@ -179,3 +181,4 @@ extension ConfigOptions.Rename: Decodable {
         collectionElements = try container.decodeIfPresent([String: String].self, forKey: .collectionElements) ?? [:]
     }
 }
+
