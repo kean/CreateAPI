@@ -40,7 +40,7 @@ public struct Container: Codable {
         case c(C)
 
         public init(from decoder: Decoder) throws {
-            
+
             struct Discriminator: Decodable {
                 let kind: String
             }
