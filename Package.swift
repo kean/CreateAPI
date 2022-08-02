@@ -40,6 +40,10 @@ let package = Package(
             dependencies: ["create-api"],
             path: "Tests/CreateAPITests",
             resources: [.copy("Expected"), .copy("Specs")]
+        ),
+        .testTarget(
+            name: "CreateOptionsTests",
+            dependencies: ["CreateOptions"]
         )
     ]
 )
