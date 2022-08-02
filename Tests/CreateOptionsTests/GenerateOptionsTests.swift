@@ -10,6 +10,9 @@ final class GenerateOptionsTests: XCTestCase {
         isATopLevelInvalidOption: true
         entities:
           isANestedInvalidOption: true
+        paths:
+          overridenResponses:
+            Foo: Bar
         """.utf8)
 
         // When the options are loaded
@@ -18,6 +21,7 @@ final class GenerateOptionsTests: XCTestCase {
         // Then the appropriate warnings should be recorded
         XCTAssertEqual(options.warnings, [
             "Found an unexpected property 'isANestedInvalidOption' (in 'entities').",
+            "The property 'overridenResponses' (in 'paths') has been deprecated. Renamed to 'overriddenResponses'.",
             "Found an unexpected property 'isATopLevelInvalidOption'."
         ])
     }
