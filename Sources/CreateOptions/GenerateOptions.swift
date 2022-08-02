@@ -19,6 +19,11 @@ public final class GenerateOptions {
     public static let `default` = GenerateOptions()
 
     init(configOptions: ConfigOptions = .default, warnings: [String] = []) {
+        // Support deprecated 'overriden' properties by merging any values into their 'overridden' replacement
+        var configOptions = configOptions
+        configOptions.paths.overriddenResponses.merge(configOptions.paths.overridenResponses) { new, _ in new }
+        configOptions.paths.overriddenBodyTypes.merge(configOptions.paths.overridenBodyTypes) { new, _ in new }
+
         self.configOptions = configOptions
         self.allAcronyms = Self.allAcronyms(including: configOptions.addedAcronyms, excluding: configOptions.ignoredAcronyms)
         self.warnings = warnings
