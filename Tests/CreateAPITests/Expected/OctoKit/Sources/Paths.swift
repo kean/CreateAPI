@@ -377,7 +377,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
         /// You must use a [JWT](https://docs.github.com/apps/building-github-apps/authenticating-with-github-apps/#authenticating-as-a-github-app) to access this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook)
-        public var post: Request<[String: AnyJSON]> {
+        public var post: Request<Void> {
             .post(path)
         }
     }
@@ -5792,7 +5792,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
         /// Redeliver a delivery for a webhook configured in an organization.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook)
-        public var post: Request<[String: AnyJSON]> {
+        public var post: Request<Void> {
             .post(path)
         }
     }
@@ -16229,7 +16229,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
         /// Redeliver a webhook delivery for a webhook configured in a repository.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook)
-        public var post: Request<[String: AnyJSON]> {
+        public var post: Request<Void> {
             .post(path)
         }
     }
@@ -17965,7 +17965,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         /// Enable Git LFS for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
-        public var put: Request<[String: AnyJSON]> {
+        public var put: Request<Void> {
             .put(path)
         }
 
@@ -24754,7 +24754,7 @@ extension Paths.User.Codespaces {
         /// You must authenticate using an access token with the `codespace` scope to use this endpoint.
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user)
-        public var delete: Request<[String: AnyJSON]> {
+        public var delete: Request<Void> {
             .delete(path)
         }
     }

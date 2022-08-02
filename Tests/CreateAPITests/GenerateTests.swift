@@ -38,7 +38,7 @@ final class GenerateTests: GenerateBaseTests {
             "--vendor", "github",
             "--config", config("""
             paths:
-              overrideResponses:
+              overridenResponses:
                 accepted: "Void"
               overridenBodyTypes:
                 application/octocat-stream: String
