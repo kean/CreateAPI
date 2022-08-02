@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eo pipefail
+set -e
 
 cd ./Tests/CreateAPITests/AllPackages
-swift build --verbose
+swift build
