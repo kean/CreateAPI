@@ -13,7 +13,7 @@ protocol DeclarationName: CustomStringConvertible {}
 /// Using these types add type-safety and allows the client to avoid redundant computations.
 struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
-        
+
     init(processing rawValue: String, options: GenerateOptions) {
         self.rawValue = rawValue.process(isProperty: false, options: options)
     }
@@ -23,12 +23,12 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     }
 
     var description: String { rawValue }
-    
+
     // Appends the name without re-doing most of the processing.
     func appending(_ text: String) -> TypeName {
         TypeName(rawValue + text)
     }
-        
+
     func namespace(_ namespace: String?) -> TypeName {
         TypeName(rawValue.namespace(namespace))
     }
@@ -39,17 +39,17 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
 /// If the name matches one of the Swift keywords, it's automatically escaped.
 struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
-    
+
     init(processing rawValue: String, options: GenerateOptions) {
         self.rawValue = rawValue.process(isProperty: true, options: options)
     }
-    
+
     init(_ rawValue: String) {
         self.rawValue = rawValue
     }
-    
+
     var description: String { rawValue }
-    
+
     /// Creates a Swifty property name, e.g. "finished" becomes "isFinished".
     func asBoolean(_ options: GenerateOptions) -> PropertyName {
         var string = rawValue.trimmingCharacters(in: CharacterSet.ticks)
@@ -67,9 +67,9 @@ struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
         }
         return PropertyName("is" + string.capitalizingFirstLetter())
     }
-    
+
     // TODO: Adopt this everywhere when it's needed
-    
+
     // For use when accessing the property:
     //
     //    self.default = 1
@@ -85,11 +85,11 @@ struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
 
 struct ModuleName: CustomStringConvertible {
     let rawValue: String
-        
+
     init(processing rawValue: String) {
         self.rawValue = rawValue.replacingOccurrences(of: "-", with: "_")
     }
-    
+
     var description: String {
         rawValue
     }
@@ -114,7 +114,7 @@ extension String {
         }
         return output.filter { !$0.isEmpty } // TODO: refactor
     }
-    
+
     var sanitized: String {
         if let replacement = replacements[self] {
             return replacement
@@ -133,12 +133,12 @@ extension String {
         }
         return self
     }
-    
+
     var escapedPropertyName: String {
         guard keywords.contains(self.lowercased()) else { return self }
         return "`\(self)`"
     }
-    
+
     var escapedTypeName: String {
         if capitilizedKeywords.contains(self) {
             return "`\(self)`"
@@ -159,7 +159,7 @@ extension String {
             .filter { !$0.isEmpty }
             .enumerated()
             .map { index, string in
-                if (isProperty && index == 0) {
+                if isProperty && index == 0 {
                     return string.lowercasedFirstLetter()
                 }
                 return string.capitalizingFirstLetter()
@@ -192,12 +192,10 @@ extension String {
         if output == "self" {
             output = "this" // Otherwise it'll mess-up initializers
         }
-        
+
         output = isProperty ? output.escapedPropertyName : output.escapedTypeName
         return output
     }
-    
-
 }
 
 // TODO: Expand this to work with multiple characters

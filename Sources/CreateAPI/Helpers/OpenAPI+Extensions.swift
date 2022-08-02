@@ -85,7 +85,7 @@ extension OpenAPI.PathItem {
             self.delete.map { ("delete", $0) },
             self.options.map { ("options", $0) },
             self.head.map { ("head", $0) },
-            self.trace.map { ("trace", $0) },
+            self.trace.map { ("trace", $0) }
         ].compactMap { $0 }
     }
 }

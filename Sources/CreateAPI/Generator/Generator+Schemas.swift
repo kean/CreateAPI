@@ -25,13 +25,13 @@ extension Generator {
         defer { benchmark.stop() }
         return try _schemas()
     }
-    
+
     private func _schemas() throws -> GeneratorOutput {
         let jobs = try makeJobs()
-        var declarations = Array<Result<Declaration, Error>?>(repeating: nil, count: jobs.count)
+        var declarations = [Result<Declaration, Error>?](repeating: nil, count: jobs.count)
         topLevelTypes = Set(jobs.map(\.name))
         let lock = NSLock()
-        
+
         concurrentPerform(on: jobs, parallel: arguments.isParallel) { index, job in
             let job = jobs[index]
 
@@ -58,14 +58,14 @@ extension Generator {
             guard let entity = try result?.get() else { return nil }
             return GeneratedFile(name: job.name.rawValue, contents: render(entity))
         }.compactMap { $0 }
-   
+
         return GeneratorOutput(
             header: makeHeader(imports: options.entities.imports),
             files: files,
             extensions: makeExtensions()
         )
     }
-    
+
     private func preprocess(declarations: [Result<Declaration, Error>]) throws {
         // Create an index of all generated entities.
         for result in declarations {
@@ -73,7 +73,7 @@ extension Generator {
             generatedSchemas[entity.name] = entity as? EntityDeclaration
         }
     }
-    
+
     private func makeJobs() throws -> [Job] {
         var jobs: [Job] = []
         var encountered = Set<TypeName>()
@@ -97,7 +97,7 @@ extension Generator {
         }
         return jobs
     }
-    
+
     private func shouldGenerate(name: String) -> Bool {
         if !options.entities.include.isEmpty {
             return options.entities.include.contains(name)
@@ -107,12 +107,12 @@ extension Generator {
         }
         return true
     }
-    
+
     private struct Job {
         let name: TypeName
         let schema: JSONSchema
     }
-    
+
     private func makeExtensions() -> GeneratedFile? {
         var contents: [String] = []
         if isAnyJSONUsed {
@@ -124,7 +124,7 @@ extension Generator {
         }
         return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
     }
-    
+
     /// Return `nil` to skip generation.
     private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
         var name: String? {
@@ -159,12 +159,12 @@ extension Generator {
     }
 
     // MARK: - Declarations
-    
+
     private func makeDeclaration(job: Job) throws -> Declaration? {
         let context = Context(parents: [])
         return try makeDeclaration(name: job.name, schema: job.schema, context: context)
     }
-    
+
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
         if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration {
@@ -172,7 +172,7 @@ extension Generator {
         }
         return declaration
     }
-    
+
     /// Recursively a type declaration: struct, class, enum, typealias, etc.
     func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration {
         switch schema.value {
@@ -215,14 +215,14 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: .anyJSON)
         }
     }
-    
+
     func getTypeIdentifier(for name: TypeName, schema: JSONSchema, context: Context) throws -> TypeIdentifier? {
         var context = context
         context.isInlinableTypeCheck = true
         let decl = try _makeDeclaration(name: name, schema: schema, context: context)
         return (decl as? TypealiasDeclaration)?.type
     }
-    
+
     private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
         guard options.isUsingIntegersWithPredefinedCapacity else {
             return .builtin("Int")
@@ -233,7 +233,7 @@ extension Generator {
         case .int64: return .builtin("Int64")
         }
     }
-    
+
     private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> TypeIdentifier {
         switch info.format {
         case .dateTime: return .builtin("Date")
@@ -241,7 +241,7 @@ extension Generator {
             setNaiveDateNeeded()
             return .builtin("NaiveDate")
         }
-        case .other(let other) where other == "uri": 
+        case .other(let other) where other == "uri":
             return .builtin("URL")
         case .other(let other) where other == "uuid":
             return .builtin("UUID")
@@ -260,7 +260,7 @@ extension Generator {
             throw GeneratorError("External references are not supported: \(url)")
         }
     }
-    
+
     private func getReferenceType(_ ref: JSONReference<JSONSchema>.InternalReference, context: Context) throws -> TypeIdentifier {
         if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
             let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
@@ -280,7 +280,7 @@ extension Generator {
                 }
                 var context = context
                 context.encountered.insert(key)
-                
+
                 // No retain cycle - check the reference
                 if let type = try getTypeIdentifier(for: type, schema: schema, context: context) {
                     return type
@@ -307,9 +307,9 @@ extension Generator {
         name = Template(arguments.entityNameTemplate).substitute(name)
         return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
-    
+
     // MARK: - Object
-    
+
     private func makeObject(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ObjectFormat>, details: JSONSchema.ObjectContext, context: Context) throws -> Declaration {
         if let dictionary = try makeDictionary(key: name.rawValue, info: info, details: details, context: context) {
             return TypealiasDeclaration(name: name, type: dictionary.type, nested: dictionary.nested)
@@ -322,25 +322,25 @@ extension Generator {
             .filter { !$0.type.isVoid }
             .removingDuplicates(by: \.name) // Sometimes Swifty bool names create dups
         entity.protocols = getProtocols(for: entity, context: context)
-        
+
         return entity
     }
-    
+
     private func getProtocols(for entity: EntityDeclaration, context: Context) -> Protocols {
         var protocols = Protocols(options.entities.protocols)
         let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
         let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
-        
+
         if options.entities.isGeneratingIdentifiableConformance {
             let isIdentifiable = entity.properties.contains { $0.name.rawValue == "id" && $0.type.isBuiltin }
             if isIdentifiable { protocols.insert("Identifiable") }
         }
-        
+
         return protocols
     }
-    
+
     private func makeInlineProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
         var keys = object.properties.keys
         if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
@@ -354,7 +354,7 @@ extension Generator {
             }
         }
     }
-    
+
     private func makeNestedElementTypeName(for key: String, context: Context) -> TypeName {
         if let name = options.rename.collectionElements[key] {
             return TypeName(name)
@@ -376,7 +376,7 @@ extension Generator {
         }
         return name.appending("Item")
     }
-    
+
     // TODO: This take inlining into account
     private func hasConflict(name: TypeName, context: JSONSchema.ObjectContext?) -> Bool {
         guard let context = context else {
@@ -391,13 +391,13 @@ extension Generator {
             }
         }
     }
-    
+
     private struct AdditionalProperties {
         let type: TypeIdentifier
         let info: JSONSchemaContext
         var nested: Declaration?
     }
-    
+
     // Creates a dictionary, e.g. `[ String: AnyJSON]`, `[String: [String: String]]`,
     // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
     private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
@@ -459,19 +459,19 @@ extension Generator {
     }
 
     // MARK: - oneOf/anyOf/allOf
-    
+
     private func makeEntity(name: TypeName, type: EntityType, info: JSONSchemaContext, context: Context) -> (EntityDeclaration, Context) {
         let entity = EntityDeclaration(
-            name: name, 
-            type: type, 
-            metadata: DeclarationMetadata(info), 
+            name: name,
+            type: type,
+            metadata: DeclarationMetadata(info),
             isForm: context.isFormEncoding,
             parent: context.parents.last
         )
         let context = context.map { $0.parents.append(entity) }
         return (entity, context)
     }
-    
+
     private func makeOneOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let (entity, context) = makeEntity(name: name, type: .oneOf, info: info, context: context)
 
@@ -484,7 +484,7 @@ extension Generator {
             }
             return property
         }.removingDuplicates { $0.type }
-        
+
         entity.protocols = {
             var protocols = getProtocols(for: entity, context: context)
             let hashable = Set(["String", "Bool", "URL", "Int", "Double"]) // TODO: Add support for more types
@@ -492,7 +492,7 @@ extension Generator {
             if isHashable { protocols.insert("Hashable") }
             return protocols
         }()
-        
+
         entity.discriminator = try makeDiscriminator(info: info, context: context)
 
         // Covers a weird case encountered in open-banking.yaml spec (xml-sct schema)
@@ -503,12 +503,12 @@ extension Generator {
 
         return entity
     }
-    
+
     private func makeAnyOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
-        
+
         let (entity, context) = makeEntity(name: name, type: .anyOf, info: info, context: context)
-        
+
         var properties = try makeProperties(for: schemas, context: context)
         // `anyOf` where one type is off just means optional response
         if let index = properties.firstIndex(where: { $0.type.isVoid }) {
@@ -518,7 +518,7 @@ extension Generator {
         entity.protocols = getProtocols(for: entity, context: context)
         return entity
     }
-    
+
     private func makeAllOf(name: TypeName, schemas: [JSONSchema], info: JSONSchemaContext, context: Context) throws -> Declaration {
         let (entity, context) = makeEntity(name: name, type: .allOf, info: info, context: context)
 
@@ -528,7 +528,7 @@ extension Generator {
             case .object(_, let details):
                 // Inline properties for nested objects (different from other OpenAPI constructs)
                 return try makeInlineProperties(for: name, object: details, context: context)
-            case .reference(let info,_ ):
+            case .reference(let info, _ ):
                 if options.entities.isInliningPropertiesFromReferencedSchemas,
                    let schema = getSchema(for: info),
                    case .object(_, let details) = schema.value {
@@ -540,7 +540,7 @@ extension Generator {
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context, isInlined: true)]
             }
         }.removingDuplicates(by: \.name)
-        
+
         // TODO: Improve this and adopt for other types (see Zoom spec)
         if properties.count == 1 {
             var property = properties[0]
@@ -551,31 +551,31 @@ extension Generator {
             }
             return TypealiasDeclaration(name: name, type: property.type, nested: property.nested)
         }
-        
+
         guard !context.isInlinableTypeCheck else { return AnyDeclaration.empty }
-        
+
         entity.properties = properties
         entity.protocols = getProtocols(for: entity, context: context)
         return entity
     }
-    
+
     private func makeProperties(for schemas: [JSONSchema], context: Context) throws -> [Property] {
         try zip(makeTypeNames(for: schemas, context: context), schemas).map { type, schema in
             try makeProperty(key: type, schema: schema, isRequired: false, in: context)
         }
     }
-    
+
     // TODO: Refactor, this is a mess
     /// Generate type names for anonyous objects that are sometimes needed for `oneOf` or `anyOf`
     /// constructs.
     private func makeTypeNames(for schemas: [JSONSchema], context: Context) -> [String] {
-        var types = Array<TypeName?>(repeating: nil, count: schemas.count)
-        
+        var types = [TypeName?](repeating: nil, count: schemas.count)
+
         // Assign known types (references, primitive)
         for (index, schema) in schemas.enumerated() {
             types[index] = (try? getTypeIdentifier(for: TypeName("placeholder"), schema: schema, context: context))?.name
         }
-        
+
         // Generate names for anonymous nested objects
         let unnamedCount = types.filter { $0 == nil }.count
         if unnamedCount == types.count && types.count > 1 {
@@ -601,7 +601,7 @@ extension Generator {
                 }
             }
         }
-        
+
         // Disambiguate arrays
         func parameter(for type: String) -> String {
             let name: String
@@ -614,13 +614,13 @@ extension Generator {
             let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor
             return isArray ? name.pluralized() : name
         }
-        
+
         // TODO: Find a better way to dismabiguate this (test it on Soundcloud spec)
         return types.map { parameter(for: $0!.description) }.disambiguateDuplicateNames()
     }
 
     // MARK: - Typealiases
-    
+
     private func makeTypealiasArray(name: TypeName, info: JSONSchema.CoreContext<JSONTypeFormat.ArrayFormat>, details: JSONSchema.ArrayContext, context: Context) throws -> Declaration {
         guard let item = details.items else {
             throw GeneratorError("Missing array item type")
@@ -634,9 +634,9 @@ extension Generator {
             return TypealiasDeclaration(name: name, type: itemName.asArray(), nested: decl)
         }
     }
-    
+
     // MARK: - Enums
-    
+
     func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
         let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
         guard !values.isEmpty else {
@@ -664,13 +664,13 @@ extension Generator {
         }
         return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
     }
-        
+
     private func isEnum(_ info: JSONSchemaContext) -> Bool {
         options.isGeneratingEnums && info.allowedValues != nil
     }
-    
+
     // MARK: - Property
-    
+
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool? = nil) throws -> Property {
         let propertyName: PropertyName
 
@@ -706,17 +706,16 @@ extension Generator {
 
         */
         if options.entities.isStrippingParentNameInNestedObjects,
-            case .reference(let ref, _) = schema.value, 
+            case .reference(let ref, _) = schema.value,
             let parentName = context.parents.first?.name.rawValue,
             let ownName = ref.name {
-
             let prefix = ownName.commonPrefix(with: parentName)
 
             propertyName = makePropertyName(String(ownName.dropFirst(prefix.count)))
         } else {
             propertyName = makePropertyName(key)
         }
-        
+
         func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
             if !options.rename.properties.isEmpty {
                 let names = context.parents.map { $0.name.rawValue } + [name.rawValue]
@@ -731,7 +730,7 @@ extension Generator {
             }
             return name
         }
-        
+
         func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             let nullable = info?.nullable ?? false
             let name = makeName(for: propertyName, type: type)
@@ -759,7 +758,7 @@ extension Generator {
                 return property(type: .userDefined(name: decl.name), info: schema.coreContext, nested: decl)
             }
         }
-        
+
         func makeReference(reference: JSONReference<JSONSchema>, details: JSONSchema.ReferenceContext) throws -> Property {
             // TODO: Refactor (changed it to `null` to avoid issue with cycles)
             // Maybe remove dereferencing entirely?
@@ -767,13 +766,13 @@ extension Generator {
             let type = try getTypeIdentifier(for: makeTypeName(key), schema: schema, context: context) ?? .userDefined(name: TypeName(reference.name ?? ""))
             return property(type: type, info: info, nested: nil)
         }
-        
+
         switch schema.value {
         case .reference(let ref, let details): return try makeReference(reference: ref, details: details)
         default: return try makeSimpleProperty()
         }
     }
-    
+
     private func getSchema(for reference: JSONReference<JSONSchema>) -> JSONSchema? {
         guard let key = OpenAPI.ComponentKey(rawValue: reference.name ?? "") else {
             return nil

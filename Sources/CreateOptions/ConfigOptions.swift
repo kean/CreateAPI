@@ -170,7 +170,7 @@ public struct ConfigOptions: Encodable {
         public var isGeneratingMutableStructProperties: Bool = true
 
         /// Base class used when generating `class` types
-        public var baseClass: String? = nil
+        public var baseClass: String?
 
         /// Protocols to be adopted by each generated entity
         public var protocols: Set<String> = ["Codable"]

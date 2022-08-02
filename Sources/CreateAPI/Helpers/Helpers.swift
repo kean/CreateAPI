@@ -14,7 +14,7 @@ extension String {
     func lowercasedFirstLetter() -> String {
         prefix(1).lowercased() + dropFirst()
     }
-    
+
     func indent(using options: GenerateOptions) -> String {
         let indetation: String
         switch options.indentation {
@@ -26,14 +26,14 @@ extension String {
         }
         return replacingOccurrences(of: "    ", with: indetation)
     }
-    
+
     func namespace(_ namespace: String?) -> String {
         guard let namespace = namespace, !namespace.isEmpty else {
             return self
         }
         return "\(namespace).\(self)"
     }
-    
+
     var nextLetter: String? {
         // Check if string is build from exactly one Unicode scalar:
         guard let uniCode = UnicodeScalar(self) else {
@@ -46,7 +46,7 @@ extension String {
             return nil
         }
     }
-    
+
     var isEscapingNeeded: Bool {
         contains("\\")
     }
@@ -55,7 +55,7 @@ extension String {
 func concurrentPerform<T>(on array: [T], parallel: Bool, _ work: (Int, T) -> Void) {
     let coreCount = suggestedCoreCount
     let iterations = !parallel ? 1 : (array.count > (coreCount * 2) ? coreCount : 1)
-    
+
     DispatchQueue.concurrentPerform(iterations: iterations) { index in
         let start = index * array.indices.count / iterations
         let end = (index + 1) * array.indices.count / iterations
@@ -82,7 +82,7 @@ struct Benchmark {
     let name: String
     let startTime = Date().timeIntervalSinceReferenceDate
     static var isEnabled = false
-    
+
     func stop() {
         let timeElapsed = Date().timeIntervalSinceReferenceDate - startTime
         guard Benchmark.isEnabled else { return }
@@ -97,7 +97,7 @@ struct Template {
     init(_ rawValue: String) {
         self.rawValue = rawValue
     }
-    
+
     func substitute(_ parameter: String...) -> String {
         var output = rawValue
         for index in parameter.indices {
@@ -139,7 +139,7 @@ extension Array where Element == String {
 
 struct NameDeduplicator {
     private var encountered: [String: Int] = [:]
-    
+
     mutating func add(name: String) -> String {
         let count = encountered[name] ?? 0
         encountered[name] = count + 1
@@ -149,7 +149,7 @@ struct NameDeduplicator {
         let name = name + "\(count + 1)"
         return add(name: name)
     }
-    
+
     mutating func add(name: TypeName) -> TypeName {
         TypeName(add(name: name.rawValue))
     }
@@ -158,7 +158,7 @@ struct NameDeduplicator {
 final class ThreadSafeDictionary<Key: Hashable, Value> {
     private var values: [Key: Value] = [:]
     private let lock = NSLock()
-    
+
     subscript(key: Key) -> Value? {
         get {
             lock.lock()

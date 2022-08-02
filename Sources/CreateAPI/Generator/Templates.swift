@@ -9,18 +9,18 @@ import Foundation
 // TODO: When parsing additionalProperties remove known keys
 final class Templates {
     let options: GenerateOptions
-    
+
     var access: String {
         guard !options.access.isEmpty else { return "" }
         return options.access + " "
     }
-    
+
     init(options: GenerateOptions) {
         self.options = options
     }
 
     // MARK: Entity
-    
+
     /// Generates an entity declaration:
     ///
     ///     public struct <name>: Decodable {
@@ -36,14 +36,14 @@ final class Templates {
         let rhs = protocols.sorted()
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
-    
+
     func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
         let type = options.entities.isMakingClassesFinal ? "final class" : "class"
         let lhs = [options.access, type, name.rawValue].filter { !$0.isEmpty }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
-    
+
     private func declaration(lhs: [String], rhs: [String], contents: [String]) -> String {
         let lhs = lhs.joined(separator: " ")
         let rhs = rhs.joined(separator: ", ")
@@ -53,7 +53,7 @@ final class Templates {
         }
         """
     }
-    
+
     func codingKeys(for properties: [Property]) -> String? {
         guard properties.contains(where: { $0.name.rawValue != $0.key }) else {
             return nil
@@ -65,9 +65,9 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Enum
-    
+
     func enumOneOf(name: TypeName, contents: [String], protocols: Protocols) -> String {
         return """
         \(access)enum \(name): \(protocols.sorted().joined(separator: ", ")) {
@@ -75,11 +75,11 @@ final class Templates {
         }
         """
     }
-        
+
     func `case`(property: Property) -> String {
         "case \(property.name)(\(property.type))"
     }
-    
+
     func `case`(name: String, value: String) -> String {
         if name.trimmingCharacters(in: CharacterSet.ticks) != value {
             let value = value.isEscapingNeeded ? "#\"\(value)\"#" : "\"\(value)\""
@@ -88,7 +88,7 @@ final class Templates {
             return "case \(name)"
         }
     }
-    
+
     func enumOfStrings(name: TypeName, contents: String) -> String {
         return """
         \(access)enum \(name): String, Codable, CaseIterable {
@@ -96,9 +96,9 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Query Parameters
-    
+
     func asQuery(properties: [Property]) -> String {
         """
         \(access)var asQuery: [(String, String?)] {
@@ -106,7 +106,7 @@ final class Templates {
         }
         """
     }
-    
+
     private func asQueryContents(_ properties: [Property]) -> String {
         var encoderParameters: [String] = []
         // Instead of passing `explode: false` too all individual calls,
@@ -122,11 +122,11 @@ final class Templates {
         return encoder.items
         """
     }
-    
+
     private func asQuery(_ property: Property) -> String {
         asQuery(property, encoderParameters: [])
     }
-    
+
     private func asQuery(_ property: Property, encoderParameters: [String] = []) -> String {
         var parameters: [String] = []
         if !property.explode && !encoderParameters.contains("explode: false") { parameters.append("explode: false") }
@@ -139,7 +139,7 @@ final class Templates {
         parameters = [property.name.rawValue, "forKey: \"\(property.key)\""] + parameters
         return "encoder.encode(\(parameters.joined(separator: ", ")))"
     }
-    
+
     private func delimeter(for style: OpenAPI.Parameter.SchemaContext.Style?) -> String {
         switch style {
         case .pipeDelimited: return "|"
@@ -147,7 +147,7 @@ final class Templates {
         default: return ","
         }
     }
-    
+
     func enumAsQuery(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             var property = $0
@@ -168,7 +168,7 @@ final class Templates {
         }
         """
     }
-    
+
     /// Example:
     ///
     ///     private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -182,17 +182,18 @@ final class Templates {
         }
         """
     }
-    
+
     /// Example:
     ///
     ///     [("token": accessToken)]
     func asKeyValuePairs(_ properties: [Property]) -> String {
         let pairs: [String] = properties.map {
             let value = $0.type.isString ? $0.name.rawValue : "String(\($0.name))"
-            return "(\"\($0.key)\", \(value))" }
+            return "(\"\($0.key)\", \(value))"
+        }
         return "[\(pairs.joined(separator: ", "))]"
     }
-    
+
     func asURLEncodedBody(name: String, _ isOptional: Bool) -> String {
         if isOptional {
             return "\(name).map(URLQueryEncoder.encode)?.percentEncodedQuery"
@@ -202,7 +203,7 @@ final class Templates {
     }
 
     // MARK: Init
-    
+
     func initializer(properties: [Property]) -> String {
         guard !properties.isEmpty else {
             return "public init() {}"
@@ -220,15 +221,15 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Decodable
-    
+
     func decode(properties: [Property], isUsingCodingKeys: Bool) -> String {
         properties
             .map { decode(property: $0, isUsingCodingKeys: isUsingCodingKeys) }
             .joined(separator: "\n")
     }
-    
+
     /// Generates a decode statement.
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
@@ -238,25 +239,25 @@ final class Templates {
         let defaultValue = (property.isOptional && property.defaultValue != nil) ? " ?? \(property.defaultValue!)" : ""
         return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
     }
-    
+
     func defaultValue(for property: Property) -> String {
         guard let value = property.defaultValue, !value.isEmpty, property.isOptional else {
             return ""
         }
         return " ?? \(value)"
     }
-    
+
     /// Generated decoding of the directly inlined nested object.
     ///
     ///     self.animal = try Animal(from: decoder)
     func decodeFromDecoder(property: Property) -> String {
         "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
     }
-    
+
     func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool) -> String {
         initFromDecoder(contents: decode(properties: properties, isUsingCodingKeys: isUsingCodingKeys), isUsingCodingKeys: isUsingCodingKeys)
     }
-    
+
     func initFromDecoder(contents: String, needsValues: Bool = true, isUsingCodingKeys: Bool) -> String {
         let codingKeys = isUsingCodingKeys ? "CodingKeys.self" : "StringCodingKey.self"
         let values = needsValues ? "let values = try decoder.container(keyedBy: \(codingKeys))\n" : ""
@@ -266,7 +267,7 @@ final class Templates {
         }
         """
     }
-    
+
     func initFromDecoderAnyOf(properties: [Property]) -> String {
         let contents = properties.map {
             let defaultValue = self.defaultValue(for: $0)
@@ -283,7 +284,7 @@ final class Templates {
         }
         """
     }
-    
+
     func initFromDecoderOneOf(properties: [Property]) -> String {
         var statements = ""
         for property in properties {
@@ -294,13 +295,13 @@ final class Templates {
             """
             statements += " "
         }
-        
+
         statements += """
         {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
         }
         """
-        
+
         return """
         \(access)init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -320,17 +321,17 @@ final class Templates {
                 """
             }
         }
-        
+
         statements += """
-        
+
         default:
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to initialize `oneOf`")
         }
         """
-        
+
         return """
         \(access)init(from decoder: Decoder) throws {
-            
+
             struct Discriminator: Decodable {
                 let \(discriminator.propertyName): String
             }
@@ -341,8 +342,8 @@ final class Templates {
         \(statements.indented)
         }
         """
-    }    
-    
+    }
+
     func encodeOneOf(properties: [Property]) -> String {
         let statements: [String] = properties.map {
             "case .\($0.name)(let value): try container.encode(value)"
@@ -357,7 +358,7 @@ final class Templates {
         }
         """
     }
-    
+
     func encodeAnyOf(properties: [Property]) -> String {
         let statements = properties.map {
             "if let value = \($0.name) { try container.encode(value) }"
@@ -369,16 +370,16 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Encodable
-    
+
     func encode(properties: [Property]) -> String {
         let contents = properties.map {
             let encode = $0.isOptional ? "encodeIfPresent" : "encode"
             let getter = $0.name.rawValue == "values" ? "self.values" : $0.name.rawValue
             return "try values.\(encode)(\(getter), forKey: \"\($0.key)\")"
         }.joined(separator: "\n")
-        
+
         return """
         \(access)func encode(to encoder: Encoder) throws {
             var values = encoder.container(keyedBy: StringCodingKey.self)
@@ -386,16 +387,16 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Properties
-    
+
     /// Generates a list of properties.
     func properties(_ properties: [Property], isReadonly: Bool) -> String {
         properties
             .map { property($0, isReadonly: isReadonly) }
             .joined(separator: "\n")
     }
-    
+
     /// Generates a property with comments and everything.
     ///
     ///     public var files: [Files]?
@@ -408,15 +409,15 @@ final class Templates {
         output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(isOptional ? "?" : "")"
         return output
     }
-    
+
     // MARK: Typealias
-    
+
     func `typealias`(name: DeclarationName, type: DeclarationName) -> String {
         "\(access)typealias \(name) = \(type)"
     }
-    
+
     // MARK: Comments
-    
+
     /// Generates inline comments for a declaration containing a title, description, and examples.
     func comments(for metadata: DeclarationMetadata, name: String, isProperty: Bool = false) -> String {
         let options = options.comments
@@ -424,7 +425,7 @@ final class Templates {
             return ""
         }
         var output = ""
-        
+
         var title = metadata.title ?? ""
         var description = metadata.description ?? ""
         if title == description && options.isAddingTitles && options.isAddingDescription {
@@ -433,7 +434,7 @@ final class Templates {
         if title.components(separatedBy: .whitespaces).joined(separator: "").caseInsensitiveCompare(name) == .orderedSame {
             title = ""
         }
-        
+
         if options.isAddingTitles, !title.isEmpty {
             let title = options.isCapitalizationEnabled ? title.capitalizingFirstLetter() : title
             for line in title.lines {
@@ -451,14 +452,14 @@ final class Templates {
         }
         if options.isAddingExamples, let example = metadata.example?.value {
             let value: String
-        
+
             if let example = example as? String, !example.hasPrefix("\"") {
                 value = "\"\(example)\""
-            } else if let example = example as? Array<String> {
+            } else if let example = example as? [String] {
                 value = "\(example)"
-            } else if let example = example as? Array<Int> {
+            } else if let example = example as? [Int] {
                 value = "\(example)"
-            } else if let example = example as? Array<Bool> {
+            } else if let example = example as? [Bool] {
                 value = "\(example)"
             } else if JSONSerialization.isValidJSONObject(example) {
                 let data = try? JSONSerialization.data(withJSONObject: example, options: [.prettyPrinted, .sortedKeys])
@@ -502,7 +503,7 @@ final class Templates {
         }
         return output
     }
-    
+
     // MARK: Method
 
     func methodOrProperty(name: String, parameters: [String] = [], returning type: String, contents: String, isStatic: Bool) -> String {
@@ -512,7 +513,7 @@ final class Templates {
             return method(name: name, parameters: parameters, returning: type, contents: contents, isStatic: isStatic)
         }
     }
-    
+
     func method(name: String, parameters: [String] = [], returning type: String, contents: String, isStatic: Bool) -> String {
         """
         \(isStatic ? "static " : "")\(access)func \(name)(\(parameters.joined(separator: ", "))) -> \(type) {
@@ -520,7 +521,7 @@ final class Templates {
         }
         """
     }
-    
+
     func property(name: String, returning type: String, contents: String, isStatic: Bool) -> String {
         """
         \(isStatic ? "static " : "")\(access)var \(name): \(type) {
@@ -528,7 +529,7 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Headers
 
     func headers(name: String, contents: String) -> String {
@@ -538,10 +539,10 @@ final class Templates {
         }
         """
     }
-    
+
     func header(for property: Property, header: OpenAPI.Header) -> String {
         var name = property.name.rawValue
-        if (property.key.hasPrefix("x-") || property.key.hasPrefix("X-")) {
+        if property.key.hasPrefix("x-") || property.key.hasPrefix("X-") {
             name = PropertyName(processing: String(property.key.dropFirst(2)), options: options).rawValue
         }
         var output = ""
@@ -560,9 +561,9 @@ final class Templates {
         """
         return output
     }
-    
+
     // MARK: Paths
-    
+
     func pathEntity(name: String, subpath: String, operations: [String]) -> String {
         let contents = ["""
         /// Path: `\(subpath)`
@@ -574,7 +575,7 @@ final class Templates {
         }
         """
     }
-    
+
     func pathExtension(of extensionOf: String, component: String, type: TypeName, isTopLevel: Bool, path: String, parameter: PathParameter?, contents: String) -> String {
         let stat = isTopLevel ? "static " : ""
         if let parameter = parameter {
@@ -585,7 +586,7 @@ final class Templates {
                 \(access)\(stat)func \(parameter.name)(_ \(parameter.name): \(parameter.type)) -> \(type) {
                     \(type)(path: \(path))
                 }
-            
+
             \(contents.indented)
             }
             """
@@ -595,13 +596,13 @@ final class Templates {
                 \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
                     \(type)(path: \(isTopLevel ? "\"\(path)\"" : ("path + \"/\(component)\"")))
                 }
-            
+
             \(contents.indented)
             }
             """
         }
     }
-    
+
     func extensionOf(_ type: String, contents: String) -> String {
         """
         extension \(type) {
@@ -609,17 +610,17 @@ final class Templates {
         }
         """
     }
-    
+
     // MARK: Misc
-    
+
     func namespace(_ name: String) -> String {
         "\(access)enum \(name) {}"
     }
-        
+
     var deprecated: String {
         #"@available(*, deprecated, message: "Deprecated")"# + "\n"
     }
-    
+
     var requestOperationIdExtension: String {
        """
        private extension Request {
@@ -689,7 +690,7 @@ extension String {
     var indented: String {
         indented(count: 1)
     }
-    
+
     func indented(count: Int) -> String {
         lines
             .map { $0.isEmpty ? $0 : String(repeating: " ", count: count * 4) + $0 }

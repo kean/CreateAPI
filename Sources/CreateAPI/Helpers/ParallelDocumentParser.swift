@@ -9,20 +9,20 @@ import OpenAPIKit30
 // But for YAML, you get a solid x2 speed boost.
 final class ParallelDocumentParser: Decodable {
     let document: OpenAPI.Document
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
+
         let version = try container.decode(OpenAPI.Document.Version.self, forKey: .openAPIVersion)
         let info = try container.decode(OpenAPI.Document.Info.self, forKey: .info)
-        
+
         let group = DispatchGroup()
-        
+
         var components: Result<OpenAPI.Components, Error>!
         perform(in: group) {
             components = Result(catching: { try container.decodeIfPresent(OpenAPI.Components.self, forKey: .components) ?? .noComponents })
         }
-        
+
         var paths: Result<OpenAPI.PathItem.Map, Error>!
         perform(in: group) {
             paths = Result(catching: { try container.decode(OpenAPI.PathItem.Map.self, forKey: .paths) })
@@ -44,7 +44,7 @@ final class ParallelDocumentParser: Decodable {
             vendorExtensions: [:]
         )
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case openAPIVersion = "openapi"
         case info
@@ -55,7 +55,7 @@ final class ParallelDocumentParser: Decodable {
 
 private final class ResultBox<T> {
     var value: Result<T, Error>!
-    
+
     func get() throws -> T {
         try value.get()
     }

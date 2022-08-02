@@ -18,38 +18,38 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     case dictionary(key: TypeIdentifier, value: TypeIdentifier)
 
     // MARK: Helpers
-    
+
     var isBool: Bool { builtinTypeName == "Bool" }
     var isVoid: Bool { builtinTypeName == "Void" }
     var isString: Bool { builtinTypeName == "String" }
-    
+
     static let allGeneratedBuiltinTypes = Set<TypeName>(["String", "Bool", "Double", "Int", "Int32", "Int64", "Date", "URL", "Data"].map(TypeName.init))
-    
+
     var isArray: Bool {
         if case .array = self { return true } else { return false }
     }
-    
+
     var builtinTypeName: String? {
         if case .builtin(let name) = self { return name.rawValue }
         return nil
     }
-    
+
     var isBuiltin: Bool {
         builtinTypeName != nil
     }
-    
+
     func asArray() -> TypeIdentifier {
         .array(element: self)
     }
-    
+
     func asPatchParameter() -> TypeIdentifier {
         .userDefined(name: TypeName("\(self)?")) // TODO: Refactor
     }
-    
+
     var name: TypeName {
         TypeName(description)
     }
-    
+
     var elementType: TypeIdentifier {
         switch self {
         case .builtin, .userDefined: return self
@@ -57,7 +57,7 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
         case .dictionary(_, let value): return value.elementType
         }
     }
-    
+
     // Generates a type identifier adding a namespace if needed.
     func identifier(namespace: String) -> TypeName {
         switch self {
@@ -67,23 +67,23 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
         case .dictionary(let key, let value): return TypeName("[\(key): \(value.identifier(namespace: namespace))]")
         }
     }
-    
+
     // MARK: Factory
-    
+
     static func builtin(_ name: String) -> TypeIdentifier {
         .builtin(name: TypeName(name))
     }
-    
+
     static func dictionary(value: TypeIdentifier) -> TypeIdentifier {
         .dictionary(key: .builtin("String"), value: value)
     }
-    
+
     static var anyJSON: TypeIdentifier {
         .userDefined(name: TypeName("AnyJSON"))
     }
-    
+
     // MARK: CustomStringConvertible
-    
+
     var description: String {
         switch self {
         case .array(let element): return "[\(element)]"
@@ -95,23 +95,23 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
 
 struct Protocols: ExpressibleByArrayLiteral {
     var rawValue: Set<String>
-    
+
     init(_ rawValue: Set<String>) {
         self.rawValue = rawValue
     }
-    
+
     init(arrayLiteral elements: String...) {
         self.rawValue = Set(elements)
     }
-    
+
     var isDecodable: Bool {
         rawValue.contains("Decodable") || rawValue.contains( "Codable")
     }
-    
+
     var isEncodable: Bool {
         rawValue.contains("Encodable") || rawValue.contains( "Codable")
     }
-    
+
     mutating func removeDecodable() {
         if rawValue.contains("Codable") {
             rawValue.remove("Codable")
@@ -120,7 +120,7 @@ struct Protocols: ExpressibleByArrayLiteral {
             rawValue.remove("Decodable")
         }
     }
-    
+
     mutating func removeEncodable() {
         if rawValue.contains("Codable") {
             rawValue.remove("Codable")
@@ -129,11 +129,11 @@ struct Protocols: ExpressibleByArrayLiteral {
             rawValue.remove("Encodable")
         }
     }
-    
+
     mutating func insert(_ protocol: String) {
         rawValue.insert(`protocol`)
     }
-    
+
     func sorted() -> [String] {
         rawValue.sorted()
     }
@@ -181,7 +181,7 @@ struct EnumOfStringsDeclaration: Declaration {
     let name: TypeName
     let cases: [Case]
     let metadata: DeclarationMetadata
-    
+
     struct Case {
         let name: String
         let key: String
@@ -194,18 +194,18 @@ final class EntityDeclaration: Declaration {
     let type: EntityType
     let metadata: DeclarationMetadata
     let isForm: Bool
-    
+
     var protocols = Protocols()
     var properties: [Property] = []
     var discriminator: Discriminator?
 
     var isRenderedAsStruct = false
     weak var parent: EntityDeclaration?
-    
+
     var nested: [Declaration] {
         properties.compactMap { $0.nested }
     }
-    
+
     init(name: TypeName, type: EntityType, metadata: DeclarationMetadata, isForm: Bool, discriminator: Discriminator? = nil, parent: EntityDeclaration? = nil) {
         self.name = name
         self.type = type
@@ -214,7 +214,7 @@ final class EntityDeclaration: Declaration {
         self.discriminator = discriminator
         self.parent = parent
     }
-    
+
     // Returns `true` if the type is nested inside the entity declaration.
     func isNested(_ type: TypeIdentifier) -> Bool {
         guard case .userDefined(let name) = type else { return false }
@@ -225,7 +225,7 @@ final class EntityDeclaration: Declaration {
 struct AnyDeclaration: Declaration {
     let name: TypeName
     let rawValue: String
-    
+
     static let empty = AnyDeclaration(name: TypeName("empty"), rawValue: "")
 }
 
@@ -246,7 +246,7 @@ struct Discriminator {
     let propertyName: String
     let mapping: [String: TypeIdentifier]
 
-    func correspondingMappings(for property: Property) -> Array<(key: String, value: TypeIdentifier)> {
+    func correspondingMappings(for property: Property) -> [(key: String, value: TypeIdentifier)] {
         mapping.filter { $1 == property.type }.sorted { $0.key < $1.key }
     }
 }
@@ -267,7 +267,7 @@ struct DeclarationMetadata {
         self.externalDocsURL = schema?.externalDocs?.url
         self.isDeprecated = schema?.deprecated ?? false
     }
-    
+
     init(_ operation: OpenAPI.Operation) {
         self.title = operation.summary
         self.description = operation.description

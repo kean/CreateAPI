@@ -15,7 +15,7 @@ extension Generator {
         default: fatalError()
         }
     }
-    
+
     private func render(_ decl: EnumOfStringsDeclaration) -> String {
         let comments = templates.comments(for: decl.metadata, name: decl.name.rawValue)
         let cases = decl.cases.map {
@@ -23,7 +23,7 @@ extension Generator {
         }.joined(separator: "\n")
         return comments + templates.enumOfStrings(name: decl.name, contents: cases)
     }
-    
+
     private func render(_ decl: EntityDeclaration) -> String {
         var properties = decl.properties
         addNamespacesForConflictsWithNestedTypes(properties: &properties, decl: decl)
@@ -31,7 +31,7 @@ extension Generator {
 
         let isStruct = shouldGenerateStruct(for: decl)
         let isReadOnly = isStruct ? !options.entities.isGeneratingMutableStructProperties : !options.entities.isGeneratingMutableClassProperties
-        
+
         var contents: [String] = []
         switch decl.type {
         case .object, .allOf, .anyOf:
@@ -112,7 +112,7 @@ extension Generator {
         if decl.isForm {
             protocols.removeEncodable()
         }
-        
+
         let entity: String
         if decl.type == .oneOf {
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
@@ -125,14 +125,14 @@ extension Generator {
         }
         return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
     }
-    
+
     private func render(_ value: TypealiasDeclaration) -> String {
         [templates.typealias(name: value.name, type: value.type.name),
          value.nested.map(render)]
             .compactMap { $0 }
             .joined(separator: "\n\n")
     }
-    
+
     private func shouldGenerateStruct(for decl: EntityDeclaration) -> Bool {
         if decl.type == .oneOf {
             return false
@@ -146,11 +146,11 @@ extension Generator {
             return options.entities.isGeneratingStructs
         }
     }
-    
+
     private func hasRefeferencesToItself(_ entity: EntityDeclaration) -> Bool {
         hasReferences(to: entity.name, entity)
     }
-    
+
     // TODO: This doesn't handle a scenario where a reference is detected in an
     // entity that itself has references to itself and thus always gets geenrated
     // as a class. So technically, struct is ok, but we err on the safe safe.
@@ -190,9 +190,9 @@ extension Generator {
         }
         return false
     }
-    
+
     // MARK: Preprocessing
-    
+
     // Handles a scenario where a nested entity has a reference to one of the
     // top-level types with the same name as the entity.
     private func addNamespacesForConflictsWithNestedTypes(properties: inout [Property], decl: EntityDeclaration) {
@@ -203,7 +203,7 @@ extension Generator {
             }
         }
     }
-    
+
     // Handles a scenario where one of the generated entites (top-level or nested)
     // overrides one of the built-in types.
     private func addNamespacesForConflictsWithBuiltinTypes(properties: inout [Property], decl: EntityDeclaration) {
@@ -216,7 +216,6 @@ extension Generator {
             }
             if generatedSchemas[type] != nil || decl.isOverriding(type: type) {
                 properties[index].type = .builtin("\(namespace(for: type)).\(type)")
-                
             }
         }
     }
