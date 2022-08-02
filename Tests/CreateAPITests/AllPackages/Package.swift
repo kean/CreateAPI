@@ -76,7 +76,7 @@ let package = Package(
             "petstore-change-filename",
             "petstore-change-namespace-when-operations-style",
             "petstore-change-namespace-when-rest-style",
-            "petstore-custom-imports",
+            .byName(name: "petstore-custom-imports", condition: .when(platforms: [.iOS, .macOS])),
             "petstore-default",
             "petstore-disable-comments",
             "petstore-disable-init-with-coder",
