@@ -1,7 +1,3 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
-
 import CreateOptions
 import OpenAPIKit30
 import Foundation
@@ -652,7 +648,7 @@ extension Generator {
                 guard let name = reference.name else {
                     throw GeneratorError("Response reference name is missing")
                 }
-                if let rename = options.paths.overridenResponses[name] {
+                if let rename = options.paths.overriddenResponses[name] {
                     return BodyType(type: TypeName(rename))
                 }
                 guard let key = OpenAPI.ComponentKey(rawValue: name), let value = spec.components.responses[key] else {
@@ -691,10 +687,10 @@ extension Generator {
         if content.values.isEmpty {
             return BodyType("Void")
         }
-
-        if !options.paths.overridenBodyTypes.isEmpty {
+        
+        if !options.paths.overriddenBodyTypes.isEmpty {
             for key in content.keys {
-                if let type = options.paths.overridenBodyTypes[key.rawValue] {
+                if let type = options.paths.overriddenBodyTypes[key.rawValue] {
                     return BodyType(type)
                 }
             }
@@ -759,7 +755,7 @@ extension Generator {
         if firstContent(for: [.other("application/json-patch+json")]) != nil {
             return BodyType("Data") // Currently isn't supported
         }
-        try handle(warning: "Unknown body content types: \(content.keys), defaulting to Data. Use paths.overridenBodyTypes to add support for your content types.")
+        try handle(warning: "Unknown body content types: \(content.keys), defaulting to Data. Use paths.overriddenBodyTypes to add support for your content types.")
         return BodyType("Data")
     }
 

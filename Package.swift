@@ -29,12 +29,21 @@ let package = Package(
             ],
             path: "Sources/CreateAPI"
         ),
-        .target(name: "CreateOptions"),
+        .target(
+            name: "CreateOptions",
+            dependencies: [
+                .product(name: "Yams", package: "Yams")
+            ]
+        ),
         .testTarget(
             name: "create-api-tests",
             dependencies: ["create-api"],
             path: "Tests/CreateAPITests",
             resources: [.copy("Expected"), .copy("Specs")]
+        ),
+        .testTarget(
+            name: "CreateOptionsTests",
+            dependencies: ["CreateOptions"]
         )
     ]
 )

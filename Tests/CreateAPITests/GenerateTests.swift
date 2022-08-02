@@ -1,7 +1,3 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
-
 import XCTest
 import OpenAPIKit30
 @testable import create_api
@@ -38,9 +34,9 @@ final class GenerateTests: GenerateBaseTests {
             "--vendor", "github",
             "--config", config("""
             paths:
-              overrideResponses:
+              overriddenResponses:
                 accepted: "Void"
-              overridenBodyTypes:
+              overriddenBodyTypes:
                 application/octocat-stream: String
             rename:
               enumCases:

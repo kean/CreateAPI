@@ -1,7 +1,3 @@
-// The MIT License (MIT)
-//
-// Copyright (c) 2021-2022 Alexander Grebenyuk (github.com/kean).
-
 import ArgumentParser
 import CreateOptions
 import OpenAPIKit30
@@ -138,15 +134,27 @@ struct Generate: ParsableCommand {
             throw GeneratorError("The file must have one of the following extensions: \(extensions).")
         }
 
+        // TODO: Make it clearer that the file failed to load
         guard let data = try? Data(contentsOf: url), !data.isEmpty else {
-            return GenerateOptions() // Use default options
+            return .default
         }
 
         do {
-            var options = try YAMLDecoder().decode(ConfigOptions.self, from: data)
-            options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
-            options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
-            return GenerateOptions(configOptions: options)
+            let options = try GenerateOptions(data: data) { options in
+                options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
+                options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
+            }
+
+            for message in options.warnings {
+                let prefix = strict ? "ERROR" : "WARNING"
+                print("\(prefix): \(message)")
+            }
+
+            if strict && !options.warnings.isEmpty {
+                throw GeneratorError("Issues were detected in \(url.path)")
+            }
+
+            return options
         } catch {
             throw GeneratorError("Failed to read configuration. \(error)")
         }

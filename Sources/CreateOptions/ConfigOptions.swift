@@ -78,7 +78,7 @@ public struct ConfigOptions: Encodable {
     /// For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
     public var isInliningTypealiases: Bool = true
 
-    /// For example, `var sourcelUrl` becomes `var sourceURL`.
+    /// For example, `var sourceUrl` becomes `var sourceURL`.
     public var isReplacingCommonAcronyms: Bool = true
 
     /// Acronyms to add to the default list
@@ -98,7 +98,7 @@ public struct ConfigOptions: Encodable {
     /// - `tabs`
     public var indentation: ConfigOptions.Indentation = .spaces
 
-    /// Number of spaces to use when `indentation` is set to `spaces`.
+    /// Number of spaces to use when [`indentation`](#indentation) is set to `spaces`.
     public var spaceWidth: Int = 4
 
     /// For example, `public var file: [File]` becomes `public var files: [File]`
@@ -121,12 +121,7 @@ public struct ConfigOptions: Encodable {
     // sourcery: document, decodableWithDefault
     /// Customize specific behaviors when generating comments on entities/paths/properties.
     public struct Comments: Encodable {
-        /// Set to false to disable the generation of comments, for example:
-        ///
-        /// ```yaml
-        /// comments:
-        ///   isEnabled: false
-        /// ```
+        /// Set to false to disable the generation of comments
         public var isEnabled: Bool = true
 
         /// Include the schema title when generating comments
@@ -218,11 +213,11 @@ public struct ConfigOptions: Encodable {
         public var isStrippingParentNameInNestedObjects: Bool = false
 
         /// When set to a non-empty value, entities with the given names will be ignored during generation.
-        /// Cannot be used in conjunction with `include`.
+        /// Cannot be used in conjunction with [`include`](#entitiesinclude).
         public var exclude: Set<String> = []
 
         /// When set to a non-empty value, only entities matching the given names will be generated.
-        /// This cannot be used in conjunction with `exclude`.
+        /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).
         public var include: Set<String> = []
     }
 
@@ -240,6 +235,25 @@ public struct ConfigOptions: Encodable {
         ///
         /// - `rest` - Generates nest structs to represent path components
         /// - `operations` - Generates a plain list of request operations
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// **Rest**
+        /// ```swift
+        /// // Uses namespaces and names based on the path for each request
+        /// Paths.pets.get(limit: nil) // GET /pets
+        /// Paths.pets.petID("1").get // GET /pets/1
+        /// ```
+        ///
+        /// **Operations**
+        /// ```swift
+        /// // Uses the `operationId` defined in the schema for each request
+        /// Paths.listPets(limit: nil) // GET /pets
+        /// Paths.showPetById(petID: "1") // GET /pets/1
+        /// ```
+        ///
+        /// </details>
         public var style: ConfigOptions.PathsStyle = .rest
 
         /// The namespace type for all generated paths
@@ -260,10 +274,11 @@ public struct ConfigOptions: Encodable {
         ///
         /// ```yaml
         /// paths:
-        ///   overridenResponses:
+        ///   overriddenResponses:
         ///     MyApiResponseType: MyCustomDecodableType
         /// ```
-        public var overridenResponses: [String: String] = [:]
+        public var overriddenResponses: [String: String] = [:]
+        public var overridenResponses: [String: String] = [:] // sourcery: skip, deprecated, message = "Renamed to 'overriddenResponses'."
 
         /// Tell CreateAPI how to map an unknown request or response content types to a Swift type used in the path generation.
         ///
@@ -271,10 +286,11 @@ public struct ConfigOptions: Encodable {
         ///
         /// ```yaml
         /// paths:
-        ///   overridenBodyTypes:
+        ///   overriddenBodyTypes:
         ///     application/octocat-stream: String
         /// ```
-        public var overridenBodyTypes: [String: String] = [:]
+        public var overriddenBodyTypes: [String: String] = [:]
+        public var overridenBodyTypes: [String: String] = [:] // sourcery: skip, deprecated, message = "Renamed to 'overriddenBodyTypes'."
 
         /// Inline simple requests, like the ones with a single parameter
         public var isInliningSimpleRequests: Bool = true
@@ -293,11 +309,11 @@ public struct ConfigOptions: Encodable {
         public var isRemovingRedundantPaths: Bool = true
 
         /// When set to a non-empty value, the given paths will be ignored during generation.
-        /// Cannot be used in conjunction with `include`.
+        /// Cannot be used in conjunction with [`include`](#pathsinclude).
         public var exclude: Set<String> = []
 
         /// When set to a non-empty value, only the given paths will be generated.
-        /// This cannot be used in conjunction with `exclude`.
+        /// This cannot be used in conjunction with [`exclude`](#pathsexclude).
         public var include: Set<String> = []
     }
 
@@ -328,7 +344,7 @@ public struct ConfigOptions: Encodable {
         /// Rename operations when using the `"operations"` style for path generation
         public var operations: [String: String] = [:]
 
-        /// Rename anynomous collection elements. By default, use a singularized form of the property name
+        /// Rename anonymous collection elements. By default, use a singularized form of the property name
         public var collectionElements: [String: String] = [:]
     }
 }
