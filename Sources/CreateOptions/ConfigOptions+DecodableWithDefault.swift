@@ -327,7 +327,9 @@ extension ConfigOptions.Paths: Decodable {
         case isGeneratingResponseHeaders
         case isAddingOperationIds
         case imports
+        case overriddenResponses
         case overridenResponses
+        case overriddenBodyTypes
         case overridenBodyTypes
         case isInliningSimpleRequests
         case isInliningSimpleQueryParameters
@@ -366,8 +368,18 @@ extension ConfigOptions.Paths: Decodable {
             defaultValue: ["Get"]
         )
 
+        overriddenResponses = try container.decode([String: String].self,
+            forKey: .overriddenResponses,
+            defaultValue: [:]
+        )
+
         overridenResponses = try container.decode([String: String].self,
             forKey: .overridenResponses,
+            defaultValue: [:]
+        )
+
+        overriddenBodyTypes = try container.decode([String: String].self,
+            forKey: .overriddenBodyTypes,
             defaultValue: [:]
         )
 
@@ -412,6 +424,8 @@ extension ConfigOptions.Paths: Decodable {
         )
 
         container.recordPotentialIssues(deprecations: [
+            (.overridenResponses, "Renamed to 'overriddenResponses'."),
+            (.overridenBodyTypes, "Renamed to 'overriddenBodyTypes'."),
         ])
     }
 }

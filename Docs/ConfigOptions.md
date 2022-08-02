@@ -92,8 +92,8 @@ Below you can find the complete documentation for all available options.
   - [isGeneratingResponseHeaders](#pathsisgeneratingresponseheaders)
   - [isAddingOperationIds](#pathsisaddingoperationids)
   - [imports](#pathsimports)
-  - [overridenResponses](#pathsoverridenresponses)
-  - [overridenBodyTypes](#pathsoverridenbodytypes)
+  - [overriddenResponses](#pathsoverriddenresponses)
+  - [overriddenBodyTypes](#pathsoverriddenbodytypes)
   - [isInliningSimpleRequests](#pathsisinliningsimplerequests)
   - [isInliningSimpleQueryParameters](#pathsisinliningsimplequeryparameters)
   - [simpleQueryParametersThreshold](#pathssimplequeryparametersthreshold)
@@ -509,7 +509,7 @@ Adds the operation id to each request
 Modules to be imported within the source files for generated requests
 
 
-### paths.overridenResponses
+### paths.overriddenResponses
 
 **Type:** [String: String]<br />
 **Default:** `[:]`
@@ -520,12 +520,12 @@ For example:
 
 ```yaml
 paths:
-  overridenResponses:
+  overriddenResponses:
     MyApiResponseType: MyCustomDecodableType
 ```
 
 
-### paths.overridenBodyTypes
+### paths.overriddenBodyTypes
 
 **Type:** [String: String]<br />
 **Default:** `[:]`
@@ -536,7 +536,7 @@ For example:
 
 ```yaml
 paths:
-  overridenBodyTypes:
+  overriddenBodyTypes:
     application/octocat-stream: String
 ```
 
