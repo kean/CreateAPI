@@ -15,7 +15,10 @@ public final class GenerateOptions {
     /// Warnings detected when loading a configuration file
     public let warnings: [String]
 
-    public init(configOptions: ConfigOptions = .default, warnings: [String] = []) {
+    /// The default set of options
+    public static let `default` = GenerateOptions()
+
+    init(configOptions: ConfigOptions = .default, warnings: [String] = []) {
         self.configOptions = configOptions
         self.allAcronyms = Self.allAcronyms(including: configOptions.addedAcronyms, excluding: configOptions.ignoredAcronyms)
         self.warnings = warnings

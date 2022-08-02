@@ -138,8 +138,9 @@ struct Generate: ParsableCommand {
             throw GeneratorError("The file must have one of the following extensions: \(extensions).")
         }
 
+        // TODO: Make it clearer that the file failed to load
         guard let data = try? Data(contentsOf: url), !data.isEmpty else {
-            return GenerateOptions() // Use default options
+            return .default
         }
 
         do {
