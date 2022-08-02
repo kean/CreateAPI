@@ -38,9 +38,9 @@ final class GenerateTests: GenerateBaseTests {
             "--vendor", "github",
             "--config", config("""
             paths:
-              overridenResponses:
+              overriddenResponses:
                 accepted: "Void"
-              overridenBodyTypes:
+              overriddenBodyTypes:
                 application/octocat-stream: String
             rename:
               enumCases:
