@@ -29,11 +29,18 @@ extension IssueRecorder.Issue: CustomStringConvertible {
     }
 
     var description: String {
+        let summary: String
         switch type {
         case .deprecated:
-            return "The property '\(propertyName)' has been deprecated"
+            summary = "The property '\(propertyName)' has been deprecated."
         case .unexpected:
-            return "Found an unexpected property '\(propertyName)'"
+            summary = "Found an unexpected property '\(propertyName)'."
+        }
+
+        if message.isEmpty {
+            return summary
+        } else {
+            return "\(summary) \(message)"
         }
     }
 }

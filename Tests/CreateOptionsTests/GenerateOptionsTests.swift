@@ -17,8 +17,8 @@ final class GenerateOptionsTests: XCTestCase {
 
         // Then the appropriate warnings should be recorded
         XCTAssertEqual(options.warnings, [
-            "Found an unexpected property 'entities.isANestedInvalidOption'",
-            "Found an unexpected property 'isATopLevelInvalidOption'"
+            "Found an unexpected property 'entities.isANestedInvalidOption'.",
+            "Found an unexpected property 'isATopLevelInvalidOption'."
         ])
     }
 }
