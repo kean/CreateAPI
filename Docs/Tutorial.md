@@ -53,6 +53,8 @@ Once the dependencies have resolved, build the project and everything will succe
 
 Now that you have the generated Paths and Entities, you probably want to actually put them to good use!
 
+> **Note**: In some cases, you might prefer to use the generated Package as-is by referencing it as a dependency in another project or package (this allows you to regenerate it whenever the spec changes), but for the educational purposes in this tutorial you will work directly inside the package instead.
+
 In the **Sources** directory, add a new file called **PetstoreClient.swift**. Within that file, add the following code:
 
 ```swift
