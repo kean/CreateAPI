@@ -12,4 +12,4 @@ Dependency|Minimum Version|Required When?
 [NaiveDate](https://github.com/CreateAPI/NaiveDate)|1.0.0|[`isNaiveDateEnabled`](https://github.com/CreateAPI/CreateAPI/blob/main/Docs/ConfigOptions.md#isnaivedateenabled) is set to `true` (the default)
 
 
-> **Note**: _*If you are already using a different API client and don't want to have to depend on Get, check out the [Advanced Setup](./AdvancedSetup.md) documentation._
+> **Note**: _*If you are already using a different API client and don't want to have to depend on Get, check out the [Advanced Setup](./AdvancedSetup.md#using-a-different-api-client) documentation._
