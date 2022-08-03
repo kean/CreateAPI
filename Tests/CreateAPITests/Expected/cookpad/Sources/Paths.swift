@@ -19,7 +19,7 @@ extension Paths {
         ///
         /// Returns an array of all Collection models in display order.
         public var get: Request<[cookpad.Collection]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -37,7 +37,7 @@ extension Paths.Collections {
         ///
         /// Returns a single Collection model associated with the given identifier.
         public var get: Request<cookpad.Collection> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -55,7 +55,7 @@ extension Paths.Collections.WithID {
         ///
         /// Returns an ordered array of Recipe models in the given Collection.
         public var get: Request<[cookpad.Recipe]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -73,7 +73,7 @@ extension Paths {
         ///
         /// Returns an array of all Recipe models in order of most recently published.
         public var get: Request<[cookpad.Recipe]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -91,7 +91,7 @@ extension Paths.Recipes {
         ///
         /// Returns a specific Recipe model with the given identifier.
         public var get: Request<cookpad.Recipe> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }

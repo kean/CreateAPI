@@ -11,7 +11,7 @@ import URLQueryEncoder
 extension Namespace {
     /// List all pets
     static public func listPets(limit: Int? = nil) -> Request<[petstore_change_namespace_when_operations_style.Pet]> {
-        .get("/pets", query: makeListPetsQuery(limit))
+        Request(method: "GET", url: "/pets", query: makeListPetsQuery(limit))
     }
 
     public enum ListPetsResponseHeaders {
@@ -29,14 +29,14 @@ extension Namespace {
 extension Namespace {
     /// Create a pet
     static public var createPets: Request<Void> {
-        .post("/pets")
+        Request(method: "POST", url: "/pets")
     }
 }
 
 extension Namespace {
     /// Info for a specific pet
     static public func showPetByID(petID: String) -> Request<petstore_change_namespace_when_operations_style.Pet> {
-        .get("/pets/\(petID)")
+        Request(method: "GET", url: "/pets/\(petID)")
     }
 }
 

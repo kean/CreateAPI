@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/overview/resources-in-the-rest-api#root-endpoint)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -153,7 +153,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-the-authenticated-app)
         public var get: Request<OctoKit.Integration> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -195,7 +195,7 @@ extension Paths.AppManifests.WithCode {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest)
         public var post: Request<PostResponse> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
 
         public struct PostResponse: Decodable {
@@ -256,7 +256,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
         public var get: Request<OctoKit.WebhookConfig> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a webhook configuration for an app
@@ -267,7 +267,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         /// Example:
@@ -327,7 +327,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook)
         public func get(perPage: Int? = nil, cursor: String? = nil) -> Request<[OctoKit.HookDeliveryItem]> {
-            .get(path, query: makeGetQuery(perPage, cursor))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, cursor))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
@@ -356,7 +356,7 @@ extension Paths.App.Hook.Deliveries {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook)
         public var get: Request<OctoKit.HookDelivery> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -378,7 +378,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -400,7 +400,7 @@ extension Paths.App {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Installation]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -449,7 +449,7 @@ extension Paths.App.Installations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete an installation for the authenticated app
@@ -460,7 +460,7 @@ extension Paths.App.Installations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -482,7 +482,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.InstallationToken> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -538,7 +538,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#suspend-an-app-installation)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unsuspend an app installation
@@ -549,7 +549,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -583,7 +583,7 @@ extension Paths.Applications {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ApplicationGrant]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -628,7 +628,7 @@ extension Paths.Applications.Grants {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-grant)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.ApplicationGrant> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a grant
@@ -640,7 +640,7 @@ extension Paths.Applications.Grants {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-a-grant)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -672,7 +672,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
         public func delete(accessToken: String) -> Request<Void> {
-            .delete(path, body: ["access_token": accessToken])
+            Request(method: "DELETE", url: path, body: ["access_token": accessToken])
         }
     }
 }
@@ -692,7 +692,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
         public func post(accessToken: String) -> Request<OctoKit.Authorization> {
-            .post(path, body: ["access_token": accessToken])
+            Request(method: "POST", url: path, body: ["access_token": accessToken])
         }
 
         /// Reset a token
@@ -701,7 +701,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
         public func patch(accessToken: String) -> Request<OctoKit.Authorization> {
-            .patch(path, body: ["access_token": accessToken])
+            Request(method: "PATCH", url: path, body: ["access_token": accessToken])
         }
 
         /// Delete an app token
@@ -710,7 +710,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
         public func delete(accessToken: String) -> Request<Void> {
-            .delete(path, body: ["access_token": accessToken])
+            Request(method: "DELETE", url: path, body: ["access_token": accessToken])
         }
     }
 }
@@ -730,7 +730,7 @@ extension Paths.Applications.WithClientID.Token {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-scoped-access-token)
         public func post(_ body: PostRequest) -> Request<OctoKit.Authorization> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -813,7 +813,7 @@ extension Paths.Apps {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#get-an-app)
         public var get: Request<OctoKit.Integration> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -834,7 +834,7 @@ extension Paths {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Authorization]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -878,7 +878,7 @@ extension Paths {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization)
         @available(*, deprecated, message: "Deprecated")
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.Authorization> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -959,7 +959,7 @@ extension Paths.Authorizations.Clients {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app)
         @available(*, deprecated, message: "Deprecated")
         public func put(_ body: PutRequest) -> Request<OctoKit.Authorization> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutResponseHeaders {
@@ -1023,7 +1023,7 @@ extension Paths.Authorizations.Clients.WithClientID {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint)
         @available(*, deprecated, message: "Deprecated")
         public func put(_ body: PutRequest) -> Request<OctoKit.Authorization> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutResponseHeaders {
@@ -1077,7 +1077,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.Authorization> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an existing authorization
@@ -1091,7 +1091,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Authorization> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -1138,7 +1138,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1156,7 +1156,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-all-codes-of-conduct)
         public var get: Request<[OctoKit.CodeOfConduct]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -1174,7 +1174,7 @@ extension Paths.CodesOfConduct {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-a-code-of-conduct)
         public var get: Request<OctoKit.CodeOfConduct> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -1194,7 +1194,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/emojis#get-emojis)
         public var get: Request<[String: String]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -1249,7 +1249,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise)
         public var get: Request<OctoKit.ActionsEnterprisePermissions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set GitHub Actions permissions for an enterprise
@@ -1260,7 +1260,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -1299,7 +1299,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -1332,7 +1332,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_organization_ids": selectedOrganizationIDs])
+            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs])
         }
     }
 }
@@ -1354,7 +1354,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Disable a selected organization for GitHub Actions in an enterprise
@@ -1365,7 +1365,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1387,7 +1387,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise)
         public var get: Request<OctoKit.SelectedActions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set allowed actions for an enterprise
@@ -1398,7 +1398,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise)
         public func put(_ body: OctoKit.SelectedActions) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
     }
 }
@@ -1420,7 +1420,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -1453,7 +1453,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise)
         public func post(_ body: PostRequest) -> Request<OctoKit.RunnerGroupsEnterprise> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -1510,7 +1510,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
         public var get: Request<OctoKit.RunnerGroupsEnterprise> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a self-hosted runner group for an enterprise
@@ -1521,7 +1521,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.RunnerGroupsEnterprise> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -1559,7 +1559,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1581,7 +1581,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -1614,7 +1614,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_organization_ids": selectedOrganizationIDs])
+            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs])
         }
     }
 }
@@ -1636,7 +1636,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove organization access to a self-hosted runner group in an enterprise
@@ -1647,7 +1647,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1669,7 +1669,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -1706,7 +1706,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise)
         public func put(runners: [Int]) -> Request<Void> {
-            .put(path, body: ["runners": runners])
+            Request(method: "PUT", url: path, body: ["runners": runners])
         }
     }
 }
@@ -1729,7 +1729,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-a-self-hosted-runner-to-a-group-for-an-enterprise)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove a self-hosted runner from a group for an enterprise
@@ -1740,7 +1740,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-self-hosted-runner-from-a-group-for-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1762,7 +1762,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -1810,7 +1810,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise)
         public var get: Request<[OctoKit.RunnerApplication]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -1840,7 +1840,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -1871,7 +1871,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -1893,7 +1893,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise)
         public var get: Request<OctoKit.Runner> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a self-hosted runner from an enterprise
@@ -1904,7 +1904,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -1926,7 +1926,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-labels-for-a-self-hosted-runner-for-an-enterprise)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -1952,7 +1952,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-custom-labels-to-a-self-hosted-runner-for-an-enterprise)
         public func post(labels: [String]) -> Request<PostResponse> {
-            .post(path, body: ["labels": labels])
+            Request(method: "POST", url: path, body: ["labels": labels])
         }
 
         public struct PostResponse: Decodable {
@@ -1979,7 +1979,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-custom-labels-for-a-self-hosted-runner-for-an-enterprise)
         public func put(labels: [String]) -> Request<PutResponse> {
-            .put(path, body: ["labels": labels])
+            Request(method: "PUT", url: path, body: ["labels": labels])
         }
 
         public struct PutResponse: Decodable {
@@ -2006,7 +2006,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-all-custom-labels-from-a-self-hosted-runner-for-an-enterprise)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -2047,7 +2047,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -2082,7 +2082,7 @@ extension Paths.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -2171,7 +2171,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-enterprise)
         public var get: Request<OctoKit.ActionsBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2192,7 +2192,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.AdvancedSecurityActiveCommitters> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -2223,7 +2223,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise)
         public var get: Request<OctoKit.PackagesBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2247,7 +2247,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-enterprise)
         public var get: Request<OctoKit.CombinedBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2267,7 +2267,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -2304,7 +2304,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-feeds)
         public var get: Request<OctoKit.Feed> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2324,7 +2324,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2359,7 +2359,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist)
         public func post(_ body: PostRequest) -> Request<OctoKit.GistSimple> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -2443,7 +2443,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-public-gists)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2487,7 +2487,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-starred-gists)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -2529,7 +2529,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist)
         public var get: Request<OctoKit.GistSimple> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a gist
@@ -2538,7 +2538,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists/#update-a-gist)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GistSimple> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -2580,7 +2580,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -2598,7 +2598,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-comments)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GistComment]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -2616,7 +2616,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist-comment)
         public func post(body: String) -> Request<OctoKit.GistComment> {
-            .post(path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
@@ -2638,21 +2638,21 @@ extension Paths.Gists.WithGistID.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-comment)
         public var get: Request<OctoKit.GistComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
         public func patch(body: String) -> Request<OctoKit.GistComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist-comment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -2670,7 +2670,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-commits)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GistCommit]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -2699,7 +2699,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-forks)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GistSimple]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -2719,7 +2719,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#fork-a-gist)
         public var post: Request<OctoKit.BaseGist> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
 
         public enum PostResponseHeaders {
@@ -2741,7 +2741,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Star a gist
@@ -2750,14 +2750,14 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#star-a-gist)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unstar a gist
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#unstar-a-gist)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -2775,7 +2775,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-revision)
         public var get: Request<OctoKit.GistSimple> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2806,7 +2806,7 @@ extension Paths.Gitignore {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-all-gitignore-templates)
         public var get: Request<[String]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2827,7 +2827,7 @@ extension Paths.Gitignore.Templates {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template)
         public var get: Request<OctoKit.GitignoreTemplate> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -2860,7 +2860,7 @@ extension Paths.Installation {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-app-installation)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -2914,7 +2914,7 @@ extension Paths.Installation {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -2942,7 +2942,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3037,7 +3037,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.LicenseSimple]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -3075,7 +3075,7 @@ extension Paths.Licenses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-a-license)
         public var get: Request<OctoKit.License> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -3093,7 +3093,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document)
         public func post(_ body: PostRequest) -> Request<String> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -3144,7 +3144,7 @@ extension Paths.Markdown {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document-in-raw-mode)
         public func post(_ body: String? = nil) -> Request<String> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -3192,7 +3192,7 @@ extension Paths.MarketplaceListing.Accounts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account)
         public var get: Request<OctoKit.MarketplacePurchase> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -3214,7 +3214,7 @@ extension Paths.MarketplaceListing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MarketplaceListingPlan]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -3258,7 +3258,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MarketplacePurchase]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3339,7 +3339,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed)
         public var get: Request<OctoKit.MarketplacePurchase> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -3361,7 +3361,7 @@ extension Paths.MarketplaceListing.Stubbed {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans-stubbed)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MarketplaceListingPlan]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -3405,7 +3405,7 @@ extension Paths.MarketplaceListing.Stubbed.Plans.WithPlanID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan-stubbed)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MarketplacePurchase]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3464,7 +3464,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-github-meta-information)
         public var get: Request<OctoKit.APIOverview> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -3515,7 +3515,7 @@ extension Paths.Networks.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -3542,7 +3542,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -3584,7 +3584,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-notifications-as-read)
         public func put(_ body: PutRequest? = nil) -> Request<PutResponse> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutResponse: Decodable {
@@ -3638,14 +3638,14 @@ extension Paths.Notifications.Threads {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread)
         public var get: Request<OctoKit.Thread> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Mark a thread as read
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-a-thread-as-read)
         public var patch: Request<Void> {
-            .patch(path)
+            Request(method: "PATCH", url: path)
         }
     }
 }
@@ -3667,7 +3667,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user)
         public var get: Request<OctoKit.ThreadSubscription> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set a thread subscription
@@ -3680,7 +3680,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
         public func put(isIgnored: Bool? = nil) -> Request<OctoKit.ThreadSubscription> {
-            .put(path, body: ["ignored": isIgnored])
+            Request(method: "PUT", url: path, body: ["ignored": isIgnored])
         }
 
         /// Delete a thread subscription
@@ -3689,7 +3689,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -3709,7 +3709,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-octocat)
         public func get(s: String? = nil) -> Request<String> {
-            .get(path, query: makeGetQuery(s))
+            Request(method: "GET", url: path, query: makeGetQuery(s))
         }
 
         private func makeGetQuery(_ s: String?) -> [(String, String?)] {
@@ -3737,7 +3737,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations)
         public func get(since: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.OrganizationSimple]> {
-            .get(path, query: makeGetQuery(since, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(since, perPage))
         }
 
         public enum GetResponseHeaders {
@@ -3782,7 +3782,7 @@ extension Paths.Organizations.WithOrganizationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -3831,7 +3831,7 @@ extension Paths.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization)
         public var get: Request<OctoKit.OrganizationFull> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an organization
@@ -3842,7 +3842,7 @@ extension Paths.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs/#update-an-organization)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.OrganizationFull> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -4016,7 +4016,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization)
         public var get: Request<OctoKit.ActionsOrganizationPermissions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set GitHub Actions permissions for an organization
@@ -4029,7 +4029,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-an-organization)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -4068,7 +4068,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -4101,7 +4101,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
+            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -4123,7 +4123,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Disable a selected repository for GitHub Actions in an organization
@@ -4134,7 +4134,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -4156,7 +4156,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization)
         public var get: Request<OctoKit.SelectedActions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set allowed actions for an organization
@@ -4171,7 +4171,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization)
         public func put(_ body: OctoKit.SelectedActions? = nil) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
     }
 }
@@ -4195,7 +4195,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runner-groups-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -4230,7 +4230,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-self-hosted-runner-group-for-an-organization)
         public func post(_ body: PostRequest) -> Request<OctoKit.RunnerGroupsOrg> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -4290,7 +4290,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
         public var get: Request<OctoKit.RunnerGroupsOrg> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a self-hosted runner group for an organization
@@ -4303,7 +4303,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.RunnerGroupsOrg> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -4344,7 +4344,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -4368,7 +4368,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         public struct GetResponse: Decodable {
@@ -4403,7 +4403,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
+            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -4429,7 +4429,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-repository-acess-to-a-self-hosted-runner-group-in-an-organization)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove repository access to a self-hosted runner group in an organization
@@ -4443,7 +4443,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -4467,7 +4467,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -4506,7 +4506,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization)
         public func put(runners: [Int]) -> Request<Void> {
-            .put(path, body: ["runners": runners])
+            Request(method: "PUT", url: path, body: ["runners": runners])
         }
     }
 }
@@ -4532,7 +4532,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-organization)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove a self-hosted runner from a group for an organization
@@ -4546,7 +4546,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -4568,7 +4568,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -4616,7 +4616,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-runner-applications-for-an-organization)
         public var get: Request<[OctoKit.RunnerApplication]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -4646,7 +4646,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-registration-token-for-an-organization)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -4677,7 +4677,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-remove-token-for-an-organization)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -4699,7 +4699,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
         public var get: Request<OctoKit.Runner> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a self-hosted runner from an organization
@@ -4710,7 +4710,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -4732,7 +4732,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -4758,7 +4758,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization)
         public func post(labels: [String]) -> Request<PostResponse> {
-            .post(path, body: ["labels": labels])
+            Request(method: "POST", url: path, body: ["labels": labels])
         }
 
         public struct PostResponse: Decodable {
@@ -4785,7 +4785,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization)
         public func put(labels: [String]) -> Request<PutResponse> {
-            .put(path, body: ["labels": labels])
+            Request(method: "PUT", url: path, body: ["labels": labels])
         }
 
         public struct PutResponse: Decodable {
@@ -4812,7 +4812,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -4853,7 +4853,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -4888,7 +4888,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-organization-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -4934,7 +4934,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -4954,7 +4954,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-secret)
         public var get: Request<OctoKit.OrganizationActionsSecret> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update an organization secret
@@ -5037,7 +5037,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -5084,7 +5084,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-organization-secret)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5104,7 +5104,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         public struct GetResponse: Decodable {
@@ -5135,7 +5135,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
+            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -5155,7 +5155,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-selected-repository-to-an-organization-secret)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove selected repository from an organization secret
@@ -5164,7 +5164,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-selected-repository-from-an-organization-secret)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5186,7 +5186,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-audit-log)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -5246,7 +5246,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-users-blocked-by-an-organization)
         public var get: Request<[OctoKit.SimpleUser]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -5264,21 +5264,21 @@ extension Paths.Orgs.WithOrg.Blocks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Block a user from an organization
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#block-a-user-from-an-organization)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unblock a user from an organization
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#unblock-a-user-from-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5300,7 +5300,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization)
         public var get: Request<[OctoKit.CredentialAuthorization]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -5322,7 +5322,7 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5340,7 +5340,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-organization-events)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -5380,7 +5380,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization)
         public var get: Request<OctoKit.ExternalGroup> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -5402,7 +5402,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ExternalGroups> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -5446,7 +5446,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-failed-organization-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -5475,7 +5475,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-webhooks)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrgHook]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -5495,7 +5495,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-webhook)
         public func post(_ body: PostRequest) -> Request<OctoKit.OrgHook> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -5583,7 +5583,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-webhook)
         public var get: Request<OctoKit.OrgHook> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an organization webhook
@@ -5592,7 +5592,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-webhook)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.OrgHook> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -5655,7 +5655,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#delete-an-organization-webhook)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5677,7 +5677,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
         public var get: Request<OctoKit.WebhookConfig> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a webhook configuration for an organization
@@ -5688,7 +5688,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         /// Example:
@@ -5746,7 +5746,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-deliveries-for-an-organization-webhook)
         public func get(perPage: Int? = nil, cursor: String? = nil) -> Request<[OctoKit.HookDeliveryItem]> {
-            .get(path, query: makeGetQuery(perPage, cursor))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, cursor))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
@@ -5773,7 +5773,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook)
         public var get: Request<OctoKit.HookDelivery> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -5793,7 +5793,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -5813,7 +5813,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#ping-an-organization-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -5835,7 +5835,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -5855,7 +5855,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-app-installations-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -5901,7 +5901,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-an-organization)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -5926,7 +5926,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-an-organization)
         public func put(_ body: OctoKit.InteractionLimit) -> Request<OctoKit.InteractionLimitResponse> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         /// Remove interaction restrictions for an organization
@@ -5935,7 +5935,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -5955,7 +5955,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -5977,7 +5977,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-invitation)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.OrganizationInvitation> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -6037,7 +6037,7 @@ extension Paths.Orgs.WithOrg.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6057,7 +6057,7 @@ extension Paths.Orgs.WithOrg.Invitations.WithInvitationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-invitation-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -6093,7 +6093,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6178,7 +6178,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-members)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6236,7 +6236,7 @@ extension Paths.Orgs.WithOrg.Members {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-organization-membership-for-a-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Remove an organization member
@@ -6245,7 +6245,7 @@ extension Paths.Orgs.WithOrg.Members {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-an-organization-member)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6276,7 +6276,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user)
         public var get: Request<OctoKit.OrgMembership> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set organization membership for a user
@@ -6293,7 +6293,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user)
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.OrgMembership> {
-            .put(path, body: PutRequest(role: role))
+            Request(method: "PUT", url: path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -6323,7 +6323,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6343,7 +6343,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-organization-migrations)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Migration]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6383,7 +6383,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-organization-migration)
         public func post(_ body: PostRequest) -> Request<OctoKit.Migration> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -6454,7 +6454,7 @@ extension Paths.Orgs.WithOrg.Migrations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status)
         public func get(exclude: [Exclude]? = nil) -> Request<OctoKit.Migration> {
-            .get(path, query: makeGetQuery(exclude))
+            Request(method: "GET", url: path, query: makeGetQuery(exclude))
         }
 
         private func makeGetQuery(_ exclude: [Exclude]?) -> [(String, String?)] {
@@ -6487,7 +6487,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-an-organization-migration-archive)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete an organization migration archive
@@ -6496,7 +6496,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-an-organization-migration-archive)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6538,7 +6538,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-an-organization-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6558,7 +6558,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-in-an-organization-migration)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -6589,7 +6589,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-outside-collaborators-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6638,7 +6638,7 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove outside collaborator from an organization
@@ -6647,7 +6647,7 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-outside-collaborator-from-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6670,7 +6670,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-an-organization)
         public func get(packageType: PackageType, visibility: Visibility? = nil) -> Request<[OctoKit.Package]> {
-            .get(path, query: makeGetQuery(packageType, visibility))
+            Request(method: "GET", url: path, query: makeGetQuery(packageType, visibility))
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
@@ -6726,7 +6726,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization)
         public var get: Request<OctoKit.Package> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a package for an organization
@@ -6739,7 +6739,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6767,7 +6767,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-an-organization)
         public func post(token: String? = nil) -> Request<Void> {
-            .post(path, query: makePostQuery(token))
+            Request(method: "POST", url: path, query: makePostQuery(token))
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
@@ -6796,7 +6796,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PackageVersion]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -6844,7 +6844,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization)
         public var get: Request<OctoKit.PackageVersion> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete package version for an organization
@@ -6857,7 +6857,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -6885,7 +6885,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions.W
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -6905,7 +6905,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-organization-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -6944,7 +6944,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-an-organization-project)
         public func post(_ body: PostRequest) -> Request<OctoKit.Project> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -6976,7 +6976,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-public-organization-members)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -7005,7 +7005,7 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set public organization membership for the authenticated user
@@ -7016,14 +7016,14 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove public organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -7043,7 +7043,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-organization-repositories)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7111,7 +7111,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-an-organization-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -7237,7 +7237,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrganizationSecretScanningAlert]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7318,7 +7318,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-an-organization)
         public var get: Request<OctoKit.ActionsBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -7340,7 +7340,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-advanced-security-active-committers-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.AdvancedSecurityActiveCommitters> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -7371,7 +7371,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-organization)
         public var get: Request<OctoKit.PackagesBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -7395,7 +7395,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization)
         public var get: Request<OctoKit.CombinedBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -7428,7 +7428,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
         public func get(perPage: Int? = nil, page: String? = nil) -> Request<OctoKit.GroupMapping> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -7459,7 +7459,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -7481,7 +7481,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-team)
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamFull> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -7573,7 +7573,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
         public var get: Request<OctoKit.TeamFull> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a team
@@ -7584,7 +7584,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-team)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamFull> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -7655,7 +7655,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-team)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -7677,7 +7677,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7722,7 +7722,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion)
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamDiscussion> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -7765,7 +7765,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
         public var get: Request<OctoKit.TeamDiscussion> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a discussion
@@ -7776,7 +7776,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamDiscussion> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -7799,7 +7799,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -7821,7 +7821,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7863,7 +7863,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
         public func post(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            .post(path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body])
         }
     }
 }
@@ -7885,7 +7885,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
         public var get: Request<OctoKit.TeamDiscussionComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a discussion comment
@@ -7896,7 +7896,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
         public func patch(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete a discussion comment
@@ -7907,7 +7907,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -7929,7 +7929,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -7975,7 +7975,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion-comment)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -8018,7 +8018,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-comment-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8040,7 +8040,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-team-discussion)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8086,7 +8086,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-team-discussion)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -8129,7 +8129,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-team-discussion-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8151,7 +8151,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
         public func patch(groupID: Int) -> Request<OctoKit.ExternalGroup> {
-            .patch(path, body: ["group_id": groupID])
+            Request(method: "PATCH", url: path, body: ["group_id": groupID])
         }
 
         /// Remove the connection between an external group and a team
@@ -8162,7 +8162,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8184,7 +8184,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -8217,7 +8217,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8287,7 +8287,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user)
         public var get: Request<OctoKit.TeamMembership> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team membership for a user
@@ -8306,7 +8306,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user)
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.TeamMembership> {
-            .put(path, body: PutRequest(role: role))
+            Request(method: "PUT", url: path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -8340,7 +8340,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8362,7 +8362,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-projects)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TeamProject]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -8395,7 +8395,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
         public var get: Request<OctoKit.TeamProject> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team project permissions
@@ -8406,7 +8406,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -8441,7 +8441,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8463,7 +8463,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-repositories)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -8511,7 +8511,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
         public var get: Request<OctoKit.TeamRepository> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team repository permissions
@@ -8524,7 +8524,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -8569,7 +8569,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8604,7 +8604,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team)
         public var get: Request<OctoKit.GroupMapping> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update IdP group connections
@@ -8617,7 +8617,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
         public func patch(groups: [PatchRequest.Group]? = nil) -> Request<OctoKit.GroupMapping> {
-            .patch(path, body: PatchRequest(groups: groups))
+            Request(method: "PATCH", url: path, body: PatchRequest(groups: groups))
         }
 
         public struct PatchRequest: Encodable {
@@ -8669,7 +8669,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-child-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -8731,14 +8731,14 @@ extension Paths.Projects.Columns.Cards {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-card)
         public var get: Request<OctoKit.ProjectCard> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an existing project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-card)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.ProjectCard> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -8766,7 +8766,7 @@ extension Paths.Projects.Columns.Cards {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-card)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8784,7 +8784,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-card)
         public func post(_ body: PostRequest) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -8823,21 +8823,21 @@ extension Paths.Projects.Columns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-column)
         public var get: Request<OctoKit.ProjectColumn> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an existing project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
         public func patch(name: String) -> Request<OctoKit.ProjectColumn> {
-            .patch(path, body: ["name": name])
+            Request(method: "PATCH", url: path, body: ["name": name])
         }
 
         /// Delete a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-column)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -8855,7 +8855,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-cards)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ProjectCard]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -8892,7 +8892,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-card)
         public func post(_ body: PostRequest) -> Request<OctoKit.ProjectCard> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -8955,7 +8955,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
         public func post(position: String) -> Request<Void> {
-            .post(path, body: ["position": position])
+            Request(method: "POST", url: path, body: ["position": position])
         }
     }
 }
@@ -8975,7 +8975,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project)
         public var get: Request<OctoKit.Project> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a project
@@ -8984,7 +8984,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Project> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -9036,7 +9036,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9056,7 +9056,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-collaborators)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -9106,7 +9106,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#add-project-collaborator)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -9135,7 +9135,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#remove-project-collaborator)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9155,7 +9155,7 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user)
         public var get: Request<OctoKit.ProjectCollaboratorPermission> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -9173,7 +9173,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-columns)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.ProjectColumn]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -9191,7 +9191,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
         public func post(name: String) -> Request<OctoKit.ProjectColumn> {
-            .post(path, body: ["name": name])
+            Request(method: "POST", url: path, body: ["name": name])
         }
     }
 }
@@ -9213,7 +9213,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/rate-limit#get-rate-limit-status-for-the-authenticated-user)
         public var get: Request<OctoKit.RateLimitOverview> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public enum GetResponseHeaders {
@@ -9253,7 +9253,7 @@ extension Paths.Reactions {
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9295,7 +9295,7 @@ extension Paths.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository)
         public var get: Request<OctoKit.FullRepository> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a repository
@@ -9304,7 +9304,7 @@ extension Paths.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos/#update-a-repository)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.FullRepository> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -9443,7 +9443,7 @@ extension Paths.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9474,7 +9474,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-artifacts-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -9520,7 +9520,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-artifact)
         public var get: Request<OctoKit.Artifact> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete an artifact
@@ -9529,7 +9529,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-artifact)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9552,7 +9552,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts.WithArtifactID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-an-artifact)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -9583,7 +9583,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run)
         public var get: Request<OctoKit.Job> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -9606,7 +9606,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs.WithJobID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-job-logs-for-a-workflow-run)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -9629,7 +9629,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository)
         public var get: Request<OctoKit.ActionsRepositoryPermissions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set GitHub Actions permissions for a repository
@@ -9642,7 +9642,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-a-repository)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -9681,7 +9681,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository)
         public var get: Request<OctoKit.SelectedActions> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set allowed actions for a repository
@@ -9696,7 +9696,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository)
         public func put(_ body: OctoKit.SelectedActions? = nil) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
     }
 }
@@ -9716,7 +9716,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -9764,7 +9764,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-runner-applications-for-a-repository)
         public var get: Request<[OctoKit.RunnerApplication]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -9793,7 +9793,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-registration-token-for-a-repository)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -9822,7 +9822,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-remove-token-for-a-repository)
         public var post: Request<OctoKit.AuthenticationToken> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -9845,7 +9845,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-a-repository)
         public var get: Request<OctoKit.Runner> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a self-hosted runner from a repository
@@ -9857,7 +9857,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-a-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -9880,7 +9880,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -9907,7 +9907,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository)
         public func post(labels: [String]) -> Request<PostResponse> {
-            .post(path, body: ["labels": labels])
+            Request(method: "POST", url: path, body: ["labels": labels])
         }
 
         public struct PostResponse: Decodable {
@@ -9935,7 +9935,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository)
         public func put(labels: [String]) -> Request<PutResponse> {
-            .put(path, body: ["labels": labels])
+            Request(method: "PUT", url: path, body: ["labels": labels])
         }
 
         public struct PutResponse: Decodable {
@@ -9963,7 +9963,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -10005,7 +10005,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-a-repository)
         public var delete: Request<DeleteResponse> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
 
         public struct DeleteResponse: Decodable {
@@ -10042,7 +10042,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -10132,7 +10132,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run)
         public func get(excludePullRequests: Bool? = nil) -> Request<OctoKit.WorkflowRun> {
-            .get(path, query: makeGetQuery(excludePullRequests))
+            Request(method: "GET", url: path, query: makeGetQuery(excludePullRequests))
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {
@@ -10149,7 +10149,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-workflow-run)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -10169,7 +10169,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-the-review-history-for-a-workflow-run)
         public var get: Request<[OctoKit.EnvironmentApprovals]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -10191,7 +10191,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#approve-a-workflow-run-for-a-fork-pull-request)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -10211,7 +10211,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-run-artifacts)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -10271,7 +10271,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt)
         public func get(excludePullRequests: Bool? = nil) -> Request<OctoKit.WorkflowRun> {
-            .get(path, query: makeGetQuery(excludePullRequests))
+            Request(method: "GET", url: path, query: makeGetQuery(excludePullRequests))
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {
@@ -10297,7 +10297,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -10346,7 +10346,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-attempt-logs)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -10366,7 +10366,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#cancel-a-workflow-run)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -10386,7 +10386,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -10453,7 +10453,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-logs)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete workflow run logs
@@ -10462,7 +10462,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-workflow-run-logs)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -10484,7 +10484,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-pending-deployments-for-a-workflow-run)
         public var get: Request<[OctoKit.PendingDeployment]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Review pending deployments for a workflow run
@@ -10495,7 +10495,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#review-pending-deployments-for-a-workflow-run)
         public func post(_ body: PostRequest) -> Request<[OctoKit.Deployment]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -10551,7 +10551,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// [API method documentation](https://docs.github.com/rest/reference/actions#re-run-a-workflow)
         @available(*, deprecated, message: "Deprecated")
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -10573,7 +10573,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-run-usage)
         public var get: Request<OctoKit.WorkflowRunUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -10593,7 +10593,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -10639,7 +10639,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -10659,7 +10659,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-secret)
         public var get: Request<OctoKit.ActionsSecret> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update a repository secret
@@ -10742,7 +10742,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -10768,7 +10768,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-repository-secret)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -10788,7 +10788,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-workflows)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -10834,7 +10834,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow)
         public var get: Request<OctoKit.Workflow> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -10856,7 +10856,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-workflow)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
     }
 }
@@ -10880,7 +10880,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-workflow-dispatch-event)
         public func post(_ body: PostRequest) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -10914,7 +10914,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-workflow)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
     }
 }
@@ -10936,7 +10936,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -11028,7 +11028,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-usage)
         public var get: Request<OctoKit.WorkflowUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -11048,7 +11048,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-assignees)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -11083,7 +11083,7 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -11105,7 +11105,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#list-autolinks)
         public func get(page: Int? = nil) -> Request<[OctoKit.Autolink]> {
-            .get(path, query: makeGetQuery(page))
+            Request(method: "GET", url: path, query: makeGetQuery(page))
         }
 
         private func makeGetQuery(_ page: Int?) -> [(String, String?)] {
@@ -11120,7 +11120,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#create-an-autolink)
         public func post(_ body: PostRequest) -> Request<OctoKit.Autolink> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -11163,7 +11163,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#get-autolink)
         public var get: Request<OctoKit.Autolink> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete an autolink reference from a repository
@@ -11174,7 +11174,7 @@ extension Paths.Repos.WithOwner.WithRepo.Autolinks {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#delete-autolink)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11194,7 +11194,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-automated-security-fixes)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Disable automated security fixes
@@ -11203,7 +11203,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-automated-security-fixes)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11221,7 +11221,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ShortBranch]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -11263,7 +11263,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-branch)
         public var get: Request<OctoKit.BranchWithProtection> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -11283,7 +11283,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-branch-protection)
         public var get: Request<OctoKit.BranchProtection> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update branch protection
@@ -11298,7 +11298,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-branch-protection)
         public func put(_ body: PutRequest) -> Request<OctoKit.ProtectedBranch> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -11444,7 +11444,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-branch-protection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11464,7 +11464,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-admin-branch-protection)
         public var get: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set admin branch protection
@@ -11475,7 +11475,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-admin-branch-protection)
         public var post: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
 
         /// Delete admin branch protection
@@ -11486,7 +11486,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-admin-branch-protection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11506,7 +11506,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-pull-request-review-protection)
         public var get: Request<OctoKit.ProtectedBranchPullRequestReview> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update pull request review protection
@@ -11519,7 +11519,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-pull-request-review-protection)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.ProtectedBranchPullRequestReview> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -11566,7 +11566,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11590,7 +11590,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-commit-signature-protection)
         public var get: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create commit signature protection
@@ -11601,7 +11601,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-commit-signature-protection)
         public var post: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
 
         /// Delete commit signature protection
@@ -11612,7 +11612,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-commit-signature-protection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11632,7 +11632,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-status-checks-protection)
         public var get: Request<OctoKit.StatusCheckPolicy> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update status check protection
@@ -11643,7 +11643,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-protection)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.StatusCheckPolicy> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -11692,7 +11692,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-protection)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11712,7 +11712,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-status-check-contexts)
         public var get: Request<[String]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add status check contexts
@@ -11721,7 +11721,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-status-check-contexts)
         public func post(_ body: PostRequest? = nil) -> Request<[String]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -11759,7 +11759,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-status-check-contexts)
         public func put(_ body: PutRequest? = nil) -> Request<[String]> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutRequest: Encodable {
@@ -11797,7 +11797,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-contexts)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[String]> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public enum DeleteRequest: Encodable {
@@ -11850,7 +11850,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-access-restrictions)
         public var get: Request<OctoKit.BranchRestrictionPolicy> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete access restrictions
@@ -11861,7 +11861,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-access-restrictions)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -11883,7 +11883,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-apps-with-access-to-the-protected-branch)
         public var get: Request<[OctoKit.Integration]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add app access restrictions
@@ -11898,7 +11898,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-app-access-restrictions)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Integration]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -11942,7 +11942,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-app-access-restrictions)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.Integration]> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutRequest: Encodable {
@@ -11986,7 +11986,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-app-access-restrictions)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[OctoKit.Integration]> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public enum DeleteRequest: Encodable {
@@ -12037,7 +12037,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch)
         public var get: Request<[OctoKit.Team]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add team access restrictions
@@ -12052,7 +12052,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-team-access-restrictions)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Team]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -12096,7 +12096,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-team-access-restrictions)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.Team]> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutRequest: Encodable {
@@ -12140,7 +12140,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-team-access-restrictions)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[OctoKit.Team]> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public enum DeleteRequest: Encodable {
@@ -12191,7 +12191,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch)
         public var get: Request<[OctoKit.SimpleUser]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add user access restrictions
@@ -12206,7 +12206,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-user-access-restrictions)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -12250,7 +12250,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-user-access-restrictions)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutRequest: Encodable {
@@ -12294,7 +12294,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-user-access-restrictions)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public enum DeleteRequest: Encodable {
@@ -12357,7 +12357,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
         public func post(newName: String) -> Request<OctoKit.BranchWithProtection> {
-            .post(path, body: ["new_name": newName])
+            Request(method: "POST", url: path, body: ["new_name": newName])
         }
     }
 }
@@ -12381,7 +12381,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-run)
         public func post(_ body: PostRequest) -> Request<OctoKit.CheckRun> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -12434,7 +12434,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-run)
         public var get: Request<OctoKit.CheckRun> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a check run
@@ -12445,7 +12445,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-a-check-run)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.CheckRun> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -12643,7 +12643,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-run-annotations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CheckAnnotation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -12676,7 +12676,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#rerequest-a-check-run)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -12698,7 +12698,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
         public func post(headSha: String) -> Request<OctoKit.CheckSuite> {
-            .post(path, body: ["head_sha": headSha])
+            Request(method: "POST", url: path, body: ["head_sha": headSha])
         }
     }
 }
@@ -12718,7 +12718,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)
         public func patch(autoTriggerChecks: [PatchRequest.AutoTriggerCheck]? = nil) -> Request<OctoKit.CheckSuitePreference> {
-            .patch(path, body: PatchRequest(autoTriggerChecks: autoTriggerChecks))
+            Request(method: "PATCH", url: path, body: PatchRequest(autoTriggerChecks: autoTriggerChecks))
         }
 
         public struct PatchRequest: Encodable {
@@ -12770,7 +12770,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-suite)
         public var get: Request<OctoKit.CheckSuite> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -12792,7 +12792,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -12870,7 +12870,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#rerequest-a-check-suite)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -12910,7 +12910,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertItems]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -12992,7 +12992,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert)
         public var get: Request<OctoKit.CodeScanningAlert> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a code scanning alert
@@ -13001,7 +13001,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.CodeScanningAlert> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -13041,7 +13041,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertInstance]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -13099,7 +13099,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAnalysis]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -13173,7 +13173,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)
         public var get: Request<OctoKit.CodeScanningAnalysis> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a code scanning analysis from a repository
@@ -13247,7 +13247,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
         public func delete(confirmDelete: String? = nil) -> Request<OctoKit.CodeScanningAnalysisDeletion> {
-            .delete(path, query: makeDeleteQuery(confirmDelete))
+            Request(method: "DELETE", url: path, query: makeDeleteQuery(confirmDelete))
         }
 
         private func makeDeleteQuery(_ confirmDelete: String?) -> [(String, String?)] {
@@ -13289,7 +13289,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file)
         public func post(_ body: PostRequest) -> Request<OctoKit.CodeScanningSarifsReceipt> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -13346,7 +13346,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository)
         public var get: Request<OctoKit.CodeScanningSarifsStatus> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -13368,7 +13368,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -13401,7 +13401,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -13454,7 +13454,7 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository)
         public func get(location: String) -> Request<GetResponse> {
-            .get(path, query: [("location", location)])
+            Request(method: "GET", url: path, query: [("location", location)])
         }
 
         public struct GetResponse: Decodable {
@@ -13493,7 +13493,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-collaborators)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Collaborator]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13545,7 +13545,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add a repository collaborator
@@ -13568,7 +13568,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-a-repository-collaborator)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.RepositoryInvitation> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -13608,7 +13608,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-a-repository-collaborator)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -13628,7 +13628,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user)
         public var get: Request<OctoKit.RepositoryCollaboratorPermission> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -13650,7 +13650,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CommitComment]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -13679,21 +13679,21 @@ extension Paths.Repos.WithOwner.WithRepo.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit-comment)
         public var get: Request<OctoKit.CommitComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a commit comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-commit-comment)
         public func patch(body: String) -> Request<OctoKit.CommitComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete a commit comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-commit-comment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -13713,7 +13713,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-commit-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13757,7 +13757,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-commit-comment)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -13800,7 +13800,7 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID.Reactions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-commit-comment-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -13847,7 +13847,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commits)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Commit]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -13916,7 +13916,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches-for-head-commit)
         public var get: Request<[OctoKit.BranchShort]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -13936,7 +13936,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CommitComment]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -13958,7 +13958,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-comment)
         public func post(_ body: PostRequest) -> Request<OctoKit.CommitComment> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -14000,7 +14000,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-pull-requests-associated-with-a-commit)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.PullRequestSimple]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -14066,7 +14066,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.Commit> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
@@ -14095,7 +14095,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-for-a-git-reference)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -14176,7 +14176,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -14245,7 +14245,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-combined-status-for-a-specific-reference)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.CombinedCommitStatus> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -14274,7 +14274,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-statuses-for-a-reference)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Status]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -14327,7 +14327,7 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-community-profile-metrics)
         public var get: Request<OctoKit.CommunityProfile> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -14397,7 +14397,7 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#compare-two-commits)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.CommitComparison> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
@@ -14466,7 +14466,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-content)
         public func get(ref: String? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(ref))
+            Request(method: "GET", url: path, query: makeGetQuery(ref))
         }
 
         public enum GetResponse: Decodable {
@@ -14503,7 +14503,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-file-contents)
         public func put(_ body: PutRequest) -> Request<OctoKit.FileCommit> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -14574,7 +14574,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
         public func delete(_ body: DeleteRequest) -> Request<OctoKit.FileCommit> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public struct DeleteRequest: Encodable {
@@ -14643,7 +14643,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-contributors)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Contributor]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14687,7 +14687,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Deployment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -14773,7 +14773,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment)
         public func post(_ body: PostRequest) -> Request<OctoKit.Deployment> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -14848,7 +14848,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment)
         public var get: Request<OctoKit.Deployment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a deployment
@@ -14864,7 +14864,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deployment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -14884,7 +14884,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployment-statuses)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.DeploymentStatus]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -14906,7 +14906,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment-status)
         public func post(_ body: PostRequest) -> Request<OctoKit.DeploymentStatus> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -14985,7 +14985,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment-status)
         public var get: Request<OctoKit.DeploymentStatus> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -15014,7 +15014,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-dispatch-event)
         public func post(_ body: PostRequest) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -15053,7 +15053,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-environments)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -15089,7 +15089,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-an-environment)
         public var get: Request<OctoKit.Environment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update an environment
@@ -15104,7 +15104,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-an-environment)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.Environment> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -15152,7 +15152,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-an-environment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -15170,7 +15170,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-events)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -15195,7 +15195,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-forks)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -15237,7 +15237,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
         public func post(organization: String? = nil) -> Request<OctoKit.FullRepository> {
-            .post(path, body: ["organization": organization])
+            Request(method: "POST", url: path, body: ["organization": organization])
         }
     }
 }
@@ -15266,7 +15266,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-blob)
         public func post(_ body: PostRequest) -> Request<OctoKit.ShortBlob> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -15304,7 +15304,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-blob)
         public var get: Request<OctoKit.Blob> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -15353,7 +15353,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-commit)
         public func post(_ body: PostRequest) -> Request<OctoKit.GitCommit> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -15462,7 +15462,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-commit)
         public var get: Request<OctoKit.GitCommit> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -15499,7 +15499,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#list-matching-references)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GitRef]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -15543,7 +15543,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-reference)
         public var get: Request<OctoKit.GitRef> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -15563,7 +15563,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-reference)
         public func post(_ body: PostRequest) -> Request<OctoKit.GitRef> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -15600,7 +15600,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#update-a-reference)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GitRef> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -15624,7 +15624,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#delete-a-reference)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -15673,7 +15673,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tag-object)
         public func post(_ body: PostRequest) -> Request<OctoKit.GitTag> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -15768,7 +15768,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tag)
         public var get: Request<OctoKit.GitTag> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -15790,7 +15790,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-tree)
         public func post(_ body: PostRequest) -> Request<OctoKit.GitTree> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -15875,7 +15875,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
         public func get(recursive: String? = nil) -> Request<OctoKit.GitTree> {
-            .get(path, query: makeGetQuery(recursive))
+            Request(method: "GET", url: path, query: makeGetQuery(recursive))
         }
 
         private func makeGetQuery(_ recursive: String?) -> [(String, String?)] {
@@ -15899,7 +15899,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-webhooks)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Hook]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -15920,7 +15920,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-webhook)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.Hook> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -16008,7 +16008,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-webhook)
         public var get: Request<OctoKit.Hook> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a repository webhook
@@ -16017,7 +16017,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-webhook)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.Hook> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -16092,7 +16092,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-webhook)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -16114,7 +16114,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
         public var get: Request<OctoKit.WebhookConfig> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a webhook configuration for a repository
@@ -16125,7 +16125,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         /// Example:
@@ -16183,7 +16183,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deliveries-for-a-repository-webhook)
         public func get(perPage: Int? = nil, cursor: String? = nil) -> Request<[OctoKit.HookDeliveryItem]> {
-            .get(path, query: makeGetQuery(perPage, cursor))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, cursor))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {
@@ -16210,7 +16210,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-delivery-for-a-repository-webhook)
         public var get: Request<OctoKit.HookDelivery> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -16230,7 +16230,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID.Deliveries.WithDeliver
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#redeliver-a-delivery-for-a-repository-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -16250,7 +16250,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#ping-a-repository-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -16272,7 +16272,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#test-the-push-repository-webhook)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -16325,7 +16325,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-import-status)
         public var get: Request<OctoKit.Import> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Start an import
@@ -16334,7 +16334,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-import)
         public func put(_ body: PutRequest) -> Request<OctoKit.Import> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutResponseHeaders {
@@ -16385,7 +16385,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-an-import)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Import> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -16419,7 +16419,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#cancel-an-import)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -16441,7 +16441,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-commit-authors)
         public func get(since: Int? = nil) -> Request<[OctoKit.PorterAuthor]> {
-            .get(path, query: makeGetQuery(since))
+            Request(method: "GET", url: path, query: makeGetQuery(since))
         }
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {
@@ -16467,7 +16467,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#map-a-commit-author)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PorterAuthor> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -16499,7 +16499,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-large-files)
         public var get: Request<[OctoKit.PorterLargeFile]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -16519,7 +16519,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-git-lfs-preference)
         public func patch(useLfs: PatchRequest.UseLfs) -> Request<OctoKit.Import> {
-            .patch(path, body: PatchRequest(useLfs: useLfs))
+            Request(method: "PATCH", url: path, body: PatchRequest(useLfs: useLfs))
         }
 
         public struct PatchRequest: Encodable {
@@ -16560,7 +16560,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-repository-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -16580,7 +16580,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-a-repository)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -16605,7 +16605,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository)
         public func put(_ body: OctoKit.InteractionLimit) -> Request<OctoKit.InteractionLimitResponse> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         /// Remove interaction restrictions for a repository
@@ -16614,7 +16614,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-a-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -16634,7 +16634,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.RepositoryInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -16663,7 +16663,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-invitation)
         public func patch(permissions: PatchRequest.Permissions? = nil) -> Request<OctoKit.RepositoryInvitation> {
-            .patch(path, body: PatchRequest(permissions: permissions))
+            Request(method: "PATCH", url: path, body: PatchRequest(permissions: permissions))
         }
 
         public struct PatchRequest: Encodable {
@@ -16688,7 +16688,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-invitation)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -16713,7 +16713,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-repository-issues)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -16789,7 +16789,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue)
         public func post(_ body: PostRequest) -> Request<OctoKit.Issue> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -16890,7 +16890,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -16948,21 +16948,21 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-comment)
         public var get: Request<OctoKit.IssueComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
         public func patch(body: String) -> Request<OctoKit.IssueComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-an-issue-comment)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -16982,7 +16982,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -17026,7 +17026,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue-comment)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -17069,7 +17069,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17087,7 +17087,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.IssueEvent]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17116,7 +17116,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-event)
         public var get: Request<OctoKit.IssueEvent> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -17146,7 +17146,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue)
         public var get: Request<OctoKit.Issue> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an issue
@@ -17155,7 +17155,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues/#update-an-issue)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Issue> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -17261,7 +17261,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
         public func post(assignees: [String]? = nil) -> Request<OctoKit.Issue> {
-            .post(path, body: ["assignees": assignees])
+            Request(method: "POST", url: path, body: ["assignees": assignees])
         }
 
         /// Remove assignees from an issue
@@ -17270,7 +17270,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
         public func delete(assignees: [String]? = nil) -> Request<OctoKit.Issue> {
-            .delete(path, body: ["assignees": assignees])
+            Request(method: "DELETE", url: path, body: ["assignees": assignees])
         }
     }
 }
@@ -17290,7 +17290,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -17323,7 +17323,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
         public func post(body: String) -> Request<OctoKit.IssueComment> {
-            .post(path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
@@ -17345,7 +17345,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.IssueEventForIssue]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17374,7 +17374,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-an-issue)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17392,7 +17392,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Label]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -17453,7 +17453,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.Label]> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public enum PutRequest: Encodable {
@@ -17512,7 +17512,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-all-labels-from-an-issue)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17532,7 +17532,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-a-label-from-an-issue)
         public var delete: Request<[OctoKit.Label]> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17554,7 +17554,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#lock-an-issue)
         public func put(lockReason: PutRequest.LockReason? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(lockReason: lockReason))
+            Request(method: "PUT", url: path, body: PutRequest(lockReason: lockReason))
         }
 
         public struct PutRequest: Encodable {
@@ -17592,7 +17592,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#unlock-an-issue)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17612,7 +17612,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-an-issue)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -17656,7 +17656,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-an-issue)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -17699,7 +17699,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17717,7 +17717,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TimelineIssueEvents]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17746,7 +17746,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deploy-keys)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.DeployKey]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17766,7 +17766,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deploy-key)
         public func post(_ body: PostRequest) -> Request<OctoKit.DeployKey> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -17811,7 +17811,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deploy-key)
         public var get: Request<OctoKit.DeployKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a deploy key
@@ -17820,7 +17820,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deploy-key)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17838,7 +17838,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -17856,7 +17856,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-label)
         public func post(_ body: PostRequest) -> Request<OctoKit.Label> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -17893,14 +17893,14 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-label)
         public var get: Request<OctoKit.Label> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a label
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-label)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Label> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -17928,7 +17928,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-label)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17948,7 +17948,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-languages)
         public var get: Request<[String: Int]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -17966,14 +17966,14 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Disable Git LFS for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -17995,7 +17995,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository)
         public var get: Request<OctoKit.LicenseContent> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -18015,7 +18015,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
         public func post(branch: String) -> Request<OctoKit.MergedUpstream> {
-            .post(path, body: ["branch": branch])
+            Request(method: "POST", url: path, body: ["branch": branch])
         }
     }
 }
@@ -18033,7 +18033,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#merge-a-branch)
         public func post(_ body: PostRequest) -> Request<OctoKit.Commit> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -18072,7 +18072,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-milestones)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Milestone]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18125,7 +18125,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-milestone)
         public func post(_ body: PostRequest) -> Request<OctoKit.Milestone> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -18178,14 +18178,14 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-milestone)
         public var get: Request<OctoKit.Milestone> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-milestone)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Milestone> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -18223,7 +18223,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-milestone)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -18241,7 +18241,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -18272,7 +18272,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18314,7 +18314,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read)
         public func put(lastReadAt: Date? = nil) -> Request<PutResponse> {
-            .put(path, body: ["last_read_at": lastReadAt])
+            Request(method: "PUT", url: path, body: ["last_read_at": lastReadAt])
         }
 
         public struct PutResponse: Decodable {
@@ -18342,7 +18342,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-github-pages-site)
         public var get: Request<OctoKit.Page> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create a GitHub Pages site
@@ -18351,7 +18351,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-github-pages-site)
         public func post(source: PostRequest.Source) -> Request<OctoKit.Page> {
-            .post(path, body: PostRequest(source: source))
+            Request(method: "POST", url: path, body: PostRequest(source: source))
         }
 
         /// The source branch and directory used to publish your Pages site.
@@ -18389,7 +18389,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-information-about-a-github-pages-site)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -18464,7 +18464,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-github-pages-site)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -18482,7 +18482,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-github-pages-builds)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.PageBuild]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -18504,7 +18504,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#request-a-github-pages-build)
         public var post: Request<OctoKit.PageBuildStatus> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -18522,7 +18522,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-latest-pages-build)
         public var get: Request<OctoKit.PageBuild> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -18540,7 +18540,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-github-pages-build)
         public var get: Request<OctoKit.PageBuild> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -18564,7 +18564,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-dns-health-check-for-github-pages)
         public var get: Request<OctoKit.PagesHealthCheck> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -18584,7 +18584,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-repository-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18623,7 +18623,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-repository-project)
         public func post(_ body: PostRequest) -> Request<OctoKit.Project> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -18655,7 +18655,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestSimple]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18724,7 +18724,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequest> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -18784,7 +18784,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18845,7 +18845,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
         public var get: Request<OctoKit.PullRequestReviewComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a review comment for a pull request
@@ -18854,7 +18854,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
         public func patch(body: String) -> Request<OctoKit.PullRequestReviewComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete a review comment for a pull request
@@ -18863,7 +18863,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-review-comment-for-a-pull-request)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -18883,7 +18883,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -18927,7 +18927,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -18970,7 +18970,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID.Reactions 
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-a-pull-request-comment-reaction)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -19004,7 +19004,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-pull-request)
         public var get: Request<OctoKit.PullRequest> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a pull request
@@ -19015,7 +19015,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls/#update-a-pull-request)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PullRequest> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -19072,7 +19072,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -19117,7 +19117,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -19172,7 +19172,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequestReviewComment> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -19267,7 +19267,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
         public func post(body: String) -> Request<OctoKit.PullRequestReviewComment> {
-            .post(path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body])
         }
 
         public enum PostResponseHeaders {
@@ -19291,7 +19291,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-commits-on-a-pull-request)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Commit]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19322,7 +19322,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests-files)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.DiffEntry]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19351,7 +19351,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#check-if-a-pull-request-has-been-merged)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Merge a pull request
@@ -19360,7 +19360,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#merge-a-pull-request)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.PullRequestMergeResult> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -19410,7 +19410,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.PullRequestReviewRequest> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19430,7 +19430,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.PullRequestSimple> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -19454,7 +19454,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
         public func delete(_ body: DeleteRequest) -> Request<OctoKit.PullRequestSimple> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public struct DeleteRequest: Encodable {
@@ -19491,7 +19491,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.PullRequestReview]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19517,7 +19517,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.PullRequestReview> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -19604,7 +19604,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request)
         public var get: Request<OctoKit.PullRequestReview> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a review for a pull request
@@ -19613,14 +19613,14 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
         public func put(body: String) -> Request<OctoKit.PullRequestReview> {
-            .put(path, body: ["body": body])
+            Request(method: "PUT", url: path, body: ["body": body])
         }
 
         /// Delete a pending review for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request)
         public var delete: Request<OctoKit.PullRequestReview> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -19640,7 +19640,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.ReviewComment]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19671,7 +19671,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request)
         public func put(_ body: PutRequest) -> Request<OctoKit.PullRequestReview> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -19701,7 +19701,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequestReview> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -19740,7 +19740,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch)
         public func put(expectedHeadSha: String? = nil) -> Request<PutResponse> {
-            .put(path, body: ["expected_head_sha": expectedHeadSha])
+            Request(method: "PUT", url: path, body: ["expected_head_sha": expectedHeadSha])
         }
 
         public struct PutResponse: Decodable {
@@ -19772,7 +19772,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-readme)
         public func get(ref: String? = nil) -> Request<OctoKit.ContentFile> {
-            .get(path, query: makeGetQuery(ref))
+            Request(method: "GET", url: path, query: makeGetQuery(ref))
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {
@@ -19800,7 +19800,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
         public func get(ref: String? = nil) -> Request<OctoKit.ContentFile> {
-            .get(path, query: makeGetQuery(ref))
+            Request(method: "GET", url: path, query: makeGetQuery(ref))
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {
@@ -19828,7 +19828,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-releases)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Release]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -19850,7 +19850,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-release)
         public func post(_ body: PostRequest) -> Request<OctoKit.Release> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -19926,7 +19926,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-asset)
         public var get: Request<OctoKit.ReleaseAsset> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a release asset
@@ -19935,7 +19935,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release-asset)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.ReleaseAsset> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -19957,7 +19957,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release-asset)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -19977,7 +19977,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#generate-release-notes)
         public func post(_ body: PostRequest) -> Request<OctoKit.ReleaseNotesContent> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -20024,7 +20024,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-latest-release)
         public var get: Request<OctoKit.Release> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20055,7 +20055,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name)
         public var get: Request<OctoKit.Release> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20075,7 +20075,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release)
         public var get: Request<OctoKit.Release> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a release
@@ -20084,7 +20084,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Release> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -20130,7 +20130,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -20148,7 +20148,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-release-assets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.ReleaseAsset]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -20185,7 +20185,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#upload-a-release-asset)
         public func post(name: String, label: String? = nil, _ body: String? = nil) -> Request<OctoKit.ReleaseAsset> {
-            .post(path, query: makePostQuery(name, label), body: body)
+            Request(method: "POST", url: path, query: makePostQuery(name, label), body: body)
         }
 
         private func makePostQuery(_ name: String, _ label: String?) -> [(String, String?)] {
@@ -20212,7 +20212,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -20264,7 +20264,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SecretScanningAlert]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -20317,7 +20317,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert)
         public var get: Request<OctoKit.SecretScanningAlert> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a secret scanning alert
@@ -20328,7 +20328,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.SecretScanningAlert> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -20362,7 +20362,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts.WithAlertNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.SecretScanningLocation]> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         public enum GetResponseHeaders {
@@ -20395,7 +20395,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-stargazers)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -20453,7 +20453,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-activity)
         public var get: Request<[[Int]]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20473,7 +20473,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-last-year-of-commit-activity)
         public var get: Request<[OctoKit.CommitActivity]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20498,7 +20498,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-contributor-commit-activity)
         public var get: Request<[OctoKit.ContributorActivity]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20520,7 +20520,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count)
         public var get: Request<OctoKit.ParticipationStats> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20546,7 +20546,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-hourly-commit-count-for-each-day)
         public var get: Request<[[Int]]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20579,7 +20579,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-status)
         public func post(_ body: PostRequest) -> Request<OctoKit.Status> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -20638,7 +20638,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-watchers)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -20667,7 +20667,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-repository-subscription)
         public var get: Request<OctoKit.RepositorySubscription> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set a repository subscription
@@ -20676,7 +20676,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-repository-subscription)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.RepositorySubscription> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -20702,7 +20702,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -20720,7 +20720,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-tags)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Tag]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -20765,7 +20765,7 @@ extension Paths.Repos.WithOwner.WithRepo.Tarball {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#download-a-repository-archive)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20783,7 +20783,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -20812,7 +20812,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.Topic> {
-            .get(path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
@@ -20826,7 +20826,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
         public func put(names: [String]) -> Request<OctoKit.Topic> {
-            .put(path, body: ["names": names])
+            Request(method: "PUT", url: path, body: ["names": names])
         }
     }
 }
@@ -20857,7 +20857,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-clones)
         public func get(per: Per? = nil) -> Request<OctoKit.CloneTraffic> {
-            .get(path, query: makeGetQuery(per))
+            Request(method: "GET", url: path, query: makeGetQuery(per))
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {
@@ -20900,7 +20900,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-top-referral-paths)
         public var get: Request<[OctoKit.ContentTraffic]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20920,7 +20920,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic.Popular {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-top-referral-sources)
         public var get: Request<[OctoKit.ReferrerTraffic]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -20940,7 +20940,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-page-views)
         public func get(per: Per? = nil) -> Request<OctoKit.ViewTraffic> {
-            .get(path, query: makeGetQuery(per))
+            Request(method: "GET", url: path, query: makeGetQuery(per))
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {
@@ -20972,7 +20972,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#transfer-a-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.MinimalRepository> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -21009,7 +21009,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-vulnerability-alerts-are-enabled-for-a-repository)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Enable vulnerability alerts
@@ -21018,7 +21018,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-vulnerability-alerts)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Disable vulnerability alerts
@@ -21027,7 +21027,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-vulnerability-alerts)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -21061,7 +21061,7 @@ extension Paths.Repos.WithOwner.WithRepo.Zipball {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#download-a-repository-archive)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -21110,7 +21110,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -21167,7 +21167,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-public-repositories)
         public func get(since: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(since))
+            Request(method: "GET", url: path, query: makeGetQuery(since))
         }
 
         public enum GetResponseHeaders {
@@ -21230,7 +21230,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-environment-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -21276,7 +21276,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -21296,7 +21296,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-secret)
         public var get: Request<OctoKit.ActionsSecret> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update an environment secret
@@ -21379,7 +21379,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -21405,7 +21405,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-environment-secret)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -21469,7 +21469,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimGroupListEnterprise> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -21503,7 +21503,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users)
         public func post(_ body: PostRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -21546,7 +21546,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
         public func get(excludedAttributes: String? = nil) -> Request<OctoKit.ScimEnterpriseGroup> {
-            .get(path, query: makeGetQuery(excludedAttributes))
+            Request(method: "GET", url: path, query: makeGetQuery(excludedAttributes))
         }
 
         private func makeGetQuery(_ excludedAttributes: String?) -> [(String, String?)] {
@@ -21563,7 +21563,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -21597,7 +21597,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -21645,7 +21645,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-group-from-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -21682,7 +21682,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-scim-provisioned-identities-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimUserListEnterprise> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -21715,7 +21715,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-and-invite-a-scim-enterprise-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.ScimEnterpriseUser> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -21796,7 +21796,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user)
         public var get: Request<OctoKit.ScimEnterpriseUser> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Set SCIM information for a provisioned enterprise user
@@ -21811,7 +21811,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimEnterpriseUser> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -21898,7 +21898,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimEnterpriseUser> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -21924,7 +21924,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-user-from-an-enterprise)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -21981,7 +21981,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#list-scim-provisioned-identities)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimUserList> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -22010,7 +22010,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#provision-and-invite-a-scim-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.ScimUser> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -22123,7 +22123,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#get-scim-provisioning-information-for-a-user)
         public var get: Request<OctoKit.ScimUser> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a provisioned organization membership
@@ -22136,7 +22136,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#set-scim-information-for-a-provisioned-user)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimUser> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -22255,7 +22255,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#update-an-attribute-for-a-scim-user)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimUser> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -22361,7 +22361,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#delete-a-scim-user-from-an-organization)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -22409,7 +22409,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-code)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22489,7 +22489,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-commits)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22574,7 +22574,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-issues-and-pull-requests)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22665,7 +22665,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-labels)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22750,7 +22750,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-repositories)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22834,7 +22834,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-topics)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22900,7 +22900,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-users)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -22987,7 +22987,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#get-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamFull> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a team (Legacy)
@@ -23001,7 +23001,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#update-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest) -> Request<OctoKit.TeamFull> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -23073,7 +23073,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#delete-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23096,7 +23096,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23139,7 +23139,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamDiscussion> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -23183,7 +23183,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamDiscussion> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a discussion (Legacy)
@@ -23195,7 +23195,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamDiscussion> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -23219,7 +23219,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23242,7 +23242,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23285,7 +23285,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            .post(path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body])
         }
     }
 }
@@ -23308,7 +23308,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamDiscussionComment> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a discussion comment (Legacy)
@@ -23320,7 +23320,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            .patch(path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body])
         }
 
         /// Delete a discussion comment (Legacy)
@@ -23332,7 +23332,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23355,7 +23355,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23402,7 +23402,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -23446,7 +23446,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23493,7 +23493,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            .post(path, body: PostRequest(content: content))
+            Request(method: "POST", url: path, body: PostRequest(content: content))
         }
 
         public struct PostRequest: Encodable {
@@ -23537,7 +23537,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -23571,7 +23571,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -23626,7 +23626,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add team member (Legacy)
@@ -23646,7 +23646,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove team member (Legacy)
@@ -23664,7 +23664,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23705,7 +23705,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamMembership> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team membership for a user (Legacy)
@@ -23725,7 +23725,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.TeamMembership> {
-            .put(path, body: PutRequest(role: role))
+            Request(method: "PUT", url: path, body: PutRequest(role: role))
         }
 
         public struct PutRequest: Encodable {
@@ -23760,7 +23760,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23783,7 +23783,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-projects-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TeamProject]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -23817,7 +23817,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamProject> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team project permissions (Legacy)
@@ -23829,7 +23829,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -23865,7 +23865,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -23886,7 +23886,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-repositories-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -23933,7 +23933,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamRepository> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Add or update team repository permissions (Legacy)
@@ -23947,7 +23947,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            .put(path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
         }
 
         public struct PutRequest: Encodable {
@@ -23985,7 +23985,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -24021,7 +24021,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.GroupMapping> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update IdP group connections (Legacy)
@@ -24035,7 +24035,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GroupMapping> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -24106,7 +24106,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-child-teams-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -24139,7 +24139,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-the-authenticated-user)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public enum GetResponse: Decodable {
@@ -24164,7 +24164,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users/#update-the-authenticated-user)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PrivateUser> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
 
         public struct PatchRequest: Encodable {
@@ -24237,7 +24237,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-users-blocked-by-the-authenticated-user)
         public var get: Request<[OctoKit.SimpleUser]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -24255,21 +24255,21 @@ extension Paths.User.Blocks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Block a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#block-a-user)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unblock a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#unblock-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -24291,7 +24291,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -24339,7 +24339,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -24454,7 +24454,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-secrets-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -24500,7 +24500,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user)
         public var get: Request<OctoKit.CodespacesUserPublicKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -24521,7 +24521,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user)
         public var get: Request<OctoKit.CodespacesSecret> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Create or update a secret for the authenticated user
@@ -24602,7 +24602,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user)
         public func put(_ body: PutRequest) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         public struct PutRequest: Encodable {
@@ -24632,7 +24632,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-secret-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -24653,7 +24653,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -24678,7 +24678,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            .put(path, body: ["selected_repository_ids": selectedRepositoryIDs])
+            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs])
         }
     }
 }
@@ -24699,7 +24699,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove a selected repository from a user secret
@@ -24709,7 +24709,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -24731,7 +24731,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
         public var get: Request<OctoKit.Codespace> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update a codespace for the authenticated user
@@ -24744,7 +24744,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
         public func patch(machine: String? = nil) -> Request<OctoKit.Codespace> {
-            .patch(path, body: ["machine": machine])
+            Request(method: "PATCH", url: path, body: ["machine": machine])
         }
 
         /// Delete a codespace for the authenticated user
@@ -24755,7 +24755,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -24777,7 +24777,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -24814,7 +24814,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#start-a-codespace-for-the-authenticated-user)
         public var post: Request<OctoKit.Codespace> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -24836,7 +24836,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user)
         public var post: Request<OctoKit.Codespace> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -24867,7 +24867,7 @@ extension Paths.User.Email {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#set-primary-email-visibility-for-the-authenticated-user)
         public func patch(visibility: PatchRequest.Visibility) -> Request<[OctoKit.Email]> {
-            .patch(path, body: PatchRequest(visibility: visibility))
+            Request(method: "PATCH", url: path, body: PatchRequest(visibility: visibility))
         }
 
         public struct PatchRequest: Encodable {
@@ -24902,7 +24902,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Email]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -24922,7 +24922,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#add-an-email-address-for-the-authenticated-user)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Email]> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostRequest: Encodable {
@@ -24965,7 +24965,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user)
         public func delete(_ body: DeleteRequest? = nil) -> Request<Void> {
-            .delete(path, body: body)
+            Request(method: "DELETE", url: path, body: body)
         }
 
         public enum DeleteRequest: Encodable {
@@ -25019,7 +25019,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25050,7 +25050,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-the-authenticated-user-follows)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25079,7 +25079,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Follow a user
@@ -25090,7 +25090,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#follow-a-user)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unfollow a user
@@ -25099,7 +25099,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#unfollow-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25119,7 +25119,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GpgKey]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25139,7 +25139,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
         public func post(armoredPublicKey: String) -> Request<OctoKit.GpgKey> {
-            .post(path, body: ["armored_public_key": armoredPublicKey])
+            Request(method: "POST", url: path, body: ["armored_public_key": armoredPublicKey])
         }
     }
 }
@@ -25159,7 +25159,7 @@ extension Paths.User.GpgKeys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user)
         public var get: Request<OctoKit.GpgKey> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a GPG key for the authenticated user
@@ -25168,7 +25168,7 @@ extension Paths.User.GpgKeys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25194,7 +25194,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -25257,7 +25257,7 @@ extension Paths.User.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public struct GetResponse: Decodable {
@@ -25308,7 +25308,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Remove a repository from an app installation
@@ -25319,7 +25319,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25339,7 +25339,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public struct GetResponse: Decodable {
@@ -25364,7 +25364,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories)
         public func put(_ body: OctoKit.InteractionLimit) -> Request<OctoKit.InteractionLimitResponse> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         /// Remove interaction restrictions from your public repositories
@@ -25373,7 +25373,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-from-your-public-repositories)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25398,7 +25398,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -25483,7 +25483,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-ssh-keys-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Key]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25503,7 +25503,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-public-ssh-key-for-the-authenticated-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.Key> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -25537,7 +25537,7 @@ extension Paths.User.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user)
         public var get: Request<OctoKit.Key> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a public SSH key for the authenticated user
@@ -25546,7 +25546,7 @@ extension Paths.User.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25566,7 +25566,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.UserMarketplacePurchase]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25597,7 +25597,7 @@ extension Paths.User.MarketplacePurchases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.UserMarketplacePurchase]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25637,7 +25637,7 @@ extension Paths.User.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrgMembership]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -25684,14 +25684,14 @@ extension Paths.User.Memberships.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
         public var get: Request<OctoKit.OrgMembership> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Update an organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
         public func patch(state: PatchRequest.State) -> Request<OctoKit.OrgMembership> {
-            .patch(path, body: PatchRequest(state: state))
+            Request(method: "PATCH", url: path, body: PatchRequest(state: state))
         }
 
         public struct PatchRequest: Encodable {
@@ -25725,7 +25725,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-user-migrations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Migration]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25745,7 +25745,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-a-user-migration)
         public func post(_ body: PostRequest) -> Request<OctoKit.Migration> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -25821,7 +25821,7 @@ extension Paths.User.Migrations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
         public func get(exclude: [String]? = nil) -> Request<OctoKit.Migration> {
-            .get(path, query: makeGetQuery(exclude))
+            Request(method: "GET", url: path, query: makeGetQuery(exclude))
         }
 
         private func makeGetQuery(_ exclude: [String]?) -> [(String, String?)] {
@@ -25867,7 +25867,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a user migration archive
@@ -25876,7 +25876,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-a-user-migration-archive)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25918,7 +25918,7 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-a-user-repository)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -25938,7 +25938,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -25973,7 +25973,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationSimple]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26007,7 +26007,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-the-authenticated-user)
         public func get(packageType: PackageType, visibility: Visibility? = nil) -> Request<[OctoKit.Package]> {
-            .get(path, query: makeGetQuery(packageType, visibility))
+            Request(method: "GET", url: path, query: makeGetQuery(packageType, visibility))
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
@@ -26063,7 +26063,7 @@ extension Paths.User.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-the-authenticated-user)
         public var get: Request<OctoKit.Package> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a package for the authenticated user
@@ -26075,7 +26075,7 @@ extension Paths.User.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -26101,7 +26101,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user)
         public func post(token: String? = nil) -> Request<Void> {
-            .post(path, query: makePostQuery(token))
+            Request(method: "POST", url: path, query: makePostQuery(token))
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
@@ -26130,7 +26130,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PackageVersion]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -26178,7 +26178,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user)
         public var get: Request<OctoKit.PackageVersion> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a package version for the authenticated user
@@ -26190,7 +26190,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -26216,7 +26216,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions.WithPacka
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -26234,7 +26234,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-user-project)
         public func post(_ body: PostRequest) -> Request<OctoKit.Project> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public struct PostRequest: Encodable {
@@ -26270,7 +26270,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Email]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26303,7 +26303,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetParameters {
@@ -26383,7 +26383,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         public enum PostResponseHeaders {
@@ -26514,7 +26514,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.RepositoryInvitation]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26543,14 +26543,14 @@ extension Paths.User.RepositoryInvitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#accept-a-repository-invitation)
         public var patch: Request<Void> {
-            .patch(path)
+            Request(method: "PATCH", url: path)
         }
 
         /// Decline a repository invitation
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#decline-a-repository-invitation)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -26572,7 +26572,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -26638,7 +26638,7 @@ extension Paths.User.Starred.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Star a repository for the authenticated user
@@ -26647,14 +26647,14 @@ extension Paths.User.Starred.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#star-a-repository-for-the-authenticated-user)
         public var put: Request<Void> {
-            .put(path)
+            Request(method: "PUT", url: path)
         }
 
         /// Unstar a repository for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#unstar-a-repository-for-the-authenticated-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -26674,7 +26674,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26705,7 +26705,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TeamFull]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26738,7 +26738,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-users)
         public func get(since: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(since, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(since, perPage))
         }
 
         public enum GetResponseHeaders {
@@ -26775,7 +26775,7 @@ extension Paths.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-user)
         public var get: Request<GetResponse> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         public enum GetResponse: Decodable {
@@ -26811,7 +26811,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -26849,7 +26849,7 @@ extension Paths.Users.WithUsername.Events.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -26874,7 +26874,7 @@ extension Paths.Users.WithUsername.Events {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -26901,7 +26901,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-followers-of-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26932,7 +26932,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-a-user-follows)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -26961,7 +26961,7 @@ extension Paths.Users.WithUsername.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user)
         public var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -26981,7 +26981,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27025,7 +27025,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GpgKey]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -27063,7 +27063,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user)
         public func get(subjectType: SubjectType? = nil, subjectID: String? = nil) -> Request<OctoKit.Hovercard> {
-            .get(path, query: makeGetQuery(subjectType, subjectID))
+            Request(method: "GET", url: path, query: makeGetQuery(subjectType, subjectID))
         }
 
         private func makeGetQuery(_ subjectType: SubjectType?, _ subjectID: String?) -> [(String, String?)] {
@@ -27099,7 +27099,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -27119,7 +27119,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-keys-for-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.KeySimple]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -27152,7 +27152,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationSimple]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -27186,7 +27186,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-user)
         public func get(packageType: PackageType, visibility: Visibility? = nil) -> Request<[OctoKit.Package]> {
-            .get(path, query: makeGetQuery(packageType, visibility))
+            Request(method: "GET", url: path, query: makeGetQuery(packageType, visibility))
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {
@@ -27242,7 +27242,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-a-user)
         public var get: Request<OctoKit.Package> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete a package for a user
@@ -27255,7 +27255,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -27283,7 +27283,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user)
         public func post(token: String? = nil) -> Request<Void> {
-            .post(path, query: makePostQuery(token))
+            Request(method: "POST", url: path, query: makePostQuery(token))
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {
@@ -27312,7 +27312,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-a-user)
         public var get: Request<[OctoKit.PackageVersion]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -27335,7 +27335,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-a-user)
         public var get: Request<OctoKit.PackageVersion> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete package version for a user
@@ -27348,7 +27348,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-a-user)
         public var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -27376,7 +27376,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-a-user)
         public var post: Request<Void> {
-            .post(path)
+            Request(method: "POST", url: path)
         }
     }
 }
@@ -27394,7 +27394,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-user-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27444,7 +27444,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-events-received-by-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -27469,7 +27469,7 @@ extension Paths.Users.WithUsername.ReceivedEvents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-received-by-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {
@@ -27496,7 +27496,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public enum GetResponseHeaders {
@@ -27590,7 +27590,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-actions-billing-for-a-user)
         public var get: Request<OctoKit.ActionsBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -27614,7 +27614,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user)
         public var get: Request<OctoKit.PackagesBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -27638,7 +27638,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-a-user)
         public var get: Request<OctoKit.CombinedBillingUsage> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -27660,7 +27660,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         public struct GetResponse: Decodable {
@@ -27733,7 +27733,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            .get(path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
         }
 
         public enum GetResponseHeaders {
@@ -27762,7 +27762,7 @@ extension Paths {
         ///
         /// Get a random sentence from the Zen of GitHub
         public var get: Request<String> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }

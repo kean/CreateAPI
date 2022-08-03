@@ -20,12 +20,12 @@ extension Paths {
 
         /// Add a new pet to the store
         func post(_ body: edgecases_change_access_control.Pet) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
 
         /// Update an existing pet
         func put(_ body: edgecases_change_access_control.Pet) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
     }
 }
@@ -43,7 +43,7 @@ extension Paths.Pet {
         ///
         /// Multiple status values can be provided with comma separated strings
         func get(status: [Status]) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: makeGetQuery(status))
+            Request(method: "GET", url: path, query: makeGetQuery(status))
         }
 
         private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {
@@ -73,7 +73,7 @@ extension Paths.Pet {
         ///
         /// Multiple status values can be provided with comma separated strings
         func get(status: [Status]? = nil) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: makeGetQuery(status))
+            Request(method: "GET", url: path, query: makeGetQuery(status))
         }
 
         private func makeGetQuery(_ status: [Status]?) -> [(String, String?)] {
@@ -103,7 +103,7 @@ extension Paths.Pet {
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
         func get(tags: [String]) -> Request<[edgecases_change_access_control.Pet]> {
-            .get(path, query: makeGetQuery(tags))
+            Request(method: "GET", url: path, query: makeGetQuery(tags))
         }
 
         private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {
@@ -127,12 +127,12 @@ extension Paths.Pet {
         ///
         /// Returns a single pet
         var get: Request<edgecases_change_access_control.Pet> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Updates a pet in the store with form data
         func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
+            Request(method: "POST", url: path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         struct PostRequest: Encodable {
@@ -156,7 +156,7 @@ extension Paths.Pet {
 
         /// Deletes a pet
         var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -172,7 +172,7 @@ extension Paths.Pet.WithPetID {
 
         /// Uploads an image
         func post(_ body: Data? = nil) -> Request<edgecases_change_access_control.APIResponse> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
     }
 }
@@ -201,7 +201,7 @@ extension Paths.Store {
         ///
         /// Returns a map of status codes to quantities
         var get: Request<[String: Int]> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -217,7 +217,7 @@ extension Paths.Store {
 
         /// Place an order for a pet
         func post(_ body: edgecases_change_access_control.Order) -> Request<edgecases_change_access_control.Order> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
     }
 }
@@ -235,14 +235,14 @@ extension Paths.Store.Order {
         ///
         /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
         var get: Request<edgecases_change_access_control.Order> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Delete purchase order by ID
         ///
         /// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
         var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -260,7 +260,7 @@ extension Paths {
         ///
         /// This can only be done by the logged in user.
         func post(_ body: edgecases_change_access_control.User) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
     }
 }
@@ -276,7 +276,7 @@ extension Paths.User {
 
         /// Creates list of users with given input array
         func post(_ body: [edgecases_change_access_control.User]) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
     }
 }
@@ -292,7 +292,7 @@ extension Paths.User {
 
         /// Creates list of users with given input array
         func post(_ body: [edgecases_change_access_control.User]) -> Request<Void> {
-            .post(path, body: body)
+            Request(method: "POST", url: path, body: body)
         }
     }
 }
@@ -308,7 +308,7 @@ extension Paths.User {
 
         /// Logs user into the system
         func get(username: String, password: String) -> Request<String> {
-            .get(path, query: [("username", username), ("password", password)])
+            Request(method: "GET", url: path, query: [("username", username), ("password", password)])
         }
 
         enum GetResponseHeaders {
@@ -332,7 +332,7 @@ extension Paths.User {
 
         /// Logs out current logged in user session
         var get: Request<Void> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
@@ -348,21 +348,21 @@ extension Paths.User {
 
         /// Get user by user name
         var get: Request<edgecases_change_access_control.User> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
 
         /// Updated user
         ///
         /// This can only be done by the logged in user.
         func put(_ body: edgecases_change_access_control.User) -> Request<Void> {
-            .put(path, body: body)
+            Request(method: "PUT", url: path, body: body)
         }
 
         /// Delete user
         ///
         /// This can only be done by the logged in user.
         var delete: Request<Void> {
-            .delete(path)
+            Request(method: "DELETE", url: path)
         }
     }
 }
@@ -378,7 +378,7 @@ extension Paths {
 
         /// To test enum parameters
         func get(parameters: GetParameters? = nil) -> Request<Void> {
-            .get(path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery)
         }
 
         struct GetParameters {
@@ -414,7 +414,7 @@ extension Paths {
 
         /// Fake endpoint for testing various parameters
         func post(_ body: PostRequest? = nil) -> Request<Void> {
-            .post(path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
+            Request(method: "POST", url: path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
         }
 
         struct PostRequest: Encodable {
@@ -486,7 +486,7 @@ extension Paths {
 
         /// To test "client" model
         func patch(_ body: edgecases_change_access_control.Client) -> Request<edgecases_change_access_control.Client> {
-            .patch(path, body: body)
+            Request(method: "PATCH", url: path, body: body)
         }
     }
 }

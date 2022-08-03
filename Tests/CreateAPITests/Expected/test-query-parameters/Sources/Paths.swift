@@ -29,7 +29,7 @@ extension Paths.Form {
 
         /// Test passing primitive query parameters
         public func get(parameters: GetParameters) -> Request<Void> {
-            .get(path, query: parameters.asQuery)
+            Request(method: "GET", url: path, query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -54,12 +54,12 @@ extension Paths.Form {
 
         /// Inlining simple queries
         public func post(name: String) -> Request<Void> {
-            .post(path, query: [("name", name)])
+            Request(method: "POST", url: path, query: [("name", name)])
         }
 
         /// Inlining more complex queries (with an enum)
         public func patch(type: `Type`) -> Request<Void> {
-            .patch(path, query: makePatchQuery(type))
+            Request(method: "PATCH", url: path, query: makePatchQuery(type))
         }
 
         private func makePatchQuery(_ type: `Type`) -> [(String, String?)] {
@@ -86,7 +86,7 @@ extension Paths.Form {
 
         /// Form Array Explode True
         public func get(type: [String]) -> Request<Void> {
-            .get(path, query: makeGetQuery(type))
+            Request(method: "GET", url: path, query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
@@ -97,7 +97,7 @@ extension Paths.Form {
 
         /// Form Array Explode False
         public func post(type: [String]) -> Request<Void> {
-            .post(path, query: makePostQuery(type))
+            Request(method: "POST", url: path, query: makePostQuery(type))
         }
 
         private func makePostQuery(_ type: [String]) -> [(String, String?)] {
@@ -119,7 +119,7 @@ extension Paths.Form {
 
         /// Form Object Explode True
         public func get(type: `Type`) -> Request<Void> {
-            .get(path, query: makeGetQuery(type))
+            Request(method: "GET", url: path, query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
@@ -147,7 +147,7 @@ extension Paths.Form {
 
         /// Form Object Explode False
         public func post(type: `Type`) -> Request<Void> {
-            .post(path, query: makePostQuery(type))
+            Request(method: "POST", url: path, query: makePostQuery(type))
         }
 
         private func makePostQuery(_ type: `Type`) -> [(String, String?)] {
@@ -180,7 +180,7 @@ extension Paths.Delimeters {
 
         /// Space Delimited Explode False
         public func get(type: [String]) -> Request<Void> {
-            .get(path, query: makeGetQuery(type))
+            Request(method: "GET", url: path, query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
@@ -191,7 +191,7 @@ extension Paths.Delimeters {
 
         /// Pipe Delimited Explode False
         public func post(type: [String]? = nil) -> Request<Void> {
-            .post(path, query: makePostQuery(type))
+            Request(method: "POST", url: path, query: makePostQuery(type))
         }
 
         private func makePostQuery(_ type: [String]?) -> [(String, String?)] {
@@ -202,7 +202,7 @@ extension Paths.Delimeters {
 
         /// Space Delimited Explode True
         public func put(type: [String]) -> Request<Void> {
-            .put(path, query: makePutQuery(type))
+            Request(method: "PUT", url: path, query: makePutQuery(type))
         }
 
         private func makePutQuery(_ type: [String]) -> [(String, String?)] {
@@ -213,7 +213,7 @@ extension Paths.Delimeters {
 
         /// Pipe Delimited Explode True
         public func patch(type: [String]? = nil) -> Request<Void> {
-            .patch(path, query: makePatchQuery(type))
+            Request(method: "PATCH", url: path, query: makePatchQuery(type))
         }
 
         private func makePatchQuery(_ type: [String]?) -> [(String, String?)] {
@@ -235,7 +235,7 @@ extension Paths {
 
         /// Form Object Explode False
         public func get(type: `Type`) -> Request<Void> {
-            .get(path, query: makeGetQuery(type))
+            Request(method: "GET", url: path, query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {

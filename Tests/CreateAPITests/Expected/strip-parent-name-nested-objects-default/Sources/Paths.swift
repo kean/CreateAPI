@@ -16,7 +16,7 @@ extension Paths {
         public let path: String
 
         public var get: Request<strip_parent_name_nested_objects_default.Container> {
-            .get(path)
+            Request(method: "GET", url: path)
         }
     }
 }
