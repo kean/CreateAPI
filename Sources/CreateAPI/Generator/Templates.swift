@@ -617,18 +617,6 @@ final class Templates {
         #"@available(*, deprecated, message: "Deprecated")"# + "\n"
     }
 
-    var requestOperationIdExtension: String {
-       """
-       private extension Request {
-           func id(_ id: String) -> Request {
-               var copy = self
-               copy.id = id
-               return copy
-           }
-       }
-       """
-    }
-
     var anyJSON: String {
         """
         \(access)enum AnyJSON: Equatable, Codable {

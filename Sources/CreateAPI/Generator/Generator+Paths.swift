@@ -225,12 +225,7 @@ extension Generator {
     }
 
     private func makeExtensions() -> GeneratedFile? {
-        var contents: [String] = []
-        contents.append(templates.namespace(options.paths.namespace))
-        if isRequestOperationIdExtensionNeeded {
-            contents.append(templates.requestOperationIdExtension)
-        }
-        return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
+        GeneratedFile(name: "Extensions", contents: templates.namespace(options.paths.namespace))
     }
 
     // MARK: - Paths (Rest)

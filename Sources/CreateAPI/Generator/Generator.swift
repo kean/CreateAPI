@@ -14,7 +14,6 @@ final class Generator {
     // State collected during generation
     var isAnyJSONUsed = false
     var isHTTPHeadersDependencyNeeded = false
-    var isRequestOperationIdExtensionNeeded = false
     var isEmptyObjectNeeded = false
     var isQueryEncoderNeeded = false
     var isNaiveDateNeeded = false
@@ -62,10 +61,6 @@ final class Generator {
     func setNeedsEncodable(for type: TypeIdentifier) {
         guard case .userDefined(let name) = type else { return }
         lock.sync { needsEncodable.insert(name) }
-    }
-
-    func setNeedsRequestOperationIdExtension() {
-        lock.sync { isRequestOperationIdExtensionNeeded = true }
     }
 
     func setNaiveDateNeeded() {
