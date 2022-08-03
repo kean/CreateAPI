@@ -16,30 +16,42 @@ Delightful code generation for OpenAPI specs for Swift written in Swift.
 ### [Mint](https://github.com/yonaskolb/Mint)
 
 ```bash
-mint install CreateAPI/CreateAPI
+$ mint install CreateAPI/CreateAPI
 ```
 
-Usage:
+### [Homebrew](https://formulae.brew.sh/formula/create-api)
 
 ```bash
-mint run CreateAPI create-api generate -h
+$ brew install create-api
 ```
+
+### Swift Package Plugins
+
+- [Creating a Swift Package Plugin](./Docs/SwiftPackagePlugins.md)
 
 ### Make
 
 ```bash
-git clone https://github.com/CreateAPI/CreateAPI.git
-cd CreateAPI
-make install
+$ git clone https://github.com/CreateAPI/CreateAPI.git
+$ cd CreateAPI
+$ make install
 ```
 
-Usage:
+## Getting Started
 
-```bash
-create-api generate -h
-```
+You'll need an [OpenAPI schema](https://swagger.io/specification/) (using 3.0.x) for your API. If your schema has external references, you might also need to bundle it beforehand.
 
-## Usage
+If you have never used CreateAPI before, be sure to check out our tutorial: [Generating an API with CreateAPI](./Docs/Tutorial.md)
+
+CreateAPI has two main options when it comes to generating source code:
+
+- **`--module`**: Generates Paths and Entities to be incorporated into an existing target/module within your existing codebase.
+- **`--package`**: Wraps the generated Paths and Entities in a complete Swift Package definition with any dependencies defined automatically.
+
+To generate code, use the `create-api generate` command:
+
+<details>
+<summary><b><code>$ create-api generate --help</code></b></summary>
 
 ```
 USAGE: create-api generate [<options>] <input>
@@ -75,25 +87,46 @@ OPTIONS:
   -h, --help              Show help information.
 ```
 
-## Documentation
+</details>
 
-- [Configuration](./Docs/ConfigOptions.md)
+In addition to the options passed to the command, you can also define a configuration file to customize the output in various different ways. For a complete list of options, check out the [Configuration Options](./Docs/ConfigOptions.md) documentation.
 
-## OpenAPI Support
+For more information about using CreateAPI, check out the [Documentation](./Docs/).
 
-The goal is to completely cover OpenAPI 3.x spec.
+## Projects using CreateAPI
 
-Currently, the following features are **not** supported:
+Need some inspiration? Check out the list of projects below that are already using CreateAPI:
 
-- External References
+- [appstoreconnect-swift-sdk](https://github.com/AvdLee/appstoreconnect-swift-sdk)
 
-Some discrepancies with the OpenAPI spec are by design:
+Are you using CreateAPI in your own open-source project? Let us know by [adding it](https://github.com/CreateAPI/CreateAPI/edit/main/README.md) to the list above!
 
-- `allowReserved` keyword in parameters is ignored and all parameter values are percent-encoded
-- `allowEmptyValue` keyword in parameters is ignored as it's not recommended to be used
+## Contributing
 
-Upcoming:
+We always welcome contributions from the community via Issues and Pull Requests. Please be sure to read over the [contributing guidelines](./CONTRIBUTING.md) for more information.
 
-- An improved way to generate patch parameters. Support for [JSON Patch](http://jsonpatch.com).
-- OpenAPI 3.1 support.
+## Releasing
 
+When releasing a new version of CreateAPI, be sure to follow the steps outlined below:
+
+- [ ] Ensure that the `main` branch checks are passing.
+- [ ] Update the [version number](https://github.com/CreateAPI/CreateAPI/blob/main/Sources/CreateAPI/CreateAPI.swift#L8).
+- [ ] Update the `create-api generate --help` output in **README.md** if it has changed.
+- [ ] Update [CHANGELOG.md](./CHANGELOG.md).
+  - Use the GitHub generated release notes as a base. Be sure to cleanup the PR links.
+- [ ] Create a GitHub Release.
+  - Create a new tag using semantic versioning.
+  - Use the generated release notes.
+- [ ] From the [Release Workflow](https://github.com/CreateAPI/CreateAPI/actions/workflows/release.yml), get the artifactbundle SHA and add an Artifact Bundle section to the release page. For example:
+    > ## Artifact Bundle
+    >
+    > Checksum: `89c75ec3b2938d08b961b94e70e6dd6fa0ff52a90037304d41718cd5fb58bd24`
+    >
+    > ```swift
+    > .binaryTarget(
+    >     name: "create-api",
+    >     url: "https://github.com/CreateAPI/CreateAPI/releases/download/0.0.5/create-api.artifactbundle.zip",
+    >     checksum: "89c75ec3b2938d08b961b94e70e6dd6fa0ff52a90037304d41718cd5fb58bd24"
+    > )
+    > ```
+- [ ] Push the release to Homebrew with `brew bump-formula-pr create-api`.
