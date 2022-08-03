@@ -377,6 +377,9 @@ extension Generator {
         var call: [String] = []
         var nested: [Declaration] = []
 
+        // Add the `method` parameter to the call
+        call.append("method: \"\(task.method.uppercased())\"")
+
         // Add `path` parameter to the call
         switch style {
         case .operations:
@@ -390,9 +393,9 @@ extension Generator {
             if path.contains("{") {
                 throw GeneratorError("One or more path parameters for \(task.operationId) is missing")
             }
-            call.append("\"\(path)\"")
+            call.append("url: \"\(path)\"")
         case .rest:
-            call.append("path") // Already provided by the wrapping type
+            call.append("url: path") // Already provided by the wrapping type
         }
 
         // Response type
@@ -472,19 +475,13 @@ extension Generator {
             }
         }
 
-        // Add disambiguation for `path` (property vs argument name)
-        if call.first == "path" && parameters.contains(where: { $0.hasPrefix("path:") }) {
-            call[0] = "self.path"
+        // Add `id`
+        if options.paths.isAddingOperationIds, !task.operationId.isEmpty {
+            call.append("id: \"\(task.operationId)\"")
         }
 
         // Finally, generate the output
-        var contents = ".\(task.method)(\(call.joined(separator: ", ")))"
-
-        // Add `.id`
-        if options.paths.isAddingOperationIds, !task.operationId.isEmpty {
-            setNeedsRequestOperationIdExtension()
-            contents += ".id(\"\(task.operationId)\")"
-        }
+        let contents = "Request(\(call.joined(separator: ", ")))"
 
         var output = templates.comments(for: .init(task.operation), name: "")
         let methodName = style == .operations ? makePropertyName(task.operationId).rawValue : task.method
