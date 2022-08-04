@@ -191,7 +191,7 @@ public struct ConfigOptions: Encodable {
         public var alwaysIncludeEncodableImplementation: Bool = true // sourcery: replacementFor = isGeneratingEncodeWithEncoder
 
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
-        public var isSortingPropertiesAlphabetically: Bool = false
+        public var sortPropertiesAlphabetically: Bool = false // sourcery: replacementFor = isSortingPropertiesAlphabetically
 
         /// If disabled, will use strings as `CodingKey` values.
         ///

@@ -339,7 +339,7 @@ extension Generator {
 
     private func makeInlineProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
         var keys = object.properties.keys
-        if options.entities.isSortingPropertiesAlphabetically { keys.sort() }
+        if options.entities.sortPropertiesAlphabetically { keys.sort() }
         return try keys.compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)

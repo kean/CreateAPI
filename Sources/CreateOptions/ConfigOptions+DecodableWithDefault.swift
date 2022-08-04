@@ -201,7 +201,7 @@ extension ConfigOptions.Entities: Decodable {
         case includeInitializer
         case alwaysIncludeDecodableImplementation
         case alwaysIncludeEncodableImplementation
-        case isSortingPropertiesAlphabetically
+        case sortPropertiesAlphabetically
         case isGeneratingCustomCodingKeys
         case isAddingDefaultValues
         case isInliningPropertiesFromReferencedSchemas
@@ -284,8 +284,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: true
         )
 
-        isSortingPropertiesAlphabetically = try container.decode(Bool.self,
-            forKey: .isSortingPropertiesAlphabetically,
+        sortPropertiesAlphabetically = try container.decode(Bool.self,
+            forKey: .sortPropertiesAlphabetically,
             defaultValue: false
         )
 
@@ -337,6 +337,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isGeneratingInitializers", "Use 'includeInitializer' instead."),
                 ("isGeneratingInitWithDecoder", "Use 'alwaysIncludeDecodableImplementation' instead."),
                 ("isGeneratingEncodeWithEncoder", "Use 'alwaysIncludeEncodableImplementation' instead."),
+                ("isSortingPropertiesAlphabetically", "Use 'sortPropertiesAlphabetically' instead."),
             ]
         )
     }

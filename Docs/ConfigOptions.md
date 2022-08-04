@@ -80,7 +80,7 @@ Below you can find the complete documentation for all available options.
   - [includeInitializer](#entitiesincludeinitializer)
   - [alwaysIncludeDecodableImplementation](#entitiesalwaysincludedecodableimplementation)
   - [alwaysIncludeEncodableImplementation](#entitiesalwaysincludeencodableimplementation)
-  - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
+  - [sortPropertiesAlphabetically](#entitiessortpropertiesalphabetically)
   - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
   - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
   - [isInliningPropertiesFromReferencedSchemas](#entitiesisinliningpropertiesfromreferencedschemas)
@@ -442,7 +442,7 @@ Generate the `encode(to:)` method for `Encodable` conformance, even when the com
 
 <br/>
 
-## entities.isSortingPropertiesAlphabetically
+## entities.sortPropertiesAlphabetically
 
 **Type:** Bool<br />
 **Default:** `false`
