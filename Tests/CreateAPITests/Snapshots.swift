@@ -4,16 +4,6 @@ import XCTest
 private let generateSnapshots = true
 private let openDiff = false
 
-func prepareExpectedDirectory() {
-    if generateSnapshots {
-        let expectedFolderURL = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .appendingPathComponent("Expected")
-        
-        try? FileManager.default.removeItem(at: expectedFolderURL)
-    }
-}
-
 func compare(expected: String, actual: String) throws {
     let expectedURL = Bundle.module.resourceURL!
         .appendingPathComponent("Expected")
