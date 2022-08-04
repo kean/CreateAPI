@@ -16,7 +16,7 @@ extension ConfigOptions: Decodable {
         case indentation
         case spaceWidth
         case pluralizeProperties
-        case isNaiveDateEnabled
+        case useNaiveDate
         case isUsingIntegersWithPredefinedCapacity
         case isSwiftLintDisabled
         case fileHeaderComment
@@ -84,8 +84,8 @@ extension ConfigOptions: Decodable {
             defaultValue: true
         )
 
-        isNaiveDateEnabled = try container.decode(Bool.self,
-            forKey: .isNaiveDateEnabled,
+        useNaiveDate = try container.decode(Bool.self,
+            forKey: .useNaiveDate,
             defaultValue: true
         )
 
@@ -133,6 +133,7 @@ extension ConfigOptions: Decodable {
                 ("isGeneratingSwiftyBooleanPropertyNames", "Use 'useSwiftyPropertyNames' instead."),
                 ("isInliningTypealiases", "Use 'inlineTypealiases' instead."),
                 ("isPluralizationEnabled", "Use 'pluralizeProperties' instead."),
+                ("isNaiveDateEnabled", "Use 'useNaiveDate' instead."),
             ]
         )
     }

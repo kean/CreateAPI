@@ -543,7 +543,7 @@ extension Generator {
             case .string(let info, _):
                 switch info.format {
                 case .dateTime: return QueryItemType("Date")
-                case .date: if options.isNaiveDateEnabled {
+                case .date: if options.useNaiveDate {
                     setNaiveDateNeeded()
                     return QueryItemType("NaiveDate")
                 }

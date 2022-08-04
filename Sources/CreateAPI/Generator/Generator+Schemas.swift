@@ -233,7 +233,7 @@ extension Generator {
     private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> TypeIdentifier {
         switch info.format {
         case .dateTime: return .builtin("Date")
-        case .date: if options.isNaiveDateEnabled {
+        case .date: if options.useNaiveDate {
             setNaiveDateNeeded()
             return .builtin("NaiveDate")
         }

@@ -105,7 +105,7 @@ public struct ConfigOptions: Encodable {
     public var pluralizeProperties: Bool = true // sourcery: replacementFor = isPluralizationEnabled
 
     /// Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAPI/NaiveDate)
-    public var isNaiveDateEnabled: Bool = true
+    public var useNaiveDate: Bool = true // sourcery: replacementFor = isNaiveDateEnabled
 
     /// If enabled, uses `Int64` or `Int32` when specified.
     public var isUsingIntegersWithPredefinedCapacity: Bool = false

@@ -54,7 +54,7 @@ Below you can find the complete documentation for all available options.
 - [indentation](#indentation)
 - [spaceWidth](#spacewidth)
 - [pluralizeProperties](#pluralizeproperties)
-- [isNaiveDateEnabled](#isnaivedateenabled)
+- [useNaiveDate](#usenaivedate)
 - [isUsingIntegersWithPredefinedCapacity](#isusingintegerswithpredefinedcapacity)
 - [isSwiftLintDisabled](#isswiftlintdisabled)
 - [fileHeaderComment](#fileheadercomment)
@@ -214,7 +214,7 @@ For example, `public var file: [File]` becomes `public var files: [File]`
 
 <br/>
 
-## isNaiveDateEnabled
+## useNaiveDate
 
 **Type:** Bool<br />
 **Default:** `true`
