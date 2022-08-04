@@ -183,9 +183,8 @@ public struct ConfigOptions: Encodable {
         public var includeInitializer: Bool = true // sourcery: replacementFor = isGeneratingInitializers
 
         // TODO: simplify this
-        // sourcery: skip
-        /// Generate the `init(from:)` initializer for `Decodable` conformance when required
-        public var isGeneratingInitWithDecoder: Bool = true
+        /// Generate the `init(from:)` initializer for `Decodable` conformance, even when the compiler synthesized version could be used.
+        public var alwaysIncludeDecodableImplementation: Bool = true // sourcery: replacementFor = isGeneratingInitWithDecoder
 
         // TODO: simplify this
         // sourcery: skip

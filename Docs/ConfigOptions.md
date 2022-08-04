@@ -78,6 +78,7 @@ Below you can find the complete documentation for all available options.
   - [identifiableConformance](#entitiesidentifiableconformance)
   - [skipRedundantProtocols](#entitiesskipredundantprotocols)
   - [includeInitializer](#entitiesincludeinitializer)
+  - [alwaysIncludeDecodableImplementation](#entitiesalwaysincludedecodableimplementation)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
   - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
   - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
@@ -419,6 +420,15 @@ Automatically removes `Encodable` or `Decodable` conformance when it is not requ
 **Default:** `true`
 
 Generate an initializer for each entity
+
+<br/>
+
+## entities.alwaysIncludeDecodableImplementation
+
+**Type:** Bool<br />
+**Default:** `true`
+
+Generate the `init(from:)` initializer for `Decodable` conformance, even when the compiler synthesized version could be used.
 
 <br/>
 

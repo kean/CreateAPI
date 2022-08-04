@@ -266,7 +266,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "isGeneratingInitWithDecoder": false
+                    "alwaysIncludeDecodableImplementation": false
                 }
             }
             """)
