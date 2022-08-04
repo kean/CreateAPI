@@ -56,7 +56,6 @@ Below you can find the complete documentation for all available options.
 - [pluralizeProperties](#pluralizeproperties)
 - [useNaiveDate](#usenaivedate)
 - [useIntegersWithPredefinedCapacity](#useintegerswithpredefinedcapacity)
-- [isSwiftLintDisabled](#isswiftlintdisabled)
 - [fileHeaderComment](#fileheadercomment)
 - [comments](#comments)
   - [isEnabled](#commentsisenabled)
@@ -228,15 +227,6 @@ Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAP
 **Default:** `false`
 
 If enabled, uses `Int64` or `Int32` when specified.
-
-<br/>
-
-## isSwiftLintDisabled
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Appends the `swiftlint:disable all` annotation beneath the header in generated files
 
 <br/>
 
