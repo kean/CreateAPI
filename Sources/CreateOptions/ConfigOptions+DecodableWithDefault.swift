@@ -203,7 +203,7 @@ extension ConfigOptions.Entities: Decodable {
         case alwaysIncludeEncodableImplementation
         case sortPropertiesAlphabetically
         case optimizeCodingKeys
-        case isAddingDefaultValues
+        case defaultValues
         case isInliningPropertiesFromReferencedSchemas
         case isAdditionalPropertiesOnByDefault
         case isStrippingParentNameInNestedObjects
@@ -294,8 +294,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: false
         )
 
-        isAddingDefaultValues = try container.decode(Bool.self,
-            forKey: .isAddingDefaultValues,
+        defaultValues = try container.decode(Bool.self,
+            forKey: .defaultValues,
             defaultValue: true
         )
 
@@ -339,6 +339,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isGeneratingEncodeWithEncoder", "Use 'alwaysIncludeEncodableImplementation' instead."),
                 ("isSortingPropertiesAlphabetically", "Use 'sortPropertiesAlphabetically' instead."),
                 ("isGeneratingCustomCodingKeys", "Use 'optimizeCodingKeys' instead."),
+                ("isAddingDefaultValues", "Use 'defaultValues' instead."),
             ]
         )
     }

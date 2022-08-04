@@ -82,7 +82,7 @@ Below you can find the complete documentation for all available options.
   - [alwaysIncludeEncodableImplementation](#entitiesalwaysincludeencodableimplementation)
   - [sortPropertiesAlphabetically](#entitiessortpropertiesalphabetically)
   - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
-  - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
+  - [defaultValues](#entitiesdefaultvalues)
   - [isInliningPropertiesFromReferencedSchemas](#entitiesisinliningpropertiesfromreferencedschemas)
   - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
   - [isStrippingParentNameInNestedObjects](#entitiesisstrippingparentnameinnestedobjects)
@@ -462,12 +462,12 @@ For schemas with a large number of entities, this approach significantly reduces
 
 <br/>
 
-## entities.isAddingDefaultValues
+## entities.defaultValues
 
 **Type:** Bool<br />
 **Default:** `true`
 
-If defined, uses the `default` value from the schema for the generated property for booleans
+If set to `trie`, uses the `default` value from the schema for the generated property for booleans
 
 <br/>
 
