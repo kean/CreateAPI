@@ -20,7 +20,10 @@ struct Generate: ParsableCommand {
     @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
     var config = "./.create-api.yaml"
 
-    @Flag(help: "Merge Entities and Paths into single files")
+    @Flag(help: ArgumentHelp("Merge Entities and Paths into single output files", discussion: """
+                            Merging the source files offers a compact output, but prevents the compiler \
+                            from parallelizing build tasks resulting in slower builds for larger schemas.
+                            """))
     var mergeSources = false
 
     @Flag(name: .shortAndLong, help: "Print additional logging information")
