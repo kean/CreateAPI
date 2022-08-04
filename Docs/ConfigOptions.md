@@ -81,7 +81,7 @@ Below you can find the complete documentation for all available options.
   - [alwaysIncludeDecodableImplementation](#entitiesalwaysincludedecodableimplementation)
   - [alwaysIncludeEncodableImplementation](#entitiesalwaysincludeencodableimplementation)
   - [sortPropertiesAlphabetically](#entitiessortpropertiesalphabetically)
-  - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
+  - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
   - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
   - [isInliningPropertiesFromReferencedSchemas](#entitiesisinliningpropertiesfromreferencedschemas)
   - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
@@ -451,14 +451,14 @@ Orders properties of an entity alphabetically instead of the order defined in th
 
 <br/>
 
-## entities.isGeneratingCustomCodingKeys
+## entities.optimizeCodingKeys
 
 **Type:** Bool<br />
-**Default:** `true`
+**Default:** `false`
 
-If disabled, will use strings as `CodingKey` values.
+When `true`, uses a single `StringCodingKey` type allowing string literals to be used in the place of individual `CodingKey` enum types.
 
-For schemas with a large number of entities, disabling this option can help to reduce the binary size.
+For schemas with a large number of entities, this approach significantly reduces the binary size of the compiled code ([apple/swift#60287](https://github.com/apple/swift/issues/60287))
 
 <br/>
 

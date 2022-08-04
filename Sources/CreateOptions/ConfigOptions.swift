@@ -193,10 +193,10 @@ public struct ConfigOptions: Encodable {
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
         public var sortPropertiesAlphabetically: Bool = false // sourcery: replacementFor = isSortingPropertiesAlphabetically
 
-        /// If disabled, will use strings as `CodingKey` values.
+        /// When `true`, uses a single `StringCodingKey` type allowing string literals to be used in the place of individual `CodingKey` enum types.
         ///
-        /// For schemas with a large number of entities, disabling this option can help to reduce the binary size.
-        public var isGeneratingCustomCodingKeys: Bool = true
+        /// For schemas with a large number of entities, this approach significantly reduces the binary size of the compiled code ([apple/swift#60287](https://github.com/apple/swift/issues/60287))
+        public var optimizeCodingKeys: Bool = false // sourcery: replacementFor = isGeneratingCustomCodingKeys
 
         /// If defined, uses the `default` value from the schema for the generated property for booleans
         public var isAddingDefaultValues: Bool = true

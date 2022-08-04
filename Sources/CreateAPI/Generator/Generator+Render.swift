@@ -51,7 +51,7 @@ extension Generator {
         } else {
             switch decl.type {
             case .object:
-                if options.entities.isGeneratingCustomCodingKeys {
+                if !options.entities.optimizeCodingKeys {
                     if let keys = templates.codingKeys(for: properties) {
                         contents.append(keys)
                     }
