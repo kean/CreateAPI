@@ -6,7 +6,7 @@ Below is a table that describes dependencies that CreateAPI generated code might
 
 Dependency|Minimum Version|Required When?
 ---|---|---
-[Get](https://github.com/kean/Get)|1.0.0|Generating Paths*
+[Get](https://github.com/kean/Get)|1.0.2|Generating Paths*
 [URLQueryEncoder](https://github.com/CreateAPI/URLQueryEncoder)|0.0.2|Generating paths with query parameters
 [HTTPHeaders](https://github.com/CreateAPI/HTTPHeaders)|0.1.0|[`isGeneratingResponseHeaders`](https://github.com/CreateAPI/CreateAPI/blob/main/Docs/ConfigOptions.md#pathsisgeneratingresponseheaders) is set to `true` (the default)
 [NaiveDate](https://github.com/CreateAPI/NaiveDate)|1.0.0|[`isNaiveDateEnabled`](https://github.com/CreateAPI/CreateAPI/blob/main/Docs/ConfigOptions.md#isnaivedateenabled) is set to `true` (the default)
