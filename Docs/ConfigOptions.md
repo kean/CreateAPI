@@ -95,7 +95,7 @@ Below you can find the complete documentation for all available options.
   - [overriddenResponses](#pathsoverriddenresponses)
   - [overriddenBodyTypes](#pathsoverriddenbodytypes)
   - [inlineSimpleRequests](#pathsinlinesimplerequests)
-  - [isInliningSimpleQueryParameters](#pathsisinliningsimplequeryparameters)
+  - [inlineSimpleQueryParameters](#pathsinlinesimplequeryparameters)
   - [simpleQueryParametersThreshold](#pathssimplequeryparametersthreshold)
   - [isRemovingRedundantPaths](#pathsisremovingredundantpaths)
   - [exclude](#pathsexclude)
@@ -614,7 +614,7 @@ Inline simple requests, like the ones with a single parameter
 
 <br/>
 
-## paths.isInliningSimpleQueryParameters
+## paths.inlineSimpleQueryParameters
 
 **Type:** Bool<br />
 **Default:** `true`
@@ -628,7 +628,7 @@ Inline query parameters for simple requests instead of generating a Parameter ty
 **Type:** Int<br />
 **Default:** `2`
 
-The threshold of query parameters to inline when using `isInliningSimpleQueryParameters`.
+The threshold of query parameters to inline when using `inlineSimpleQueryParameters`.
 
 <br/>
 

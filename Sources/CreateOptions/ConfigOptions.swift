@@ -294,9 +294,9 @@ public struct ConfigOptions: Encodable {
         public var inlineSimpleRequests: Bool = true // sourcery: replacementFor = isInliningSimpleRequests
 
         /// Inline query parameters for simple requests instead of generating a Parameter type
-        public var isInliningSimpleQueryParameters: Bool = true
+        public var inlineSimpleQueryParameters: Bool = true // sourcery: replacementFor = isInliningSimpleQueryParameters
 
-        /// The threshold of query parameters to inline when using `isInliningSimpleQueryParameters`.
+        /// The threshold of query parameters to inline when using `inlineSimpleQueryParameters`.
         public var simpleQueryParametersThreshold: Int = 2
 
         // TODO: Replace this with a better solution for patch params

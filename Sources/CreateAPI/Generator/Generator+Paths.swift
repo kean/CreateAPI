@@ -408,7 +408,7 @@ extension Generator {
         }.removingDuplicates(by: \.name)
         if query.isEmpty {
             // Do nothing
-        } else if options.paths.isInliningSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold && (style == .rest || query.allSatisfy { $0.nested == nil }) {
+        } else if options.paths.inlineSimpleQueryParameters && query.count <= options.paths.simpleQueryParametersThreshold && (style == .rest || query.allSatisfy { $0.nested == nil }) {
             for item in query {
                 parameters.append("\(item.name): \(item.type)\(item.isOptional ? "? = nil" : "")")
             }
