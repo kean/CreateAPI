@@ -31,7 +31,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions.W
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-an-organization)
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "packages/restore-package-version-for-org")
         }
     }
 }

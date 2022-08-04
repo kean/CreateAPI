@@ -21,14 +21,14 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-milestone)
         public var get: Request<OctoKit.Milestone> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "issues/get-milestone")
         }
 
         /// Update a milestone
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-milestone)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Milestone> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "issues/update-milestone")
         }
 
         public struct PatchRequest: Encodable {
@@ -66,7 +66,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-milestone)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "issues/delete-milestone")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-for-an-organization)
         public var get: Request<OctoKit.Runner> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-self-hosted-runner-for-org")
         }
 
         /// Delete a self-hosted runner from an organization
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-from-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "actions/delete-self-hosted-runner-from-org")
         }
     }
 }

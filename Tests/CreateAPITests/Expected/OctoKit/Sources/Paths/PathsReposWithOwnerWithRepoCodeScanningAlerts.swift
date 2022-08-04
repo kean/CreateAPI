@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertItems]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "code-scanning/list-alerts-for-repo")
         }
 
         public struct GetParameters {

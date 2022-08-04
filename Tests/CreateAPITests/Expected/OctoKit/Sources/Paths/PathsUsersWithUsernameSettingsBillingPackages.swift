@@ -27,7 +27,7 @@ extension Paths.Users.WithUsername.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-a-user)
         public var get: Request<OctoKit.PackagesBillingUsage> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "billing/get-github-packages-billing-user")
         }
     }
 }

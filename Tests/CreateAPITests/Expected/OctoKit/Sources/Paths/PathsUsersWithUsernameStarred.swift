@@ -25,7 +25,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "activity/list-repos-starred-by-user")
         }
 
         public struct GetResponse: Decodable {

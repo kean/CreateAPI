@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-an-organization)
         public func get(perPage: Int? = nil, page: String? = nil) -> Request<OctoKit.GroupMapping> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list-idp-groups-for-org")
         }
 
         public enum GetResponseHeaders {

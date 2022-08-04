@@ -20,7 +20,7 @@ extension Paths.Store {
 
         /// Place an order for a pet
         public func post(_ body: edgecases_int32_int64.Order) -> Request<edgecases_int32_int64.Order> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "placeOrder")
         }
     }
 }

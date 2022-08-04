@@ -21,7 +21,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gist-forks)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GistSimple]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "gists/list-forks")
         }
 
         public enum GetResponseHeaders {
@@ -41,7 +41,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#fork-a-gist)
         public var post: Request<OctoKit.BaseGist> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "gists/fork")
         }
 
         public enum PostResponseHeaders {

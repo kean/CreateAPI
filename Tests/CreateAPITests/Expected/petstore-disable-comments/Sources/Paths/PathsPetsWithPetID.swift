@@ -18,7 +18,7 @@ extension Paths.Pets {
         public let path: String
 
         public var get: Request<petstore_disable_comments.Pet> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "showPetById")
         }
     }
 }

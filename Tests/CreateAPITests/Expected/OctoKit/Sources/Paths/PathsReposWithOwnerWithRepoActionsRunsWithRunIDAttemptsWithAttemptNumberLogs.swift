@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-attempt-logs)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/download-workflow-run-attempt-logs")
         }
     }
 }

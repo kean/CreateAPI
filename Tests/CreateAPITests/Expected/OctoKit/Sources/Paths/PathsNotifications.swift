@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "activity/list-notifications-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {
@@ -65,7 +65,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-notifications-as-read)
         public func put(_ body: PutRequest? = nil) -> Request<PutResponse> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "activity/mark-notifications-as-read")
         }
 
         public struct PutResponse: Decodable {

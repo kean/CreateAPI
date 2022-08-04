@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-saml-sso-authorizations-for-an-organization)
         public var get: Request<[OctoKit.CredentialAuthorization]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/list-saml-sso-authorizations")
         }
     }
 }

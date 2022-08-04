@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-secret)
         public var get: Request<OctoKit.OrganizationActionsSecret> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-org-secret")
         }
 
         /// Create or update an organization secret
@@ -106,7 +106,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-organization-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "actions/create-or-update-org-secret")
         }
 
         public struct PutRequest: Encodable {
@@ -153,7 +153,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-organization-secret)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "actions/delete-org-secret")
         }
     }
 }

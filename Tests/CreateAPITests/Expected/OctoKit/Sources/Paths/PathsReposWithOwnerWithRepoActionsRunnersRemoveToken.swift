@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-remove-token-for-a-repository)
         public var post: Request<OctoKit.AuthenticationToken> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "actions/create-remove-token-for-repo")
         }
     }
 }

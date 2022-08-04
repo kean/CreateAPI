@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#merge-a-branch)
         public func post(_ body: PostRequest) -> Request<OctoKit.Commit> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/merge")
         }
 
         public struct PostRequest: Encodable {

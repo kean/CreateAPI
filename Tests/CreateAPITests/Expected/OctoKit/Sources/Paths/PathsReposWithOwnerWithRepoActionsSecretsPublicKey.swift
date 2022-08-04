@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-repo-public-key")
         }
     }
 }

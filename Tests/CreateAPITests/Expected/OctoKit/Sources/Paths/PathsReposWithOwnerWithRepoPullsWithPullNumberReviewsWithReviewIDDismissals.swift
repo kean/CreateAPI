@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#dismiss-a-review-for-a-pull-request)
         public func put(_ body: PutRequest) -> Request<OctoKit.PullRequestReview> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "pulls/dismiss-review")
         }
 
         public struct PutRequest: Encodable {

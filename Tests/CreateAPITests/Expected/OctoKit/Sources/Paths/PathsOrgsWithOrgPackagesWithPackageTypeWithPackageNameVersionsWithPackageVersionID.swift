@@ -26,7 +26,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-an-organization)
         public var get: Request<OctoKit.PackageVersion> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "packages/get-package-version-for-organization")
         }
 
         /// Delete package version for an organization
@@ -39,7 +39,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "packages/delete-package-version-for-org")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-a-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "gists/list-for-user")
         }
 
         public enum GetResponseHeaders {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages.Builds {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-latest-pages-build)
         public var get: Request<OctoKit.PageBuild> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-latest-pages-build")
         }
     }
 }

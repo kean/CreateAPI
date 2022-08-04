@@ -28,7 +28,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/get-member-legacy")
         }
 
         /// Add team member (Legacy)
@@ -48,7 +48,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "teams/add-member-legacy")
         }
 
         /// Remove team member (Legacy)
@@ -66,7 +66,7 @@ extension Paths.Teams.WithTeamID.Members {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-member-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/remove-member-legacy")
         }
     }
 }

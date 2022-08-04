@@ -27,7 +27,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-run)
         public func post(_ body: PostRequest) -> Request<OctoKit.CheckRun> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "checks/create")
         }
 
         public enum PostRequest: Encodable {

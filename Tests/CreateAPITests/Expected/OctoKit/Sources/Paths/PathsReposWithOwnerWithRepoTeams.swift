@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-teams")
         }
 
         public enum GetResponseHeaders {

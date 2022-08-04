@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Readme {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-directory-readme)
         public func get(ref: String? = nil) -> Request<OctoKit.ContentFile> {
-            Request(method: "GET", url: path, query: makeGetQuery(ref))
+            Request(method: "GET", url: path, query: makeGetQuery(ref), id: "repos/get-readme-in-directory")
         }
 
         private func makeGetQuery(_ ref: String?) -> [(String, String?)] {

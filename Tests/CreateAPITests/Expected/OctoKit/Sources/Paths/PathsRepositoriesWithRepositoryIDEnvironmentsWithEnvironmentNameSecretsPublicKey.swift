@@ -23,7 +23,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-environment-public-key")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-provisioned-scim-groups-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimGroupListEnterprise> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "enterprise-admin/list-provisioned-groups-enterprise")
         }
 
         public struct GetParameters {
@@ -57,7 +57,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#provision-a-scim-enterprise-group-and-invite-users)
         public func post(_ body: PostRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "enterprise-admin/provision-and-invite-enterprise-group")
         }
 
         public struct PostRequest: Encodable {

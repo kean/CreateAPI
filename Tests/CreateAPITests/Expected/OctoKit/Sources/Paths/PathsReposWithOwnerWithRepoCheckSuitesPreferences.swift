@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-repository-preferences-for-check-suites)
         public func patch(autoTriggerChecks: [PatchRequest.AutoTriggerCheck]? = nil) -> Request<OctoKit.CheckSuitePreference> {
-            Request(method: "PATCH", url: path, body: PatchRequest(autoTriggerChecks: autoTriggerChecks))
+            Request(method: "PATCH", url: path, body: PatchRequest(autoTriggerChecks: autoTriggerChecks), id: "checks/set-suites-preferences")
         }
 
         public struct PatchRequest: Encodable {

@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/overview/resources-in-the-rest-api#root-endpoint)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "meta/root")
         }
 
         public struct GetResponse: Decodable {

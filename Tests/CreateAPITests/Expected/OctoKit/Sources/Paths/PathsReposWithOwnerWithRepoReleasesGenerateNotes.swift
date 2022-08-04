@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#generate-release-notes)
         public func post(_ body: PostRequest) -> Request<OctoKit.ReleaseNotesContent> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/generate-release-notes")
         }
 
         public struct PostRequest: Encodable {

@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-from-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "codespaces/create-with-pr-for-authenticated-user")
         }
 
         public struct PostRequest: Encodable {

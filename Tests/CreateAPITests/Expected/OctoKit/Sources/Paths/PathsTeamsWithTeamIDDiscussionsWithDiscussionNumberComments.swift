@@ -26,7 +26,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-discussion-comments-legacy")
         }
 
         public enum GetResponseHeaders {
@@ -69,7 +69,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            Request(method: "POST", url: path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body], id: "teams/create-discussion-comment-legacy")
         }
     }
 }

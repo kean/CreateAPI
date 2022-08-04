@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.Zipball {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#download-a-repository-archive)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/download-zipball-archive")
         }
     }
 }

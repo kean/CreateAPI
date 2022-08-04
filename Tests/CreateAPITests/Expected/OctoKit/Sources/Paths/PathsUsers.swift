@@ -25,7 +25,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-users)
         public func get(since: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, query: makeGetQuery(since, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(since, perPage), id: "users/list")
         }
 
         public enum GetResponseHeaders {

@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/emojis#get-emojis)
         public var get: Request<[String: String]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "emojis/get")
         }
     }
 }

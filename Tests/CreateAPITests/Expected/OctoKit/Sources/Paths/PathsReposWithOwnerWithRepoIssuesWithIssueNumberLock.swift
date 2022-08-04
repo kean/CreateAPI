@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#lock-an-issue)
         public func put(lockReason: PutRequest.LockReason? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(lockReason: lockReason))
+            Request(method: "PUT", url: path, body: PutRequest(lockReason: lockReason), id: "issues/lock")
         }
 
         public struct PutRequest: Encodable {
@@ -63,7 +63,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#unlock-an-issue)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "issues/unlock")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-an-organization)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/list-labels-for-self-hosted-runner-for-org")
         }
 
         public struct GetResponse: Decodable {
@@ -51,7 +51,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-an-organization)
         public func post(labels: [String]) -> Request<PostResponse> {
-            Request(method: "POST", url: path, body: ["labels": labels])
+            Request(method: "POST", url: path, body: ["labels": labels], id: "actions/add-custom-labels-to-self-hosted-runner-for-org")
         }
 
         public struct PostResponse: Decodable {
@@ -78,7 +78,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-an-organization)
         public func put(labels: [String]) -> Request<PutResponse> {
-            Request(method: "PUT", url: path, body: ["labels": labels])
+            Request(method: "PUT", url: path, body: ["labels": labels], id: "actions/set-custom-labels-for-self-hosted-runner-for-org")
         }
 
         public struct PutResponse: Decodable {
@@ -105,7 +105,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-an-organization)
         public var delete: Request<DeleteResponse> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "actions/remove-all-custom-labels-from-self-hosted-runner-for-org")
         }
 
         public struct DeleteResponse: Decodable {

@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CommitComment]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-comments-for-commit")
         }
 
         public enum GetResponseHeaders {
@@ -45,7 +45,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-comment)
         public func post(_ body: PostRequest) -> Request<OctoKit.CommitComment> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/create-commit-comment")
         }
 
         public enum PostResponseHeaders {

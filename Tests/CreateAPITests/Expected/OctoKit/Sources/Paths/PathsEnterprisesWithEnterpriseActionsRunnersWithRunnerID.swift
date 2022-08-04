@@ -25,7 +25,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-for-an-enterprise)
         public var get: Request<OctoKit.Runner> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "enterprise-admin/get-self-hosted-runner-for-enterprise")
         }
 
         /// Delete a self-hosted runner from an enterprise
@@ -36,7 +36,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-self-hosted-runner-from-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "enterprise-admin/delete-self-hosted-runner-from-enterprise")
         }
     }
 }

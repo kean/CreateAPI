@@ -20,7 +20,7 @@ extension Paths.User {
 
     /// Logs user into the system
     public func get(username: String, password: String) -> Request<String> {
-      Request(method: "GET", url: path, query: [("username", username), ("password", password)])
+      Request(method: "GET", url: path, query: [("username", username), ("password", password)], id: "loginUser")
     }
 
     public enum GetResponseHeaders {

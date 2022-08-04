@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-discussions-in-org")
         }
 
         public enum GetResponseHeaders {
@@ -70,7 +70,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion)
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamDiscussion> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "teams/create-discussion-in-org")
         }
 
         public struct PostRequest: Encodable {

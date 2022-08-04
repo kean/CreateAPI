@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#link-external-idp-group-team-connection)
         public func patch(groupID: Int) -> Request<OctoKit.ExternalGroup> {
-            Request(method: "PATCH", url: path, body: ["group_id": groupID])
+            Request(method: "PATCH", url: path, body: ["group_id": groupID], id: "teams/link-external-idp-group-to-team-for-org")
         }
 
         /// Remove the connection between an external group and a team
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#unlink-external-idp-group-team-connection)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/unlink-external-idp-group-from-team-for-org")
         }
     }
 }

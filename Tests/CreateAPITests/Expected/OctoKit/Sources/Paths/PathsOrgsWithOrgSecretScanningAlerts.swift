@@ -26,7 +26,7 @@ extension Paths.Orgs.WithOrg.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrganizationSecretScanningAlert]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "secret-scanning/list-alerts-for-org")
         }
 
         public enum GetResponseHeaders {

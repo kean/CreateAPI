@@ -23,7 +23,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TeamFull]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

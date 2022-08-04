@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-suites-for-a-git-reference)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "checks/list-suites-for-ref")
         }
 
         public struct GetResponse: Decodable {

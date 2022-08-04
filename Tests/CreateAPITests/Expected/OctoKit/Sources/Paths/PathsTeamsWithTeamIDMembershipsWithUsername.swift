@@ -33,7 +33,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamMembership> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/get-membership-for-user-legacy")
         }
 
         /// Add or update team membership for a user (Legacy)
@@ -53,7 +53,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.TeamMembership> {
-            Request(method: "PUT", url: path, body: PutRequest(role: role))
+            Request(method: "PUT", url: path, body: PutRequest(role: role), id: "teams/add-or-update-membership-for-user-legacy")
         }
 
         public struct PutRequest: Encodable {
@@ -88,7 +88,7 @@ extension Paths.Teams.WithTeamID.Memberships {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/remove-membership-for-user-legacy")
         }
     }
 }

@@ -27,7 +27,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-a-workflow-dispatch-event)
         public func post(_ body: PostRequest) -> Request<Void> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "actions/create-workflow-dispatch")
         }
 
         public struct PostRequest: Encodable {

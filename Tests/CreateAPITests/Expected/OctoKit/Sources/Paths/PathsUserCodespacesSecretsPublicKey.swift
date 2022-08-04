@@ -23,7 +23,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-public-key-for-the-authenticated-user)
         public var get: Request<OctoKit.CodespacesUserPublicKey> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "codespaces/get-public-key-for-authenticated-user")
         }
     }
 }

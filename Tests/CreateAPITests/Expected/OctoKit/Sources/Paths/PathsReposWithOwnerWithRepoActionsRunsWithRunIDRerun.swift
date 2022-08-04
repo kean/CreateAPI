@@ -24,7 +24,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         /// [API method documentation](https://docs.github.com/rest/reference/actions#re-run-a-workflow)
         @available(*, deprecated, message: "Deprecated")
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "actions/re-run-workflow")
         }
     }
 }

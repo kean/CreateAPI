@@ -24,7 +24,7 @@ extension Paths.Gitignore.Templates {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-a-gitignore-template)
         public var get: Request<OctoKit.GitignoreTemplate> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "gitignore/get-template")
         }
     }
 }

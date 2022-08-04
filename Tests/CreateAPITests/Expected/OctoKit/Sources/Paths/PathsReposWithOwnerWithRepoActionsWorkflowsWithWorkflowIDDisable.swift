@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-workflow)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "actions/disable-workflow")
         }
     }
 }

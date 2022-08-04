@@ -52,7 +52,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Commits {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-commit)
         public var get: Request<OctoKit.GitCommit> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "git/get-commit")
         }
     }
 }

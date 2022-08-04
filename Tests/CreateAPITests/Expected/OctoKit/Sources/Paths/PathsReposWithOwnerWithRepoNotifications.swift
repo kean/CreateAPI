@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repository-notifications-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Thread]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "activity/list-repo-notifications-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {
@@ -65,7 +65,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#mark-repository-notifications-as-read)
         public func put(lastReadAt: Date? = nil) -> Request<PutResponse> {
-            Request(method: "PUT", url: path, body: ["last_read_at": lastReadAt])
+            Request(method: "PUT", url: path, body: ["last_read_at": lastReadAt], id: "activity/mark-repo-notifications-as-read")
         }
 
         public struct PutResponse: Decodable {

@@ -28,7 +28,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-repository-issues)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-for-repo")
         }
 
         public enum GetResponseHeaders {
@@ -104,7 +104,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue)
         public func post(_ body: PostRequest) -> Request<OctoKit.Issue> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "issues/create")
         }
 
         public enum PostResponseHeaders {

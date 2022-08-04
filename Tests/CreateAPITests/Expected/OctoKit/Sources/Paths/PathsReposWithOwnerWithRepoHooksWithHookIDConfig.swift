@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-webhook-configuration-for-a-repository)
         public var get: Request<OctoKit.WebhookConfig> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-webhook-config-for-repo")
         }
 
         /// Update a webhook configuration for a repository
@@ -36,7 +36,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-webhook-configuration-for-a-repository)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "repos/update-webhook-config-for-repo")
         }
 
         /// Example:

@@ -62,7 +62,7 @@ extension Paths.Repos.WithOwner.WithRepo.Compare {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#compare-two-commits)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.CommitComparison> {
-            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage), id: "repos/compare-commits")
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {

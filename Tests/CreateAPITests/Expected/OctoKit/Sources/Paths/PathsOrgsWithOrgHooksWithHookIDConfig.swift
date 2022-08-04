@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-configuration-for-an-organization)
         public var get: Request<OctoKit.WebhookConfig> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/get-webhook-config-for-org")
         }
 
         /// Update a webhook configuration for an organization
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-a-webhook-configuration-for-an-organization)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "orgs/update-webhook-config-for-org")
         }
 
         /// Example:

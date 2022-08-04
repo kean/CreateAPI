@@ -30,7 +30,7 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-using-a-template)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/create-using-template")
         }
 
         public enum PostResponseHeaders {

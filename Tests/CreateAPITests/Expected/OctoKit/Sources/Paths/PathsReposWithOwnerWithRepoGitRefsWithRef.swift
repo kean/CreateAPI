@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#update-a-reference)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GitRef> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "git/update-ref")
         }
 
         public struct PatchRequest: Encodable {
@@ -45,7 +45,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#delete-a-reference)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "git/delete-ref")
         }
     }
 }

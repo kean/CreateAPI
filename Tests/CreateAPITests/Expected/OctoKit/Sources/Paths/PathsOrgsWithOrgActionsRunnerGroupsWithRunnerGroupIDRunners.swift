@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-self-hosted-runners-in-a-group-for-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-self-hosted-runners-in-group-for-org")
         }
 
         public struct GetResponse: Decodable {
@@ -66,7 +66,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-self-hosted-runners-in-a-group-for-an-organization)
         public func put(runners: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["runners": runners])
+            Request(method: "PUT", url: path, body: ["runners": runners], id: "actions/set-self-hosted-runners-in-group-for-org")
         }
     }
 }

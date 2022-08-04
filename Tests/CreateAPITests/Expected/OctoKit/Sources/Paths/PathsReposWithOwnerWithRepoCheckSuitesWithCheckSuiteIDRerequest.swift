@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#rerequest-a-check-suite)
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "checks/rerequest-suite")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization)
         public var get: Request<OctoKit.OrganizationFull> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/get")
         }
 
         /// Update an organization
@@ -36,7 +36,7 @@ extension Paths.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs/#update-an-organization)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.OrganizationFull> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "orgs/update")
         }
 
         public struct PatchRequest: Encodable {

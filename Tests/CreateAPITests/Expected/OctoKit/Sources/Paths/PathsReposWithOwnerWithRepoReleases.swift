@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-releases)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Release]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-releases")
         }
 
         public enum GetResponseHeaders {
@@ -47,7 +47,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-release)
         public func post(_ body: PostRequest) -> Request<OctoKit.Release> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/create-release")
         }
 
         public enum PostResponseHeaders {

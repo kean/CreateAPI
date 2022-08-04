@@ -21,7 +21,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist)
         public var get: Request<OctoKit.GistSimple> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "gists/get")
         }
 
         /// Update a gist
@@ -30,7 +30,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists/#update-a-gist)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GistSimple> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "gists/update")
         }
 
         public struct PatchRequest: Encodable {
@@ -72,7 +72,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "gists/delete")
         }
     }
 }

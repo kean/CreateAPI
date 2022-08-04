@@ -25,7 +25,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-organization-access-to-a-self-hosted-runner-group-in-a-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "enterprise-admin/list-org-access-to-self-hosted-runner-group-in-enterprise")
         }
 
         public struct GetResponse: Decodable {
@@ -58,7 +58,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs])
+            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs], id: "enterprise-admin/set-org-access-to-self-hosted-runner-group-in-enterprise")
         }
     }
 }

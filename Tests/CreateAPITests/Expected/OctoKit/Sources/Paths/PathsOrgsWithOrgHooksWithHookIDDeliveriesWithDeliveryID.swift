@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-a-webhook-delivery-for-an-organization-webhook)
         public var get: Request<OctoKit.HookDelivery> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/get-webhook-delivery")
         }
     }
 }

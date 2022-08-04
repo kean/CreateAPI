@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs.WithJobID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-job-logs-for-a-workflow-run)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/download-job-logs-for-workflow-run")
         }
     }
 }

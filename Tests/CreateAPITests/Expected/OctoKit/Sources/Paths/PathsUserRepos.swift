@@ -25,7 +25,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repositories-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "repos/list-for-authenticated-user")
         }
 
         public struct GetParameters {
@@ -105,7 +105,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-for-the-authenticated-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/create-for-authenticated-user")
         }
 
         public enum PostResponseHeaders {

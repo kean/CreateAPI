@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-status-checks-protection)
         public var get: Request<OctoKit.StatusCheckPolicy> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-status-checks-protection")
         }
 
         /// Update status check protection
@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-status-check-protection)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.StatusCheckPolicy> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "repos/update-status-check-protection")
         }
 
         public struct PatchRequest: Encodable {
@@ -83,7 +83,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-protection)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "repos/remove-status-check-protection")
         }
     }
 }

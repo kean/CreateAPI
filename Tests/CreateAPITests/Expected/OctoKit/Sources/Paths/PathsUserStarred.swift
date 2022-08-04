@@ -25,7 +25,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-starred-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Repository]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "activity/list-repos-starred-by-authenticated-user")
         }
 
         public enum GetResponseHeaders {

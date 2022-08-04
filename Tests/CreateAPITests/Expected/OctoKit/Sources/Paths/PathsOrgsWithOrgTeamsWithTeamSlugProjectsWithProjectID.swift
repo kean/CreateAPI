@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#check-team-permissions-for-a-project)
         public var get: Request<OctoKit.TeamProject> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/check-permissions-for-project-in-org")
         }
 
         /// Add or update team project permissions
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-project-permissions)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(permission: permission))
+            Request(method: "PUT", url: path, body: PutRequest(permission: permission), id: "teams/add-or-update-project-permissions-in-org")
         }
 
         public struct PutRequest: Encodable {
@@ -71,7 +71,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-a-project-from-a-team)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/remove-project-in-org")
         }
     }
 }

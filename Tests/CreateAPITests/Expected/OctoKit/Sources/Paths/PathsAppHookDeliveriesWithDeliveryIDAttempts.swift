@@ -25,7 +25,7 @@ extension Paths.App.Hook.Deliveries.WithDeliveryID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#redeliver-a-delivery-for-an-app-webhook)
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "apps/redeliver-webhook-delivery")
         }
     }
 }

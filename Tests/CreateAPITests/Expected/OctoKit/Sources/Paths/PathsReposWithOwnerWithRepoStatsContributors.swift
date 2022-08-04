@@ -28,7 +28,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-contributor-commit-activity)
         public var get: Request<[OctoKit.ContributorActivity]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-contributors-stats")
         }
     }
 }

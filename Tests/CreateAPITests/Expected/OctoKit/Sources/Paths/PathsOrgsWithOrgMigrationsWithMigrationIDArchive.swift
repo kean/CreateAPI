@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-an-organization-migration-archive)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "migrations/download-archive-for-org")
         }
 
         /// Delete an organization migration archive
@@ -32,7 +32,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-an-organization-migration-archive)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "migrations/delete-archive-for-org")
         }
     }
 }

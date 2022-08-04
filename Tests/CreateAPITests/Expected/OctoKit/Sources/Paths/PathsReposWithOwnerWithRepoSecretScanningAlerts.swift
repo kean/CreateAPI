@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-secret-scanning-alerts-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SecretScanningAlert]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "secret-scanning/list-alerts-for-repo")
         }
 
         public struct GetParameters {

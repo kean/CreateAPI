@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-page-views)
         public func get(per: Per? = nil) -> Request<OctoKit.ViewTraffic> {
-            Request(method: "GET", url: path, query: makeGetQuery(per))
+            Request(method: "GET", url: path, query: makeGetQuery(per), id: "repos/get-views")
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {

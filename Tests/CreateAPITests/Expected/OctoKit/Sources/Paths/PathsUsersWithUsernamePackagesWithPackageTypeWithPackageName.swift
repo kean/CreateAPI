@@ -26,7 +26,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-a-user)
         public var get: Request<OctoKit.Package> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "packages/get-package-for-user")
         }
 
         /// Delete a package for a user
@@ -39,7 +39,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-a-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "packages/delete-package-for-user")
         }
     }
 }

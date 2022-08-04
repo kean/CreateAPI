@@ -28,7 +28,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.GroupMapping> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/list-idp-groups-for-legacy")
         }
 
         /// Create or update IdP group connections (Legacy)
@@ -42,7 +42,7 @@ extension Paths.Teams.WithTeamID.TeamSync {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest) -> Request<OctoKit.GroupMapping> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "teams/create-or-update-idp-group-connections-legacy")
         }
 
         public struct PatchRequest: Encodable {

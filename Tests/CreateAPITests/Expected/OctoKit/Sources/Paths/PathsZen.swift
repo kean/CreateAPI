@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// Get a random sentence from the Zen of GitHub
         public var get: Request<String> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "meta/get-zen")
         }
     }
 }

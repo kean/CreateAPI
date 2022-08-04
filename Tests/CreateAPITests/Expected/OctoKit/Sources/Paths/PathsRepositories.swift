@@ -27,7 +27,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-public-repositories)
         public func get(since: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            Request(method: "GET", url: path, query: makeGetQuery(since))
+            Request(method: "GET", url: path, query: makeGetQuery(since), id: "repos/list-public")
         }
 
         public enum GetResponseHeaders {

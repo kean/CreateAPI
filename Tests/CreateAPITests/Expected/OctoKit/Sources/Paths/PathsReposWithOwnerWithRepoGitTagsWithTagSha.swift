@@ -50,7 +50,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Tags {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tag)
         public var get: Request<OctoKit.GitTag> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "git/get-tag")
         }
     }
 }

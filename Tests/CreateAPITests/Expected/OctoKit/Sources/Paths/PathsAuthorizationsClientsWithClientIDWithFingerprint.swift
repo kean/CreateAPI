@@ -30,7 +30,7 @@ extension Paths.Authorizations.Clients.WithClientID {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-or-create-an-authorization-for-a-specific-app-and-fingerprint)
         @available(*, deprecated, message: "Deprecated")
         public func put(_ body: PutRequest) -> Request<OctoKit.Authorization> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "oauth-authorizations/get-or-create-authorization-for-app-and-fingerprint")
         }
 
         public enum PutResponseHeaders {

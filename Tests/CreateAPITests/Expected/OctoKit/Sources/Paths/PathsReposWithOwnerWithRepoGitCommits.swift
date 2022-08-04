@@ -52,7 +52,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-commit)
         public func post(_ body: PostRequest) -> Request<OctoKit.GitCommit> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "git/create-commit")
         }
 
         public enum PostResponseHeaders {

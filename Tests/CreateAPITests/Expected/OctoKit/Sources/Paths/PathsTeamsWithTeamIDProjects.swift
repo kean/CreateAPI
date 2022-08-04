@@ -26,7 +26,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#list-team-projects-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TeamProject]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list-projects-legacy")
         }
 
         public enum GetResponseHeaders {

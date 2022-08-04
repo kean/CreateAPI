@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#check-if-a-pull-request-has-been-merged)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "pulls/check-if-merged")
         }
 
         /// Merge a pull request
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#merge-a-pull-request)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.PullRequestMergeResult> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "pulls/merge")
         }
 
         public struct PutRequest: Encodable {

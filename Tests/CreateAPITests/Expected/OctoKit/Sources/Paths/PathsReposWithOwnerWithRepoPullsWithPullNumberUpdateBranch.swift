@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-pull-request-branch)
         public func put(expectedHeadSha: String? = nil) -> Request<PutResponse> {
-            Request(method: "PUT", url: path, body: ["expected_head_sha": expectedHeadSha])
+            Request(method: "PUT", url: path, body: ["expected_head_sha": expectedHeadSha], id: "pulls/update-branch")
         }
 
         public struct PutResponse: Decodable {

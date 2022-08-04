@@ -21,7 +21,7 @@ extension Paths.Users.WithUsername.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-follows-another-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "users/check-following-for-user")
         }
     }
 }

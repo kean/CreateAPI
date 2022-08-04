@@ -21,14 +21,14 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-a-label)
         public var get: Request<OctoKit.Label> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "issues/get-label")
         }
 
         /// Update a label
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-a-label)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Label> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "issues/update-label")
         }
 
         public struct PatchRequest: Encodable {
@@ -56,7 +56,7 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-a-label)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "issues/delete-label")
         }
     }
 }

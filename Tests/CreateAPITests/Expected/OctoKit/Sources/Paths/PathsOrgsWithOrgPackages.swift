@@ -26,7 +26,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#list-packages-for-an-organization)
         public func get(packageType: PackageType, visibility: Visibility? = nil) -> Request<[OctoKit.Package]> {
-            Request(method: "GET", url: path, query: makeGetQuery(packageType, visibility))
+            Request(method: "GET", url: path, query: makeGetQuery(packageType, visibility), id: "packages/list-packages-for-organization")
         }
 
         private func makeGetQuery(_ packageType: PackageType, _ visibility: Visibility?) -> [(String, String?)] {

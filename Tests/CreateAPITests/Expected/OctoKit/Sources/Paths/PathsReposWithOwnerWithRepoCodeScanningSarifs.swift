@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#upload-a-sarif-file)
         public func post(_ body: PostRequest) -> Request<OctoKit.CodeScanningSarifsReceipt> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "code-scanning/upload-sarif")
         }
 
         public struct PostRequest: Encodable {

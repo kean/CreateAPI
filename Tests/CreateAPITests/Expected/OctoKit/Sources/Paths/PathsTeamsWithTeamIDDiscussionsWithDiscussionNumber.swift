@@ -26,7 +26,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamDiscussion> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/get-discussion-legacy")
         }
 
         /// Update a discussion (Legacy)
@@ -38,7 +38,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamDiscussion> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "teams/update-discussion-legacy")
         }
 
         public struct PatchRequest: Encodable {
@@ -62,7 +62,7 @@ extension Paths.Teams.WithTeamID.Discussions {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/delete-discussion-legacy")
         }
     }
 }

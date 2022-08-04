@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-teams-with-access-to-the-protected-branch)
         public var get: Request<[OctoKit.Team]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-teams-with-access-to-protected-branch")
         }
 
         /// Add team access restrictions
@@ -40,7 +40,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-team-access-restrictions)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/add-team-access-restrictions")
         }
 
         public enum PostRequest: Encodable {
@@ -84,7 +84,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-team-access-restrictions)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "repos/set-team-access-restrictions")
         }
 
         public enum PutRequest: Encodable {
@@ -128,7 +128,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-team-access-restrictions)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "DELETE", url: path, body: body)
+            Request(method: "DELETE", url: path, body: body, id: "repos/remove-team-access-restrictions")
         }
 
         public enum DeleteRequest: Encodable {

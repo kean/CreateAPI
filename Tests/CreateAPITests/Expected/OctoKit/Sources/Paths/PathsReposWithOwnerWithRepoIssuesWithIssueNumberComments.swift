@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-comments")
         }
 
         public enum GetResponseHeaders {
@@ -56,7 +56,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-an-issue-comment)
         public func post(body: String) -> Request<OctoKit.IssueComment> {
-            Request(method: "POST", url: path, body: ["body": body])
+            Request(method: "POST", url: path, body: ["body": body], id: "issues/create-comment")
         }
 
         public enum PostResponseHeaders {

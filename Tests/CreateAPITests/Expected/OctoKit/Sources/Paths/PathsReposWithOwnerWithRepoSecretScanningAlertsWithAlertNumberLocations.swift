@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts.WithAlertNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#list-locations-for-a-secret-scanning-alert)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.SecretScanningLocation]> {
-            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage), id: "secret-scanning/list-locations-for-alert")
         }
 
         public enum GetResponseHeaders {

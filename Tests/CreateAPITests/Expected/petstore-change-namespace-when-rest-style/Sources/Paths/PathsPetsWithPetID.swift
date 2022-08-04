@@ -19,7 +19,7 @@ extension Namespace.Pets {
 
         /// Info for a specific pet
         public var get: Request<petstore_change_namespace_when_rest_style.Pet> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "showPetById")
         }
     }
 }

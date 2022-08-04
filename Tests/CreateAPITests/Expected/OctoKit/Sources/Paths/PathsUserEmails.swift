@@ -23,7 +23,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-email-addresses-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Email]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "users/list-emails-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {
@@ -43,7 +43,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#add-an-email-address-for-the-authenticated-user)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Email]> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "users/add-email-for-authenticated-user")
         }
 
         public enum PostRequest: Encodable {
@@ -86,7 +86,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-an-email-address-for-the-authenticated-user)
         public func delete(_ body: DeleteRequest? = nil) -> Request<Void> {
-            Request(method: "DELETE", url: path, body: body)
+            Request(method: "DELETE", url: path, body: body, id: "users/delete-email-for-authenticated-user")
         }
 
         public enum DeleteRequest: Encodable {

@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-comments-for-a-pull-request-review)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.ReviewComment]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "pulls/list-comments-for-review")
         }
 
         public enum GetResponseHeaders {

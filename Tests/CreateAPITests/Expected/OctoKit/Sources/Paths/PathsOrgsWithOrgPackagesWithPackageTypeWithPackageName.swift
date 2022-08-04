@@ -26,7 +26,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-for-an-organization)
         public var get: Request<OctoKit.Package> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "packages/get-package-for-organization")
         }
 
         /// Delete a package for an organization
@@ -39,7 +39,7 @@ extension Paths.Orgs.WithOrg.Packages.WithPackageType {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-for-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "packages/delete-package-for-org")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-in-a-repository-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "codespaces/list-in-repository-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {
@@ -58,7 +58,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-in-a-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "codespaces/create-with-repo-for-authenticated-user")
         }
 
         public struct PostRequest: Encodable {

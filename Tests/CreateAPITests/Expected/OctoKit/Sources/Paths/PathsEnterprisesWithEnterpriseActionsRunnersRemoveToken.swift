@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-remove-token-for-an-enterprise)
         public var post: Request<OctoKit.AuthenticationToken> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "enterprise-admin/create-remove-token-for-enterprise")
         }
     }
 }

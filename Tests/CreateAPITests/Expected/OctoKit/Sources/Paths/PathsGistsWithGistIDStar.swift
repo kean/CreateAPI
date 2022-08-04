@@ -21,7 +21,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#check-if-a-gist-is-starred)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "gists/check-is-starred")
         }
 
         /// Star a gist
@@ -30,14 +30,14 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#star-a-gist)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "gists/star")
         }
 
         /// Unstar a gist
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#unstar-a-gist)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "gists/unstar")
         }
     }
 }

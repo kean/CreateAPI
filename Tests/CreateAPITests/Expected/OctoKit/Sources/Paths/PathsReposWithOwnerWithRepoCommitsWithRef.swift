@@ -58,7 +58,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-commit)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.Commit> {
-            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage), id: "repos/get-commit")
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {

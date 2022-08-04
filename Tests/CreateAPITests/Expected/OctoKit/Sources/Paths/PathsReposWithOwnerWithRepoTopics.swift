@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-repository-topics)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<OctoKit.Topic> {
-            Request(method: "GET", url: path, query: makeGetQuery(page, perPage))
+            Request(method: "GET", url: path, query: makeGetQuery(page, perPage), id: "repos/get-all-topics")
         }
 
         private func makeGetQuery(_ page: Int?, _ perPage: Int?) -> [(String, String?)] {
@@ -35,7 +35,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#replace-all-repository-topics)
         public func put(names: [String]) -> Request<OctoKit.Topic> {
-            Request(method: "PUT", url: path, body: ["names": names])
+            Request(method: "PUT", url: path, body: ["names": names], id: "repos/replace-all-topics")
         }
     }
 }

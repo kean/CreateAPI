@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Sarifs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-recent-code-scanning-analyses-for-a-repository)
         public var get: Request<OctoKit.CodeScanningSarifsStatus> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "code-scanning/get-sarif")
         }
     }
 }

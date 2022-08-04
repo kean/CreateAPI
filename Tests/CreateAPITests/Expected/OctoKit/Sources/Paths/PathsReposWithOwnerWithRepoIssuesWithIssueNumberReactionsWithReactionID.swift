@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Reactions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-reaction)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "reactions/delete-for-issue")
         }
     }
 }

@@ -20,7 +20,7 @@ extension Paths.Store {
 
         /// Place an order for a pet
         public func post(_ body: edgecases_disable_enums.Order) -> Request<edgecases_disable_enums.Order> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "placeOrder")
         }
     }
 }

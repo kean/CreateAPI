@@ -25,7 +25,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-runner-applications-for-an-enterprise)
         public var get: Request<[OctoKit.RunnerApplication]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "enterprise-admin/list-runner-applications-for-enterprise")
         }
     }
 }

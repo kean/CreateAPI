@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-a-label-from-an-issue)
         public var delete: Request<[OctoKit.Label]> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "issues/remove-label")
         }
     }
 }

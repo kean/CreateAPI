@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document)
         public func post(_ body: PostRequest) -> Request<String> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "markdown/render")
         }
 
         public enum PostResponseHeaders {

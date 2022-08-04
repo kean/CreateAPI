@@ -25,7 +25,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-codespaces-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "codespaces/list-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {
@@ -73,7 +73,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-a-codespace-for-the-authenticated-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.Codespace> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "codespaces/create-for-authenticated-user")
         }
 
         public enum PostRequest: Encodable {

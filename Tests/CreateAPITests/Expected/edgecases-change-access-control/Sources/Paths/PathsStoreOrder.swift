@@ -20,7 +20,7 @@ extension Paths.Store {
 
         /// Place an order for a pet
         func post(_ body: edgecases_change_access_control.Order) -> Request<edgecases_change_access_control.Order> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "placeOrder")
         }
     }
 }

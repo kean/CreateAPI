@@ -19,7 +19,7 @@ extension Namespace {
 
         /// List all pets
         public func get(limit: Int? = nil) -> Request<[petstore_change_namespace_when_rest_style.Pet]> {
-            Request(method: "GET", url: path, query: makeGetQuery(limit))
+            Request(method: "GET", url: path, query: makeGetQuery(limit), id: "listPets")
         }
 
         public enum GetResponseHeaders {
@@ -35,7 +35,7 @@ extension Namespace {
 
         /// Create a pet
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "createPets")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project)
         public var get: Request<OctoKit.Project> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "projects/get")
         }
 
         /// Update a project
@@ -32,7 +32,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Project> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "projects/update")
         }
 
         public struct PatchRequest: Encodable {
@@ -84,7 +84,7 @@ extension Paths.Projects {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "projects/delete")
         }
     }
 }

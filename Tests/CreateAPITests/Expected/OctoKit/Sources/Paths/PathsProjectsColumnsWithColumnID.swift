@@ -21,21 +21,21 @@ extension Paths.Projects.Columns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-column)
         public var get: Request<OctoKit.ProjectColumn> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "projects/get-column")
         }
 
         /// Update an existing project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-column)
         public func patch(name: String) -> Request<OctoKit.ProjectColumn> {
-            Request(method: "PATCH", url: path, body: ["name": name])
+            Request(method: "PATCH", url: path, body: ["name": name], id: "projects/update-column")
         }
 
         /// Delete a project column
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-column)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "projects/delete-column")
         }
     }
 }

@@ -29,7 +29,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-a-custom-label-from-a-self-hosted-runner-for-an-enterprise)
         public var delete: Request<DeleteResponse> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "enterprise-admin/remove-custom-label-from-self-hosted-runner-for-enterprise")
         }
 
         public struct DeleteResponse: Decodable {

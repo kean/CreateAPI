@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-comment-for-a-pull-request)
         public var get: Request<OctoKit.PullRequestReviewComment> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "pulls/get-review-comment")
         }
 
         /// Update a review comment for a pull request
@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-comment-for-a-pull-request)
         public func patch(body: String) -> Request<OctoKit.PullRequestReviewComment> {
-            Request(method: "PATCH", url: path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body], id: "pulls/update-review-comment")
         }
 
         /// Delete a review comment for a pull request
@@ -41,7 +41,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-review-comment-for-a-pull-request)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "pulls/delete-review-comment")
         }
     }
 }

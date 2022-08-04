@@ -20,21 +20,21 @@ extension Paths.User {
 
         /// Get user by user name
         public var get: Request<edgecases_rename.User> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "getUserByName")
         }
 
         /// Updated user
         ///
         /// This can only be done by the logged in user.
         public func put(_ body: edgecases_rename.User) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "updateUser")
         }
 
         /// Delete user
         ///
         /// This can only be done by the logged in user.
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "deleteUser")
         }
     }
 }

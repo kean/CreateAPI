@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-environments)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-all-environments")
         }
 
         public struct GetResponse: Decodable {

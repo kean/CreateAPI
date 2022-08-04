@@ -29,7 +29,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.MatchingRefs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#list-matching-references)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GitRef]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "git/list-matching-refs")
         }
 
         public enum GetResponseHeaders {

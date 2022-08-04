@@ -23,7 +23,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-environment-secret)
         public var get: Request<OctoKit.ActionsSecret> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-environment-secret")
         }
 
         /// Create or update an environment secret
@@ -106,7 +106,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-an-environment-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "actions/create-or-update-environment-secret")
         }
 
         public struct PutRequest: Encodable {
@@ -132,7 +132,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-environment-secret)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "actions/delete-environment-secret")
         }
     }
 }

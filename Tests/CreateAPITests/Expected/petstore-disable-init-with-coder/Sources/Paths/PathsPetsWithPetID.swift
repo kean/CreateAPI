@@ -19,7 +19,7 @@ extension Paths.Pets {
 
         /// Info for a specific pet
         public var get: Request<petstore_disable_init_with_coder.Pet> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "showPetById")
         }
     }
 }

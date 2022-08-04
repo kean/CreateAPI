@@ -21,21 +21,21 @@ extension Paths.User.Blocks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-user-is-blocked-by-the-authenticated-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "users/check-blocked")
         }
 
         /// Block a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#block-a-user)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "users/block")
         }
 
         /// Unblock a user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#unblock-a-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "users/unblock")
         }
     }
 }

@@ -18,7 +18,7 @@ extension Paths {
         public let path: String
 
         public func get(limit: Int? = nil) -> Request<[petstore_disable_comments.Pet]> {
-            Request(method: "GET", url: path, query: makeGetQuery(limit))
+            Request(method: "GET", url: path, query: makeGetQuery(limit), id: "listPets")
         }
 
         public enum GetResponseHeaders {
@@ -32,7 +32,7 @@ extension Paths {
         }
 
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "createPets")
         }
     }
 }

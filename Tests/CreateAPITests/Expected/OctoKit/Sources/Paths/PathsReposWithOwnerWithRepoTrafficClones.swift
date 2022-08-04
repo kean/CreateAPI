@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Traffic {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-clones)
         public func get(per: Per? = nil) -> Request<OctoKit.CloneTraffic> {
-            Request(method: "GET", url: path, query: makeGetQuery(per))
+            Request(method: "GET", url: path, query: makeGetQuery(per), id: "repos/get-clones")
         }
 
         private func makeGetQuery(_ per: Per?) -> [(String, String?)] {

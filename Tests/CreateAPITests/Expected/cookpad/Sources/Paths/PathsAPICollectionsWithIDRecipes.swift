@@ -19,7 +19,7 @@ extension Paths.Collections.WithID {
         ///
         /// Returns an ordered array of Recipe models in the given Collection.
         public var get: Request<[cookpad.Recipe]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "getCollectionRecipes")
         }
     }
 }

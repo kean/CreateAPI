@@ -21,21 +21,21 @@ extension Paths.Orgs.WithOrg.Blocks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-if-a-user-is-blocked-by-an-organization)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/check-blocked-user")
         }
 
         /// Block a user from an organization
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#block-a-user-from-an-organization)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "orgs/block-user")
         }
 
         /// Unblock a user from an organization
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#unblock-a-user-from-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "orgs/unblock-user")
         }
     }
 }

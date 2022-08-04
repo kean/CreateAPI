@@ -20,7 +20,7 @@ extension Paths.User {
 
         /// Creates list of users with given input array
         func post(_ body: [edgecases_change_access_control.User]) -> Request<Void> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "createUsersWithArrayInput")
         }
     }
 }

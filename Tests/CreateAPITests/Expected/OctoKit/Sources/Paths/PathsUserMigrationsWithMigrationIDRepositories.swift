@@ -23,7 +23,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-repositories-for-a-user-migration)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "migrations/list-repos-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

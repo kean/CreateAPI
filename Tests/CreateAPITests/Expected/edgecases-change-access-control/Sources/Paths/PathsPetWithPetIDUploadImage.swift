@@ -20,7 +20,7 @@ extension Paths.Pet.WithPetID {
 
         /// Uploads an image
         func post(_ body: Data? = nil) -> Request<edgecases_change_access_control.APIResponse> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "uploadFile")
         }
     }
 }

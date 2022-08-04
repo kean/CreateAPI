@@ -30,7 +30,7 @@ extension Paths.User.Migrations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-a-user-migration-status)
         public func get(exclude: [String]? = nil) -> Request<OctoKit.Migration> {
-            Request(method: "GET", url: path, query: makeGetQuery(exclude))
+            Request(method: "GET", url: path, query: makeGetQuery(exclude), id: "migrations/get-status-for-authenticated-user")
         }
 
         private func makeGetQuery(_ exclude: [String]?) -> [(String, String?)] {

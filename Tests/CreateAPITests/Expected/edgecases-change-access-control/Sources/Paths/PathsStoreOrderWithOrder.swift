@@ -22,14 +22,14 @@ extension Paths.Store.Order {
         ///
         /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
         var get: Request<edgecases_change_access_control.Order> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "getOrderById")
         }
 
         /// Delete purchase order by ID
         ///
         /// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
         var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "deleteOrder")
         }
     }
 }

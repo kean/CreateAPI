@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-assignees-to-an-issue)
         public func post(assignees: [String]? = nil) -> Request<OctoKit.Issue> {
-            Request(method: "POST", url: path, body: ["assignees": assignees])
+            Request(method: "POST", url: path, body: ["assignees": assignees], id: "issues/add-assignees")
         }
 
         /// Remove assignees from an issue
@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-assignees-from-an-issue)
         public func delete(assignees: [String]? = nil) -> Request<OctoKit.Issue> {
-            Request(method: "DELETE", url: path, body: ["assignees": assignees])
+            Request(method: "DELETE", url: path, body: ["assignees": assignees], id: "issues/remove-assignees")
         }
     }
 }

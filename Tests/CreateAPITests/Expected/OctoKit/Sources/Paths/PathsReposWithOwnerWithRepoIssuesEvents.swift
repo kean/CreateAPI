@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-events-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.IssueEvent]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-events-for-repo")
         }
 
         public enum GetResponseHeaders {

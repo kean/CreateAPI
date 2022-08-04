@@ -24,7 +24,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-secret-for-the-authenticated-user)
         public var get: Request<OctoKit.CodespacesSecret> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "codespaces/get-secret-for-authenticated-user")
         }
 
         /// Create or update a secret for the authenticated user
@@ -105,7 +105,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#create-or-update-a-secret-for-the-authenticated-user)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "codespaces/create-or-update-secret-for-authenticated-user")
         }
 
         public struct PutRequest: Encodable {
@@ -135,7 +135,7 @@ extension Paths.User.Codespaces.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-secret-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "codespaces/delete-secret-for-authenticated-user")
         }
     }
 }

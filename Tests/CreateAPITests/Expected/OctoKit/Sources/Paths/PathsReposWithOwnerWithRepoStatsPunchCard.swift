@@ -29,7 +29,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-hourly-commit-count-for-each-day)
         public var get: Request<[[Int]]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-punch-card-stats")
         }
     }
 }

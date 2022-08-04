@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-external-idp-groups-for-an-organization)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ExternalGroups> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-external-idp-groups-for-org")
         }
 
         public enum GetResponseHeaders {

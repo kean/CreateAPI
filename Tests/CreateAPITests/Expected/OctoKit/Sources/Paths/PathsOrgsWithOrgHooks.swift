@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-webhooks)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrgHook]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "orgs/list-webhooks")
         }
 
         public enum GetResponseHeaders {
@@ -41,7 +41,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-webhook)
         public func post(_ body: PostRequest) -> Request<OctoKit.OrgHook> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "orgs/create-webhook")
         }
 
         public enum PostResponseHeaders {

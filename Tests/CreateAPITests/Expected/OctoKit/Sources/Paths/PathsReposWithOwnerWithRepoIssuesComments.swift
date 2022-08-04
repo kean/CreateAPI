@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issue-comments-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.IssueComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-comments-for-repo")
         }
 
         public enum GetResponseHeaders {

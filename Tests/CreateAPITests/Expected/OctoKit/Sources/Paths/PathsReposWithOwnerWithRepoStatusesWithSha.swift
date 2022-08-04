@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-commit-status)
         public func post(_ body: PostRequest) -> Request<OctoKit.Status> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "repos/create-commit-status")
         }
 
         public enum PostResponseHeaders {

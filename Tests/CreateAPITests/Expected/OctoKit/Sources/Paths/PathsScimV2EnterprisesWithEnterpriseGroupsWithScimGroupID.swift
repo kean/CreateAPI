@@ -23,7 +23,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-group)
         public func get(excludedAttributes: String? = nil) -> Request<OctoKit.ScimEnterpriseGroup> {
-            Request(method: "GET", url: path, query: makeGetQuery(excludedAttributes))
+            Request(method: "GET", url: path, query: makeGetQuery(excludedAttributes), id: "enterprise-admin/get-provisioning-information-for-enterprise-group")
         }
 
         private func makeGetQuery(_ excludedAttributes: String?) -> [(String, String?)] {
@@ -40,7 +40,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-group)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "enterprise-admin/set-information-for-provisioned-enterprise-group")
         }
 
         public struct PutRequest: Encodable {
@@ -74,7 +74,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-group)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimEnterpriseGroup> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "enterprise-admin/update-attribute-for-enterprise-group")
         }
 
         public struct PatchRequest: Encodable {
@@ -122,7 +122,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-group-from-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "enterprise-admin/delete-scim-group-from-enterprise")
         }
     }
 }

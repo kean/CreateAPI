@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-an-issue)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-labels-on-issue")
         }
 
         public enum GetResponseHeaders {
@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#add-labels-to-an-issue)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.Label]> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "issues/add-labels")
         }
 
         public enum PostRequest: Encodable {
@@ -100,7 +100,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#set-labels-for-an-issue)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.Label]> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "issues/set-labels")
         }
 
         public enum PutRequest: Encodable {
@@ -159,7 +159,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#remove-all-labels-from-an-issue)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "issues/remove-all-labels")
         }
     }
 }

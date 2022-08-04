@@ -21,14 +21,14 @@ extension Paths.User.RepositoryInvitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#accept-a-repository-invitation)
         public var patch: Request<Void> {
-            Request(method: "PATCH", url: path)
+            Request(method: "PATCH", url: path, id: "repos/accept-invitation-for-authenticated-user")
         }
 
         /// Decline a repository invitation
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#decline-a-repository-invitation)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "repos/decline-invitation-for-authenticated-user")
         }
     }
 }

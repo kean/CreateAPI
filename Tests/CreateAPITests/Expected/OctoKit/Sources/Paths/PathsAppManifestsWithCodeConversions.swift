@@ -23,7 +23,7 @@ extension Paths.AppManifests.WithCode {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-github-app-from-a-manifest)
         public var post: Request<PostResponse> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "apps/create-from-manifest")
         }
 
         public struct PostResponse: Decodable {

@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-alert)
         public var get: Request<OctoKit.CodeScanningAlert> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "code-scanning/get-alert")
         }
 
         /// Update a code scanning alert
@@ -35,7 +35,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#update-a-code-scanning-alert)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.CodeScanningAlert> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "code-scanning/update-alert")
         }
 
         public struct PatchRequest: Encodable {

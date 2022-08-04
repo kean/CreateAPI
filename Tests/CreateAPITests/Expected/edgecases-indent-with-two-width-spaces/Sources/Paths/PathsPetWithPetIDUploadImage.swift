@@ -20,7 +20,7 @@ extension Paths.Pet.WithPetID {
 
     /// Uploads an image
     public func post(_ body: Data? = nil) -> Request<edgecases_indent_with_two_width_spaces.APIResponse> {
-      Request(method: "POST", url: path, body: body)
+      Request(method: "POST", url: path, body: body, id: "uploadFile")
     }
   }
 }

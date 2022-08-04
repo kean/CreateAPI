@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.ExternalGroup {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#external-idp-group-info-for-an-organization)
         public var get: Request<OctoKit.ExternalGroup> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/external-idp-group-info-for-org")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-organization-migrations)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Migration]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "migrations/list-for-org")
         }
 
         public enum GetResponseHeaders {
@@ -63,7 +63,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-organization-migration)
         public func post(_ body: PostRequest) -> Request<OctoKit.Migration> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "migrations/start-for-org")
         }
 
         public struct PostRequest: Encodable {

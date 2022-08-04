@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-repository-subscription)
         public var get: Request<OctoKit.RepositorySubscription> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "activity/get-repo-subscription")
         }
 
         /// Set a repository subscription
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-repository-subscription)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.RepositorySubscription> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "activity/set-repo-subscription")
         }
 
         public struct PutRequest: Encodable {
@@ -56,7 +56,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-repository-subscription)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "activity/delete-repo-subscription")
         }
     }
 }

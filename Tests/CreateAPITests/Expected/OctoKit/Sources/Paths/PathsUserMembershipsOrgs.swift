@@ -21,7 +21,7 @@ extension Paths.User.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organization-memberships-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.OrgMembership]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "orgs/list-memberships-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

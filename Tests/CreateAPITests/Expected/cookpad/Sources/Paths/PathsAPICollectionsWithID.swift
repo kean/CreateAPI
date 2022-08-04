@@ -19,7 +19,7 @@ extension Paths.Collections {
         ///
         /// Returns a single Collection model associated with the given identifier.
         public var get: Request<cookpad.Collection> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "getCollection")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Apps {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#get-an-app)
         public var get: Request<OctoKit.Integration> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "apps/get-by-slug")
         }
     }
 }

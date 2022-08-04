@@ -20,7 +20,7 @@ extension Paths {
 
         /// To test enum parameters
         func get(parameters: GetParameters? = nil) -> Request<Void> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "testEnumParameters")
         }
 
         struct GetParameters {
@@ -56,7 +56,7 @@ extension Paths {
 
         /// Fake endpoint for testing various parameters
         func post(_ body: PostRequest? = nil) -> Request<Void> {
-            Request(method: "POST", url: path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery)
+            Request(method: "POST", url: path, body: body.map(URLQueryEncoder.encode)?.percentEncodedQuery, id: "testEndpointParameters")
         }
 
         struct PostRequest: Encodable {
@@ -128,7 +128,7 @@ extension Paths {
 
         /// To test "client" model
         func patch(_ body: edgecases_change_access_control.Client) -> Request<edgecases_change_access_control.Client> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "testClientModel")
         }
     }
 }

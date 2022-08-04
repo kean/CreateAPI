@@ -56,7 +56,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-import-status)
         public var get: Request<OctoKit.Import> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "migrations/get-import-status")
         }
 
         /// Start an import
@@ -65,7 +65,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-an-import)
         public func put(_ body: PutRequest) -> Request<OctoKit.Import> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "migrations/start-import")
         }
 
         public enum PutResponseHeaders {
@@ -116,7 +116,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-an-import)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Import> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "migrations/update-import")
         }
 
         public struct PatchRequest: Encodable {
@@ -150,7 +150,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#cancel-an-import)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "migrations/cancel-import")
         }
     }
 }

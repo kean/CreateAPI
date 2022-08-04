@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Jobs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-job-for-a-workflow-run)
         public var get: Request<OctoKit.Job> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-job-for-workflow-run")
         }
     }
 }

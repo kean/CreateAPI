@@ -25,7 +25,7 @@ extension Paths.App.Hook.Deliveries {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-delivery-for-an-app-webhook)
         public var get: Request<OctoKit.HookDelivery> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "apps/get-webhook-delivery")
         }
     }
 }

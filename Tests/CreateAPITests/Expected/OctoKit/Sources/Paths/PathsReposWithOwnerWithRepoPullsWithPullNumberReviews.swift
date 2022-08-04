@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-reviews-for-a-pull-request)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.PullRequestReview]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "pulls/list-reviews")
         }
 
         public enum GetResponseHeaders {
@@ -49,7 +49,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-for-a-pull-request)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.PullRequestReview> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "pulls/create-review")
         }
 
         public struct PostRequest: Encodable {

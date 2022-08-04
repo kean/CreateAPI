@@ -27,7 +27,7 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-available-machine-types-for-a-repository)
         public func get(location: String) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: [("location", location)])
+            Request(method: "GET", url: path, query: [("location", location)], id: "codespaces/repo-machines-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {

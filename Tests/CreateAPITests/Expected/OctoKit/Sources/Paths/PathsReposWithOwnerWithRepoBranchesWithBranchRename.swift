@@ -37,7 +37,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#rename-a-branch)
         public func post(newName: String) -> Request<OctoKit.BranchWithProtection> {
-            Request(method: "POST", url: path, body: ["new_name": newName])
+            Request(method: "POST", url: path, body: ["new_name": newName], id: "repos/rename-branch")
         }
     }
 }

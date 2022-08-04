@@ -25,7 +25,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#start-a-codespace-for-the-authenticated-user)
         public var post: Request<OctoKit.Codespace> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "codespaces/start-for-authenticated-user")
         }
     }
 }

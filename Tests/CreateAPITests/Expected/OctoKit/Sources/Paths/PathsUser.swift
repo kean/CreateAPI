@@ -25,7 +25,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-the-authenticated-user)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "users/get-authenticated")
         }
 
         public enum GetResponse: Decodable {
@@ -50,7 +50,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users/#update-the-authenticated-user)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PrivateUser> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "users/update-authenticated")
         }
 
         public struct PatchRequest: Encodable {

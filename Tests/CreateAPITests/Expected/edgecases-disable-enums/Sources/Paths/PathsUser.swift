@@ -22,7 +22,7 @@ extension Paths {
         ///
         /// This can only be done by the logged in user.
         public func post(_ body: edgecases_disable_enums.User) -> Request<Void> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "createUser")
         }
     }
 }

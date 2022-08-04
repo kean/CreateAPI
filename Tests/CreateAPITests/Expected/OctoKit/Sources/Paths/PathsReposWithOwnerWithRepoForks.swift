@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-forks)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "repos/list-forks")
         }
 
         public enum GetResponseHeaders {
@@ -63,7 +63,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-fork)
         public func post(organization: String? = nil) -> Request<OctoKit.FullRepository> {
-            Request(method: "POST", url: path, body: ["organization": organization])
+            Request(method: "POST", url: path, body: ["organization": organization], id: "repos/create-fork")
         }
     }
 }

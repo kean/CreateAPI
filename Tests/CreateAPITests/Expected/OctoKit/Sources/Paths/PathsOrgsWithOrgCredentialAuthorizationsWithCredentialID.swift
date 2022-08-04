@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.CredentialAuthorizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-a-saml-sso-authorization-for-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "orgs/remove-saml-sso-authorization")
         }
     }
 }

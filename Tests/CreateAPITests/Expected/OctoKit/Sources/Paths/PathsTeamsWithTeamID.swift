@@ -24,7 +24,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#get-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamFull> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/get-legacy")
         }
 
         /// Update a team (Legacy)
@@ -38,7 +38,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#update-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest) -> Request<OctoKit.TeamFull> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "teams/update-legacy")
         }
 
         public struct PatchRequest: Encodable {
@@ -110,7 +110,7 @@ extension Paths.Teams {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#delete-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/delete-legacy")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-timeline-events-for-an-issue)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.TimelineIssueEvents]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-events-for-timeline")
         }
 
         public enum GetResponseHeaders {

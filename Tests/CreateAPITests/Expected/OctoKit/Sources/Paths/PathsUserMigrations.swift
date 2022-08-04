@@ -23,7 +23,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#list-user-migrations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Migration]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "migrations/list-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {
@@ -43,7 +43,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#start-a-user-migration)
         public func post(_ body: PostRequest) -> Request<OctoKit.Migration> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "migrations/start-for-authenticated-user")
         }
 
         public struct PostRequest: Encodable {

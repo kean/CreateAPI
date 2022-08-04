@@ -27,7 +27,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-access-restrictions)
         public var get: Request<OctoKit.BranchRestrictionPolicy> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-access-restrictions")
         }
 
         /// Delete access restrictions
@@ -38,7 +38,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-access-restrictions)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "repos/delete-access-restrictions")
         }
     }
 }

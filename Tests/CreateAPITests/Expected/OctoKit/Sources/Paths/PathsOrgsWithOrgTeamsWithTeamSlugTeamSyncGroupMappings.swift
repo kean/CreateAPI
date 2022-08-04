@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-idp-groups-for-a-team)
         public var get: Request<OctoKit.GroupMapping> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/list-idp-groups-in-org")
         }
 
         /// Create or update IdP group connections
@@ -40,7 +40,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-or-update-idp-group-connections)
         public func patch(groups: [PatchRequest.Group]? = nil) -> Request<OctoKit.GroupMapping> {
-            Request(method: "PATCH", url: path, body: PatchRequest(groups: groups))
+            Request(method: "PATCH", url: path, body: PatchRequest(groups: groups), id: "teams/create-or-update-idp-group-connections-in-org")
         }
 
         public struct PatchRequest: Encodable {

@@ -25,7 +25,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "enterprise-admin/list-selected-organizations-enabled-github-actions-enterprise")
         }
 
         public struct GetResponse: Decodable {
@@ -58,7 +58,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-selected-organizations-enabled-for-github-actions-in-an-enterprise)
         public func put(selectedOrganizationIDs: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs])
+            Request(method: "PUT", url: path, body: ["selected_organization_ids": selectedOrganizationIDs], id: "enterprise-admin/set-selected-organizations-enabled-github-actions-enterprise")
         }
     }
 }

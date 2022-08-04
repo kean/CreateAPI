@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-code-scanning-analyses-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAnalysis]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "code-scanning/list-recent-analyses")
         }
 
         public struct GetParameters {

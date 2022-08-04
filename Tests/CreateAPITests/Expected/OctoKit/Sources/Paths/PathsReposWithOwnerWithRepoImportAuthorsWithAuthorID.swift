@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#map-a-commit-author)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PorterAuthor> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "migrations/map-commit-author")
         }
 
         public struct PatchRequest: Encodable {

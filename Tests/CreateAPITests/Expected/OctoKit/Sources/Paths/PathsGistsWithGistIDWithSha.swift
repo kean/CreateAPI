@@ -21,7 +21,7 @@ extension Paths.Gists.WithGistID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-revision)
         public var get: Request<OctoKit.GistSimple> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "gists/get-revision")
         }
     }
 }

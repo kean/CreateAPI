@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones.WithMilestoneNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-issues-in-a-milestone)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-labels-for-milestone")
         }
 
         public enum GetResponseHeaders {

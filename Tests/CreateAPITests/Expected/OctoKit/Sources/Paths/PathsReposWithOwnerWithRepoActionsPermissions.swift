@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-a-repository)
         public var get: Request<OctoKit.ActionsRepositoryPermissions> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-github-actions-permissions-repository")
         }
 
         /// Set GitHub Actions permissions for a repository
@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-a-repository)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "actions/set-github-actions-permissions-repository")
         }
 
         public struct PutRequest: Encodable {

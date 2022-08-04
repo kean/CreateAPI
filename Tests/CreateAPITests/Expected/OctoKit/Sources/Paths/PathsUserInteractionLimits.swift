@@ -23,7 +23,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-your-public-repositories)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "interactions/get-restrictions-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {
@@ -48,7 +48,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-your-public-repositories)
         public func put(_ body: OctoKit.InteractionLimit) -> Request<OctoKit.InteractionLimitResponse> {
-            Request(method: "PUT", url: path, body: body)
+            Request(method: "PUT", url: path, body: body, id: "interactions/set-restrictions-for-authenticated-user")
         }
 
         /// Remove interaction restrictions from your public repositories
@@ -57,7 +57,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-from-your-public-repositories)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "interactions/remove-restrictions-for-authenticated-user")
         }
     }
 }

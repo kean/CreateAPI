@@ -21,14 +21,14 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#enable-git-lfs-for-a-repository)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path)
+            Request(method: "PUT", url: path, id: "repos/enable-lfs-for-repo")
         }
 
         /// Disable Git LFS for a repository
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#disable-git-lfs-for-a-repository)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "repos/disable-lfs-for-repo")
         }
     }
 }

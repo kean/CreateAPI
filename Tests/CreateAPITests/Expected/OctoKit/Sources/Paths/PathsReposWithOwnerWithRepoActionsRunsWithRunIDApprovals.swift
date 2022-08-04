@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-the-review-history-for-a-workflow-run)
         public var get: Request<[OctoKit.EnvironmentApprovals]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "actions/get-reviews-for-run")
         }
     }
 }

@@ -11,6 +11,6 @@ import URLQueryEncoder
 extension Namespace {
     /// Create a pet
     static public var createPets: Request<Void> {
-        Request(method: "POST", url: "/pets")
+        Request(method: "POST", url: "/pets", id: "createPets")
     }
 }

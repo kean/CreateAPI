@@ -19,7 +19,7 @@ extension Paths {
 
         /// List all pets
         public func get(limit: Int? = nil) -> Request<[petstore_merge_sources.Pet]> {
-            Request(method: "GET", url: path, query: makeGetQuery(limit))
+            Request(method: "GET", url: path, query: makeGetQuery(limit), id: "listPets")
         }
 
         public enum GetResponseHeaders {
@@ -35,7 +35,7 @@ extension Paths {
 
         /// Create a pet
         public var post: Request<Void> {
-            Request(method: "POST", url: path)
+            Request(method: "POST", url: path, id: "createPets")
         }
     }
 }
@@ -51,7 +51,7 @@ extension Paths.Pets {
 
         /// Info for a specific pet
         public var get: Request<petstore_merge_sources.Pet> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "showPetById")
         }
     }
 }

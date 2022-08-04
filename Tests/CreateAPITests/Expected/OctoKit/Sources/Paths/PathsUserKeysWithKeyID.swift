@@ -23,7 +23,7 @@ extension Paths.User.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-public-ssh-key-for-the-authenticated-user)
         public var get: Request<OctoKit.Key> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "users/get-public-ssh-key-for-authenticated-user")
         }
 
         /// Delete a public SSH key for the authenticated user
@@ -32,7 +32,7 @@ extension Paths.User.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-public-ssh-key-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "users/delete-public-ssh-key-for-authenticated-user")
         }
     }
 }

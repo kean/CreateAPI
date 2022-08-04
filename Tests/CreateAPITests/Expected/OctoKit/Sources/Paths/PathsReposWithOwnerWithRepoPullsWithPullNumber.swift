@@ -37,7 +37,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-pull-request)
         public var get: Request<OctoKit.PullRequest> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "pulls/get")
         }
 
         /// Update a pull request
@@ -48,7 +48,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls/#update-a-pull-request)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.PullRequest> {
-            Request(method: "PATCH", url: path, body: body)
+            Request(method: "PATCH", url: path, body: body, id: "pulls/update")
         }
 
         public struct PatchRequest: Encodable {

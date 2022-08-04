@@ -19,7 +19,7 @@ extension Paths.Pets {
 
         /// Info for a specific pet
         public var get: Request<petstore_change_filename.Pet> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "showPetById")
         }
     }
 }

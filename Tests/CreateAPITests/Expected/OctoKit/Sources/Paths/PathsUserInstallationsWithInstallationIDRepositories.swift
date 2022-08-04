@@ -29,7 +29,7 @@ extension Paths.User.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-repositories-accessible-to-the-user-access-token)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "apps/list-installation-repos-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {

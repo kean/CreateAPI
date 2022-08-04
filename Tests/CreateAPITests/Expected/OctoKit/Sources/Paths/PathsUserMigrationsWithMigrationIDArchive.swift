@@ -43,7 +43,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#download-a-user-migration-archive)
         public var get: Request<Void> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "migrations/get-archive-for-authenticated-user")
         }
 
         /// Delete a user migration archive
@@ -52,7 +52,7 @@ extension Paths.User.Migrations.WithMigrationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#delete-a-user-migration-archive)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "migrations/delete-archive-for-authenticated-user")
         }
     }
 }

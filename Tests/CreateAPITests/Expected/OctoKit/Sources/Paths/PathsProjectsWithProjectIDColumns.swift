@@ -21,7 +21,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-columns)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.ProjectColumn]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page))
+            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "projects/list-columns")
         }
 
         public enum GetResponseHeaders {
@@ -39,7 +39,7 @@ extension Paths.Projects.WithProjectID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-column)
         public func post(name: String) -> Request<OctoKit.ProjectColumn> {
-            Request(method: "POST", url: path, body: ["name": name])
+            Request(method: "POST", url: path, body: ["name": name], id: "projects/create-column")
         }
     }
 }

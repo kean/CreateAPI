@@ -25,7 +25,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps/#create-an-installation-access-token-for-an-app)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.InstallationToken> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "apps/create-installation-access-token")
         }
 
         public struct PostRequest: Encodable {

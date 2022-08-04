@@ -21,7 +21,7 @@ extension Paths.Projects.Columns.Cards.WithCardID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-card)
         public func post(_ body: PostRequest) -> Request<Void> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "projects/move-card")
         }
 
         public struct PostRequest: Encodable {

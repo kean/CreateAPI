@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#create-a-blob)
         public func post(_ body: PostRequest) -> Request<OctoKit.ShortBlob> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "git/create-blob")
         }
 
         public enum PostResponseHeaders {

@@ -26,7 +26,7 @@ extension Paths.Organizations.WithOrganizationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-custom-repository-roles-in-an-organization)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "orgs/list-custom-roles")
         }
 
         public struct GetResponse: Decodable {

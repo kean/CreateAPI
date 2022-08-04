@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codes-of-conduct#get-all-codes-of-conduct)
         public var get: Request<[OctoKit.CodeOfConduct]> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "codes-of-conduct/get-all-codes-of-conduct")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion-comment)
         public var get: Request<OctoKit.TeamDiscussionComment> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "teams/get-discussion-comment-in-org")
         }
 
         /// Update a discussion comment
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion-comment)
         public func patch(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            Request(method: "PATCH", url: path, body: ["body": body])
+            Request(method: "PATCH", url: path, body: ["body": body], id: "teams/update-discussion-comment-in-org")
         }
 
         /// Delete a discussion comment
@@ -47,7 +47,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion-comment)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path)
+            Request(method: "DELETE", url: path, id: "teams/delete-discussion-comment-in-org")
         }
     }
 }

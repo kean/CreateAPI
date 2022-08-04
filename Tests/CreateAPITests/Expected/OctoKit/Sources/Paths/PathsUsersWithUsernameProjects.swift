@@ -21,7 +21,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-user-projects)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Project]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "projects/list-for-user")
         }
 
         public enum GetResponseHeaders {

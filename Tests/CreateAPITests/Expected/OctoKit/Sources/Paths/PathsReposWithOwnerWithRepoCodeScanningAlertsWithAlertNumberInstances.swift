@@ -26,7 +26,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts.WithAlertNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#list-instances-of-a-code-scanning-alert)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.CodeScanningAlertInstance]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "code-scanning/list-alert-instances")
         }
 
         public struct GetParameters {

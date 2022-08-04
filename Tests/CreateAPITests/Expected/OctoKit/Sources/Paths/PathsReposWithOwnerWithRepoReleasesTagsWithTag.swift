@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Tags {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release-by-tag-name)
         public var get: Request<OctoKit.Release> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "repos/get-release-by-tag")
         }
     }
 }

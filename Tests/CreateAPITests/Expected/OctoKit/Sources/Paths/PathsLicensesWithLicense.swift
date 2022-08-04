@@ -21,7 +21,7 @@ extension Paths.Licenses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-a-license)
         public var get: Request<OctoKit.License> {
-            Request(method: "GET", url: path)
+            Request(method: "GET", url: path, id: "licenses/get")
         }
     }
 }

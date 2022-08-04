@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-on-a-pull-request)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery)
+            Request(method: "GET", url: path, query: parameters?.asQuery, id: "pulls/list-review-comments")
         }
 
         public enum GetResponseHeaders {
@@ -78,7 +78,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-review-comment-for-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequestReviewComment> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "pulls/create-review-comment")
         }
 
         public enum PostResponseHeaders {

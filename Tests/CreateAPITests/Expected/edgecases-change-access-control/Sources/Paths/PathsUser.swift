@@ -22,7 +22,7 @@ extension Paths {
         ///
         /// This can only be done by the logged in user.
         func post(_ body: edgecases_change_access_control.User) -> Request<Void> {
-            Request(method: "POST", url: path, body: body)
+            Request(method: "POST", url: path, body: body, id: "createUser")
         }
     }
 }
