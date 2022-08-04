@@ -34,7 +34,7 @@ final class Templates {
     }
 
     func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let type = options.entities.isMakingClassesFinal ? "final class" : "class"
+        let type = options.entities.finalClasses ? "final class" : "class"
         let lhs = [options.access, type, name.rawValue].filter { !$0.isEmpty }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)

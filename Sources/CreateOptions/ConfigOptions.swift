@@ -158,7 +158,7 @@ public struct ConfigOptions: Encodable {
         public var imports: Set<String> = []
 
         /// When generating `class` types, marks them as `final`
-        public var isMakingClassesFinal: Bool = true
+        public var finalClasses: Bool = true // sourcery: replacementFor = isMakingClassesFinal
 
         /// When generating `class` types, generate the properties as `public var`
         public var isGeneratingMutableClassProperties: Bool = false

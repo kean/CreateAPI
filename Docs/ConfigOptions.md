@@ -70,7 +70,7 @@ Below you can find the complete documentation for all available options.
   - [entitiesGeneratedAsClasses](#entitiesentitiesgeneratedasclasses)
   - [entitiesGeneratedAsStructs](#entitiesentitiesgeneratedasstructs)
   - [imports](#entitiesimports)
-  - [isMakingClassesFinal](#entitiesismakingclassesfinal)
+  - [finalClasses](#entitiesfinalclasses)
   - [isGeneratingMutableClassProperties](#entitiesisgeneratingmutableclassproperties)
   - [isGeneratingMutableStructProperties](#entitiesisgeneratingmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
@@ -350,7 +350,7 @@ Modules to be imported within the source files for generated entities
 
 <br/>
 
-## entities.isMakingClassesFinal
+## entities.finalClasses
 
 **Type:** Bool<br />
 **Default:** `true`

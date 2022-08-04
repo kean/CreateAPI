@@ -191,7 +191,7 @@ extension ConfigOptions.Entities: Decodable {
         case entitiesGeneratedAsClasses
         case entitiesGeneratedAsStructs
         case imports
-        case isMakingClassesFinal
+        case finalClasses
         case isGeneratingMutableClassProperties
         case isGeneratingMutableStructProperties
         case baseClass
@@ -234,8 +234,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: []
         )
 
-        isMakingClassesFinal = try container.decode(Bool.self,
-            forKey: .isMakingClassesFinal,
+        finalClasses = try container.decode(Bool.self,
+            forKey: .finalClasses,
             defaultValue: true
         )
 
@@ -329,6 +329,7 @@ extension ConfigOptions.Entities: Decodable {
             ],
             replacements: [
                 ("isGeneratingStructs", "Use 'generateStructs' instead."),
+                ("isMakingClassesFinal", "Use 'finalClasses' instead."),
             ]
         )
     }
