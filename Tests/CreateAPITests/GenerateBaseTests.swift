@@ -3,6 +3,7 @@ import OpenAPIKit30
 @testable import create_api
 
 class GenerateBaseTests: XCTestCase {
+    
     var temp: TemporaryDirectory!
     
     override func setUp() {
@@ -33,8 +34,8 @@ class GenerateBaseTests: XCTestCase {
         try compare(package: package ?? name)
     }
     
-    func compare(package: String, file: StaticString = #file, line: UInt = #line) throws {
-        try create_api_tests.compare(expected: package, actual: temp.path(for: package), file: file, line: line)
+    func compare(package: String) throws {
+        try create_api_tests.compare(expected: package, actual: temp.path(for: package))
     }
     
     func config(_ contents: String, ext: String = "json") -> String {
