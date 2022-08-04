@@ -277,8 +277,7 @@ public struct ConfigOptions: Encodable {
         ///   overriddenResponses:
         ///     MyApiResponseType: MyCustomDecodableType
         /// ```
-        public var overriddenResponses: [String: String] = [:]
-        public var overridenResponses: [String: String] = [:] // sourcery: skip, deprecated, message = "Renamed to 'overriddenResponses'."
+        public var overriddenResponses: [String: String] = [:] // sourcery: replacementFor = overridenResponses
 
         /// Tell CreateAPI how to map an unknown request or response content types to a Swift type used in the path generation.
         ///
@@ -289,8 +288,7 @@ public struct ConfigOptions: Encodable {
         ///   overriddenBodyTypes:
         ///     application/octocat-stream: String
         /// ```
-        public var overriddenBodyTypes: [String: String] = [:]
-        public var overridenBodyTypes: [String: String] = [:] // sourcery: skip, deprecated, message = "Renamed to 'overriddenBodyTypes'."
+        public var overriddenBodyTypes: [String: String] = [:] // sourcery: replacementFor = overridenBodyTypes
 
         /// Inline simple requests, like the ones with a single parameter
         public var isInliningSimpleRequests: Bool = true
