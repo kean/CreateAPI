@@ -9,7 +9,8 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-only-schemas",
-            "--generate", "entities"
+            "--generate", "entities",
+            "--no-split" // TODO: Use --split by default
         ])
         
         // WHEN
@@ -25,7 +26,8 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-filename",
-            "--filename-template", "%0.generated.swift"
+            "--filename-template", "%0.generated.swift",
+            "--no-split" // TODO: Use --split by default
         ])
         
         // WHEN
@@ -41,7 +43,8 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-change-entityname",
-            "--entityname-template", "%0Generated"
+            "--entityname-template", "%0Generated",
+            "--no-split" // TODO: Use --split by default
         ])
         
         // WHEN
@@ -57,7 +60,8 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-single-threaded",
-            "--single-threaded"
+            "--single-threaded",
+            "--no-split" // TODO: Use --split by default
         ])
         
         // WHEN
@@ -72,7 +76,8 @@ final class GenerateOptionsTests: GenerateBaseTests {
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path.appending("/petstore-no-package"),
-            "--module", "Petstore"
+            "--module", "Petstore",
+            "--no-split" // TODO: Use --split by default
         ])
         
         // WHEN
@@ -88,7 +93,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-split",
-            "--split"
+            "--split" // TODO: Use --no-split when all the other tests use --split
         ])
         
         // WHEN
@@ -102,6 +107,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-custom-imports",
             "--config", config("""
@@ -127,6 +133,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-operation-id",
             "--config", config("""
@@ -149,6 +156,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-generate-classes",
             "--config", config("""
@@ -171,6 +179,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-classes",
             "--config", config("""
@@ -193,6 +202,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-some-entities-as-structs",
             "--config", config("""
@@ -216,6 +226,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-base-class",
             "--config", config("""
@@ -239,6 +250,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-disable-comments",
             "--config", config("""
@@ -261,6 +273,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-disable-init-with-coder",
             "--config", config("""
@@ -283,6 +296,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-disable-inlining",
             "--config", config("""
@@ -303,6 +317,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--generate", "entities",
             "--output", temp.url.path,
             "--package", "petstore-disable-mutable-properties",
@@ -328,6 +343,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--generate", "entities",
             "--output", temp.url.path,
             "--package", "petstore-enable-mutable-properties",
@@ -353,6 +369,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-change-namespace-when-rest-style",
             "--config", config("""
@@ -376,6 +393,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-change-namespace-when-operations-style",
             "--config", config("""
@@ -399,6 +417,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-rename-properties",
             "--config", config("""
@@ -437,6 +456,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-yaml-config",
             "--config", config("""
@@ -460,6 +480,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-change-access-control",
             "--config", config("""
@@ -480,6 +501,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-disable-acronyms",
             "--config", config("""
@@ -500,6 +522,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-disable-enums",
             "--config", config("""
@@ -520,6 +543,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-rename",
             "--config", config("""
@@ -549,6 +573,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-tabs",
             "--config", config("""
@@ -569,6 +594,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-indent-with-two-width-spaces",
             "--config", config("""
@@ -589,6 +615,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-int32-int64",
             "--config", config("""
@@ -609,6 +636,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "edgecases-coding-keys",
             "--config", config("""
@@ -628,6 +656,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "strip-parent-name-nested-objects", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "strip-parent-name-nested-objects-enabled",
             "--config", config("""
@@ -647,6 +676,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "strip-parent-name-nested-objects", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "strip-parent-name-nested-objects-default"
         ])
@@ -662,6 +692,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--package", "petstore-identifiable",
             "--generate", "entities",

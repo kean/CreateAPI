@@ -28,6 +28,7 @@ final class GenerateTests: GenerateBaseTests {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "github", ext: "yaml"),
+            "--no-split", // TODO: Use --split by default
             "--output", temp.url.path,
             "--strict",
             "--package", "OctoKit",

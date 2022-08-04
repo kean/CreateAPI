@@ -23,7 +23,8 @@ class GenerateBaseTests: XCTestCase {
             pathForSpec(named: name, ext: ext),
             "--output", temp.url.path,
             "--package", package ?? name,
-            "--config", self.config(config, ext: "yaml")
+            "--config", self.config(config, ext: "yaml"),
+            "--no-split" // TODO: Use --split by default
         ])
 
         // WHEN
