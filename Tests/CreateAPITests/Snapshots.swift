@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-private let generateSnapshots = true
+private let generateSnapshots = false
 private let openDiff = false
 
 func compare(expected: String, actual: String, file: StaticString = #file, line: UInt = #line) throws {
