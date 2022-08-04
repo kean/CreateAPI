@@ -23,7 +23,7 @@ final class Templates {
     ///         <contents>
     ///     }
     func entity(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let isStruct = (options.entities.isGeneratingStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
+        let isStruct = (options.entities.generateStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
         return isStruct ? self.struct(name: name, contents: contents, protocols: protocols) : self.class(name: name, contents: contents, protocols: protocols)
     }
 

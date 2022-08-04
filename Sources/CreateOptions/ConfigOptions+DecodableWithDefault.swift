@@ -187,7 +187,7 @@ extension ConfigOptions.Comments: Decodable {
 
 extension ConfigOptions.Entities: Decodable {
     enum KnownKeys: String {
-        case isGeneratingStructs
+        case generateStructs
         case entitiesGeneratedAsClasses
         case entitiesGeneratedAsStructs
         case imports
@@ -214,8 +214,8 @@ extension ConfigOptions.Entities: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
-        isGeneratingStructs = try container.decode(Bool.self,
-            forKey: .isGeneratingStructs,
+        generateStructs = try container.decode(Bool.self,
+            forKey: .generateStructs,
             defaultValue: true
         )
 
@@ -328,6 +328,7 @@ extension ConfigOptions.Entities: Decodable {
             deprecations: [
             ],
             replacements: [
+                ("isGeneratingStructs", "Use 'generateStructs' instead."),
             ]
         )
     }

@@ -136,10 +136,10 @@ extension Generator {
             return false
         } else if decl.isRenderedAsStruct || options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue) {
             return true
-        } else if options.entities.isGeneratingStructs && hasRefeferencesToItself(decl) {
+        } else if options.entities.generateStructs && hasRefeferencesToItself(decl) {
             return false
         } else {
-            return options.entities.isGeneratingStructs
+            return options.entities.generateStructs
         }
     }
 

@@ -154,7 +154,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "isGeneratingStructs": false
+                    "generateStructs": false
                 }
             }
             """)
@@ -198,7 +198,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "isGeneratingStructs": false,
+                    "generateStructs": false,
                     "entitiesGeneratedAsStructs": ["Error"]
                 }
             }
@@ -221,7 +221,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "isGeneratingStructs": false,
+                    "generateStructs": false,
                     "baseClass": "NSObject"
                 }
             }
