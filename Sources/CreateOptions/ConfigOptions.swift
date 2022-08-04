@@ -209,7 +209,7 @@ public struct ConfigOptions: Encodable {
         public var isAdditionalPropertiesOnByDefault: Bool = true
 
         /// Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
-        public var isStrippingParentNameInNestedObjects: Bool = false
+        public var stripParentNameInNestedObjects: Bool = false // sourcery: replacementFor = isStrippingParentNameInNestedObjects
 
         /// When set to a non-empty value, entities with the given names will be ignored during generation.
         /// Cannot be used in conjunction with [`include`](#entitiesinclude).

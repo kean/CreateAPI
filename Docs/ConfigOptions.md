@@ -85,7 +85,7 @@ Below you can find the complete documentation for all available options.
   - [defaultValues](#entitiesdefaultvalues)
   - [inlineReferencedSchemas](#entitiesinlinereferencedschemas)
   - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
-  - [isStrippingParentNameInNestedObjects](#entitiesisstrippingparentnameinnestedobjects)
+  - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
   - [include](#entitiesinclude)
 - [paths](#paths)
@@ -489,7 +489,7 @@ Changes how unspecified additional properties are interpreted
 
 <br/>
 
-## entities.isStrippingParentNameInNestedObjects
+## entities.stripParentNameInNestedObjects
 
 **Type:** Bool<br />
 **Default:** `false`

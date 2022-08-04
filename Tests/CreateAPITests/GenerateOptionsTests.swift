@@ -632,7 +632,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "strip-parent-name-nested-objects-enabled",
             "--config", config("""
             entities:
-                isStrippingParentNameInNestedObjects: true
+                stripParentNameInNestedObjects: true
             """, ext: "yaml")
         ])
                 

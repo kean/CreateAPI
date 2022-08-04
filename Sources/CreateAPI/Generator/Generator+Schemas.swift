@@ -701,7 +701,7 @@ extension Generator {
         ``` 
 
         */
-        if options.entities.isStrippingParentNameInNestedObjects,
+        if options.entities.stripParentNameInNestedObjects,
             case .reference(let ref, _) = schema.value,
             let parentName = context.parents.first?.name.rawValue,
             let ownName = ref.name {
