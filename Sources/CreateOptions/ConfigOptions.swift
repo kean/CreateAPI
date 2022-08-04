@@ -291,7 +291,7 @@ public struct ConfigOptions: Encodable {
         public var overriddenBodyTypes: [String: String] = [:] // sourcery: replacementFor = overridenBodyTypes
 
         /// Inline simple requests, like the ones with a single parameter
-        public var isInliningSimpleRequests: Bool = true
+        public var inlineSimpleRequests: Bool = true // sourcery: replacementFor = isInliningSimpleRequests
 
         /// Inline query parameters for simple requests instead of generating a Parameter type
         public var isInliningSimpleQueryParameters: Bool = true

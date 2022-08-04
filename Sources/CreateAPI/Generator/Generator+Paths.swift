@@ -445,7 +445,7 @@ extension Generator {
             let requestBody = try makeRequestBodyType(for: requestBody, method: task.method, nestedTypeName: task.makeNestedTypeName("Request"), context: context)
             if requestBody.type.rawValue == "Void" {
                 // Do nothing
-            } else if options.paths.isInliningSimpleRequests,
+            } else if options.paths.inlineSimpleRequests,
                       let entity = (requestBody.nested as? EntityDeclaration),
                       entity.properties.count == 1,
                       !entity.isForm,

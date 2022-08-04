@@ -94,7 +94,7 @@ Below you can find the complete documentation for all available options.
   - [imports](#pathsimports)
   - [overriddenResponses](#pathsoverriddenresponses)
   - [overriddenBodyTypes](#pathsoverriddenbodytypes)
-  - [isInliningSimpleRequests](#pathsisinliningsimplerequests)
+  - [inlineSimpleRequests](#pathsinlinesimplerequests)
   - [isInliningSimpleQueryParameters](#pathsisinliningsimplequeryparameters)
   - [simpleQueryParametersThreshold](#pathssimplequeryparametersthreshold)
   - [isRemovingRedundantPaths](#pathsisremovingredundantpaths)
@@ -605,7 +605,7 @@ paths:
 
 <br/>
 
-## paths.isInliningSimpleRequests
+## paths.inlineSimpleRequests
 
 **Type:** Bool<br />
 **Default:** `true`

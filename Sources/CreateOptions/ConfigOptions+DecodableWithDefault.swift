@@ -342,7 +342,7 @@ extension ConfigOptions.Paths: Decodable {
         case imports
         case overriddenResponses
         case overriddenBodyTypes
-        case isInliningSimpleRequests
+        case inlineSimpleRequests
         case isInliningSimpleQueryParameters
         case simpleQueryParametersThreshold
         case isMakingOptionalPatchParametersDoubleOptional
@@ -389,8 +389,8 @@ extension ConfigOptions.Paths: Decodable {
             defaultValue: [:]
         )
 
-        isInliningSimpleRequests = try container.decode(Bool.self,
-            forKey: .isInliningSimpleRequests,
+        inlineSimpleRequests = try container.decode(Bool.self,
+            forKey: .inlineSimpleRequests,
             defaultValue: true
         )
 
@@ -431,6 +431,7 @@ extension ConfigOptions.Paths: Decodable {
                 ("isGeneratingResponseHeaders", "Use 'generateResponseHeaders' instead."),
                 ("overridenResponses", "Use 'overriddenResponses' instead."),
                 ("overridenBodyTypes", "Use 'overriddenBodyTypes' instead."),
+                ("isInliningSimpleRequests", "Use 'inlineSimpleRequests' instead."),
             ]
         )
     }
