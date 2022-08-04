@@ -62,7 +62,7 @@ extension Generator {
                     if decl.protocols.isDecodable, !properties.isEmpty, options.entities.alwaysIncludeDecodableImplementation {
                         contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
                     }
-                    if decl.protocols.isEncodable, !properties.isEmpty, options.entities.isGeneratingEncodeWithEncoder {
+                    if decl.protocols.isEncodable, !properties.isEmpty, options.entities.alwaysIncludeEncodableImplementation {
                         contents.append(templates.encode(properties: properties))
                     }
                 }

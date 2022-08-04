@@ -79,6 +79,7 @@ Below you can find the complete documentation for all available options.
   - [skipRedundantProtocols](#entitiesskipredundantprotocols)
   - [includeInitializer](#entitiesincludeinitializer)
   - [alwaysIncludeDecodableImplementation](#entitiesalwaysincludedecodableimplementation)
+  - [alwaysIncludeEncodableImplementation](#entitiesalwaysincludeencodableimplementation)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
   - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
   - [isAddingDefaultValues](#entitiesisaddingdefaultvalues)
@@ -429,6 +430,15 @@ Generate an initializer for each entity
 **Default:** `true`
 
 Generate the `init(from:)` initializer for `Decodable` conformance, even when the compiler synthesized version could be used.
+
+<br/>
+
+## entities.alwaysIncludeEncodableImplementation
+
+**Type:** Bool<br />
+**Default:** `true`
+
+Generate the `encode(to:)` method for `Encodable` conformance, even when the compiler synthesized version could be used.
 
 <br/>
 

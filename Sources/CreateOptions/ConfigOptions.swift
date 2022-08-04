@@ -187,9 +187,8 @@ public struct ConfigOptions: Encodable {
         public var alwaysIncludeDecodableImplementation: Bool = true // sourcery: replacementFor = isGeneratingInitWithDecoder
 
         // TODO: simplify this
-        // sourcery: skip
-        /// Generate the `encode(to:)` method for `Encodable` conformance when required
-        public var isGeneratingEncodeWithEncoder: Bool = true
+        /// Generate the `encode(to:)` method for `Encodable` conformance, even when the compiler synthesized version could be used.
+        public var alwaysIncludeEncodableImplementation: Bool = true // sourcery: replacementFor = isGeneratingEncodeWithEncoder
 
         /// Orders properties of an entity alphabetically instead of the order defined in the schema
         public var isSortingPropertiesAlphabetically: Bool = false
