@@ -593,7 +593,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-int32-int64",
             "--config", config("""
             {
-                "isUsingIntegersWithPredefinedCapacity": true
+                "useIntegersWithPredefinedCapacity": true
             }
             """)
         ])

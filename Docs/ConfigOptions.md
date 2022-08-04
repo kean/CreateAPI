@@ -55,7 +55,7 @@ Below you can find the complete documentation for all available options.
 - [spaceWidth](#spacewidth)
 - [pluralizeProperties](#pluralizeproperties)
 - [useNaiveDate](#usenaivedate)
-- [isUsingIntegersWithPredefinedCapacity](#isusingintegerswithpredefinedcapacity)
+- [useIntegersWithPredefinedCapacity](#useintegerswithpredefinedcapacity)
 - [isSwiftLintDisabled](#isswiftlintdisabled)
 - [fileHeaderComment](#fileheadercomment)
 - [comments](#comments)
@@ -223,7 +223,7 @@ Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAP
 
 <br/>
 
-## isUsingIntegersWithPredefinedCapacity
+## useIntegersWithPredefinedCapacity
 
 **Type:** Bool<br />
 **Default:** `false`

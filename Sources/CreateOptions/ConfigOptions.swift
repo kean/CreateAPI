@@ -108,7 +108,7 @@ public struct ConfigOptions: Encodable {
     public var useNaiveDate: Bool = true // sourcery: replacementFor = isNaiveDateEnabled
 
     /// If enabled, uses `Int64` or `Int32` when specified.
-    public var isUsingIntegersWithPredefinedCapacity: Bool = false
+    public var useIntegersWithPredefinedCapacity: Bool = false // sourcery: replacementFor = isUsingIntegersWithPredefinedCapacity
 
     /// Appends the `swiftlint:disable all` annotation beneath the header in generated files
     public var isSwiftLintDisabled: Bool = true

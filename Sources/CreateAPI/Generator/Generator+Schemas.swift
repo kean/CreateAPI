@@ -220,7 +220,7 @@ extension Generator {
     }
 
     private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
-        guard options.isUsingIntegersWithPredefinedCapacity else {
+        guard options.useIntegersWithPredefinedCapacity else {
             return .builtin("Int")
         }
         switch info.format {

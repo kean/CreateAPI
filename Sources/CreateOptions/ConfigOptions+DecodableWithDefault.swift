@@ -17,7 +17,7 @@ extension ConfigOptions: Decodable {
         case spaceWidth
         case pluralizeProperties
         case useNaiveDate
-        case isUsingIntegersWithPredefinedCapacity
+        case useIntegersWithPredefinedCapacity
         case isSwiftLintDisabled
         case fileHeaderComment
         case comments
@@ -89,8 +89,8 @@ extension ConfigOptions: Decodable {
             defaultValue: true
         )
 
-        isUsingIntegersWithPredefinedCapacity = try container.decode(Bool.self,
-            forKey: .isUsingIntegersWithPredefinedCapacity,
+        useIntegersWithPredefinedCapacity = try container.decode(Bool.self,
+            forKey: .useIntegersWithPredefinedCapacity,
             defaultValue: false
         )
 
@@ -134,6 +134,7 @@ extension ConfigOptions: Decodable {
                 ("isInliningTypealiases", "Use 'inlineTypealiases' instead."),
                 ("isPluralizationEnabled", "Use 'pluralizeProperties' instead."),
                 ("isNaiveDateEnabled", "Use 'useNaiveDate' instead."),
+                ("isUsingIntegersWithPredefinedCapacity", "Use 'useIntegersWithPredefinedCapacity' instead."),
             ]
         )
     }
