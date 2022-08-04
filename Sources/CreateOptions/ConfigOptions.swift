@@ -304,7 +304,7 @@ public struct ConfigOptions: Encodable {
         public var makeOptionalPatchParametersDoubleOptional: Bool = false // sourcery: replacementFor = isMakingOptionalPatchParametersDoubleOptional
 
         /// Remove redundant paths if possible
-        public var isRemovingRedundantPaths: Bool = true
+        public var removeRedundantPaths: Bool = true // sourcery: replacementFor = isRemovingRedundantPaths
 
         /// When set to a non-empty value, the given paths will be ignored during generation.
         /// Cannot be used in conjunction with [`include`](#pathsinclude).

@@ -97,7 +97,7 @@ Below you can find the complete documentation for all available options.
   - [inlineSimpleRequests](#pathsinlinesimplerequests)
   - [inlineSimpleQueryParameters](#pathsinlinesimplequeryparameters)
   - [simpleQueryParametersThreshold](#pathssimplequeryparametersthreshold)
-  - [isRemovingRedundantPaths](#pathsisremovingredundantpaths)
+  - [removeRedundantPaths](#pathsremoveredundantpaths)
   - [exclude](#pathsexclude)
   - [include](#pathsinclude)
 - [rename](#rename)
@@ -632,7 +632,7 @@ The threshold of query parameters to inline when using `inlineSimpleQueryParamet
 
 <br/>
 
-## paths.isRemovingRedundantPaths
+## paths.removeRedundantPaths
 
 **Type:** Bool<br />
 **Default:** `true`

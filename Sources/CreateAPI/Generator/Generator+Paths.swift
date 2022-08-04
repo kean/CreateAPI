@@ -161,7 +161,7 @@ extension Generator {
 
     // TODO: Make it smarter: skip intermediate path components too
     private func findCommonIndiciesCount() -> Int {
-        guard options.paths.isRemovingRedundantPaths else {
+        guard options.paths.removeRedundantPaths else {
             return 0
         }
         var commonIndices = 0
