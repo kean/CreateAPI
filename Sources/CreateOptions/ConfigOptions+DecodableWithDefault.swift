@@ -6,7 +6,7 @@
 extension ConfigOptions: Decodable {
     enum KnownKeys: String {
         case access
-        case isAddingDeprecations
+        case annotateDeprecations
         case isGeneratingEnums
         case isGeneratingSwiftyBooleanPropertyNames
         case isInliningTypealiases
@@ -34,8 +34,8 @@ extension ConfigOptions: Decodable {
             defaultValue: "public"
         )
 
-        isAddingDeprecations = try container.decode(Bool.self,
-            forKey: .isAddingDeprecations,
+        annotateDeprecations = try container.decode(Bool.self,
+            forKey: .annotateDeprecations,
             defaultValue: true
         )
 
@@ -128,6 +128,7 @@ extension ConfigOptions: Decodable {
             deprecations: [
             ],
             replacements: [
+                ("isAddingDeprecations", "Use 'annotateDeprecations' instead."),
             ]
         )
     }

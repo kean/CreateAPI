@@ -66,7 +66,7 @@ public struct ConfigOptions: Encodable {
     public var access: String = "public"
 
     /// Add `@available(*, deprecated)` attribute to deprecated types and properties
-    public var isAddingDeprecations: Bool = true
+    public var annotateDeprecations: Bool = true // sourcery: replacementFor = isAddingDeprecations
 
     /// Generate enums for strings
     public var isGeneratingEnums: Bool = true

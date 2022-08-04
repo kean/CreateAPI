@@ -485,7 +485,7 @@ final class Templates {
             // I tried to use `seealso`, but Xcode doesn't render it
             output += "/// [\(metadata.externalDocsDescription ?? "External Documentation")](\(docsURL.absoluteString))\n"
         }
-        if self.options.isAddingDeprecations, metadata.isDeprecated {
+        if self.options.annotateDeprecations, metadata.isDeprecated {
             // We can't mark properties deprecated because then initialier and
             // encoder will start throwing warnings.
             if isProperty {
@@ -549,7 +549,7 @@ final class Templates {
                 output += "/// \(line)\n"
             }
         }
-        if options.isAddingDeprecations, header.deprecated {
+        if options.annotateDeprecations, header.deprecated {
             output += deprecated
         }
         output += """

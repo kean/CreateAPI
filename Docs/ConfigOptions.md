@@ -44,7 +44,7 @@ Below you can find the complete documentation for all available options.
 # Available Options
 
 - [access](#access)
-- [isAddingDeprecations](#isaddingdeprecations)
+- [annotateDeprecations](#annotatedeprecations)
 - [isGeneratingEnums](#isgeneratingenums)
 - [isGeneratingSwiftyBooleanPropertyNames](#isgeneratingswiftybooleanpropertynames)
 - [isInliningTypealiases](#isinliningtypealiases)
@@ -121,7 +121,7 @@ Access level modifier for all generated declarations
 
 <br/>
 
-## isAddingDeprecations
+## annotateDeprecations
 
 **Type:** Bool<br />
 **Default:** `true`
