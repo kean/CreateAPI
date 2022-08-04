@@ -471,7 +471,7 @@ extension Generator {
         }
 
         // Add `id`
-        if options.paths.isAddingOperationIds, !task.operationId.isEmpty {
+        if !task.operationId.isEmpty {
             call.append("id: \"\(task.operationId)\"")
         }
 
