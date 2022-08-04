@@ -260,7 +260,7 @@ public struct ConfigOptions: Encodable {
         public var namespace: String = "Paths"
 
         /// Generate response headers using [HTTPHeaders](https://github.com/CreateAPI/HTTPHeaders)
-        public var isGeneratingResponseHeaders: Bool = true
+        public var generateResponseHeaders: Bool = true // sourcery: replacementFor = isGeneratingResponseHeaders
 
         /// Adds the operation id to each request
         public var isAddingOperationIds: Bool = false

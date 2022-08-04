@@ -89,7 +89,7 @@ Below you can find the complete documentation for all available options.
 - [paths](#paths)
   - [style](#pathsstyle)
   - [namespace](#pathsnamespace)
-  - [isGeneratingResponseHeaders](#pathsisgeneratingresponseheaders)
+  - [generateResponseHeaders](#pathsgenerateresponseheaders)
   - [isAddingOperationIds](#pathsisaddingoperationids)
   - [imports](#pathsimports)
   - [overriddenResponses](#pathsoverriddenresponses)
@@ -544,7 +544,7 @@ The namespace type for all generated paths
 
 <br/>
 
-## paths.isGeneratingResponseHeaders
+## paths.generateResponseHeaders
 
 **Type:** Bool<br />
 **Default:** `true`
