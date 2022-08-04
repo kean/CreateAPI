@@ -525,7 +525,7 @@ extension Generator {
                 // Inline properties for nested objects (different from other OpenAPI constructs)
                 return try makeInlineProperties(for: name, object: details, context: context)
             case .reference(let info, _ ):
-                if options.entities.isInliningPropertiesFromReferencedSchemas,
+                if options.entities.inlineReferencedSchemas,
                    let schema = getSchema(for: info),
                    case .object(_, let details) = schema.value {
                     return try makeInlineProperties(for: name, object: details, context: context)

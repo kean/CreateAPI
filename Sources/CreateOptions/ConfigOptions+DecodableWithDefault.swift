@@ -204,7 +204,7 @@ extension ConfigOptions.Entities: Decodable {
         case sortPropertiesAlphabetically
         case optimizeCodingKeys
         case defaultValues
-        case isInliningPropertiesFromReferencedSchemas
+        case inlineReferencedSchemas
         case isAdditionalPropertiesOnByDefault
         case isStrippingParentNameInNestedObjects
         case exclude
@@ -299,8 +299,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: true
         )
 
-        isInliningPropertiesFromReferencedSchemas = try container.decode(Bool.self,
-            forKey: .isInliningPropertiesFromReferencedSchemas,
+        inlineReferencedSchemas = try container.decode(Bool.self,
+            forKey: .inlineReferencedSchemas,
             defaultValue: false
         )
 
@@ -340,6 +340,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isSortingPropertiesAlphabetically", "Use 'sortPropertiesAlphabetically' instead."),
                 ("isGeneratingCustomCodingKeys", "Use 'optimizeCodingKeys' instead."),
                 ("isAddingDefaultValues", "Use 'defaultValues' instead."),
+                ("isInliningPropertiesFromReferencedSchemas", "Use 'inlineReferencedSchemas' instead."),
             ]
         )
     }

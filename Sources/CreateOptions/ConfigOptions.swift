@@ -198,11 +198,12 @@ public struct ConfigOptions: Encodable {
         /// For schemas with a large number of entities, this approach significantly reduces the binary size of the compiled code ([apple/swift#60287](https://github.com/apple/swift/issues/60287))
         public var optimizeCodingKeys: Bool = false // sourcery: replacementFor = isGeneratingCustomCodingKeys
 
-        /// If set to `trie`, uses the `default` value from the schema for the generated property for booleans
+        /// If set to `true`, uses the `default` value from the schema for the generated property for booleans
         public var defaultValues: Bool = true // sourcery: replacementFor = isAddingDefaultValues
 
+        // TODO: Improve this documentation
         /// For `allOf` inline properties from references
-        public var isInliningPropertiesFromReferencedSchemas: Bool = false
+        public var inlineReferencedSchemas: Bool = false // sourcery: replacementFor = isInliningPropertiesFromReferencedSchemas
 
         /// Changes how unspecified additional properties are interpreted
         public var isAdditionalPropertiesOnByDefault: Bool = true

@@ -83,7 +83,7 @@ Below you can find the complete documentation for all available options.
   - [sortPropertiesAlphabetically](#entitiessortpropertiesalphabetically)
   - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
   - [defaultValues](#entitiesdefaultvalues)
-  - [isInliningPropertiesFromReferencedSchemas](#entitiesisinliningpropertiesfromreferencedschemas)
+  - [inlineReferencedSchemas](#entitiesinlinereferencedschemas)
   - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
   - [isStrippingParentNameInNestedObjects](#entitiesisstrippingparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
@@ -467,11 +467,11 @@ For schemas with a large number of entities, this approach significantly reduces
 **Type:** Bool<br />
 **Default:** `true`
 
-If set to `trie`, uses the `default` value from the schema for the generated property for booleans
+If set to `true`, uses the `default` value from the schema for the generated property for booleans
 
 <br/>
 
-## entities.isInliningPropertiesFromReferencedSchemas
+## entities.inlineReferencedSchemas
 
 **Type:** Bool<br />
 **Default:** `false`
