@@ -158,6 +158,7 @@ struct Plugin: BuildToolPlugin {
                     "--module", target.name,
                     "--config", config,
                     "--output", output,
+                    "--no-split",
                     schema
                 ],
                 inputFiles: [

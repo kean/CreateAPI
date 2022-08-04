@@ -25,12 +25,13 @@ Using terminal, run the `create-api generate` command and specify the following:
 
 1. The `--package` option, followed by the name of your package
 2. The `--output` option, followed by the directory that you want to write the package to
-3. The path to the schema that you just downloaded
+3. The `--split` flag tells the generator to create individual source files for each type
+4. The path to the schema that you just downloaded
 
 For example:
 
 ```bash
-$ create-api generate --package "PetstoreKit" --output "./" "path/to/the/downloaded/schema.json"
+$ create-api generate --package "PetstoreKit" --output "./" --split "path/to/the/downloaded/schema.json"
 ```
 
 You will see something like the following printed to the console:
@@ -41,10 +42,10 @@ And you will find a new folder called **PetstoreKit** located within the output 
 
 <img
   src="./Images/Tutorial_01_NewPackage.png#gh-light-mode-only"
-  alt="A screenshot of Xcode focusing on the Paths.swift source file within the newly generated PetstoreKit package. To the left, you can see the project navigator which displays the source files (Entites.swift, Paths.swift) and the resolved dependencies (Get, HTTPHeaders, URLQueryEncoder)."
+  alt="A screenshot of Xcode focusing on the Paths.swift source file within the newly generated PetstoreKit package. To the left, you can see the project navigator which displays all of the source files and the resolved dependencies (Get, HTTPHeaders, URLQueryEncoder)."
 /><img
   src="./Images/Tutorial_01_NewPackage_Dark.png#gh-dark-mode-only"
-  alt="A screenshot of Xcode focusing on the Paths.swift source file within the newly generated PetstoreKit package. To the left, you can see the project navigator which displays the source files (Entites.swift, Paths.swift) and the resolved dependencies (Get, HTTPHeaders, URLQueryEncoder)."
+  alt="A screenshot of Xcode focusing on the Paths.swift source file within the newly generated PetstoreKit package. To the left, you can see the project navigator which displays all of the source files and the resolved dependencies (Get, HTTPHeaders, URLQueryEncoder)."
 />
 
 Once the dependencies have resolved, build the project and everything will succeed. Congratulations, you've generated your first project using CreateAPI!
@@ -105,14 +106,13 @@ Now that you have learned the basics, you will probably find that you want to cu
 
 The vast majority of configuration options are managed through a yaml (or json) file that you specify using the `--config` option when running the generator.
 
-Lets say that you want PetstoreKit to generate entities as classes instead of structs, and that you want to format your Paths using their `operationId` instead. Create a new file called **create-api.yml** and paste the following contents:
+Lets say that you want PetstoreKit to generate entities as classes instead of structs, and that you want your requests to be defined under a different namespace. Create a new file called **create-api.yml** and paste the following contents:
 
 ```yaml
 isSwiftLintDisabled: false
 entities:
   isGeneratingStructs: false
 paths:
-  style: operations
   namespace: APIOperation
 ```
 
@@ -127,7 +127,7 @@ In the beginning, you generated an entire Swift Package using the `--package` op
 Instead, you can use the `--module` option which will tell CreateAPI only to regenerate the Entities and Paths within the PetstoreKit module. One thing to consider is that you will need to adjust the output directory so that you are generating directly into the nested **Sources** directory.
 
 ```bash
-$ create-api generate --module "PetstoreKit" --config "/path/to/create-api.yml" --output "./PetstoreKit/Sources/" "/path/to/schema.json"
+$ create-api generate --module "PetstoreKit" --config "/path/to/create-api.yml" --output "./PetstoreKit/Sources/" --split "/path/to/schema.json"
 ```
 
 To summarize the options:
@@ -135,6 +135,7 @@ To summarize the options:
 - `--module` - Indicates that you are generating code within a specific module, uses the module name to avoid namespace collisions.
 - `--config` - The path to your configuration file to apply customizations to generated code.
 - `--output` - The directory to write the generated code to.
+- `--split` - A flat to tell the generator to create individual source files for each type.
 
 If you used the exact configuration in this example, you'll now notice that your `PetstoreClient` implementation no longer compiles. Have a go at updating it to reflect the changes in generated code.
 
