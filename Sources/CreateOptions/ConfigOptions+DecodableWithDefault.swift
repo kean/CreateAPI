@@ -194,6 +194,7 @@ extension ConfigOptions.Entities: Decodable {
         case isGeneratingInitWithDecoder
         case isGeneratingEncodeWithEncoder
         case isSortingPropertiesAlphabetically
+        case isUsingStringsForCodingKeys
         case isGeneratingCustomCodingKeys
         case isAddingDefaultValues
         case isInliningPropertiesFromReferencedSchemas
@@ -281,9 +282,14 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: false
         )
 
-        isGeneratingCustomCodingKeys = try container.decode(Bool.self,
-            forKey: .isGeneratingCustomCodingKeys,
+        isUsingStringsForCodingKeys = try container.decode(Bool.self,
+            forKey: .isUsingStringsForCodingKeys,
             defaultValue: true
+        )
+
+        isGeneratingCustomCodingKeys = try container.decode(Bool?.self,
+            forKey: .isGeneratingCustomCodingKeys,
+            defaultValue: nil
         )
 
         isAddingDefaultValues = try container.decode(Bool.self,
@@ -317,6 +323,7 @@ extension ConfigOptions.Entities: Decodable {
         )
 
         container.recordPotentialIssues(deprecations: [
+            (.isGeneratingCustomCodingKeys, "Replaced by 'isUsingStringsForCodingKeys'."),
         ])
     }
 }
