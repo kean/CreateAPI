@@ -49,7 +49,7 @@ let package = Package(
         .package(path: "../Expected/petstore-single-threaded"),
         .package(path: "../Expected/petstore-some-entities-as-classes"),
         .package(path: "../Expected/petstore-some-entities-as-structs"),
-        .package(path: "../Expected/petstore-split"),
+        .package(path: "../Expected/petstore-merge-sources"),
         .package(path: "../Expected/strip-parent-name-nested-objects-default"),
         .package(path: "../Expected/strip-parent-name-nested-objects-enabled"),
         .package(path: "../Expected/test-query-parameters")
@@ -92,7 +92,7 @@ let package = Package(
                 "petstore-single-threaded",
                 "petstore-some-entities-as-classes",
                 "petstore-some-entities-as-structs",
-                "petstore-split",
+                "petstore-merge-sources",
                 "strip-parent-name-nested-objects-default",
                 "strip-parent-name-nested-objects-enabled",
                 "test-query-parameters"
