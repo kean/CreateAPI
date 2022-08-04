@@ -72,7 +72,7 @@ public struct ConfigOptions: Encodable {
     public var generateEnums: Bool = true // sourcery: replacementFor = isGeneratingEnums
 
     /// Prefixes booleans with `is` ("enabled" -> "isEnabled")
-    public var isGeneratingSwiftyBooleanPropertyNames: Bool = true
+    public var useSwiftyPropertyNames: Bool = true // sourcery: replacementFor = isGeneratingSwiftyBooleanPropertyNames
 
     /// Any schema that can be converted to a type identifier.
     /// For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.

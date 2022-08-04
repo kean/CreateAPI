@@ -721,7 +721,7 @@ extension Generator {
                     }
                 }
             }
-            if let type = type, options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
+            if let type = type, options.useSwiftyPropertyNames && type.isBool {
                 return name.asBoolean(options)
             }
             return name

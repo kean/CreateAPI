@@ -46,7 +46,7 @@ Below you can find the complete documentation for all available options.
 - [access](#access)
 - [annotateDeprecations](#annotatedeprecations)
 - [generateEnums](#generateenums)
-- [isGeneratingSwiftyBooleanPropertyNames](#isgeneratingswiftybooleanpropertynames)
+- [useSwiftyPropertyNames](#useswiftypropertynames)
 - [isInliningTypealiases](#isinliningtypealiases)
 - [isReplacingCommonAcronyms](#isreplacingcommonacronyms)
 - [addedAcronyms](#addedacronyms)
@@ -139,7 +139,7 @@ Generate enums for strings
 
 <br/>
 
-## isGeneratingSwiftyBooleanPropertyNames
+## useSwiftyPropertyNames
 
 **Type:** Bool<br />
 **Default:** `true`

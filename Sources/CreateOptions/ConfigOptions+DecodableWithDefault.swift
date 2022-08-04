@@ -8,7 +8,7 @@ extension ConfigOptions: Decodable {
         case access
         case annotateDeprecations
         case generateEnums
-        case isGeneratingSwiftyBooleanPropertyNames
+        case useSwiftyPropertyNames
         case isInliningTypealiases
         case isReplacingCommonAcronyms
         case addedAcronyms
@@ -44,8 +44,8 @@ extension ConfigOptions: Decodable {
             defaultValue: true
         )
 
-        isGeneratingSwiftyBooleanPropertyNames = try container.decode(Bool.self,
-            forKey: .isGeneratingSwiftyBooleanPropertyNames,
+        useSwiftyPropertyNames = try container.decode(Bool.self,
+            forKey: .useSwiftyPropertyNames,
             defaultValue: true
         )
 
@@ -130,6 +130,7 @@ extension ConfigOptions: Decodable {
             replacements: [
                 ("isAddingDeprecations", "Use 'annotateDeprecations' instead."),
                 ("isGeneratingEnums", "Use 'generateEnums' instead."),
+                ("isGeneratingSwiftyBooleanPropertyNames", "Use 'useSwiftyPropertyNames' instead."),
             ]
         )
     }

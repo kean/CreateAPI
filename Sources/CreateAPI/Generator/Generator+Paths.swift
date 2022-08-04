@@ -594,7 +594,7 @@ extension Generator {
             if let name = options.rename.parameters[name.rawValue] {
                 return PropertyName(name)
             }
-            if options.isGeneratingSwiftyBooleanPropertyNames && type.isBool {
+            if options.useSwiftyPropertyNames && type.isBool {
                 return name.asBoolean(options)
             }
             return name
