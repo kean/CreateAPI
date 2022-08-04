@@ -20,8 +20,24 @@ struct Generate: ParsableCommand {
     @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
     var config = "./.create-api.yaml"
 
-    @Flag(name: .shortAndLong, help: "Split output into separate files")
-    var split = false
+    @Flag(
+        name: .shortAndLong,
+        inversion: .prefixedNo,
+        help: ArgumentHelp("Split output into separate source files.", discussion: """
+
+        Merging the source files offers a compact output, but prevents the compiler \
+        from parallelizing build tasks resulting in slower builds for larger schemas.
+
+        It's recommended that you use --split, but behaviour prior to 0.1.0 matched \
+        --no-split.
+
+        In a future version, these flags will be deprecated and replaced with an \
+        alternative opt-out flag instead. For more information, see \
+        https://github.com/CreateAPI/CreateAPI/issues/74
+
+        """)
+    )
+    var split: Bool
 
     @Flag(name: .shortAndLong, help: "Print additional logging information")
     var verbose = false
