@@ -504,7 +504,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-disable-enums",
             "--config", config("""
             {
-                "isGeneratingEnums": false
+                "generateEnums": false
             }
             """)
         ])

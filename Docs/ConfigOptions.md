@@ -45,7 +45,7 @@ Below you can find the complete documentation for all available options.
 
 - [access](#access)
 - [annotateDeprecations](#annotatedeprecations)
-- [isGeneratingEnums](#isgeneratingenums)
+- [generateEnums](#generateenums)
 - [isGeneratingSwiftyBooleanPropertyNames](#isgeneratingswiftybooleanpropertynames)
 - [isInliningTypealiases](#isinliningtypealiases)
 - [isReplacingCommonAcronyms](#isreplacingcommonacronyms)
@@ -130,7 +130,7 @@ Add `@available(*, deprecated)` attribute to deprecated types and properties
 
 <br/>
 
-## isGeneratingEnums
+## generateEnums
 
 **Type:** Bool<br />
 **Default:** `true`

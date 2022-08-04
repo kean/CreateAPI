@@ -7,7 +7,7 @@ extension ConfigOptions: Decodable {
     enum KnownKeys: String {
         case access
         case annotateDeprecations
-        case isGeneratingEnums
+        case generateEnums
         case isGeneratingSwiftyBooleanPropertyNames
         case isInliningTypealiases
         case isReplacingCommonAcronyms
@@ -39,8 +39,8 @@ extension ConfigOptions: Decodable {
             defaultValue: true
         )
 
-        isGeneratingEnums = try container.decode(Bool.self,
-            forKey: .isGeneratingEnums,
+        generateEnums = try container.decode(Bool.self,
+            forKey: .generateEnums,
             defaultValue: true
         )
 
@@ -129,6 +129,7 @@ extension ConfigOptions: Decodable {
             ],
             replacements: [
                 ("isAddingDeprecations", "Use 'annotateDeprecations' instead."),
+                ("isGeneratingEnums", "Use 'generateEnums' instead."),
             ]
         )
     }

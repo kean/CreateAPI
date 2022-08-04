@@ -69,7 +69,7 @@ public struct ConfigOptions: Encodable {
     public var annotateDeprecations: Bool = true // sourcery: replacementFor = isAddingDeprecations
 
     /// Generate enums for strings
-    public var isGeneratingEnums: Bool = true
+    public var generateEnums: Bool = true // sourcery: replacementFor = isGeneratingEnums
 
     /// Prefixes booleans with `is` ("enabled" -> "isEnabled")
     public var isGeneratingSwiftyBooleanPropertyNames: Bool = true
