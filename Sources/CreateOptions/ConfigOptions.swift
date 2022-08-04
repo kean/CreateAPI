@@ -155,6 +155,12 @@ public struct ConfigOptions: Encodable {
     /// </details>
     public var commentOptions: Set<CommentOption> = [.title, .description, .example, .externalDocumentation, .capitalized]
 
+    /// `true` if `commentOptions` have been defined
+    public var commentsEnabled: Bool {
+        !commentOptions.isEmpty
+    }
+
+    @available(*, deprecated)
     public var comments: Comments = .init()
 
     // sourcery: document, decodableWithDefault
