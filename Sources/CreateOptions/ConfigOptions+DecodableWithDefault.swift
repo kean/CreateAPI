@@ -345,7 +345,7 @@ extension ConfigOptions.Paths: Decodable {
         case inlineSimpleRequests
         case inlineSimpleQueryParameters
         case simpleQueryParametersThreshold
-        case isMakingOptionalPatchParametersDoubleOptional
+        case makeOptionalPatchParametersDoubleOptional
         case isRemovingRedundantPaths
         case exclude
         case include
@@ -404,8 +404,8 @@ extension ConfigOptions.Paths: Decodable {
             defaultValue: 2
         )
 
-        isMakingOptionalPatchParametersDoubleOptional = try container.decode(Bool.self,
-            forKey: .isMakingOptionalPatchParametersDoubleOptional,
+        makeOptionalPatchParametersDoubleOptional = try container.decode(Bool.self,
+            forKey: .makeOptionalPatchParametersDoubleOptional,
             defaultValue: false
         )
 
@@ -433,6 +433,7 @@ extension ConfigOptions.Paths: Decodable {
                 ("overridenBodyTypes", "Use 'overriddenBodyTypes' instead."),
                 ("isInliningSimpleRequests", "Use 'inlineSimpleRequests' instead."),
                 ("isInliningSimpleQueryParameters", "Use 'inlineSimpleQueryParameters' instead."),
+                ("isMakingOptionalPatchParametersDoubleOptional", "Use 'makeOptionalPatchParametersDoubleOptional' instead."),
             ]
         )
     }

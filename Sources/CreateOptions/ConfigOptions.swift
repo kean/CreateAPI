@@ -301,7 +301,7 @@ public struct ConfigOptions: Encodable {
 
         // TODO: Replace this with a better solution for patch params
         // sourcery: skip
-        public var isMakingOptionalPatchParametersDoubleOptional: Bool = false
+        public var makeOptionalPatchParametersDoubleOptional: Bool = false // sourcery: replacementFor = isMakingOptionalPatchParametersDoubleOptional
 
         /// Remove redundant paths if possible
         public var isRemovingRedundantPaths: Bool = true

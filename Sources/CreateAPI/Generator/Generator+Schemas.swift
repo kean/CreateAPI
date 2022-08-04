@@ -732,7 +732,7 @@ extension Generator {
             let name = makeName(for: propertyName, type: type)
             let isOptional = !isRequired || nullable
             var type = type
-            if context.isPatch && isOptional && options.paths.isMakingOptionalPatchParametersDoubleOptional {
+            if context.isPatch && isOptional && options.paths.makeOptionalPatchParametersDoubleOptional {
                 type = type.asPatchParameter()
             }
             var defaultValue: String?
