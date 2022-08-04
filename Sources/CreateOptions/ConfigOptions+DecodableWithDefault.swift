@@ -129,6 +129,7 @@ extension ConfigOptions: Decodable {
                 ("isPluralizationEnabled", "Use 'pluralizeProperties' instead."),
                 ("isNaiveDateEnabled", "Use 'useNaiveDate' instead."),
                 ("isUsingIntegersWithPredefinedCapacity", "Use 'useIntegersWithPredefinedCapacity' instead."),
+                ("comments", "Use 'commentOptions' instead."),
                 ("isSwiftLintDisabled", "Add to 'fileHeaderComment' instead."),
             ]
         )

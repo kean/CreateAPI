@@ -153,7 +153,7 @@ public struct ConfigOptions: Encodable {
     /// ```
     ///
     /// </details>
-    public var commentOptions: Set<CommentOption> = [.title, .description, .example, .externalDocumentation, .capitalized]
+    public var commentOptions: Set<CommentOption> = [.title, .description, .example, .externalDocumentation, .capitalized] // sourcery: replacementFor = comments
 
     /// `true` if `commentOptions` have been defined
     public var commentsEnabled: Bool {
