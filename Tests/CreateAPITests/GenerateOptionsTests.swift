@@ -605,7 +605,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "edgecases-int32-int64")
     }
     
-    func testEdgecasesGenerateCodingKeys() throws {
+    func testEdgecasesGenerateEnumCodingKeys() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "edgecases", ext: "yaml"),
@@ -613,7 +613,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-coding-keys",
             "--config", config("""
             entities:
-                isGeneratingCustomCodingKeys: false
+                isUsingStringsForCodingKeys: false
             """, ext: "yaml")
         ])
                 
