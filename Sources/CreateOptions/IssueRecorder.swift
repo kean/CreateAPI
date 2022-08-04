@@ -10,7 +10,7 @@ class IssueRecorder {
     }
 
     enum IssueType {
-        case unexpected, deprecated
+        case unexpected, deprecated, unsupported
     }
 
     private(set) var issues: [Issue] = []
@@ -34,6 +34,8 @@ extension IssueRecorder.Issue: CustomStringConvertible {
         switch type {
         case .deprecated:
             summary = "The property \(propertyName) has been deprecated."
+        case .unsupported:
+            summary = "The property \(propertyName) is no longer supported."
         case .unexpected:
             summary = "Found an unexpected property \(propertyName)."
         }

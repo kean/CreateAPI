@@ -124,8 +124,12 @@ extension ConfigOptions: Decodable {
             defaultValue: .init()
         )
 
-        container.recordPotentialIssues(deprecations: [
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+            ],
+            replacements: [
+            ]
+        )
     }
 }
 
@@ -172,8 +176,12 @@ extension ConfigOptions.Comments: Decodable {
             defaultValue: true
         )
 
-        container.recordPotentialIssues(deprecations: [
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+            ],
+            replacements: [
+            ]
+        )
     }
 }
 
@@ -316,8 +324,12 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: []
         )
 
-        container.recordPotentialIssues(deprecations: [
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+            ],
+            replacements: [
+            ]
+        )
     }
 }
 
@@ -424,10 +436,14 @@ extension ConfigOptions.Paths: Decodable {
             defaultValue: []
         )
 
-        container.recordPotentialIssues(deprecations: [
-            (.overridenResponses, "Renamed to 'overriddenResponses'."),
-            (.overridenBodyTypes, "Renamed to 'overriddenBodyTypes'."),
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+                ("overridenResponses", "Renamed to 'overriddenResponses'."),
+                ("overridenBodyTypes", "Renamed to 'overriddenBodyTypes'."),
+            ],
+            replacements: [
+            ]
+        )
     }
 }
 
@@ -474,8 +490,12 @@ extension ConfigOptions.Rename: Decodable {
             defaultValue: [:]
         )
 
-        container.recordPotentialIssues(deprecations: [
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+            ],
+            replacements: [
+            ]
+        )
     }
 }
 

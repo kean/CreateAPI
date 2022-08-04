@@ -18,13 +18,18 @@ extension {{ type.name }}: Decodable {
         )
         {% endfor %}
 
-        container.recordPotentialIssues(deprecations: [
-        {% for variable in type.variables|stored %}
-        {% if variable.annotations.deprecated %}
-            (.{{ variable.name }}, "{{ variable.annotations.message }}"),
-        {% endif %}
-        {% endfor %}
-        ])
+        container.recordPotentialIssues(
+            deprecations: [
+            {% for variable in type.variables|stored|annotated:"deprecated" %}
+                ("{{ variable.name }}", "{{ variable.annotations.message }}"),
+            {% endfor %}
+            ],
+            replacements: [
+            {% for variable in type.variables|stored|annotated:"replacementFor" %}
+                ("{{ variable.annotations.replacementFor }}", "Use '{{ variable.name }}' instead."),
+            {% endfor %}
+            ]
+        )
     }
 }
 

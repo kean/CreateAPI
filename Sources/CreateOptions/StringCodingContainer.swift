@@ -18,12 +18,23 @@ class StringCodingContainer<K: RawRepresentable & Hashable> where K.RawValue == 
     }
 
     /// Ask the container to record any issues that it spotted during decoding if an issue recorder was passed in the user info.
-    func recordPotentialIssues(deprecations: [(key: K, message: String)]) {
+    func recordPotentialIssues(
+        deprecations: [(key: String, message: String)],
+        replacements: [(key: String, message: String)]
+    ) {
         guard let recorder = recorder else { return }
-        let deprecations = deprecations.map { (StringCodingKey(string: $0.key.rawValue), $0.message) }
+        let deprecations = deprecations.map { (StringCodingKey(string: $0.key), $0.message) }
+        let replacements = Dictionary(
+            replacements.map { (StringCodingKey(string: $0.key), $0.message) },
+            uniquingKeysWith: { lhs, _ in lhs }
+        )
 
         for key in container.allKeys where !decoded.contains(key) {
-            recorder.record(.unexpected, key: key, path: container.codingPath)
+            if let replacement = replacements[key] {
+                recorder.record(.unsupported, key: key, path: container.codingPath, message: replacement)
+            } else {
+                recorder.record(.unexpected, key: key, path: container.codingPath)
+            }
         }
 
         for (key, message) in deprecations where container.allKeys.contains(key) {
