@@ -606,7 +606,7 @@ extension Generator {
             } else {
                 name = makePropertyName(type.components(separatedBy: ".").last ?? "").rawValue
             }
-            guard options.isPluralizationEnabled else { return name }
+            guard options.pluralizeProperties else { return name }
             let isArray = type.starts(with: "[") && !type.contains( ":") // TODO: Refactor
             return isArray ? name.pluralized() : name
         }

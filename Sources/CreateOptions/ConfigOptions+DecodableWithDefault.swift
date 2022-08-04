@@ -15,7 +15,7 @@ extension ConfigOptions: Decodable {
         case ignoredAcronyms
         case indentation
         case spaceWidth
-        case isPluralizationEnabled
+        case pluralizeProperties
         case isNaiveDateEnabled
         case isUsingIntegersWithPredefinedCapacity
         case isSwiftLintDisabled
@@ -79,8 +79,8 @@ extension ConfigOptions: Decodable {
             defaultValue: 4
         )
 
-        isPluralizationEnabled = try container.decode(Bool.self,
-            forKey: .isPluralizationEnabled,
+        pluralizeProperties = try container.decode(Bool.self,
+            forKey: .pluralizeProperties,
             defaultValue: true
         )
 
@@ -132,6 +132,7 @@ extension ConfigOptions: Decodable {
                 ("isGeneratingEnums", "Use 'generateEnums' instead."),
                 ("isGeneratingSwiftyBooleanPropertyNames", "Use 'useSwiftyPropertyNames' instead."),
                 ("isInliningTypealiases", "Use 'inlineTypealiases' instead."),
+                ("isPluralizationEnabled", "Use 'pluralizeProperties' instead."),
             ]
         )
     }

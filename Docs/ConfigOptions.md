@@ -53,7 +53,7 @@ Below you can find the complete documentation for all available options.
 - [ignoredAcronyms](#ignoredacronyms)
 - [indentation](#indentation)
 - [spaceWidth](#spacewidth)
-- [isPluralizationEnabled](#ispluralizationenabled)
+- [pluralizeProperties](#pluralizeproperties)
 - [isNaiveDateEnabled](#isnaivedateenabled)
 - [isUsingIntegersWithPredefinedCapacity](#isusingintegerswithpredefinedcapacity)
 - [isSwiftLintDisabled](#isswiftlintdisabled)
@@ -205,7 +205,7 @@ Number of spaces to use when [`indentation`](#indentation) is set to `spaces`.
 
 <br/>
 
-## isPluralizationEnabled
+## pluralizeProperties
 
 **Type:** Bool<br />
 **Default:** `true`

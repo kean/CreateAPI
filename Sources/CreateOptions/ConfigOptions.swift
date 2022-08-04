@@ -102,7 +102,7 @@ public struct ConfigOptions: Encodable {
     public var spaceWidth: Int = 4
 
     /// For example, `public var file: [File]` becomes `public var files: [File]`
-    public var isPluralizationEnabled: Bool = true
+    public var pluralizeProperties: Bool = true // sourcery: replacementFor = isPluralizationEnabled
 
     /// Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAPI/NaiveDate)
     public var isNaiveDateEnabled: Bool = true
