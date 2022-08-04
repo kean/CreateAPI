@@ -359,7 +359,6 @@ extension ConfigOptions.Paths: Decodable {
         case style
         case namespace
         case generateResponseHeaders
-        case isAddingOperationIds
         case imports
         case overriddenResponses
         case overriddenBodyTypes
@@ -388,11 +387,6 @@ extension ConfigOptions.Paths: Decodable {
         generateResponseHeaders = try container.decode(Bool.self,
             forKey: .generateResponseHeaders,
             defaultValue: true
-        )
-
-        isAddingOperationIds = try container.decode(Bool.self,
-            forKey: .isAddingOperationIds,
-            defaultValue: false
         )
 
         imports = try container.decode(Set<String>.self,

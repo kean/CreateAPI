@@ -92,7 +92,6 @@ Below you can find the complete documentation for all available options.
   - [style](#pathsstyle)
   - [namespace](#pathsnamespace)
   - [generateResponseHeaders](#pathsgenerateresponseheaders)
-  - [isAddingOperationIds](#pathsisaddingoperationids)
   - [imports](#pathsimports)
   - [overriddenResponses](#pathsoverriddenresponses)
   - [overriddenBodyTypes](#pathsoverriddenbodytypes)
@@ -570,15 +569,6 @@ The namespace type for all generated paths
 **Default:** `true`
 
 Generate response headers using [HTTPHeaders](https://github.com/CreateAPI/HTTPHeaders)
-
-<br/>
-
-## paths.isAddingOperationIds
-
-**Type:** Bool<br />
-**Default:** `false`
-
-Adds the operation id to each request
 
 <br/>
 

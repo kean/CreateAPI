@@ -261,9 +261,6 @@ public struct ConfigOptions: Encodable {
         /// Generate response headers using [HTTPHeaders](https://github.com/CreateAPI/HTTPHeaders)
         public var generateResponseHeaders: Bool = true // sourcery: replacementFor = isGeneratingResponseHeaders
 
-        /// Adds the operation id to each request
-        public var isAddingOperationIds: Bool = false
-
         /// Modules to be imported within the source files for generated requests
         public var imports: Set<String> = ["Get"]
 
