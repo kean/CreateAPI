@@ -21,9 +21,9 @@ struct Generate: ParsableCommand {
     var config = "./.create-api.yaml"
 
     @Flag(help: ArgumentHelp("Merge Entities and Paths into single output files", discussion: """
-                            Merging the source files offers a compact output, but prevents the compiler \
-                            from parallelizing build tasks resulting in slower builds for larger schemas.
-                            """))
+        Merging the source files offers a compact output, but prevents the compiler \
+        from parallelizing build tasks resulting in slower builds for larger schemas.
+        """))
     var mergeSources = false
 
     @Flag(name: .shortAndLong, help: "Print additional logging information")
