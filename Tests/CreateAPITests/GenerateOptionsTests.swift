@@ -121,28 +121,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "petstore-custom-imports")
     }
-    
-    func testPestoreAddOperationId() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "petstore", ext: "yaml"),
-            "--output", temp.url.path,
-            "--package", "petstore-operation-id",
-            "--config", config("""
-            {
-                "paths": {
-                    "isAddingOperationIds": true
-                }
-            }
-            """)
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "petstore-operation-id")
-    }
         
     func testPestoreGenerateClasses() throws {
         // GIVEN
