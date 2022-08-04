@@ -33,7 +33,7 @@ extension Generator {
         case .object, .allOf, .anyOf:
             contents.append(templates.properties(properties, isReadonly: isReadOnly))
             contents += decl.nested.map(render)
-            if options.entities.isGeneratingInitializers {
+            if options.entities.includeInitializer {
                 contents.append(templates.initializer(properties: properties))
             }
         case .oneOf:

@@ -198,7 +198,7 @@ extension ConfigOptions.Entities: Decodable {
         case protocols
         case identifiableConformance
         case skipRedundantProtocols
-        case isGeneratingInitializers
+        case includeInitializer
         case isGeneratingInitWithDecoder
         case isGeneratingEncodeWithEncoder
         case isSortingPropertiesAlphabetically
@@ -269,8 +269,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: true
         )
 
-        isGeneratingInitializers = try container.decode(Bool.self,
-            forKey: .isGeneratingInitializers,
+        includeInitializer = try container.decode(Bool.self,
+            forKey: .includeInitializer,
             defaultValue: true
         )
 
@@ -334,6 +334,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isGeneratingMutableStructProperties", "Use 'mutableStructProperties' instead."),
                 ("isGeneratingIdentifiableConformance", "Use 'identifiableConformance' instead."),
                 ("isSkippingRedundantProtocols", "Use 'skipRedundantProtocols' instead."),
+                ("isGeneratingInitializers", "Use 'includeInitializer' instead."),
             ]
         )
     }
