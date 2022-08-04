@@ -72,7 +72,7 @@ Below you can find the complete documentation for all available options.
   - [imports](#entitiesimports)
   - [finalClasses](#entitiesfinalclasses)
   - [mutableClassProperties](#entitiesmutableclassproperties)
-  - [isGeneratingMutableStructProperties](#entitiesisgeneratingmutablestructproperties)
+  - [mutableStructProperties](#entitiesmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
   - [isGeneratingIdentifiableConformance](#entitiesisgeneratingidentifiableconformance)
@@ -368,7 +368,7 @@ When generating `class` types, generate the properties as `public var`
 
 <br/>
 
-## entities.isGeneratingMutableStructProperties
+## entities.mutableStructProperties
 
 **Type:** Bool<br />
 **Default:** `true`

@@ -164,7 +164,7 @@ public struct ConfigOptions: Encodable {
         public var mutableClassProperties: Bool = false // sourcery: replacementFor = isGeneratingMutableClassProperties
 
         /// When generating `struct` types, generate the properties as `public var`
-        public var isGeneratingMutableStructProperties: Bool = true
+        public var mutableStructProperties: Bool = true // sourcery: replacementFor = isGeneratingMutableStructProperties
 
         /// Base class used when generating `class` types
         public var baseClass: String? = nil
