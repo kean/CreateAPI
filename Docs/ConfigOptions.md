@@ -71,7 +71,7 @@ Below you can find the complete documentation for all available options.
   - [entitiesGeneratedAsStructs](#entitiesentitiesgeneratedasstructs)
   - [imports](#entitiesimports)
   - [finalClasses](#entitiesfinalclasses)
-  - [isGeneratingMutableClassProperties](#entitiesisgeneratingmutableclassproperties)
+  - [mutableClassProperties](#entitiesmutableclassproperties)
   - [isGeneratingMutableStructProperties](#entitiesisgeneratingmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
@@ -359,7 +359,7 @@ When generating `class` types, marks them as `final`
 
 <br/>
 
-## entities.isGeneratingMutableClassProperties
+## entities.mutableClassProperties
 
 **Type:** Bool<br />
 **Default:** `false`

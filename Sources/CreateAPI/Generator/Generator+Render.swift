@@ -26,7 +26,7 @@ extension Generator {
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
         let isStruct = shouldGenerateStruct(for: decl)
-        let isReadOnly = isStruct ? !options.entities.isGeneratingMutableStructProperties : !options.entities.isGeneratingMutableClassProperties
+        let isReadOnly = isStruct ? !options.entities.isGeneratingMutableStructProperties : !options.entities.mutableClassProperties
 
         var contents: [String] = []
         switch decl.type {
