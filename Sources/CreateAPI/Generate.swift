@@ -20,8 +20,8 @@ struct Generate: ParsableCommand {
     @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
     var config = "./.create-api.yaml"
 
-    @Flag(name: .shortAndLong, help: "Split output into separate files")
-    var split = false
+    @Flag(help: "Merge Entities and Paths into single files")
+    var mergeSources = false
 
     @Flag(name: .shortAndLong, help: "Print additional logging information")
     var verbose = false
@@ -159,6 +159,7 @@ struct Generate: ParsableCommand {
             throw GeneratorError("Failed to read configuration. \(error)")
         }
     }
+
     private func parseInputSpec() throws -> OpenAPI.Document {
         VendorExtensionsConfiguration.isEnabled = false
 
@@ -192,23 +193,26 @@ struct Generate: ParsableCommand {
         guard let output = output else {
             return
         }
+
         func process(_ contents: String) -> String {
             contents.indent(using: options).appending("\n")
         }
-        if split {
+
+        if mergeSources {
+            let contents = ([output.header] + output.files.map(\.contents))
+                .compactMap { $0 }
+                .joined(separator: "\n\n")
+            try process(contents).write(to: outputURL.appending(path: makeFilename(for: name)))
+        } else {
             let outputURL = outputURL.appending(path: name)
             try outputURL.createDirectoryIfNeeded()
             for file in output.files {
                 try process(output.header + "\n\n" + file.contents).write(to: outputURL.appending(path: makeFilename(for: file.name)))
             }
-            if let file = output.extensions {
-                try process(output.header + "\n\n" + file.contents).write(to: outputURL.appending(path: makeFilename(for: "\(name)+Extensions")))
-            }
-        } else {
-            let contents = ([output.header] + output.files.map(\.contents) + [output.extensions?.contents])
-                .compactMap { $0 }
-                .joined(separator: "\n\n")
-            try process(contents).write(to: outputURL.appending(path: makeFilename(for: name)))
+        }
+
+        for file in output.extensions {
+            try process(output.header + "\n\n" + file.contents).write(to: outputURL.appendingPathComponent(makeFilename(for: file.name)))
         }
     }
 

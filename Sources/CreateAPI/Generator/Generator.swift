@@ -158,7 +158,7 @@ struct Context {
 struct GeneratorOutput {
     let header: String
     let files: [GeneratedFile]
-    let extensions: GeneratedFile?
+    let extensions: [GeneratedFile]
 }
 
 struct GeneratedFile {

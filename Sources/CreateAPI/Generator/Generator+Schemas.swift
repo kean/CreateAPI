@@ -109,16 +109,15 @@ extension Generator {
         let schema: JSONSchema
     }
 
-    private func makeExtensions() -> GeneratedFile? {
-        var contents: [String] = []
+    private func makeExtensions() -> [GeneratedFile] {
+        var extensions: [GeneratedFile] = []
+
         if isAnyJSONUsed {
-            contents.append(templates.anyJSON)
+            extensions.append(GeneratedFile(name: "Entities+AnyJSON", contents: templates.anyJSON))
         }
-        contents.append(stringCodingKey)
-        guard !contents.isEmpty else {
-            return nil
-        }
-        return GeneratedFile(name: "Extensions", contents: contents.joined(separator: "\n\n"))
+        extensions.append(GeneratedFile(name: "Entities+CodingKey", contents: stringCodingKey))
+
+        return extensions
     }
 
     /// Return `nil` to skip generation.

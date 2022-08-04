@@ -82,20 +82,20 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "petstore-no-package")
     }
     
-    func testPetstoreSplit() throws {
+    func testPetstoreMergeSources() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
-            "--package", "petstore-split",
-            "--split"
+            "--package", "petstore-merge-sources",
+            "--merge-sources"
         ])
         
         // WHEN
         try command.run()
         
         // THEN
-        try compare(package: "petstore-split")
+        try compare(package: "petstore-merge-sources")
     }
     
     func testPestoreAddCustomImport() throws {
