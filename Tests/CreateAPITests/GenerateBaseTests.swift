@@ -1,5 +1,4 @@
 import XCTest
-import OpenAPIKit30
 @testable import create_api
 
 class GenerateBaseTests: XCTestCase {

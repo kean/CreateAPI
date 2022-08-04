@@ -1,4 +1,3 @@
-import Foundation
 import XCTest
 
 private let generateSnapshots = false

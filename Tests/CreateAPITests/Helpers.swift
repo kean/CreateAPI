@@ -1,7 +1,4 @@
-import Foundation
 import XCTest
-import OpenAPIKit30
-import Yams
 
 func file(named name: String, ext: String) -> Data {
     let url = Bundle.module.url(forResource: name, withExtension: ext)
@@ -14,11 +11,6 @@ func fileExists(named name: String, ext: String) -> Bool {
 
 func pathForSpec(named name: String, ext: String) -> String {
     Bundle.module.url(forResource: name, withExtension: ext, subdirectory: "Specs")!.path
-}
-
-func generated(named name: String) -> String {
-    let data = file(named: name, ext: "txt")
-    return String(data: data, encoding: .utf8)!
 }
 
 struct TemporaryDirectory {

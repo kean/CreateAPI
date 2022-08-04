@@ -1,8 +1,6 @@
-@testable import CreateOptions
 import XCTest
-import class Foundation.Bundle
+@testable import CreateOptions
 @testable import create_api
-import Yams
 
 final class HelpersTests: XCTestCase {    
     func testTypeName() {
