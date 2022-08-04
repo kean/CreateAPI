@@ -35,12 +35,22 @@ public struct Collection: Codable {
         self.previewImageURLs = previewImageURLs
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case description
-        case recipeCount = "recipe_count"
-        case previewImageURLs = "preview_image_urls"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.recipeCount = try values.decode(Int.self, forKey: "recipe_count")
+        self.previewImageURLs = try values.decode([URL].self, forKey: "preview_image_urls")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(title, forKey: "title")
+        try values.encode(description, forKey: "description")
+        try values.encode(recipeCount, forKey: "recipe_count")
+        try values.encode(previewImageURLs, forKey: "preview_image_urls")
     }
 }
 
@@ -84,15 +94,28 @@ public struct Recipe: Codable {
         self.steps = steps
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case story
-        case imageURL = "image_url"
-        case publishedAt = "published_at"
-        case user
-        case ingredients
-        case steps
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.story = try values.decode(String.self, forKey: "story")
+        self.imageURL = try values.decodeIfPresent(URL.self, forKey: "image_url")
+        self.publishedAt = try values.decode(Date.self, forKey: "published_at")
+        self.user = try values.decode(User.self, forKey: "user")
+        self.ingredients = try values.decode([String].self, forKey: "ingredients")
+        self.steps = try values.decode([Step].self, forKey: "steps")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(title, forKey: "title")
+        try values.encode(story, forKey: "story")
+        try values.encodeIfPresent(imageURL, forKey: "image_url")
+        try values.encode(publishedAt, forKey: "published_at")
+        try values.encode(user, forKey: "user")
+        try values.encode(ingredients, forKey: "ingredients")
+        try values.encode(steps, forKey: "steps")
     }
 }
 
@@ -111,9 +134,16 @@ public struct User: Codable {
         self.imageURL = imageURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case imageURL = "image_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.imageURL = try values.decodeIfPresent(URL.self, forKey: "image_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(imageURL, forKey: "image_url")
     }
 }
 
@@ -132,9 +162,16 @@ public struct Step: Codable {
         self.imageURLs = imageURLs
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case description
-        case imageURLs = "image_urls"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.description = try values.decode(String.self, forKey: "description")
+        self.imageURLs = try values.decode([URL].self, forKey: "image_urls")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(description, forKey: "description")
+        try values.encode(imageURLs, forKey: "image_urls")
     }
 }
 

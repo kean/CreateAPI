@@ -19,6 +19,20 @@ public struct Pet: Codable, Identifiable {
         self.name = name
         self.tag = tag
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.tag = try values.decodeIfPresent(String.self, forKey: "tag")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(tag, forKey: "tag")
+    }
 }
 
 public struct Store: Codable {
@@ -26,6 +40,16 @@ public struct Store: Codable {
 
     public init(pets: [Pet]) {
         self.pets = pets
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.pets = try values.decode([Pet].self, forKey: "pets")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(pets, forKey: "pets")
     }
 }
 
@@ -38,9 +62,16 @@ public struct Error: Codable, Identifiable {
         self.message = message
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id = "code"
-        case message
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "code")
+        self.message = try values.decode(String.self, forKey: "message")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "code")
+        try values.encode(message, forKey: "message")
     }
 }
 

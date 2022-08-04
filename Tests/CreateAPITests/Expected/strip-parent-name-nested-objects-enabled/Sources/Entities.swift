@@ -11,6 +11,16 @@ public struct ContainerA: Codable {
     public init(a: String? = nil) {
         self.a = a
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.a = try values.decodeIfPresent(String.self, forKey: "a")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(a, forKey: "a")
+    }
 }
 
 public struct ContainerB: Codable {
@@ -19,6 +29,16 @@ public struct ContainerB: Codable {
     public init(b: String? = nil) {
         self.b = b
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.b = try values.decodeIfPresent(String.self, forKey: "b")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(b, forKey: "b")
+    }
 }
 
 public struct ContainerC: Codable {
@@ -26,6 +46,16 @@ public struct ContainerC: Codable {
 
     public init(c: String? = nil) {
         self.c = c
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.c = try values.decodeIfPresent(String.self, forKey: "c")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(c, forKey: "c")
     }
 }
 
@@ -62,6 +92,16 @@ public struct Container: Codable {
 
     public init(content: Content) {
         self.content = content
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.content = try values.decode(Content.self, forKey: "content")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(content, forKey: "content")
     }
 }
 

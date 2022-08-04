@@ -97,40 +97,41 @@ extension Paths {
                 self.userSearchURL = userSearchURL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case currentUserURL = "current_user_url"
-                case currentUserAuthorizationsHTMLURL = "current_user_authorizations_html_url"
-                case authorizationsURL = "authorizations_url"
-                case codeSearchURL = "code_search_url"
-                case commitSearchURL = "commit_search_url"
-                case emailsURL = "emails_url"
-                case emojisURL = "emojis_url"
-                case eventsURL = "events_url"
-                case feedsURL = "feeds_url"
-                case followersURL = "followers_url"
-                case followingURL = "following_url"
-                case gistsURL = "gists_url"
-                case hubURL = "hub_url"
-                case issueSearchURL = "issue_search_url"
-                case issuesURL = "issues_url"
-                case keysURL = "keys_url"
-                case labelSearchURL = "label_search_url"
-                case notificationsURL = "notifications_url"
-                case organizationURL = "organization_url"
-                case organizationRepositoriesURL = "organization_repositories_url"
-                case organizationTeamsURL = "organization_teams_url"
-                case publicGistsURL = "public_gists_url"
-                case rateLimitURL = "rate_limit_url"
-                case repositoryURL = "repository_url"
-                case repositorySearchURL = "repository_search_url"
-                case currentUserRepositoriesURL = "current_user_repositories_url"
-                case starredURL = "starred_url"
-                case starredGistsURL = "starred_gists_url"
-                case topicSearchURL = "topic_search_url"
-                case userURL = "user_url"
-                case userOrganizationsURL = "user_organizations_url"
-                case userRepositoriesURL = "user_repositories_url"
-                case userSearchURL = "user_search_url"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.currentUserURL = try values.decode(String.self, forKey: "current_user_url")
+                self.currentUserAuthorizationsHTMLURL = try values.decode(String.self, forKey: "current_user_authorizations_html_url")
+                self.authorizationsURL = try values.decode(String.self, forKey: "authorizations_url")
+                self.codeSearchURL = try values.decode(String.self, forKey: "code_search_url")
+                self.commitSearchURL = try values.decode(String.self, forKey: "commit_search_url")
+                self.emailsURL = try values.decode(String.self, forKey: "emails_url")
+                self.emojisURL = try values.decode(String.self, forKey: "emojis_url")
+                self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                self.feedsURL = try values.decode(String.self, forKey: "feeds_url")
+                self.followersURL = try values.decode(String.self, forKey: "followers_url")
+                self.followingURL = try values.decode(String.self, forKey: "following_url")
+                self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                self.hubURL = try values.decode(String.self, forKey: "hub_url")
+                self.issueSearchURL = try values.decode(String.self, forKey: "issue_search_url")
+                self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+                self.keysURL = try values.decode(String.self, forKey: "keys_url")
+                self.labelSearchURL = try values.decode(String.self, forKey: "label_search_url")
+                self.notificationsURL = try values.decode(String.self, forKey: "notifications_url")
+                self.organizationURL = try values.decode(String.self, forKey: "organization_url")
+                self.organizationRepositoriesURL = try values.decode(String.self, forKey: "organization_repositories_url")
+                self.organizationTeamsURL = try values.decode(String.self, forKey: "organization_teams_url")
+                self.publicGistsURL = try values.decode(String.self, forKey: "public_gists_url")
+                self.rateLimitURL = try values.decode(String.self, forKey: "rate_limit_url")
+                self.repositoryURL = try values.decode(String.self, forKey: "repository_url")
+                self.repositorySearchURL = try values.decode(String.self, forKey: "repository_search_url")
+                self.currentUserRepositoriesURL = try values.decode(String.self, forKey: "current_user_repositories_url")
+                self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                self.starredGistsURL = try values.decode(String.self, forKey: "starred_gists_url")
+                self.topicSearchURL = try values.decodeIfPresent(String.self, forKey: "topic_search_url")
+                self.userURL = try values.decode(String.self, forKey: "user_url")
+                self.userOrganizationsURL = try values.decode(String.self, forKey: "user_organizations_url")
+                self.userRepositoriesURL = try values.decode(String.self, forKey: "user_repositories_url")
+                self.userSearchURL = try values.decode(String.self, forKey: "user_search_url")
             }
         }
     }
@@ -300,11 +301,12 @@ extension Paths.App.Hook {
                 self.insecureSSL = insecureSSL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case contentType = "content_type"
-                case secret
-                case insecureSSL = "insecure_ssl"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
             }
         }
     }
@@ -512,10 +514,11 @@ extension Paths.App.Installations.WithInstallationID {
                 self.permissions = permissions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case repositories
-                case repositoryIDs = "repository_ids"
-                case permissions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
     }
@@ -773,13 +776,14 @@ extension Paths.Applications.WithClientID.Token {
                 self.permissions = permissions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case accessToken = "access_token"
-                case target
-                case targetID = "target_id"
-                case repositories
-                case repositoryIDs = "repository_ids"
-                case permissions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+                try values.encodeIfPresent(target, forKey: "target")
+                try values.encodeIfPresent(targetID, forKey: "target_id")
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
     }
@@ -912,13 +916,14 @@ extension Paths {
                 self.fingerprint = fingerprint
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case scopes
-                case note
-                case noteURL = "note_url"
-                case clientID = "client_id"
-                case clientSecret = "client_secret"
-                case fingerprint
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(clientID, forKey: "client_id")
+                try values.encodeIfPresent(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
             }
         }
     }
@@ -990,12 +995,13 @@ extension Paths.Authorizations.Clients {
                 self.fingerprint = fingerprint
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case clientSecret = "client_secret"
-                case scopes
-                case note
-                case noteURL = "note_url"
-                case fingerprint
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
             }
         }
     }
@@ -1051,11 +1057,12 @@ extension Paths.Authorizations.Clients.WithClientID {
                 self.noteURL = noteURL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case clientSecret = "client_secret"
-                case scopes
-                case note
-                case noteURL = "note_url"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
             }
         }
     }
@@ -1121,13 +1128,14 @@ extension Paths.Authorizations {
                 self.fingerprint = fingerprint
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case scopes
-                case addScopes = "add_scopes"
-                case removeScopes = "remove_scopes"
-                case note
-                case noteURL = "note_url"
-                case fingerprint
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(addScopes, forKey: "add_scopes")
+                try values.encodeIfPresent(removeScopes, forKey: "remove_scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
             }
         }
 
@@ -1274,9 +1282,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.allowedActions = allowedActions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case enabledOrganizations = "enabled_organizations"
-                case allowedActions = "allowed_actions"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(enabledOrganizations, forKey: "enabled_organizations")
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
             }
         }
     }
@@ -1311,9 +1320,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
                 self.organizations = organizations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case organizations
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.organizations = try values.decode([OctoKit.OrganizationSimple].self, forKey: "organizations")
             }
         }
 
@@ -1432,9 +1442,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.runnerGroups = runnerGroups
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runnerGroups = "runner_groups"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.runnerGroups = try values.decode([OctoKit.RunnerGroupsEnterprise].self, forKey: "runner_groups")
             }
         }
 
@@ -1482,12 +1493,13 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case selectedOrganizationIDs = "selected_organization_ids"
-                case runners
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(selectedOrganizationIDs, forKey: "selected_organization_ids")
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
     }
@@ -1544,10 +1556,11 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
 
@@ -1593,9 +1606,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 self.organizations = organizations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case organizations
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.organizations = try values.decode([OctoKit.OrganizationSimple].self, forKey: "organizations")
             }
         }
 
@@ -1681,9 +1695,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.runners = try values.decode([OctoKit.Runner].self, forKey: "runners")
             }
         }
 
@@ -1774,9 +1789,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decodeIfPresent(Double.self, forKey: "total_count")
+                self.runners = try values.decodeIfPresent([OctoKit.Runner].self, forKey: "runners")
             }
         }
 
@@ -1938,9 +1954,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -1964,9 +1981,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -1991,9 +2009,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -2018,9 +2037,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -2059,9 +2079,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners.WithRunnerID.Labels {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -2390,6 +2411,11 @@ extension Paths {
                 public init(content: String) {
                     self.content = content
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(content, forKey: "content")
+                }
             }
 
             public enum Public: Encodable {
@@ -2417,10 +2443,11 @@ extension Paths {
                 self.public = `public`
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case description
-                case files
-                case `public`
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(files, forKey: "files")
+                try values.encodeIfPresent(`public`, forKey: "public")
             }
         }
     }
@@ -2568,11 +2595,23 @@ extension Paths.Gists {
                     self.content = content
                     self.filename = filename
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(content, forKey: "content")
+                    try values.encodeIfPresent(filename, forKey: "filename")
+                }
             }
 
             public init(description: String? = nil, files: [String: File]? = nil) {
                 self.description = description
                 self.files = files
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(files, forKey: "files")
             }
         }
 
@@ -2875,10 +2914,11 @@ extension Paths.Installation {
                 self.repositorySelection = repositorySelection
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
-                case repositorySelection = "repository_selection"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.Repository].self, forKey: "repositories")
+                self.repositorySelection = try values.decodeIfPresent(String.self, forKey: "repository_selection")
             }
         }
 
@@ -3124,6 +3164,13 @@ extension Paths {
                 self.text = text
                 self.mode = mode
                 self.context = context
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(text, forKey: "text")
+                try values.encodeIfPresent(mode, forKey: "mode")
+                try values.encodeIfPresent(context, forKey: "context")
             }
         }
     }
@@ -3593,6 +3640,11 @@ extension Paths {
             public init(message: String? = nil) {
                 self.message = message
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+            }
         }
 
         public struct PutRequest: Encodable {
@@ -3606,9 +3658,10 @@ extension Paths {
                 self.isRead = isRead
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case lastReadAt = "last_read_at"
-                case isRead = "read"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+                try values.encodeIfPresent(isRead, forKey: "read")
             }
         }
     }
@@ -3795,9 +3848,10 @@ extension Paths.Organizations.WithOrganizationID {
                 self.customRoles = customRoles
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case customRoles = "custom_roles"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+                self.customRoles = try values.decodeIfPresent([OctoKit.OrganizationCustomRepositoryRole].self, forKey: "custom_roles")
             }
         }
     }
@@ -3962,27 +4016,28 @@ extension Paths.Orgs {
                 self.blog = blog
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case billingEmail = "billing_email"
-                case company
-                case email
-                case twitterUsername = "twitter_username"
-                case location
-                case name
-                case description
-                case hasOrganizationProjects = "has_organization_projects"
-                case hasRepositoryProjects = "has_repository_projects"
-                case defaultRepositoryPermission = "default_repository_permission"
-                case membersCanCreateRepositories = "members_can_create_repositories"
-                case membersCanCreateInternalRepositories = "members_can_create_internal_repositories"
-                case membersCanCreatePrivateRepositories = "members_can_create_private_repositories"
-                case membersCanCreatePublicRepositories = "members_can_create_public_repositories"
-                case membersAllowedRepositoryCreationType = "members_allowed_repository_creation_type"
-                case membersCanCreatePages = "members_can_create_pages"
-                case membersCanCreatePublicPages = "members_can_create_public_pages"
-                case membersCanCreatePrivatePages = "members_can_create_private_pages"
-                case membersCanForkPrivateRepositories = "members_can_fork_private_repositories"
-                case blog
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(billingEmail, forKey: "billing_email")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(hasOrganizationProjects, forKey: "has_organization_projects")
+                try values.encodeIfPresent(hasRepositoryProjects, forKey: "has_repository_projects")
+                try values.encodeIfPresent(defaultRepositoryPermission, forKey: "default_repository_permission")
+                try values.encodeIfPresent(membersCanCreateRepositories, forKey: "members_can_create_repositories")
+                try values.encodeIfPresent(membersCanCreateInternalRepositories, forKey: "members_can_create_internal_repositories")
+                try values.encodeIfPresent(membersCanCreatePrivateRepositories, forKey: "members_can_create_private_repositories")
+                try values.encodeIfPresent(membersCanCreatePublicRepositories, forKey: "members_can_create_public_repositories")
+                try values.encodeIfPresent(membersAllowedRepositoryCreationType, forKey: "members_allowed_repository_creation_type")
+                try values.encodeIfPresent(membersCanCreatePages, forKey: "members_can_create_pages")
+                try values.encodeIfPresent(membersCanCreatePublicPages, forKey: "members_can_create_public_pages")
+                try values.encodeIfPresent(membersCanCreatePrivatePages, forKey: "members_can_create_private_pages")
+                try values.encodeIfPresent(membersCanForkPrivateRepositories, forKey: "members_can_fork_private_repositories")
+                try values.encodeIfPresent(blog, forKey: "blog")
             }
         }
     }
@@ -4043,9 +4098,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.allowedActions = allowedActions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case enabledRepositories = "enabled_repositories"
-                case allowedActions = "allowed_actions"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(enabledRepositories, forKey: "enabled_repositories")
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
             }
         }
     }
@@ -4080,9 +4136,10 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.Repository].self, forKey: "repositories")
             }
         }
 
@@ -4207,9 +4264,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.runnerGroups = runnerGroups
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runnerGroups = "runner_groups"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.runnerGroups = try values.decode([OctoKit.RunnerGroupsOrg].self, forKey: "runner_groups")
             }
         }
 
@@ -4260,12 +4318,13 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case selectedRepositoryIDs = "selected_repository_ids"
-                case runners
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
     }
@@ -4327,10 +4386,11 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
 
@@ -4380,9 +4440,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.MinimalRepository].self, forKey: "repositories")
             }
         }
 
@@ -4479,9 +4540,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.runners = try values.decode([OctoKit.Runner].self, forKey: "runners")
             }
         }
 
@@ -4580,9 +4642,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.runners = try values.decode([OctoKit.Runner].self, forKey: "runners")
             }
         }
 
@@ -4744,9 +4807,10 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -4770,9 +4834,10 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -4797,9 +4862,10 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -4824,9 +4890,10 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -4865,9 +4932,10 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID.Labels {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -4900,9 +4968,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.secrets = secrets
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case secrets
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.secrets = try values.decode([OctoKit.OrganizationActionsSecret].self, forKey: "secrets")
             }
         }
 
@@ -5070,11 +5139,12 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case encryptedValue = "encrypted_value"
-                case keyID = "key_id"
-                case visibility
-                case selectedRepositoryIDs = "selected_repository_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(encryptedValue, forKey: "encrypted_value")
+                try values.encodeIfPresent(keyID, forKey: "key_id")
+                try values.encode(visibility, forKey: "visibility")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
 
@@ -5116,9 +5186,10 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.MinimalRepository].self, forKey: "repositories")
             }
         }
 
@@ -5541,13 +5612,14 @@ extension Paths.Orgs.WithOrg {
                     self.password = password
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
-                    case username
-                    case password
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(username, forKey: "username")
+                    try values.encodeIfPresent(password, forKey: "password")
                 }
             }
 
@@ -5558,11 +5630,12 @@ extension Paths.Orgs.WithOrg {
                 self.isActive = isActive ?? true
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case config
-                case events
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encode(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
     }
@@ -5628,11 +5701,12 @@ extension Paths.Orgs.WithOrg.Hooks {
                     self.insecureSSL = insecureSSL
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
                 }
             }
 
@@ -5643,11 +5717,12 @@ extension Paths.Orgs.WithOrg.Hooks {
                 self.name = name
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case config
-                case events
-                case isActive = "active"
-                case name
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encodeIfPresent(name, forKey: "name")
             }
         }
 
@@ -5721,11 +5796,12 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
                 self.insecureSSL = insecureSSL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case contentType = "content_type"
-                case secret
-                case insecureSSL = "insecure_ssl"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
             }
         }
     }
@@ -5867,9 +5943,10 @@ extension Paths.Orgs.WithOrg {
                 self.installations = installations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case installations
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.installations = try values.decode([OctoKit.Installation].self, forKey: "installations")
             }
         }
 
@@ -6010,11 +6087,12 @@ extension Paths.Orgs.WithOrg {
                 self.teamIDs = teamIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case inviteeID = "invitee_id"
-                case email
-                case role
-                case teamIDs = "team_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(inviteeID, forKey: "invitee_id")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(role, forKey: "role")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
             }
         }
     }
@@ -6313,6 +6391,11 @@ extension Paths.Orgs.WithOrg.Memberships {
             public init(role: Role? = nil) {
                 self.role = role
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
         }
 
         /// Remove organization membership for a user
@@ -6420,13 +6503,14 @@ extension Paths.Orgs.WithOrg {
                 self.exclude = exclude
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case repositories
-                case lockRepositories = "lock_repositories"
-                case excludeAttachments = "exclude_attachments"
-                case excludeReleases = "exclude_releases"
-                case excludeOwnerProjects = "exclude_owner_projects"
-                case exclude
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encodeIfPresent(lockRepositories, forKey: "lock_repositories")
+                try values.encodeIfPresent(excludeAttachments, forKey: "exclude_attachments")
+                try values.encodeIfPresent(excludeReleases, forKey: "exclude_releases")
+                try values.encodeIfPresent(excludeOwnerProjects, forKey: "exclude_owner_projects")
+                try values.encodeIfPresent(exclude, forKey: "exclude")
             }
         }
     }
@@ -6957,6 +7041,12 @@ extension Paths.Orgs.WithOrg {
                 self.name = name
                 self.body = body
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+            }
         }
     }
 }
@@ -7184,25 +7274,26 @@ extension Paths.Orgs.WithOrg {
                 self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case homepage
-                case isPrivate = "private"
-                case visibility
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case isTemplate = "is_template"
-                case teamID = "team_id"
-                case isAutoInit = "auto_init"
-                case gitignoreTemplate = "gitignore_template"
-                case licenseTemplate = "license_template"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case allowAutoMerge = "allow_auto_merge"
-                case deleteBranchOnMerge = "delete_branch_on_merge"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(teamID, forKey: "team_id")
+                try values.encodeIfPresent(isAutoInit, forKey: "auto_init")
+                try values.encodeIfPresent(gitignoreTemplate, forKey: "gitignore_template")
+                try values.encodeIfPresent(licenseTemplate, forKey: "license_template")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
             }
         }
     }
@@ -7543,14 +7634,15 @@ extension Paths.Orgs.WithOrg {
                 self.parentTeamID = parentTeamID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case maintainers
-                case repoNames = "repo_names"
-                case privacy
-                case permission
-                case parentTeamID = "parent_team_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(maintainers, forKey: "maintainers")
+                try values.encodeIfPresent(repoNames, forKey: "repo_names")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
             }
         }
     }
@@ -7636,12 +7728,13 @@ extension Paths.Orgs.WithOrg.Teams {
                 self.parentTeamID = parentTeamID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case privacy
-                case permission
-                case parentTeamID = "parent_team_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
             }
         }
 
@@ -7739,10 +7832,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.isPrivate = isPrivate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case body
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
     }
@@ -7788,6 +7882,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
             public init(title: String? = nil, body: String? = nil) {
                 self.title = title
                 self.body = body
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
             }
         }
 
@@ -7997,6 +8097,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -8107,6 +8212,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
 
             public init(content: Content) {
                 self.content = content
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
             }
         }
     }
@@ -8326,6 +8436,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
             public init(role: Role? = nil) {
                 self.role = role
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
         }
 
         /// Remove team membership for a user
@@ -8430,6 +8545,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Projects {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
             }
         }
 
@@ -8559,6 +8679,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
             public init(permission: Permission? = nil) {
                 self.permission = permission
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a repository from a team
@@ -8638,15 +8763,21 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.TeamSync {
                     self.groupDescription = groupDescription
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case groupID = "group_id"
-                    case groupName = "group_name"
-                    case groupDescription = "group_description"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(groupID, forKey: "group_id")
+                    try values.encode(groupName, forKey: "group_name")
+                    try values.encode(groupDescription, forKey: "group_description")
                 }
             }
 
             public init(groups: [Group]? = nil) {
                 self.groups = groups
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(groups, forKey: "groups")
             }
         }
     }
@@ -8756,9 +8887,10 @@ extension Paths.Projects.Columns.Cards {
                 self.isArchived = isArchived
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case note
-                case isArchived = "archived"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(isArchived, forKey: "archived")
             }
         }
 
@@ -8802,9 +8934,10 @@ extension Paths.Projects.Columns.Cards.WithCardID {
                 self.columnID = columnID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case position
-                case columnID = "column_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(position, forKey: "position")
+                try values.encodeIfPresent(columnID, forKey: "column_id")
             }
         }
     }
@@ -8908,6 +9041,11 @@ extension Paths.Projects.Columns.WithColumnID {
                 public init(note: String? = nil) {
                     self.note = note
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(note, forKey: "note")
+                }
             }
 
             public struct B: Encodable {
@@ -8925,9 +9063,10 @@ extension Paths.Projects.Columns.WithColumnID {
                     self.contentType = contentType
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case contentID = "content_id"
-                    case contentType = "content_type"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contentID, forKey: "content_id")
+                    try values.encode(contentType, forKey: "content_type")
                 }
             }
 
@@ -9021,12 +9160,13 @@ extension Paths.Projects {
                 self.isPrivate = isPrivate
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case body
-                case state
-                case organizationPermission = "organization_permission"
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
 
@@ -9126,6 +9266,11 @@ extension Paths.Projects.WithProjectID.Collaborators {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
             }
         }
 
@@ -9368,6 +9513,11 @@ extension Paths.Repos.WithOwner {
                     public init(status: String? = nil) {
                         self.status = status
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
                 }
 
                 /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
@@ -9378,6 +9528,11 @@ extension Paths.Repos.WithOwner {
                     public init(status: String? = nil) {
                         self.status = status
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
                 }
 
                 public init(advancedSecurity: AdvancedSecurity? = nil, secretScanning: SecretScanning? = nil) {
@@ -9385,9 +9540,10 @@ extension Paths.Repos.WithOwner {
                     self.secretScanning = secretScanning
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case advancedSecurity = "advanced_security"
-                    case secretScanning = "secret_scanning"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(advancedSecurity, forKey: "advanced_security")
+                    try values.encodeIfPresent(secretScanning, forKey: "secret_scanning")
                 }
             }
 
@@ -9412,25 +9568,26 @@ extension Paths.Repos.WithOwner {
                 self.allowForking = allowForking ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case homepage
-                case isPrivate = "private"
-                case visibility
-                case securityAndAnalysis = "security_and_analysis"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case isTemplate = "is_template"
-                case defaultBranch = "default_branch"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case allowAutoMerge = "allow_auto_merge"
-                case deleteBranchOnMerge = "delete_branch_on_merge"
-                case isArchived = "archived"
-                case allowForking = "allow_forking"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(securityAndAnalysis, forKey: "security_and_analysis")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(defaultBranch, forKey: "default_branch")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(isArchived, forKey: "archived")
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
             }
         }
 
@@ -9486,9 +9643,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.artifacts = artifacts
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case artifacts
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.artifacts = try values.decode([OctoKit.Artifact].self, forKey: "artifacts")
             }
         }
 
@@ -9656,9 +9814,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.allowedActions = allowedActions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isEnabled = "enabled"
-                case allowedActions = "allowed_actions"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isEnabled, forKey: "enabled")
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
             }
         }
     }
@@ -9728,9 +9887,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.runners = try values.decode([OctoKit.Runner].self, forKey: "runners")
             }
         }
 
@@ -9892,9 +10052,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -9919,9 +10080,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -9947,9 +10109,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
 
@@ -9975,9 +10138,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -10017,9 +10181,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID.Labels {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }
@@ -10054,9 +10219,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.workflowRuns = workflowRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case workflowRuns = "workflow_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflowRuns = try values.decode([OctoKit.WorkflowRun].self, forKey: "workflow_runs")
             }
         }
 
@@ -10223,9 +10389,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.artifacts = artifacts
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case artifacts
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.artifacts = try values.decode([OctoKit.Artifact].self, forKey: "artifacts")
             }
         }
 
@@ -10309,9 +10476,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
                 self.jobs = jobs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case jobs
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.jobs = try values.decode([OctoKit.Job].self, forKey: "jobs")
             }
         }
 
@@ -10398,9 +10566,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.jobs = jobs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case jobs
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.jobs = try values.decode([OctoKit.Job].self, forKey: "jobs")
             }
         }
 
@@ -10526,10 +10695,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.comment = comment
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case environmentIDs = "environment_ids"
-                case state
-                case comment
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(environmentIDs, forKey: "environment_ids")
+                try values.encode(state, forKey: "state")
+                try values.encode(comment, forKey: "comment")
             }
         }
     }
@@ -10605,9 +10775,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.secrets = secrets
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case secrets
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.secrets = try values.decode([OctoKit.ActionsSecret].self, forKey: "secrets")
             }
         }
 
@@ -10756,9 +10927,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
                 self.keyID = keyID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case encryptedValue = "encrypted_value"
-                case keyID = "key_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(encryptedValue, forKey: "encrypted_value")
+                try values.encodeIfPresent(keyID, forKey: "key_id")
             }
         }
 
@@ -10800,9 +10972,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.workflows = workflows
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case workflows
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflows = try values.decode([OctoKit.Workflow].self, forKey: "workflows")
             }
         }
 
@@ -10893,6 +11066,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 self.ref = ref
                 self.inputs = inputs
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encodeIfPresent(inputs, forKey: "inputs")
+            }
         }
     }
 }
@@ -10948,9 +11127,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 self.workflowRuns = workflowRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case workflowRuns = "workflow_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.workflowRuns = try values.decode([OctoKit.WorkflowRun].self, forKey: "workflow_runs")
             }
         }
 
@@ -11138,9 +11318,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.urlTemplate = urlTemplate
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case keyPrefix = "key_prefix"
-                case urlTemplate = "url_template"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(keyPrefix, forKey: "key_prefix")
+                try values.encode(urlTemplate, forKey: "url_template")
             }
         }
     }
@@ -11341,9 +11522,10 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                         self.appID = appID
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case context
-                        case appID = "app_id"
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(context, forKey: "context")
+                        try values.encodeIfPresent(appID, forKey: "app_id")
                     }
                 }
 
@@ -11353,10 +11535,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.checks = checks
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case isStrict = "strict"
-                    case contexts
-                    case checks
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isStrict, forKey: "strict")
+                    try values.encode(contexts, forKey: "contexts")
+                    try values.encodeIfPresent(checks, forKey: "checks")
                 }
             }
 
@@ -11382,6 +11565,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                         self.users = users
                         self.teams = teams
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(users, forKey: "users")
+                        try values.encodeIfPresent(teams, forKey: "teams")
+                    }
                 }
 
                 public init(dismissalRestrictions: DismissalRestrictions? = nil, dismissStaleReviews: Bool? = nil, requireCodeOwnerReviews: Bool? = nil, requiredApprovingReviewCount: Int? = nil) {
@@ -11391,11 +11580,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.requiredApprovingReviewCount = requiredApprovingReviewCount
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case dismissalRestrictions = "dismissal_restrictions"
-                    case dismissStaleReviews = "dismiss_stale_reviews"
-                    case requireCodeOwnerReviews = "require_code_owner_reviews"
-                    case requiredApprovingReviewCount = "required_approving_review_count"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                    try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                    try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                    try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
                 }
             }
 
@@ -11413,6 +11603,13 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.teams = teams
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                    try values.encode(teams, forKey: "teams")
+                    try values.encodeIfPresent(apps, forKey: "apps")
+                }
             }
 
             public init(requiredStatusChecks: RequiredStatusChecks? = nil, enforceAdmins: Bool? = nil, requiredPullRequestReviews: RequiredPullRequestReviews? = nil, restrictions: Restrictions? = nil, isRequiredLinearHistory: Bool? = nil, allowForcePushes: Bool? = nil, allowDeletions: Bool? = nil, isRequiredConversationResolution: Bool? = nil) {
@@ -11426,15 +11623,16 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 self.isRequiredConversationResolution = isRequiredConversationResolution
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case requiredStatusChecks = "required_status_checks"
-                case enforceAdmins = "enforce_admins"
-                case requiredPullRequestReviews = "required_pull_request_reviews"
-                case restrictions
-                case isRequiredLinearHistory = "required_linear_history"
-                case allowForcePushes = "allow_force_pushes"
-                case allowDeletions = "allow_deletions"
-                case isRequiredConversationResolution = "required_conversation_resolution"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+                try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+                try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+                try values.encodeIfPresent(restrictions, forKey: "restrictions")
+                try values.encodeIfPresent(isRequiredLinearHistory, forKey: "required_linear_history")
+                try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+                try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+                try values.encodeIfPresent(isRequiredConversationResolution, forKey: "required_conversation_resolution")
             }
         }
 
@@ -11543,6 +11741,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                     self.users = users
                     self.teams = teams
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(users, forKey: "users")
+                    try values.encodeIfPresent(teams, forKey: "teams")
+                }
             }
 
             public init(dismissalRestrictions: DismissalRestrictions? = nil, dismissStaleReviews: Bool? = nil, requireCodeOwnerReviews: Bool? = nil, requiredApprovingReviewCount: Int? = nil) {
@@ -11552,11 +11756,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                 self.requiredApprovingReviewCount = requiredApprovingReviewCount
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case dismissalRestrictions = "dismissal_restrictions"
-                case dismissStaleReviews = "dismiss_stale_reviews"
-                case requireCodeOwnerReviews = "require_code_owner_reviews"
-                case requiredApprovingReviewCount = "required_approving_review_count"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
             }
         }
 
@@ -11667,9 +11872,10 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                     self.appID = appID
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case context
-                    case appID = "app_id"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(context, forKey: "context")
+                    try values.encodeIfPresent(appID, forKey: "app_id")
                 }
             }
 
@@ -11679,10 +11885,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                 self.checks = checks
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isStrict = "strict"
-                case contexts
-                case checks
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isStrict, forKey: "strict")
+                try values.encodeIfPresent(contexts, forKey: "contexts")
+                try values.encodeIfPresent(checks, forKey: "checks")
             }
         }
 
@@ -11742,6 +11949,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                 public init(contexts: [String]) {
                     self.contexts = contexts
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11780,6 +11992,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                 public init(contexts: [String]) {
                     self.contexts = contexts
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11817,6 +12034,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
 
                 public init(contexts: [String]) {
                     self.contexts = contexts
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
                 }
             }
 
@@ -11919,6 +12141,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(apps: [String]) {
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -11963,6 +12190,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(apps: [String]) {
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12006,6 +12238,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
 
                 public init(apps: [String]) {
                     self.apps = apps
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
                 }
             }
 
@@ -12073,6 +12310,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(teams: [String]) {
                     self.teams = teams
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12117,6 +12359,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(teams: [String]) {
                     self.teams = teams
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12160,6 +12407,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
 
                 public init(teams: [String]) {
                     self.teams = teams
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(teams, forKey: "teams")
                 }
             }
 
@@ -12227,6 +12479,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(users: [String]) {
                     self.users = users
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12271,6 +12528,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(users: [String]) {
                     self.users = users
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -12314,6 +12576,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
 
                 public init(users: [String]) {
                     self.users = users
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
                 }
             }
 
@@ -12396,6 +12663,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.status = status
                     self.conclusion = conclusion
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(status, forKey: "status")
+                    try values.encode(conclusion, forKey: "conclusion")
+                }
             }
 
             public struct B: Encodable {
@@ -12403,6 +12676,11 @@ extension Paths.Repos.WithOwner.WithRepo {
 
                 public init(status: AnyJSON? = nil) {
                     self.status = status
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(status, forKey: "status")
                 }
             }
 
@@ -12541,16 +12819,17 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.rawDetails = rawDetails
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case path
-                        case startLine = "start_line"
-                        case endLine = "end_line"
-                        case startColumn = "start_column"
-                        case endColumn = "end_column"
-                        case annotationLevel = "annotation_level"
-                        case message
-                        case title
-                        case rawDetails = "raw_details"
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(path, forKey: "path")
+                        try values.encode(startLine, forKey: "start_line")
+                        try values.encode(endLine, forKey: "end_line")
+                        try values.encodeIfPresent(startColumn, forKey: "start_column")
+                        try values.encodeIfPresent(endColumn, forKey: "end_column")
+                        try values.encode(annotationLevel, forKey: "annotation_level")
+                        try values.encode(message, forKey: "message")
+                        try values.encodeIfPresent(title, forKey: "title")
+                        try values.encodeIfPresent(rawDetails, forKey: "raw_details")
                     }
                 }
 
@@ -12568,10 +12847,11 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.caption = caption
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case alt
-                        case imageURL = "image_url"
-                        case caption
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(alt, forKey: "alt")
+                        try values.encode(imageURL, forKey: "image_url")
+                        try values.encodeIfPresent(caption, forKey: "caption")
                     }
                 }
 
@@ -12581,6 +12861,15 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.text = text
                     self.annotations = annotations
                     self.images = images
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(title, forKey: "title")
+                    try values.encode(summary, forKey: "summary")
+                    try values.encodeIfPresent(text, forKey: "text")
+                    try values.encodeIfPresent(annotations, forKey: "annotations")
+                    try values.encodeIfPresent(images, forKey: "images")
                 }
             }
 
@@ -12599,6 +12888,14 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.identifier = identifier
                     self.identifie = identifie
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(label, forKey: "label")
+                    try values.encode(description, forKey: "description")
+                    try values.encodeIfPresent(identifier, forKey: "identifier")
+                    try values.encode(identifie, forKey: "identifie")
+                }
             }
 
             public init(name: String? = nil, detailsURL: String? = nil, externalID: String? = nil, startedAt: Date? = nil, status: Status? = nil, conclusion: Conclusion? = nil, completedAt: Date? = nil, output: Output? = nil, actions: [Action]? = nil) {
@@ -12613,16 +12910,17 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                 self.actions = actions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case detailsURL = "details_url"
-                case externalID = "external_id"
-                case startedAt = "started_at"
-                case status
-                case conclusion
-                case completedAt = "completed_at"
-                case output
-                case actions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(detailsURL, forKey: "details_url")
+                try values.encodeIfPresent(externalID, forKey: "external_id")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(status, forKey: "status")
+                try values.encodeIfPresent(conclusion, forKey: "conclusion")
+                try values.encodeIfPresent(completedAt, forKey: "completed_at")
+                try values.encodeIfPresent(output, forKey: "output")
+                try values.encodeIfPresent(actions, forKey: "actions")
             }
         }
     }
@@ -12736,9 +13034,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                     self.isSetting = isSetting
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case appID = "app_id"
-                    case isSetting = "setting"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(appID, forKey: "app_id")
+                    try values.encode(isSetting, forKey: "setting")
                 }
             }
 
@@ -12746,8 +13045,9 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                 self.autoTriggerChecks = autoTriggerChecks
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case autoTriggerChecks = "auto_trigger_checks"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(autoTriggerChecks, forKey: "auto_trigger_checks")
             }
         }
     }
@@ -12804,9 +13104,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
                 self.checkRuns = checkRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case checkRuns = "check_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.checkRuns = try values.decode([OctoKit.CheckRun].self, forKey: "check_runs")
             }
         }
 
@@ -13015,9 +13316,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
                 self.dismissedReason = dismissedReason
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case dismissedReason = "dismissed_reason"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
             }
         }
     }
@@ -13319,13 +13621,14 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.toolName = toolName
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitSha = "commit_sha"
-                case ref
-                case sarif
-                case checkoutUri = "checkout_uri"
-                case startedAt = "started_at"
-                case toolName = "tool_name"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(commitSha, forKey: "commit_sha")
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sarif, forKey: "sarif")
+                try values.encodeIfPresent(checkoutUri, forKey: "checkout_uri")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(toolName, forKey: "tool_name")
             }
         }
     }
@@ -13380,9 +13683,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.codespaces = codespaces
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case codespaces
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.codespaces = try values.decode([OctoKit.Codespace].self, forKey: "codespaces")
             }
         }
 
@@ -13424,12 +13728,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case ref
-                case location
-                case machine
-                case workingDirectory = "working_directory"
-                case idleTimeoutMinutes = "idle_timeout_minutes"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(ref, forKey: "ref")
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
             }
         }
     }
@@ -13466,9 +13771,10 @@ extension Paths.Repos.WithOwner.WithRepo.Codespaces {
                 self.machines = machines
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case machines
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.machines = try values.decode([OctoKit.CodespaceMachine].self, forKey: "machines")
             }
         }
     }
@@ -13601,6 +13907,12 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
             public init(permission: Permission? = nil, permissions: String? = nil) {
                 self.permission = permission
                 self.permissions = permissions
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
 
@@ -13778,6 +14090,11 @@ extension Paths.Repos.WithOwner.WithRepo.Comments.WithCommentID {
 
             public init(content: Content) {
                 self.content = content
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
             }
         }
     }
@@ -13981,6 +14298,14 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
                 self.position = position
                 self.line = line
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(path, forKey: "path")
+                try values.encodeIfPresent(position, forKey: "position")
+                try values.encodeIfPresent(line, forKey: "line")
+            }
         }
     }
 }
@@ -14107,9 +14432,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.checkRuns = checkRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case checkRuns = "check_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.checkRuns = try values.decode([OctoKit.CheckRun].self, forKey: "check_runs")
             }
         }
 
@@ -14188,9 +14514,10 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithRef {
                 self.checkSuites = checkSuites
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case checkSuites = "check_suites"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.checkSuites = try values.decode([OctoKit.CheckSuite].self, forKey: "check_suites")
             }
         }
 
@@ -14534,6 +14861,13 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
@@ -14550,6 +14884,13 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(message: String, content: String, sha: String? = nil, branch: String? = nil, committer: Committer? = nil, author: Author? = nil) {
@@ -14559,6 +14900,16 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.branch = branch
                 self.committer = committer
                 self.author = author
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(content, forKey: "content")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(author, forKey: "author")
             }
         }
 
@@ -14600,6 +14951,12 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.name = name
                     self.email = email
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                }
             }
 
             /// Object containing information about the author.
@@ -14613,6 +14970,12 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.name = name
                     self.email = email
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                }
             }
 
             public init(message: String, sha: String, branch: String? = nil, committer: Committer? = nil, author: Author? = nil) {
@@ -14621,6 +14984,15 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.branch = branch
                 self.committer = committer
                 self.author = author
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(sha, forKey: "sha")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(author, forKey: "author")
             }
         }
     }
@@ -14820,16 +15192,17 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isProductionEnvironment = isProductionEnvironment
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case ref
-                case task
-                case isAutoMerge = "auto_merge"
-                case requiredContexts = "required_contexts"
-                case payload
-                case environment
-                case description
-                case isTransientEnvironment = "transient_environment"
-                case isProductionEnvironment = "production_environment"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encodeIfPresent(task, forKey: "task")
+                try values.encodeIfPresent(isAutoMerge, forKey: "auto_merge")
+                try values.encodeIfPresent(requiredContexts, forKey: "required_contexts")
+                try values.encodeIfPresent(payload, forKey: "payload")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+                try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
             }
         }
     }
@@ -14957,14 +15330,15 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
                 self.isAutoInactive = isAutoInactive
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case targetURL = "target_url"
-                case logURL = "log_url"
-                case description
-                case environment
-                case environmentURL = "environment_url"
-                case isAutoInactive = "auto_inactive"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+                try values.encodeIfPresent(logURL, forKey: "log_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(environmentURL, forKey: "environment_url")
+                try values.encodeIfPresent(isAutoInactive, forKey: "auto_inactive")
             }
         }
     }
@@ -15028,9 +15402,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.clientPayload = clientPayload
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case eventType = "event_type"
-                case clientPayload = "client_payload"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(eventType, forKey: "event_type")
+                try values.encodeIfPresent(clientPayload, forKey: "client_payload")
             }
         }
     }
@@ -15066,9 +15441,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.environments = environments
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case environments
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+                self.environments = try values.decodeIfPresent([OctoKit.Environment].self, forKey: "environments")
             }
         }
     }
@@ -15131,6 +15507,12 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                     self.type = type
                     self.id = id
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encodeIfPresent(id, forKey: "id")
+                }
             }
 
             public init(waitTimer: Int? = nil, reviewers: [Reviewer]? = nil, deploymentBranchPolicy: OctoKit.DeploymentBranchPolicy? = nil) {
@@ -15139,10 +15521,11 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                 self.deploymentBranchPolicy = deploymentBranchPolicy
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case waitTimer = "wait_timer"
-                case reviewers
-                case deploymentBranchPolicy = "deployment_branch_policy"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(waitTimer, forKey: "wait_timer")
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(deploymentBranchPolicy, forKey: "deployment_branch_policy")
             }
         }
 
@@ -15283,6 +15666,12 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.content = content
                 self.encoding = encoding
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+                try values.encodeIfPresent(encoding, forKey: "encoding")
+            }
         }
     }
 }
@@ -15388,6 +15777,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
@@ -15404,6 +15800,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(message: String, tree: String, parents: [String]? = nil, author: Author? = nil, committer: Committer? = nil, signature: String? = nil) {
@@ -15413,6 +15816,16 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.author = author
                 self.committer = committer
                 self.signature = signature
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(tree, forKey: "tree")
+                try values.encodeIfPresent(parents, forKey: "parents")
+                try values.encodeIfPresent(author, forKey: "author")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(signature, forKey: "signature")
             }
         }
     }
@@ -15583,6 +15996,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.sha = sha
                 self.key = key
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sha, forKey: "sha")
+                try values.encodeIfPresent(key, forKey: "key")
+            }
         }
     }
 }
@@ -15614,9 +16034,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
                 self.isForce = isForce ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case sha
-                case isForce = "force"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(sha, forKey: "sha")
+                try values.encodeIfPresent(isForce, forKey: "force")
             }
         }
 
@@ -15713,6 +16134,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(tag: String, message: String, object: String, type: `Type`, tagger: Tagger? = nil) {
@@ -15721,6 +16149,15 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.object = object
                 self.type = type
                 self.tagger = tagger
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tag, forKey: "tag")
+                try values.encode(message, forKey: "message")
+                try values.encode(object, forKey: "object")
+                try values.encode(type, forKey: "type")
+                try values.encodeIfPresent(tagger, forKey: "tagger")
             }
         }
     }
@@ -15843,6 +16280,15 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.sha = sha
                     self.content = content
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(mode, forKey: "mode")
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encodeIfPresent(sha, forKey: "sha")
+                    try values.encodeIfPresent(content, forKey: "content")
+                }
             }
 
             public init(tree: [TreeItem], baseTree: String? = nil) {
@@ -15850,9 +16296,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.baseTree = baseTree
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tree
-                case baseTree = "base_tree"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tree, forKey: "tree")
+                try values.encodeIfPresent(baseTree, forKey: "base_tree")
             }
         }
     }
@@ -15966,13 +16413,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.digest = digest
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
-                    case token
-                    case digest
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(token, forKey: "token")
+                    try values.encodeIfPresent(digest, forKey: "digest")
                 }
             }
 
@@ -15983,11 +16431,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isActive = isActive ?? true
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case config
-                case events
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
     }
@@ -16061,13 +16510,14 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                     self.room = room
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
-                    case address
-                    case room
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(address, forKey: "address")
+                    try values.encodeIfPresent(room, forKey: "room")
                 }
             }
 
@@ -16079,12 +16529,13 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 self.isActive = isActive ?? true
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case config
-                case events
-                case addEvents = "add_events"
-                case removeEvents = "remove_events"
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(addEvents, forKey: "add_events")
+                try values.encodeIfPresent(removeEvents, forKey: "remove_events")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
 
@@ -16158,11 +16609,12 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
                 self.insecureSSL = insecureSSL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case contentType = "content_type"
-                case secret
-                case insecureSSL = "insecure_ssl"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
             }
         }
     }
@@ -16369,12 +16821,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.tfvcProject = tfvcProject
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case vcsURL = "vcs_url"
-                case vcs
-                case vcsUsername = "vcs_username"
-                case vcsPassword = "vcs_password"
-                case tfvcProject = "tfvc_project"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(vcsURL, forKey: "vcs_url")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
             }
         }
 
@@ -16405,11 +16858,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.tfvcProject = tfvcProject
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case vcsUsername = "vcs_username"
-                case vcsPassword = "vcs_password"
-                case vcs
-                case tfvcProject = "tfvc_project"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
             }
         }
 
@@ -16480,6 +16934,12 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
                 self.email = email
                 self.name = name
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
     }
 }
@@ -16536,8 +16996,9 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
                 self.useLfs = useLfs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case useLfs = "use_lfs"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(useLfs, forKey: "use_lfs")
             }
         }
     }
@@ -16681,6 +17142,11 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
 
             public init(permissions: Permissions? = nil) {
                 self.permissions = permissions
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
 
@@ -16852,6 +17318,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.description = description
                         self.color = color
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(id, forKey: "id")
+                        try values.encodeIfPresent(name, forKey: "name")
+                        try values.encodeIfPresent(description, forKey: "description")
+                        try values.encodeIfPresent(color, forKey: "color")
+                    }
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -16870,6 +17344,16 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.milestone = milestone
                 self.labels = labels
                 self.assignees = assignees
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(assignee, forKey: "assignee")
+                try values.encodeIfPresent(milestone, forKey: "milestone")
+                try values.encodeIfPresent(labels, forKey: "labels")
+                try values.encodeIfPresent(assignees, forKey: "assignees")
             }
         }
     }
@@ -17048,6 +17532,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID {
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -17222,6 +17711,14 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                         self.description = description
                         self.color = color
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(id, forKey: "id")
+                        try values.encodeIfPresent(name, forKey: "name")
+                        try values.encodeIfPresent(description, forKey: "description")
+                        try values.encodeIfPresent(color, forKey: "color")
+                    }
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -17241,6 +17738,17 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
                 self.milestone = milestone
                 self.labels = labels
                 self.assignees = assignees
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(assignee, forKey: "assignee")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(milestone, forKey: "milestone")
+                try values.encodeIfPresent(labels, forKey: "labels")
+                try values.encodeIfPresent(assignees, forKey: "assignees")
             }
         }
     }
@@ -17409,6 +17917,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 public init(labels: [String]? = nil) {
                     self.labels = labels
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
             }
 
             public struct Object2: Encodable {
@@ -17420,10 +17933,20 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     public init(name: String) {
                         self.name = name
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
                 }
 
                 public init(labels: [Label]? = nil) {
                     self.labels = labels
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
@@ -17432,6 +17955,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
                 public init(name: String) {
                     self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
                 }
             }
 
@@ -17470,6 +17998,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 public init(labels: [String]? = nil) {
                     self.labels = labels
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
             }
 
             public struct Object2: Encodable {
@@ -17481,10 +18014,20 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     public init(name: String) {
                         self.name = name
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
                 }
 
                 public init(labels: [Label]? = nil) {
                     self.labels = labels
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
@@ -17493,6 +18036,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
                 public init(name: String) {
                     self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
                 }
             }
 
@@ -17581,8 +18129,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.lockReason = lockReason
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case lockReason = "lock_reason"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lockReason, forKey: "lock_reason")
             }
         }
 
@@ -17677,6 +18226,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
             public init(content: Content) {
                 self.content = content
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
             }
         }
     }
@@ -17789,10 +18343,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isReadOnly = isReadOnly
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case key
-                case isReadOnly = "read_only"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(key, forKey: "key")
+                try values.encodeIfPresent(isReadOnly, forKey: "read_only")
             }
         }
     }
@@ -17876,6 +18431,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.color = color
                 self.description = description
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
+            }
         }
     }
 }
@@ -17917,10 +18479,11 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
                 self.description = description
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case newName = "new_name"
-                case color
-                case description
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(newName, forKey: "new_name")
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
             }
         }
 
@@ -18050,10 +18613,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.commitMessage = commitMessage
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case base
-                case head
-                case commitMessage = "commit_message"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(base, forKey: "base")
+                try values.encode(head, forKey: "head")
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
             }
         }
     }
@@ -18155,11 +18719,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.dueOn = dueOn
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case state
-                case description
-                case dueOn = "due_on"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(dueOn, forKey: "due_on")
             }
         }
     }
@@ -18211,11 +18776,12 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
                 self.dueOn = dueOn
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case state
-                case description
-                case dueOn = "due_on"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(dueOn, forKey: "due_on")
             }
         }
 
@@ -18325,6 +18891,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.message = message
                 self.url = url
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            }
         }
     }
 }
@@ -18376,10 +18948,21 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.branch = branch
                     self.path = path
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(branch, forKey: "branch")
+                    try values.encodeIfPresent(path, forKey: "path")
+                }
             }
 
             public init(source: Source) {
                 self.source = source
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(source, forKey: "source")
             }
         }
 
@@ -18431,6 +19014,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.branch = branch
                         self.path = path
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(branch, forKey: "branch")
+                        try values.encode(path, forKey: "path")
+                    }
                 }
 
                 public init(a: A? = nil, b: B? = nil) {
@@ -18452,11 +19041,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.source = source
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case cname
-                case isHTTPSEnforced = "https_enforced"
-                case isPublic = "public"
-                case source
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(cname, forKey: "cname")
+                try values.encodeIfPresent(isHTTPSEnforced, forKey: "https_enforced")
+                try values.encodeIfPresent(isPublic, forKey: "public")
+                try values.encodeIfPresent(source, forKey: "source")
             }
         }
 
@@ -18636,6 +19226,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.name = name
                 self.body = body
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+            }
         }
     }
 }
@@ -18756,14 +19352,15 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.issue = issue
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case head
-                case base
-                case body
-                case maintainerCanModify = "maintainer_can_modify"
-                case isDraft = "draft"
-                case issue
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(head, forKey: "head")
+                try values.encode(base, forKey: "base")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(issue, forKey: "issue")
             }
         }
     }
@@ -18949,6 +19546,11 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -19044,12 +19646,13 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
                 self.maintainerCanModify = maintainerCanModify
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case body
-                case state
-                case base
-                case maintainerCanModify = "maintainer_can_modify"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(base, forKey: "base")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
             }
         }
     }
@@ -19092,11 +19695,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case location
-                case machine
-                case workingDirectory = "working_directory"
-                case idleTimeoutMinutes = "idle_timeout_minutes"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
             }
         }
     }
@@ -19224,16 +19828,17 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.inReplyTo = inReplyTo
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case body
-                case commitID = "commit_id"
-                case path
-                case position
-                case side
-                case line
-                case startLine = "start_line"
-                case startSide = "start_side"
-                case inReplyTo = "in_reply_to"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(path, forKey: "path")
+                try values.encodeIfPresent(position, forKey: "position")
+                try values.encodeIfPresent(side, forKey: "side")
+                try values.encodeIfPresent(line, forKey: "line")
+                try values.encodeIfPresent(startLine, forKey: "start_line")
+                try values.encodeIfPresent(startSide, forKey: "start_side")
+                try values.encodeIfPresent(inReplyTo, forKey: "in_reply_to")
             }
         }
     }
@@ -19387,11 +19992,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.mergeMethod = mergeMethod
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitTitle = "commit_title"
-                case commitMessage = "commit_message"
-                case sha
-                case mergeMethod = "merge_method"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(commitTitle, forKey: "commit_title")
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(mergeMethod, forKey: "merge_method")
             }
         }
     }
@@ -19444,9 +20050,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.teamReviewers = teamReviewers
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case reviewers
-                case teamReviewers = "team_reviewers"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(teamReviewers, forKey: "team_reviewers")
             }
         }
 
@@ -19468,9 +20075,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.teamReviewers = teamReviewers
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case reviewers
-                case teamReviewers = "team_reviewers"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(teamReviewers, forKey: "team_reviewers")
             }
         }
     }
@@ -19563,14 +20171,15 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                     self.startSide = startSide
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case path
-                    case position
-                    case body
-                    case line
-                    case side
-                    case startLine = "start_line"
-                    case startSide = "start_side"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(path, forKey: "path")
+                    try values.encodeIfPresent(position, forKey: "position")
+                    try values.encode(body, forKey: "body")
+                    try values.encodeIfPresent(line, forKey: "line")
+                    try values.encodeIfPresent(side, forKey: "side")
+                    try values.encodeIfPresent(startLine, forKey: "start_line")
+                    try values.encodeIfPresent(startSide, forKey: "start_side")
                 }
             }
 
@@ -19581,11 +20190,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.comments = comments
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitID = "commit_id"
-                case body
-                case event
-                case comments
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(event, forKey: "event")
+                try values.encodeIfPresent(comments, forKey: "comments")
             }
         }
     }
@@ -19684,6 +20294,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
                 self.message = message
                 self.event = event
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encodeIfPresent(event, forKey: "event")
+            }
         }
     }
 }
@@ -19721,6 +20337,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
                 self.body = body
                 self.event = event
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(event, forKey: "event")
+            }
         }
     }
 }
@@ -19750,6 +20372,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
             public init(message: String? = nil, url: String? = nil) {
                 self.message = message
                 self.url = url
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
             }
         }
     }
@@ -19886,15 +20514,16 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isGenerateReleaseNotes = isGenerateReleaseNotes ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tagName = "tag_name"
-                case targetCommitish = "target_commitish"
-                case name
-                case body
-                case isDraft = "draft"
-                case isPrerelease = "prerelease"
-                case discussionCategoryName = "discussion_category_name"
-                case isGenerateReleaseNotes = "generate_release_notes"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(isPrerelease, forKey: "prerelease")
+                try values.encodeIfPresent(discussionCategoryName, forKey: "discussion_category_name")
+                try values.encodeIfPresent(isGenerateReleaseNotes, forKey: "generate_release_notes")
             }
         }
     }
@@ -19951,6 +20580,13 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
                 self.label = label
                 self.state = state
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(label, forKey: "label")
+                try values.encodeIfPresent(state, forKey: "state")
+            }
         }
 
         /// Delete a release asset
@@ -19997,11 +20633,12 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.configurationFilePath = configurationFilePath
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tagName = "tag_name"
-                case targetCommitish = "target_commitish"
-                case previousTagName = "previous_tag_name"
-                case configurationFilePath = "configuration_file_path"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+                try values.encodeIfPresent(previousTagName, forKey: "previous_tag_name")
+                try values.encodeIfPresent(configurationFilePath, forKey: "configuration_file_path")
             }
         }
     }
@@ -20113,14 +20750,15 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.discussionCategoryName = discussionCategoryName
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tagName = "tag_name"
-                case targetCommitish = "target_commitish"
-                case name
-                case body
-                case isDraft = "draft"
-                case isPrerelease = "prerelease"
-                case discussionCategoryName = "discussion_category_name"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(isPrerelease, forKey: "prerelease")
+                try values.encodeIfPresent(discussionCategoryName, forKey: "discussion_category_name")
             }
         }
 
@@ -20232,6 +20870,11 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -20340,6 +20983,12 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
             public init(state: OctoKit.SecretScanningAlertState, resolution: OctoKit.SecretScanningAlertResolution? = nil) {
                 self.state = state
                 self.resolution = resolution
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(resolution, forKey: "resolution")
             }
         }
     }
@@ -20613,11 +21262,12 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
                 self.context = context
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case targetURL = "target_url"
-                case description
-                case context
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(context, forKey: "context")
             }
         }
     }
@@ -20690,9 +21340,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isIgnored = isIgnored
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isSubscribed = "subscribed"
-                case isIgnored = "ignored"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isSubscribed, forKey: "subscribed")
+                try values.encodeIfPresent(isIgnored, forKey: "ignored")
             }
         }
 
@@ -20986,9 +21637,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.teamIDs = teamIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case newOwner = "new_owner"
-                case teamIDs = "team_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(newOwner, forKey: "new_owner")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
             }
         }
     }
@@ -21137,12 +21789,13 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
                 self.isPrivate = isPrivate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case owner
-                case name
-                case description
-                case isIncludeAllBranches = "include_all_branches"
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(owner, forKey: "owner")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(isIncludeAllBranches, forKey: "include_all_branches")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
     }
@@ -21242,9 +21895,10 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
                 self.secrets = secrets
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case secrets
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.secrets = try values.decode([OctoKit.ActionsSecret].self, forKey: "secrets")
             }
         }
 
@@ -21393,9 +22047,10 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName.S
                 self.keyID = keyID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case encryptedValue = "encrypted_value"
-                case keyID = "key_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(encryptedValue, forKey: "encrypted_value")
+                try values.encode(keyID, forKey: "key_id")
             }
         }
 
@@ -21520,12 +22175,24 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 public init(value: String) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], displayName: String, members: [Member]? = nil) {
                 self.schemas = schemas
                 self.displayName = displayName
                 self.members = members
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(displayName, forKey: "displayName")
+                try values.encodeIfPresent(members, forKey: "members")
             }
         }
     }
@@ -21580,12 +22247,24 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                 public init(value: String) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], displayName: String, members: [Member]? = nil) {
                 self.schemas = schemas
                 self.displayName = displayName
                 self.members = members
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(displayName, forKey: "displayName")
+                try values.encodeIfPresent(members, forKey: "members")
             }
         }
 
@@ -21626,6 +22305,13 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                     self.path = path
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(op, forKey: "op")
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], operations: [Operation]) {
@@ -21633,9 +22319,10 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Groups {
                 self.operations = operations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case operations = "Operations"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(operations, forKey: "Operations")
             }
         }
 
@@ -21739,6 +22426,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                     self.givenName = givenName
                     self.familyName = familyName
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                }
             }
 
             public struct Email: Encodable {
@@ -21755,10 +22448,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                     self.isPrimary = isPrimary
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case value
-                    case type
-                    case isPrimary = "primary"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(isPrimary, forKey: "primary")
                 }
             }
 
@@ -21768,6 +22462,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 public init(value: String? = nil) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], userName: String, name: Name, emails: [Email], groups: [Group]? = nil) {
@@ -21776,6 +22475,15 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 self.name = name
                 self.emails = emails
                 self.groups = groups
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(userName, forKey: "userName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(groups, forKey: "groups")
             }
         }
     }
@@ -21835,6 +22543,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                     self.givenName = givenName
                     self.familyName = familyName
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                }
             }
 
             public struct Email: Encodable {
@@ -21851,10 +22565,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                     self.isPrimary = isPrimary
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case value
-                    case type
-                    case isPrimary = "primary"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(isPrimary, forKey: "primary")
                 }
             }
 
@@ -21864,6 +22579,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 public init(value: String? = nil) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], userName: String, name: Name, emails: [Email], groups: [Group]? = nil) {
@@ -21872,6 +22592,15 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 self.name = name
                 self.emails = emails
                 self.groups = groups
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(userName, forKey: "userName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(groups, forKey: "groups")
             }
         }
 
@@ -21912,9 +22641,10 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 self.operations = operations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case operations = "Operations"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(operations, forKey: "Operations")
             }
         }
 
@@ -22065,6 +22795,13 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                     self.familyName = familyName
                     self.formatted = formatted
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encodeIfPresent(formatted, forKey: "formatted")
+                }
             }
 
             public struct Email: Encodable {
@@ -22078,10 +22815,11 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                     self.type = type
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case value
-                    case isPrimary = "primary"
-                    case type
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                    try values.encodeIfPresent(isPrimary, forKey: "primary")
+                    try values.encodeIfPresent(type, forKey: "type")
                 }
             }
 
@@ -22096,15 +22834,16 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                 self.isActive = isActive
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case userName
-                case displayName
-                case name
-                case emails
-                case schemas
-                case externalID = "externalId"
-                case groups
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(userName, forKey: "userName")
+                try values.encodeIfPresent(displayName, forKey: "displayName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encodeIfPresent(externalID, forKey: "externalId")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
     }
@@ -22191,6 +22930,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.familyName = familyName
                     self.formatted = formatted
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encodeIfPresent(formatted, forKey: "formatted")
+                }
             }
 
             public struct Email: Encodable {
@@ -22204,10 +22950,11 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.isPrimary = isPrimary
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case type
-                    case value
-                    case isPrimary = "primary"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encode(value, forKey: "value")
+                    try values.encodeIfPresent(isPrimary, forKey: "primary")
                 }
             }
 
@@ -22222,15 +22969,16 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 self.emails = emails
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case displayName
-                case externalID = "externalId"
-                case groups
-                case isActive = "active"
-                case userName
-                case name
-                case emails
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encodeIfPresent(displayName, forKey: "displayName")
+                try values.encodeIfPresent(externalID, forKey: "externalId")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encode(userName, forKey: "userName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
             }
         }
 
@@ -22305,12 +23053,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                             self.familyName = familyName
                         }
 
-                        private enum CodingKeys: String, CodingKey {
-                            case isActive = "active"
-                            case userName
-                            case externalID = "externalId"
-                            case givenName
-                            case familyName
+                        public func encode(to encoder: Encoder) throws {
+                            var values = encoder.container(keyedBy: StringCodingKey.self)
+                            try values.encodeIfPresent(isActive, forKey: "active")
+                            try values.encodeIfPresent(userName, forKey: "userName")
+                            try values.encodeIfPresent(externalID, forKey: "externalId")
+                            try values.encodeIfPresent(givenName, forKey: "givenName")
+                            try values.encodeIfPresent(familyName, forKey: "familyName")
                         }
                     }
 
@@ -22323,9 +23072,10 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                             self.isPrimary = isPrimary
                         }
 
-                        private enum CodingKeys: String, CodingKey {
-                            case value
-                            case isPrimary = "primary"
+                        public func encode(to encoder: Encoder) throws {
+                            var values = encoder.container(keyedBy: StringCodingKey.self)
+                            try values.encodeIfPresent(value, forKey: "value")
+                            try values.encodeIfPresent(isPrimary, forKey: "primary")
                         }
                     }
 
@@ -22344,6 +23094,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.path = path
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(op, forKey: "op")
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String]? = nil, operations: [Operation]) {
@@ -22351,9 +23108,10 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 self.operations = operations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case operations = "Operations"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encode(operations, forKey: "Operations")
             }
         }
 
@@ -22423,10 +23181,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.CodeSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22503,10 +23262,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.CommitSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22588,10 +23348,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.IssueSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22679,10 +23440,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.LabelSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22764,10 +23526,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.RepoSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22848,10 +23611,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.TopicSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -22914,10 +23678,11 @@ extension Paths.Search {
                 self.items = items
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case isIncompleteResults = "incomplete_results"
-                case items
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.isIncompleteResults = try values.decode(Bool.self, forKey: "incomplete_results")
+                self.items = try values.decode([OctoKit.UserSearchResultItem].self, forKey: "items")
             }
         }
 
@@ -23053,12 +23818,13 @@ extension Paths.Teams {
                 self.parentTeamID = parentTeamID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case privacy
-                case permission
-                case parentTeamID = "parent_team_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
             }
         }
 
@@ -23156,10 +23922,11 @@ extension Paths.Teams.WithTeamID {
                 self.isPrivate = isPrivate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case body
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
     }
@@ -23207,6 +23974,12 @@ extension Paths.Teams.WithTeamID.Discussions {
             public init(title: String? = nil, body: String? = nil) {
                 self.title = title
                 self.body = body
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
             }
         }
 
@@ -23424,6 +24197,11 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }
@@ -23514,6 +24292,11 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber {
 
             public init(content: Content) {
                 self.content = content
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
             }
         }
     }
@@ -23745,6 +24528,11 @@ extension Paths.Teams.WithTeamID.Memberships {
             public init(role: Role? = nil) {
                 self.role = role
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(role, forKey: "role")
+            }
         }
 
         /// Remove team membership for a user (Legacy)
@@ -23853,6 +24641,11 @@ extension Paths.Teams.WithTeamID.Projects {
 
             public init(permission: Permission? = nil) {
                 self.permission = permission
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
             }
         }
 
@@ -23974,6 +24767,11 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
             public init(permission: Permission? = nil) {
                 self.permission = permission
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a repository from a team (Legacy)
@@ -24067,13 +24865,14 @@ extension Paths.Teams.WithTeamID.TeamSync {
                     self.description = description
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case groupID = "group_id"
-                    case groupName = "group_name"
-                    case groupDescription = "group_description"
-                    case id
-                    case name
-                    case description
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(groupID, forKey: "group_id")
+                    try values.encode(groupName, forKey: "group_name")
+                    try values.encode(groupDescription, forKey: "group_description")
+                    try values.encodeIfPresent(id, forKey: "id")
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(description, forKey: "description")
                 }
             }
 
@@ -24082,9 +24881,10 @@ extension Paths.Teams.WithTeamID.TeamSync {
                 self.syncedAt = syncedAt
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case groups
-                case syncedAt = "synced_at"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(groups, forKey: "groups")
+                try values.encodeIfPresent(syncedAt, forKey: "synced_at")
             }
         }
     }
@@ -24208,15 +25008,16 @@ extension Paths {
                 self.bio = bio
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case email
-                case blog
-                case twitterUsername = "twitter_username"
-                case company
-                case location
-                case isHireable = "hireable"
-                case bio
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(blog, forKey: "blog")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(isHireable, forKey: "hireable")
+                try values.encodeIfPresent(bio, forKey: "bio")
             }
         }
     }
@@ -24303,9 +25104,10 @@ extension Paths.User {
                 self.codespaces = codespaces
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case codespaces
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.codespaces = try values.decode([OctoKit.Codespace].self, forKey: "codespaces")
             }
         }
 
@@ -24369,13 +25171,14 @@ extension Paths.User {
                     self.idleTimeoutMinutes = idleTimeoutMinutes
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case repositoryID = "repository_id"
-                    case ref
-                    case location
-                    case machine
-                    case workingDirectory = "working_directory"
-                    case idleTimeoutMinutes = "idle_timeout_minutes"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(repositoryID, forKey: "repository_id")
+                    try values.encodeIfPresent(ref, forKey: "ref")
+                    try values.encode(location, forKey: "location")
+                    try values.encodeIfPresent(machine, forKey: "machine")
+                    try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                    try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
                 }
             }
 
@@ -24403,9 +25206,10 @@ extension Paths.User {
                         self.repositoryID = repositoryID
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case pullRequestNumber = "pull_request_number"
-                        case repositoryID = "repository_id"
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(pullRequestNumber, forKey: "pull_request_number")
+                        try values.encode(repositoryID, forKey: "repository_id")
                     }
                 }
 
@@ -24417,12 +25221,13 @@ extension Paths.User {
                     self.idleTimeoutMinutes = idleTimeoutMinutes
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case pullRequest = "pull_request"
-                    case location
-                    case machine
-                    case workingDirectory = "working_directory"
-                    case idleTimeoutMinutes = "idle_timeout_minutes"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(pullRequest, forKey: "pull_request")
+                    try values.encode(location, forKey: "location")
+                    try values.encodeIfPresent(machine, forKey: "machine")
+                    try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                    try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
                 }
             }
 
@@ -24466,9 +25271,10 @@ extension Paths.User.Codespaces {
                 self.secrets = secrets
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case secrets
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.secrets = try values.decode([OctoKit.CodespacesSecret].self, forKey: "secrets")
             }
         }
 
@@ -24619,10 +25425,11 @@ extension Paths.User.Codespaces.Secrets {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case encryptedValue = "encrypted_value"
-                case keyID = "key_id"
-                case selectedRepositoryIDs = "selected_repository_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(encryptedValue, forKey: "encrypted_value")
+                try values.encode(keyID, forKey: "key_id")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
 
@@ -24665,9 +25472,10 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.MinimalRepository].self, forKey: "repositories")
             }
         }
 
@@ -24789,9 +25597,10 @@ extension Paths.User.Codespaces.WithCodespaceName {
                 self.machines = machines
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case machines
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.machines = try values.decode([OctoKit.CodespaceMachine].self, forKey: "machines")
             }
         }
     }
@@ -24883,6 +25692,11 @@ extension Paths.User.Email {
             public init(visibility: Visibility) {
                 self.visibility = visibility
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(visibility, forKey: "visibility")
+            }
         }
     }
 }
@@ -24947,6 +25761,11 @@ extension Paths.User {
                 public init(emails: [String]) {
                     self.emails = emails
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -24989,6 +25808,11 @@ extension Paths.User {
 
                 public init(emails: [String]) {
                     self.emails = emails
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
                 }
             }
 
@@ -25206,9 +26030,10 @@ extension Paths.User {
                 self.installations = installations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case installations
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.installations = try values.decode([OctoKit.Installation].self, forKey: "installations")
             }
         }
 
@@ -25271,10 +26096,11 @@ extension Paths.User.Installations.WithInstallationID {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositorySelection = "repository_selection"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.repositorySelection = try values.decodeIfPresent(String.self, forKey: "repository_selection")
+                self.repositories = try values.decode([OctoKit.Repository].self, forKey: "repositories")
             }
         }
 
@@ -25518,6 +26344,12 @@ extension Paths.User {
                 self.title = title
                 self.key = key
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(key, forKey: "key")
+            }
         }
     }
 }
@@ -25706,6 +26538,11 @@ extension Paths.User.Memberships.Orgs {
             public init(state: State) {
                 self.state = state
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+            }
         }
     }
 }
@@ -25787,13 +26624,14 @@ extension Paths.User {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case lockRepositories = "lock_repositories"
-                case excludeAttachments = "exclude_attachments"
-                case excludeReleases = "exclude_releases"
-                case excludeOwnerProjects = "exclude_owner_projects"
-                case exclude
-                case repositories
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lockRepositories, forKey: "lock_repositories")
+                try values.encodeIfPresent(excludeAttachments, forKey: "exclude_attachments")
+                try values.encodeIfPresent(excludeReleases, forKey: "exclude_releases")
+                try values.encodeIfPresent(excludeOwnerProjects, forKey: "exclude_owner_projects")
+                try values.encodeIfPresent(exclude, forKey: "exclude")
+                try values.encode(repositories, forKey: "repositories")
             }
         }
     }
@@ -26251,6 +27089,12 @@ extension Paths.User {
                 self.name = name
                 self.body = body
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+            }
         }
     }
 }
@@ -26475,25 +27319,26 @@ extension Paths.User {
                 self.isTemplate = isTemplate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case homepage
-                case isPrivate = "private"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case teamID = "team_id"
-                case isAutoInit = "auto_init"
-                case gitignoreTemplate = "gitignore_template"
-                case licenseTemplate = "license_template"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case allowAutoMerge = "allow_auto_merge"
-                case deleteBranchOnMerge = "delete_branch_on_merge"
-                case hasDownloads = "has_downloads"
-                case isTemplate = "is_template"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(teamID, forKey: "team_id")
+                try values.encodeIfPresent(isAutoInit, forKey: "auto_init")
+                try values.encodeIfPresent(gitignoreTemplate, forKey: "gitignore_template")
+                try values.encodeIfPresent(licenseTemplate, forKey: "license_template")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(hasDownloads, forKey: "has_downloads")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
             }
         }
     }

@@ -13,6 +13,18 @@ public struct Person: Codable {
         self.name = name
         self.address = address
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.address = try values.decodeIfPresent(String.self, forKey: "address")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(address, forKey: "address")
+    }
 }
 
 public struct Item: Codable {
@@ -20,6 +32,16 @@ public struct Item: Codable {
 
     public init(weight: Int) {
         self.weight = weight
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.weight = try values.decode(Int.self, forKey: "weight")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(weight, forKey: "weight")
     }
 }
 
