@@ -160,31 +160,6 @@ public struct ConfigOptions: Encodable {
         !commentOptions.isEmpty
     }
 
-    @available(*, deprecated)
-    public var comments: Comments = .init()
-
-    // sourcery: document, decodableWithDefault
-    /// Customize specific behaviors when generating comments on entities/paths/properties.
-    public struct Comments: Encodable {
-        /// Set to false to disable the generation of comments
-        public var isEnabled: Bool = true
-
-        /// Include the schema title when generating comments
-        public var isAddingTitles: Bool = true
-
-        /// Include the schema description when generating comments
-        public var isAddingDescription: Bool = true
-
-        /// Include the schema example when generating comments
-        public var isAddingExamples: Bool = true
-
-        /// Include a link to external documentation when generating comments
-        public var isAddingExternalDocumentation: Bool = true
-
-        /// Auto-capitalize comments
-        public var isCapitalizationEnabled: Bool = true
-    }
-
     public var entities: Entities = .init()
 
     // sourcery: document, decodableWithDefault

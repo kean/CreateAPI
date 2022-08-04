@@ -20,7 +20,6 @@ extension ConfigOptions: Decodable {
         case useIntegersWithPredefinedCapacity
         case fileHeaderComment
         case commentOptions
-        case comments
         case entities
         case paths
         case rename
@@ -104,11 +103,6 @@ extension ConfigOptions: Decodable {
             defaultValue: [.title, .description, .example, .externalDocumentation, .capitalized]
         )
 
-        comments = try container.decode(Comments.self,
-            forKey: .comments,
-            defaultValue: .init()
-        )
-
         entities = try container.decode(Entities.self,
             forKey: .entities,
             defaultValue: .init()
@@ -136,58 +130,6 @@ extension ConfigOptions: Decodable {
                 ("isNaiveDateEnabled", "Use 'useNaiveDate' instead."),
                 ("isUsingIntegersWithPredefinedCapacity", "Use 'useIntegersWithPredefinedCapacity' instead."),
                 ("isSwiftLintDisabled", "Add to 'fileHeaderComment' instead."),
-            ]
-        )
-    }
-}
-
-extension ConfigOptions.Comments: Decodable {
-    enum KnownKeys: String {
-        case isEnabled
-        case isAddingTitles
-        case isAddingDescription
-        case isAddingExamples
-        case isAddingExternalDocumentation
-        case isCapitalizationEnabled
-    }
-
-    public init(from decoder: Decoder) throws {
-        let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
-
-        isEnabled = try container.decode(Bool.self,
-            forKey: .isEnabled,
-            defaultValue: true
-        )
-
-        isAddingTitles = try container.decode(Bool.self,
-            forKey: .isAddingTitles,
-            defaultValue: true
-        )
-
-        isAddingDescription = try container.decode(Bool.self,
-            forKey: .isAddingDescription,
-            defaultValue: true
-        )
-
-        isAddingExamples = try container.decode(Bool.self,
-            forKey: .isAddingExamples,
-            defaultValue: true
-        )
-
-        isAddingExternalDocumentation = try container.decode(Bool.self,
-            forKey: .isAddingExternalDocumentation,
-            defaultValue: true
-        )
-
-        isCapitalizationEnabled = try container.decode(Bool.self,
-            forKey: .isCapitalizationEnabled,
-            defaultValue: true
-        )
-
-        container.recordPotentialIssues(
-            deprecations: [
-            ],
-            replacements: [
             ]
         )
     }
