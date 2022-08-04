@@ -173,7 +173,7 @@ public struct ConfigOptions: Encodable {
         public var protocols: Set<String> = ["Codable"]
 
         /// Automatically generate `Identifiable` conformance for entities that include an `id` property.
-        public var isGeneratingIdentifiableConformance: Bool = false
+        public var identifiableConformance: Bool = false // sourcery: replacementFor = isGeneratingIdentifiableConformance
 
         /// Automatically removes `Encodable` or `Decodable` conformance when it is not required
         public var isSkippingRedundantProtocols: Bool = true

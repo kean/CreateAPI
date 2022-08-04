@@ -196,7 +196,7 @@ extension ConfigOptions.Entities: Decodable {
         case mutableStructProperties
         case baseClass
         case protocols
-        case isGeneratingIdentifiableConformance
+        case identifiableConformance
         case isSkippingRedundantProtocols
         case isGeneratingInitializers
         case isGeneratingInitWithDecoder
@@ -259,8 +259,8 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: ["Codable"]
         )
 
-        isGeneratingIdentifiableConformance = try container.decode(Bool.self,
-            forKey: .isGeneratingIdentifiableConformance,
+        identifiableConformance = try container.decode(Bool.self,
+            forKey: .identifiableConformance,
             defaultValue: false
         )
 
@@ -332,6 +332,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isMakingClassesFinal", "Use 'finalClasses' instead."),
                 ("isGeneratingMutableClassProperties", "Use 'mutableClassProperties' instead."),
                 ("isGeneratingMutableStructProperties", "Use 'mutableStructProperties' instead."),
+                ("isGeneratingIdentifiableConformance", "Use 'identifiableConformance' instead."),
             ]
         )
     }

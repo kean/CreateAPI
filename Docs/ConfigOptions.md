@@ -75,7 +75,7 @@ Below you can find the complete documentation for all available options.
   - [mutableStructProperties](#entitiesmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
-  - [isGeneratingIdentifiableConformance](#entitiesisgeneratingidentifiableconformance)
+  - [identifiableConformance](#entitiesidentifiableconformance)
   - [isSkippingRedundantProtocols](#entitiesisskippingredundantprotocols)
   - [isGeneratingInitializers](#entitiesisgeneratinginitializers)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
@@ -395,7 +395,7 @@ Protocols to be adopted by each generated entity
 
 <br/>
 
-## entities.isGeneratingIdentifiableConformance
+## entities.identifiableConformance
 
 **Type:** Bool<br />
 **Default:** `false`
