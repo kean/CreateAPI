@@ -28,6 +28,9 @@ extension {{ type.name }}: Decodable {
             {% for variable in type.variables|stored|annotated:"replacementFor" %}
                 ("{{ variable.annotations.replacementFor }}", "Use '{{ variable.name }}' instead."),
             {% endfor %}
+            {% for property, reason in type.annotations.removed %}
+                ("{{ property }}", "{{ reason }}"),
+            {% endfor %}
             ]
         )
     }

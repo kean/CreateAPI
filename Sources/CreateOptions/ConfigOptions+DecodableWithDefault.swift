@@ -450,6 +450,7 @@ extension ConfigOptions.Paths: Decodable {
                 ("isInliningSimpleQueryParameters", "Use 'inlineSimpleQueryParameters' instead."),
                 ("isMakingOptionalPatchParametersDoubleOptional", "Use 'makeOptionalPatchParametersDoubleOptional' instead."),
                 ("isRemovingRedundantPaths", "Use 'removeRedundantPaths' instead."),
+                ("isAddingOperationIds", "Enabled by default."),
             ]
         )
     }

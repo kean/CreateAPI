@@ -228,6 +228,7 @@ public struct ConfigOptions: Encodable {
     }
 
     // sourcery: document, decodableWithDefault
+    // sourcery: removed: isAddingOperationIds = "Enabled by default."
     /// Options specifically related to generating paths
     public struct Paths: Encodable {
         /// The style used when generating path definitions
