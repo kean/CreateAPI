@@ -176,7 +176,7 @@ public struct ConfigOptions: Encodable {
         public var identifiableConformance: Bool = false // sourcery: replacementFor = isGeneratingIdentifiableConformance
 
         /// Automatically removes `Encodable` or `Decodable` conformance when it is not required
-        public var isSkippingRedundantProtocols: Bool = true
+        public var skipRedundantProtocols: Bool = true // sourcery: replacementFor = isSkippingRedundantProtocols
 
         // TODO: simplify these three options
         /// Generate an initializer for each entity

@@ -324,8 +324,8 @@ extension Generator {
 
     private func getProtocols(for entity: EntityDeclaration, context: Context) -> Protocols {
         var protocols = Protocols(options.entities.protocols)
-        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.isSkippingRedundantProtocols)
-        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.isSkippingRedundantProtocols)
+        let isDecodable = protocols.isDecodable && (context.isDecodableNeeded || !options.entities.skipRedundantProtocols)
+        let isEncodable = protocols.isEncodable && (context.isEncodableNeeded || !options.entities.skipRedundantProtocols)
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
 

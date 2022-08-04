@@ -76,7 +76,7 @@ Below you can find the complete documentation for all available options.
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
   - [identifiableConformance](#entitiesidentifiableconformance)
-  - [isSkippingRedundantProtocols](#entitiesisskippingredundantprotocols)
+  - [skipRedundantProtocols](#entitiesskipredundantprotocols)
   - [isGeneratingInitializers](#entitiesisgeneratinginitializers)
   - [isSortingPropertiesAlphabetically](#entitiesissortingpropertiesalphabetically)
   - [isGeneratingCustomCodingKeys](#entitiesisgeneratingcustomcodingkeys)
@@ -404,7 +404,7 @@ Automatically generate `Identifiable` conformance for entities that include an `
 
 <br/>
 
-## entities.isSkippingRedundantProtocols
+## entities.skipRedundantProtocols
 
 **Type:** Bool<br />
 **Default:** `true`
