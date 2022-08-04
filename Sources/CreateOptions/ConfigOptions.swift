@@ -76,7 +76,7 @@ public struct ConfigOptions: Encodable {
 
     /// Any schema that can be converted to a type identifier.
     /// For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
-    public var isInliningTypealiases: Bool = true
+    public var inlineTypealiases: Bool = true // sourcery: replacementFor = isInliningTypealiases
 
     /// For example, `var sourceUrl` becomes `var sourceURL`.
     public var isReplacingCommonAcronyms: Bool = true

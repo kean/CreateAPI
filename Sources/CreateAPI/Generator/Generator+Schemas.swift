@@ -163,7 +163,7 @@ extension Generator {
 
     func makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration? {
         let declaration = try _makeDeclaration(name: name, schema: schema, context: context)
-        if options.isInliningTypealiases, let alias = declaration as? TypealiasDeclaration {
+        if options.inlineTypealiases, let alias = declaration as? TypealiasDeclaration {
             return alias.nested
         }
         return declaration
@@ -265,7 +265,7 @@ extension Generator {
         // Note: while dereferencing, it does it recursively.
         // So if you have `typealias Pets = [Pet]`, it'll dereference
         // `Pet` to an `.object`, not a `.reference`.
-        if options.isInliningTypealiases, let name = ref.name {
+        if options.inlineTypealiases, let name = ref.name {
             // Check if the schema can be expanded into a type identifier
             let type = makeTypeName(name)
             if let key = OpenAPI.ComponentKey(rawValue: name),

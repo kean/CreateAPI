@@ -287,7 +287,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "petstore-disable-inlining",
             "--config", config("""
             {
-                "isInliningTypealiases": false
+                "inlineTypealiases": false
             }
             """)
         ])

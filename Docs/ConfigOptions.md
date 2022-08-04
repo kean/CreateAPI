@@ -47,7 +47,7 @@ Below you can find the complete documentation for all available options.
 - [annotateDeprecations](#annotatedeprecations)
 - [generateEnums](#generateenums)
 - [useSwiftyPropertyNames](#useswiftypropertynames)
-- [isInliningTypealiases](#isinliningtypealiases)
+- [inlineTypealiases](#inlinetypealiases)
 - [isReplacingCommonAcronyms](#isreplacingcommonacronyms)
 - [addedAcronyms](#addedacronyms)
 - [ignoredAcronyms](#ignoredacronyms)
@@ -148,7 +148,7 @@ Prefixes booleans with `is` ("enabled" -> "isEnabled")
 
 <br/>
 
-## isInliningTypealiases
+## inlineTypealiases
 
 **Type:** Bool<br />
 **Default:** `true`

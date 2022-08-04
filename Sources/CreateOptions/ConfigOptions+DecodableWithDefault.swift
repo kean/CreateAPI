@@ -9,7 +9,7 @@ extension ConfigOptions: Decodable {
         case annotateDeprecations
         case generateEnums
         case useSwiftyPropertyNames
-        case isInliningTypealiases
+        case inlineTypealiases
         case isReplacingCommonAcronyms
         case addedAcronyms
         case ignoredAcronyms
@@ -49,8 +49,8 @@ extension ConfigOptions: Decodable {
             defaultValue: true
         )
 
-        isInliningTypealiases = try container.decode(Bool.self,
-            forKey: .isInliningTypealiases,
+        inlineTypealiases = try container.decode(Bool.self,
+            forKey: .inlineTypealiases,
             defaultValue: true
         )
 
@@ -131,6 +131,7 @@ extension ConfigOptions: Decodable {
                 ("isAddingDeprecations", "Use 'annotateDeprecations' instead."),
                 ("isGeneratingEnums", "Use 'generateEnums' instead."),
                 ("isGeneratingSwiftyBooleanPropertyNames", "Use 'useSwiftyPropertyNames' instead."),
+                ("isInliningTypealiases", "Use 'inlineTypealiases' instead."),
             ]
         )
     }
