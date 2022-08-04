@@ -19,10 +19,16 @@ public final class GenerateOptions {
     public static let `default` = GenerateOptions()
 
     init(configOptions: ConfigOptions = .default, warnings: [String] = []) {
-        // Support deprecated 'overriden' properties by merging any values into their 'overridden' replacement
         var configOptions = configOptions
+
+        // Support deprecated 'overriden' properties by merging any values into their 'overridden' replacement
         configOptions.paths.overriddenResponses.merge(configOptions.paths.overridenResponses) { new, _ in new }
         configOptions.paths.overriddenBodyTypes.merge(configOptions.paths.overridenBodyTypes) { new, _ in new }
+
+        // If the deprecated 'isGeneratingCustomCodingKeys' property was set, pass it to 'isUsingStringsForCodingKeys'
+        if let isGeneratingCustomCodingKeys = configOptions.entities.isGeneratingCustomCodingKeys {
+            configOptions.entities.isUsingStringsForCodingKeys = !isGeneratingCustomCodingKeys
+        }
 
         self.configOptions = configOptions
         self.allAcronyms = Self.allAcronyms(including: configOptions.addedAcronyms, excluding: configOptions.ignoredAcronyms)
