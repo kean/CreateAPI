@@ -143,6 +143,7 @@ public struct ConfigOptions: Encodable {
     public var entities: Entities = .init()
 
     // sourcery: document, decodableWithDefault
+    // sourcery: removed: isAdditionalPropertiesOnByDefault = "Enabled by default."
     /// Options specifically related to generating entities
     public struct Entities: Encodable {
         /// When true, generates entities as `struct` types. Otherwise generates them as `class` types.
@@ -204,9 +205,6 @@ public struct ConfigOptions: Encodable {
         // TODO: Improve this documentation
         /// For `allOf` inline properties from references
         public var inlineReferencedSchemas: Bool = false // sourcery: replacementFor = isInliningPropertiesFromReferencedSchemas
-
-        /// Changes how unspecified additional properties are interpreted
-        public var isAdditionalPropertiesOnByDefault: Bool = true
 
         /// Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
         public var stripParentNameInNestedObjects: Bool = false // sourcery: replacementFor = isStrippingParentNameInNestedObjects

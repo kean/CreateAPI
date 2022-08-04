@@ -84,7 +84,6 @@ Below you can find the complete documentation for all available options.
   - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
   - [defaultValues](#entitiesdefaultvalues)
   - [inlineReferencedSchemas](#entitiesinlinereferencedschemas)
-  - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
   - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
   - [include](#entitiesinclude)
@@ -476,15 +475,6 @@ If set to `true`, uses the `default` value from the schema for the generated pro
 **Default:** `false`
 
 For `allOf` inline properties from references
-
-<br/>
-
-## entities.isAdditionalPropertiesOnByDefault
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Changes how unspecified additional properties are interpreted
 
 <br/>
 

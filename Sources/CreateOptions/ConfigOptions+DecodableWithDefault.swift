@@ -212,7 +212,6 @@ extension ConfigOptions.Entities: Decodable {
         case optimizeCodingKeys
         case defaultValues
         case inlineReferencedSchemas
-        case isAdditionalPropertiesOnByDefault
         case stripParentNameInNestedObjects
         case exclude
         case include
@@ -311,11 +310,6 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: false
         )
 
-        isAdditionalPropertiesOnByDefault = try container.decode(Bool.self,
-            forKey: .isAdditionalPropertiesOnByDefault,
-            defaultValue: true
-        )
-
         stripParentNameInNestedObjects = try container.decode(Bool.self,
             forKey: .stripParentNameInNestedObjects,
             defaultValue: false
@@ -349,6 +343,7 @@ extension ConfigOptions.Entities: Decodable {
                 ("isAddingDefaultValues", "Use 'defaultValues' instead."),
                 ("isInliningPropertiesFromReferencedSchemas", "Use 'inlineReferencedSchemas' instead."),
                 ("isStrippingParentNameInNestedObjects", "Use 'stripParentNameInNestedObjects' instead."),
+                ("isAdditionalPropertiesOnByDefault", "Enabled by default."),
             ]
         )
     }
