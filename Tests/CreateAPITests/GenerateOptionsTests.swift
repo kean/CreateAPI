@@ -18,22 +18,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "petstore-only-schemas")
     }
     
-    func testPestoreChangeFilename() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "petstore", ext: "yaml"),
-            "--output", temp.url.path,
-            "--package", "petstore-change-filename",
-            "--filename-template", "%0.generated.swift"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "petstore-change-filename")
-    }
-    
     func testPetsStoreChangeEntityname() throws {
         // GIVEN
         let command = try Generate.parse([
@@ -635,7 +619,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "strip-parent-name-nested-objects-default")
     }
     
-    func testPestoreIdentifiableEnabled() throws {
+    func testPetstoreIdentifiableEnabled() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
@@ -656,5 +640,27 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "petstore-identifiable")
+    }
+    
+    func testPetstoreFilenameTemplate() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-entity-filename-template",
+            "--generate", "entities",
+            "--config", config("""
+            entities:
+                filenameTemplate: "%0Model.swift"
+            paths:
+                filenameTemplate: "%0API.swift"
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-entity-filename-template")
     }
 }

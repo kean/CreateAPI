@@ -216,6 +216,7 @@ extension ConfigOptions.Entities: Decodable {
         case stripParentNameInNestedObjects
         case exclude
         case include
+        case filenameTemplate
     }
 
     public init(from decoder: Decoder) throws {
@@ -331,6 +332,11 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: []
         )
 
+        filenameTemplate = try container.decode(String.self,
+            forKey: .filenameTemplate,
+            defaultValue: "%0.swift"
+        )
+
         container.recordPotentialIssues(
             deprecations: [
             ],
@@ -369,6 +375,7 @@ extension ConfigOptions.Paths: Decodable {
         case removeRedundantPaths
         case exclude
         case include
+        case filenameTemplate
     }
 
     public init(from decoder: Decoder) throws {
@@ -437,6 +444,11 @@ extension ConfigOptions.Paths: Decodable {
         include = try container.decode(Set<String>.self,
             forKey: .include,
             defaultValue: []
+        )
+
+        filenameTemplate = try container.decode(String.self,
+            forKey: .filenameTemplate,
+            defaultValue: "%0.swift"
         )
 
         container.recordPotentialIssues(

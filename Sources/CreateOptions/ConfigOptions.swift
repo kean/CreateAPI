@@ -218,6 +218,19 @@ public struct ConfigOptions: Encodable {
         /// When set to a non-empty value, only entities matching the given names will be generated.
         /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).
         public var include: Set<String> = []
+
+        /// Template to use for Entity file generation
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// ```yaml
+        /// entities:
+        ///   filenameTemplate: "%0Model.swift"
+        /// ```
+        ///
+        /// </details>
+        public var filenameTemplate: String = "%0.swift"
     }
 
     public var paths: Paths = .init()
@@ -310,6 +323,19 @@ public struct ConfigOptions: Encodable {
         /// When set to a non-empty value, only the given paths will be generated.
         /// This cannot be used in conjunction with [`exclude`](#pathsexclude).
         public var include: Set<String> = []
+
+        /// Template to use for Paths file generation.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// ```yaml
+        /// paths:
+        ///   filenameTemplate: "%0API.swift"
+        /// ```
+        ///
+        /// </details>
+        public var filenameTemplate: String = "%0.swift"
     }
 
     public var rename: Rename = .init()

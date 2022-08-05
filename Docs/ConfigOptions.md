@@ -88,6 +88,7 @@ Below you can find the complete documentation for all available options.
   - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
   - [include](#entitiesinclude)
+  - [filenameTemplate](#entitiesfilenametemplate)
 - [paths](#paths)
   - [style](#pathsstyle)
   - [namespace](#pathsnamespace)
@@ -101,6 +102,7 @@ Below you can find the complete documentation for all available options.
   - [removeRedundantPaths](#pathsremoveredundantpaths)
   - [exclude](#pathsexclude)
   - [include](#pathsinclude)
+  - [filenameTemplate](#pathsfilenametemplate)
 - [rename](#rename)
   - [properties](#renameproperties)
   - [parameters](#renameparameters)
@@ -517,6 +519,25 @@ This cannot be used in conjunction with [`exclude`](#entitiesexclude).
 
 <br/>
 
+## entities.filenameTemplate
+
+**Type:** String<br />
+**Default:** `"%0.swift"`
+
+Template to use for Entity file generation
+
+<details>
+<summary>Examples</summary>
+
+```yaml
+entities:
+  filenameTemplate: "%0Model.swift"
+```
+
+</details>
+
+<br/>
+
 
 # Paths
 
@@ -668,6 +689,25 @@ Cannot be used in conjunction with [`include`](#pathsinclude).
 
 When set to a non-empty value, only the given paths will be generated.
 This cannot be used in conjunction with [`exclude`](#pathsexclude).
+
+<br/>
+
+## paths.filenameTemplate
+
+**Type:** String<br />
+**Default:** `"%0.swift"`
+
+Template to use for Paths file generation.
+
+<details>
+<summary>Examples</summary>
+
+```yaml
+paths:
+  filenameTemplate: "%0API.swift"
+```
+
+</details>
 
 <br/>
 

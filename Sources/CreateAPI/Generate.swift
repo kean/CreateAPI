@@ -55,9 +55,6 @@ struct Generate: ParsableCommand {
     @Option(help: "Specifies what to generate", completion: .list(["paths", "entities"]))
     var generate = ["paths", "entities"]
 
-    @Option(help: "Example: \"%0.generated.swift\" will produce files with the following names: \"Paths.generated.swift\".")
-    var filenameTemplate: String = "%0.swift"
-
     @Option(help: "Example: \"%0Generated\" will produce entities with the following names: \"EntityGenerated\".")
     var entitynameTemplate: String = "%0"
 
@@ -109,8 +106,8 @@ struct Generate: ParsableCommand {
             try generator.makePackageFile(name: package).write(to: packageURL.appending(path: "Package.swift"))
         }
         try sourceURL.createDirectoryIfNeeded()
-        try write(output: paths, name: "Paths", outputURL: sourceURL, options: options)
-        try write(output: schemas, name: "Entities", outputURL: sourceURL, options: options)
+        try write(output: paths, name: "Paths", outputURL: sourceURL, filenameTemplate: options.paths.filenameTemplate, options: options)
+        try write(output: schemas, name: "Entities", outputURL: sourceURL, filenameTemplate: options.entities.filenameTemplate, options: options)
         benchmark.stop()
     }
 
@@ -192,7 +189,7 @@ struct Generate: ParsableCommand {
         return spec
     }
 
-    private func write(output: GeneratorOutput?, name: String, outputURL: URL, options: GenerateOptions) throws {
+    private func write(output: GeneratorOutput?, name: String, outputURL: URL, filenameTemplate: String, options: GenerateOptions) throws {
         guard let output = output else {
             return
         }
@@ -205,22 +202,22 @@ struct Generate: ParsableCommand {
             let contents = ([output.header] + output.files.map(\.contents))
                 .compactMap { $0 }
                 .joined(separator: "\n\n")
-            try process(contents).write(to: outputURL.appending(path: makeFilename(for: name)))
+            try process(contents).write(to: outputURL.appending(path: makeFilename(for: name, template: filenameTemplate)))
         } else {
             let outputURL = outputURL.appending(path: name)
             try outputURL.createDirectoryIfNeeded()
             for file in output.files {
-                try process(output.header + "\n\n" + file.contents).write(to: outputURL.appending(path: makeFilename(for: file.name)))
+                try process(output.header + "\n\n" + file.contents).write(to: outputURL.appending(path: makeFilename(for: file.name, template: filenameTemplate)))
             }
         }
 
         for file in output.extensions {
-            try process(output.header + "\n\n" + file.contents).write(to: outputURL.appendingPathComponent(makeFilename(for: file.name)))
+            try process(output.header + "\n\n" + file.contents).write(to: outputURL.appendingPathComponent(makeFilename(for: file.name, template: "%0.swift")))
         }
     }
 
-    private func makeFilename(for name: String) -> String {
-        Template(filenameTemplate).substitute(name)
+    private func makeFilename(for name: String, template: String) -> String {
+        Template(template).substitute(name)
     }
 
     private var arguments: GenerateArguments {
