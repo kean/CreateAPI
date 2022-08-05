@@ -134,8 +134,7 @@ extension ConfigOptions.Entities: Decodable {
         case entitiesGeneratedAsStructs
         case imports
         case finalClasses
-        case mutableClassProperties
-        case mutableStructProperties
+        case mutableProperties
         case baseClass
         case protocols
         case includeIdentifiableConformance
@@ -181,14 +180,9 @@ extension ConfigOptions.Entities: Decodable {
             defaultValue: true
         )
 
-        mutableClassProperties = try container.decode(Bool.self,
-            forKey: .mutableClassProperties,
-            defaultValue: false
-        )
-
-        mutableStructProperties = try container.decode(Bool.self,
-            forKey: .mutableStructProperties,
-            defaultValue: true
+        mutableProperties = try container.decode(Set<MutableProperties>.self,
+            forKey: .mutableProperties,
+            defaultValue: [.structs]
         )
 
         baseClass = try container.decode(String?.self,
@@ -272,8 +266,6 @@ extension ConfigOptions.Entities: Decodable {
             replacements: [
                 ("isGeneratingStructs", "Use 'generateStructs' instead."),
                 ("isMakingClassesFinal", "Use 'finalClasses' instead."),
-                ("isGeneratingMutableClassProperties", "Use 'mutableClassProperties' instead."),
-                ("isGeneratingMutableStructProperties", "Use 'mutableStructProperties' instead."),
                 ("isGeneratingIdentifiableConformance", "Use 'includeIdentifiableConformance' instead."),
                 ("isSkippingRedundantProtocols", "Use 'skipRedundantProtocols' instead."),
                 ("isGeneratingInitializers", "Use 'includeInitializer' instead."),
@@ -285,6 +277,8 @@ extension ConfigOptions.Entities: Decodable {
                 ("isInliningPropertiesFromReferencedSchemas", "Use 'inlineReferencedSchemas' instead."),
                 ("isStrippingParentNameInNestedObjects", "Use 'stripParentNameInNestedObjects' instead."),
                 ("isAdditionalPropertiesOnByDefault", "Enabled by default."),
+                ("isGeneratingMutableClassProperties", "Replaced by 'mutableProperties'"),
+                ("isGeneratingMutableStructProperties", "Replaced by 'mutableProperties'"),
             ]
         )
     }

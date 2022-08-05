@@ -269,8 +269,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             {
                 "entities": {
                     "entitiesGeneratedAsClasses": ["Store"],
-                    "mutableClassProperties": false,
-                    "mutableStructProperties": false
+                    "mutableProperties": false
                 }
             }
             """)
@@ -294,8 +293,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             {
                 "entities": {
                     "entitiesGeneratedAsClasses": ["Store"],
-                    "mutableClassProperties": true,
-                    "mutableStructProperties": true
+                    "mutableProperties": ["classes", "structs"],
                 }
             }
             """)

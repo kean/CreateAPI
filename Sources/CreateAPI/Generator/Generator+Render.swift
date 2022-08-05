@@ -1,5 +1,6 @@
 import OpenAPIKit30
 import Foundation
+import CreateOptions
 
 extension Generator {
     func render(_ decl: Declaration) -> String {
@@ -26,7 +27,8 @@ extension Generator {
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
         let isStruct = shouldGenerateStruct(for: decl)
-        let isReadOnly = isStruct ? !options.entities.mutableStructProperties : !options.entities.mutableClassProperties
+        let thisType: ConfigOptions.Entities.MutableProperties = isStruct ? .structs : .classes
+        let isReadOnly = !options.entities.mutableProperties.contains(thisType)
 
         var contents: [String] = []
         switch decl.type {

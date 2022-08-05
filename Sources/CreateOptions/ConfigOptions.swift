@@ -213,6 +213,8 @@ public struct ConfigOptions: Encodable {
 
     // sourcery: document, decodableWithDefault
     // sourcery: removed: isAdditionalPropertiesOnByDefault = "Enabled by default."
+    // sourcery: removed: isGeneratingMutableClassProperties = "Replaced by 'mutableProperties'"
+    // sourcery: removed: isGeneratingMutableStructProperties = "Replaced by 'mutableProperties'"
     /// Options specifically related to generating entities
     public struct Entities: Encodable {
         /// When true, generates entities as `struct` types. Otherwise generates them as `class` types.
@@ -230,11 +232,52 @@ public struct ConfigOptions: Encodable {
         /// When generating `class` types, marks them as `final`
         public var finalClasses: Bool = true // sourcery: replacementFor = isMakingClassesFinal
 
-        /// When generating `class` types, generate the properties as `public var`
-        public var mutableClassProperties: Bool = false // sourcery: replacementFor = isGeneratingMutableClassProperties
+        public enum MutableProperties: String, CaseIterable, Codable {
+            case structs, classes
+        }
 
-        /// When generating `struct` types, generate the properties as `public var`
-        public var mutableStructProperties: Bool = true // sourcery: replacementFor = isGeneratingMutableStructProperties
+        /// Generate properties as mutable based on the type they are contained within.
+        ///
+        /// The default value is `structs` which means that structs will use mutable properties but classes won't.
+        /// Set this property to `true` (or `[structs, classes]`) to always generate mutable properties and `false` (or `[]` to never generate mutable properties).
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// **Structs Only**
+        /// ```yaml
+        /// entities:
+        ///   mutableProperties: structs
+        /// ```
+        ///
+        /// ```swift
+        /// struct Foo {
+        ///   var bar: String
+        /// }
+        ///
+        /// class Foo1: {
+        ///   let bar: String
+        /// }
+        /// ```
+        ///
+        /// **All Types**
+        /// ```yaml
+        /// entities:
+        ///   mutableProperties: true # or [classes, structs]
+        /// ```
+        ///
+        /// ```swift
+        /// struct Foo {
+        ///   var bar: String
+        /// }
+        ///
+        /// class Foo1: {
+        ///   var bar: String
+        /// }
+        /// ```
+        ///
+        /// </details>
+        public var mutableProperties: Set<MutableProperties> = [.structs]
 
         /// Base class used when generating `class` types
         public var baseClass: String? = nil

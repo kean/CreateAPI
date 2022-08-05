@@ -62,8 +62,7 @@ Below you can find the complete documentation for all available options.
   - [entitiesGeneratedAsStructs](#entitiesentitiesgeneratedasstructs)
   - [imports](#entitiesimports)
   - [finalClasses](#entitiesfinalclasses)
-  - [mutableClassProperties](#entitiesmutableclassproperties)
-  - [mutableStructProperties](#entitiesmutablestructproperties)
+  - [mutableProperties](#entitiesmutableproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
   - [includeIdentifiableConformance](#entitiesincludeidentifiableconformance)
@@ -360,21 +359,52 @@ When generating `class` types, marks them as `final`
 
 <br/>
 
-## entities.mutableClassProperties
+## entities.mutableProperties
 
-**Type:** Bool<br />
-**Default:** `false`
+**Type:** Set<MutableProperties><br />
+**Default:** `[.structs]`
 
-When generating `class` types, generate the properties as `public var`
+Generate properties as mutable based on the type they are contained within.
 
-<br/>
+The default value is `structs` which means that structs will use mutable properties but classes won't.
+Set this property to `true` (or `[structs, classes]`) to always generate mutable properties and `false` (or `[]` to never generate mutable properties).
 
-## entities.mutableStructProperties
+<details>
+<summary>Examples</summary>
 
-**Type:** Bool<br />
-**Default:** `true`
+**Structs Only**
+```yaml
+entities:
+  mutableProperties: structs
+```
 
-When generating `struct` types, generate the properties as `public var`
+```swift
+struct Foo {
+  var bar: String
+}
+
+class Foo1: {
+  let bar: String
+}
+```
+
+**All Types**
+```yaml
+entities:
+  mutableProperties: true # or [classes, structs]
+```
+
+```swift
+struct Foo {
+  var bar: String
+}
+
+class Foo1: {
+  var bar: String
+}
+```
+
+</details>
 
 <br/>
 
