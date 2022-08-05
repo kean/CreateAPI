@@ -10,11 +10,15 @@ let package = Package(
         .library(name: "petstore-filename-template", targets: ["petstore-filename-template"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.2")
+        .package(url: "https://github.com/kean/Get", from: "1.0.2"), 
+        .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"), 
+        .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
         .target(name: "petstore-filename-template", dependencies: [
-            .product(name: "Get", package: "Get")
+            .product(name: "Get", package: "Get"), 
+            .product(name: "HTTPHeaders", package: "HTTPHeaders"), 
+            .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
         ], path: "Sources")
     ]
 )

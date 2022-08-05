@@ -648,7 +648,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
             pathForSpec(named: "petstore", ext: "yaml"),
             "--output", temp.url.path,
             "--package", "petstore-filename-template",
-            "--generate", "entities",
             "--config", config("""
             entities:
                 filenameTemplate: "%0Model.swift"
