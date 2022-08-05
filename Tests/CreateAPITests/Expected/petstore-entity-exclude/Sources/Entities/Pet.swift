@@ -10,11 +10,16 @@ import Foundation
 /// A pet description
 public struct Pet: Codable {
     /// Example: "Buddy"
-    public var name: String
+    public var id: String
     public var tag: String?
 
-    public init(name: String, tag: String? = nil) {
-        self.name = name
+    public init(id: String, tag: String? = nil) {
+        self.id = id
         self.tag = tag
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case id = "name"
+        case tag
     }
 }

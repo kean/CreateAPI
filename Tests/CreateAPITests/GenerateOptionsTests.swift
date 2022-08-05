@@ -674,6 +674,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             rename:
                 properties:
                     Pet.id: notID
+                    Pet.name: id
             """, ext: "yaml")
         ])
         
