@@ -17,7 +17,8 @@ struct Output {
         let sourceWriter: OutputWriter
         if let package = package {
             let packageWriter = rootWriter.writer(in: package.name)
-            try packageWriter.write(file: package.manifest, options: options)
+            // TODO: Use `write(file:header:template:options:)` to match indentation for Package.swift?
+            try packageWriter.write(package.manifest.contents, to: "\(package.manifest.name).swift")
 
             sourceWriter = packageWriter.writer(in: "Sources")
         } else {
