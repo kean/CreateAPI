@@ -297,7 +297,7 @@ extension ConfigOptions.Paths: Decodable {
     enum KnownKeys: String {
         case style
         case namespace
-        case generateResponseHeaders
+        case includeResponseHeaders
         case imports
         case overriddenResponses
         case overriddenBodyTypes
@@ -323,8 +323,8 @@ extension ConfigOptions.Paths: Decodable {
             defaultValue: "Paths"
         )
 
-        generateResponseHeaders = try container.decode(Bool.self,
-            forKey: .generateResponseHeaders,
+        includeResponseHeaders = try container.decode(Bool.self,
+            forKey: .includeResponseHeaders,
             defaultValue: true
         )
 
@@ -382,7 +382,7 @@ extension ConfigOptions.Paths: Decodable {
             deprecations: [
             ],
             replacements: [
-                ("isGeneratingResponseHeaders", "Use 'generateResponseHeaders' instead."),
+                ("isGeneratingResponseHeaders", "Use 'includeResponseHeaders' instead."),
                 ("overridenResponses", "Use 'overriddenResponses' instead."),
                 ("overridenBodyTypes", "Use 'overriddenBodyTypes' instead."),
                 ("isInliningSimpleRequests", "Use 'inlineSimpleRequests' instead."),

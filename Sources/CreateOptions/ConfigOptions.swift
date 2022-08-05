@@ -278,7 +278,7 @@ public struct ConfigOptions: Encodable {
         public var namespace: String = "Paths"
 
         /// Generate response headers using [HTTPHeaders](https://github.com/CreateAPI/HTTPHeaders)
-        public var generateResponseHeaders: Bool = true // sourcery: replacementFor = isGeneratingResponseHeaders
+        public var includeResponseHeaders: Bool = true // sourcery: replacementFor = isGeneratingResponseHeaders
 
         /// Modules to be imported within the source files for generated requests
         public var imports: Set<String> = ["Get"]

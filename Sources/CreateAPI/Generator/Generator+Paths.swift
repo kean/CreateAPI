@@ -754,7 +754,7 @@ extension Generator {
     // MARK: - Response Headers
 
     private func makeResponseHeaders(for task: GenerateOperationTask) throws -> Declaration? {
-        guard options.paths.generateResponseHeaders,
+        guard options.paths.includeResponseHeaders,
               let response = task.operation.firstSuccessfulResponse,
               let headers = response.responseValue?.headers else {
             return nil
