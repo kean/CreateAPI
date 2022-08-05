@@ -99,8 +99,7 @@ extension Generator {
             return options.entities.include.contains(name)
         }
         if !options.entities.exclude.isEmpty {
-//            return !options.entities.exclude.contains(name)
-            return true
+            return !options.entities.exclude.contains { $0.name == name && $0.property == nil }
         }
         return true
     }
@@ -347,7 +346,7 @@ extension Generator {
             try handle(warning: "Excluded property \(type.rawValue).\(diff) does not exist on schema object \(type.rawValue)")
         }
         
-        var keys = object.properties.keys.filter { excludedProperties.contains($0) }
+        var keys = object.properties.keys.filter { !excludedProperties.contains($0) }
         if options.entities.sortPropertiesAlphabetically { keys.sort() }
         return try keys.compactMap { key in
             let schema = object.properties[key]!

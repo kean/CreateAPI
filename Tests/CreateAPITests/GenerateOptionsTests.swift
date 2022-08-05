@@ -639,4 +639,52 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "petstore-identifiable")
     }
+    
+    func testPetstoreFilenameTemplate() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-filename-template",
+            "--config", config("""
+            entities:
+                filenameTemplate: "%0Model.swift"
+            paths:
+                filenameTemplate: "%0API.swift"
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-filename-template")
+    }
+    
+    func testPetstoreEntityExclude() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-entity-exclude",
+            "--generate", "entities",
+            "--config", config("""
+            entities:
+                exclude:
+                - Error
+                - Pet.id
+                - Store.pets
+            rename:
+                properties:
+                    Pet.id: notID
+                    Pet.name: id
+            """, ext: "yaml")
+        ])
+        
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-entity-exclude")
+    }
 }
