@@ -413,14 +413,8 @@ extension Generator {
     // Creates a dictionary, e.g. `[ String: AnyJSON]`, `[String: [String: String]]`,
     // `[String: CustomNestedType]`. Returns `Void` if no properties are allowed.
     private func makeDictionary(key: String, info: JSONSchemaContext, details: JSONSchema.ObjectContext, context: Context) throws -> AdditionalProperties? {
-        var additional = details.additionalProperties
-        if details.properties.isEmpty, options.entities.isAdditionalPropertiesOnByDefault {
-            additional = additional ?? .a(true)
-        }
-        guard let additional = additional else {
-            return nil
-        }
-        switch additional {
+        let additionalProperties = details.additionalProperties ?? .a(true)
+        switch additionalProperties {
         case .a(let allowed):
             if !allowed && details.properties.isEmpty {
                 return AdditionalProperties(type: .builtin("Void"), info: info)

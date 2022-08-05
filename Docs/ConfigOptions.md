@@ -56,15 +56,8 @@ Below you can find the complete documentation for all available options.
 - [pluralizeProperties](#pluralizeproperties)
 - [useNaiveDate](#usenaivedate)
 - [useIntegersWithPredefinedCapacity](#useintegerswithpredefinedcapacity)
-- [isSwiftLintDisabled](#isswiftlintdisabled)
 - [fileHeaderComment](#fileheadercomment)
-- [comments](#comments)
-  - [isEnabled](#commentsisenabled)
-  - [isAddingTitles](#commentsisaddingtitles)
-  - [isAddingDescription](#commentsisaddingdescription)
-  - [isAddingExamples](#commentsisaddingexamples)
-  - [isAddingExternalDocumentation](#commentsisaddingexternaldocumentation)
-  - [isCapitalizationEnabled](#commentsiscapitalizationenabled)
+- [commentOptions](#commentoptions)
 - [entities](#entities)
   - [generateStructs](#entitiesgeneratestructs)
   - [entitiesGeneratedAsClasses](#entitiesentitiesgeneratedasclasses)
@@ -84,7 +77,6 @@ Below you can find the complete documentation for all available options.
   - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
   - [defaultValues](#entitiesdefaultvalues)
   - [inlineReferencedSchemas](#entitiesinlinereferencedschemas)
-  - [isAdditionalPropertiesOnByDefault](#entitiesisadditionalpropertiesonbydefault)
   - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
   - [include](#entitiesinclude)
@@ -231,15 +223,6 @@ If enabled, uses `Int64` or `Int32` when specified.
 
 <br/>
 
-## isSwiftLintDisabled
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Appends the `swiftlint:disable all` annotation beneath the header in generated files
-
-<br/>
-
 ## fileHeaderComment
 
 **Type:** String<br />
@@ -249,63 +232,46 @@ Overrides file header comment
 
 <br/>
 
+## commentOptions
 
-# Comments
+**Type:** Set<CommentOption><br />
+**Default:** `[.title, .description, .example, .externalDocumentation, .capitalized]`
 
-Customize specific behaviors when generating comments on entities/paths/properties.
+Options used when generating comments.
 
+**Available options:**
+- `title` - Include the schema title (if available)
+- `description` - Include the schema description (if available)
+- `example` - Include the schema example value (if available)
+- `externalDocumentation` - Include a markdown formatted link to the schema's external documentation (if available)
+- `capitalized` - Automatically capitalize the comments
 
-## comments.isEnabled
+To disable comments completely, set this property to an empty array.
 
-**Type:** Bool<br />
-**Default:** `true`
+<details>
+<summary>Examples</summary>
 
-Set to false to disable the generation of comments
+**No Comments**
+```yaml
+commentOptions: []
+```
 
-<br/>
+**Simple Comment**
+```yaml
+commentOptions: [description, capitalized]
+```
 
-## comments.isAddingTitles
+**Detailed Comment** (default)
+```yaml
+commentOptions:
+- title
+- description
+- example
+- externalDocumentation
+- capitalized
+```
 
-**Type:** Bool<br />
-**Default:** `true`
-
-Include the schema title when generating comments
-
-<br/>
-
-## comments.isAddingDescription
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Include the schema description when generating comments
-
-<br/>
-
-## comments.isAddingExamples
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Include the schema example when generating comments
-
-<br/>
-
-## comments.isAddingExternalDocumentation
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Include a link to external documentation when generating comments
-
-<br/>
-
-## comments.isCapitalizationEnabled
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Auto-capitalize comments
+</details>
 
 <br/>
 
@@ -476,15 +442,6 @@ If set to `true`, uses the `default` value from the schema for the generated pro
 **Default:** `false`
 
 For `allOf` inline properties from references
-
-<br/>
-
-## entities.isAdditionalPropertiesOnByDefault
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Changes how unspecified additional properties are interpreted
 
 <br/>
 

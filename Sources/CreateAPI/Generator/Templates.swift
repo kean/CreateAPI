@@ -416,37 +416,35 @@ final class Templates {
 
     /// Generates inline comments for a declaration containing a title, description, and examples.
     func comments(for metadata: DeclarationMetadata, name: String, isProperty: Bool = false) -> String {
-        let options = options.comments
-        guard options.isEnabled else {
-            return ""
-        }
+        guard options.commentsEnabled else { return "" }
+        let options = options.commentOptions
         var output = ""
 
         var title = metadata.title ?? ""
         var description = metadata.description ?? ""
-        if title == description && options.isAddingTitles && options.isAddingDescription {
+        if title == description && options.contains(.title) && options.contains(.description) {
             description = ""
         }
         if title.components(separatedBy: .whitespaces).joined(separator: "").caseInsensitiveCompare(name) == .orderedSame {
             title = ""
         }
 
-        if options.isAddingTitles, !title.isEmpty {
-            let title = options.isCapitalizationEnabled ? title.capitalizingFirstLetter() : title
+        if options.contains(.title), !title.isEmpty {
+            let title = options.contains(.capitalized) ? title.capitalizingFirstLetter() : title
             for line in title.lines {
                 output += "/// \(line)\n"
             }
         }
-        if options.isAddingDescription, !description.isEmpty, description != metadata.title {
+        if options.contains(.description), !description.isEmpty, description != metadata.title {
             if !output.isEmpty {
                 output += "///\n"
             }
-            let description = options.isCapitalizationEnabled ? description.capitalizingFirstLetter() : description
+            let description = options.contains(.capitalized) ? description.capitalizingFirstLetter() : description
             for line in description.lines {
                 output += "/// \(line)\n"
             }
         }
-        if options.isAddingExamples, let example = metadata.example?.value {
+        if options.contains(.example), let example = metadata.example?.value {
             let value: String
 
             if let example = example as? String, !example.hasPrefix("\"") {
@@ -478,7 +476,7 @@ final class Templates {
                 }
             }
         }
-        if options.isAddingExternalDocumentation, let docsURL = metadata.externalDocsURL {
+        if options.contains(.externalDocumentation), let docsURL = metadata.externalDocsURL {
             if !output.isEmpty {
                 output += "///\n"
             }
@@ -542,9 +540,9 @@ final class Templates {
             name = PropertyName(processing: String(property.key.dropFirst(2)), options: options).rawValue
         }
         var output = ""
-        if options.comments.isEnabled, options.comments.isAddingDescription,
+        if options.commentsEnabled, options.commentOptions.contains(.description),
            let description = header.description, !description.isEmpty {
-            let description = options.comments.isCapitalizationEnabled ? description.capitalizingFirstLetter() : description
+            let description = options.commentOptions.contains(.capitalized) ? description.capitalizingFirstLetter() : description
             for line in description.lines {
                 output += "/// \(line)\n"
             }
