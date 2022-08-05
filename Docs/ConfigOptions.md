@@ -49,9 +49,6 @@ Below you can find the complete documentation for all available options.
 - [useSwiftyPropertyNames](#useswiftypropertynames)
 - [inlineTypealiases](#inlinetypealiases)
 - [acronyms](#acronyms)
-- [isReplacingCommonAcronyms](#isreplacingcommonacronyms)
-- [addedAcronyms](#addedacronyms)
-- [ignoredAcronyms](#ignoredacronyms)
 - [indentation](#indentation)
 - [spaceWidth](#spacewidth)
 - [pluralizeProperties](#pluralizeproperties)
@@ -202,33 +199,6 @@ var isACMECorporation: Bool
 ```
 
 </details>
-
-<br/>
-
-## isReplacingCommonAcronyms
-
-**Type:** Bool<br />
-**Default:** `true`
-
-For example, `var sourceUrl` becomes `var sourceURL`.
-
-<br/>
-
-## addedAcronyms
-
-**Type:** [String]<br />
-**Default:** `[]`
-
-Acronyms to add to the default list
-
-<br/>
-
-## ignoredAcronyms
-
-**Type:** [String]<br />
-**Default:** `[]`
-
-Acronyms to remove from the default list
 
 <br/>
 
