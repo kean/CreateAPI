@@ -532,7 +532,7 @@ extension Generator {
             case .boolean: return QueryItemType("Bool")
             case .number: return QueryItemType("Double")
             case .integer(let info, _):
-                guard options.useIntegersWithPredefinedCapacity else {
+                guard options.useFixWidthIntegers else {
                     return QueryItemType("Int")
                 }
                 switch info.format {
