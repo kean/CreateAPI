@@ -485,7 +485,7 @@ extension Generator {
         for value in nested where !nestedTypeNames.contains(value.name) {
             nestedTypeNames.insert(value.name)
             output += "\n\n"
-            output += render(value)
+            output += try render(value)
         }
         return output
     }

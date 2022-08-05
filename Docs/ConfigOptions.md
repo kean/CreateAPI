@@ -321,6 +321,8 @@ The default type used when generating entities. Available options are `struct`, 
 
 To override the default value for individual entities, use the [`typeOverrides`](#entitiestypeoverrides) option.
 
+> **Note**: If this value is set to `struct` but the entity cannot be represented as a struct (i.e when it contains a property that recursively contains itself), a warning will be logged and the type will generate as `finalClass` instead. You should explicitly handle this by using options such as [`typeOverrides`](#entitiestypeoverrides) or [`ignore`](#entitiesignore) instead.
+
 <br/>
 
 ## entities.typeOverrides

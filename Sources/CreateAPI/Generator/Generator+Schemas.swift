@@ -52,7 +52,7 @@ extension Generator {
         // Render entities as a final phase
         let files: [GeneratedFile] = try zip(jobs, declarations).map { job, result in
             guard let entity = try result?.get() else { return nil }
-            return GeneratedFile(name: job.name.rawValue, contents: render(entity))
+            return GeneratedFile(name: job.name.rawValue, contents: try render(entity))
         }.compactMap { $0 }
 
         return GeneratorOutput(

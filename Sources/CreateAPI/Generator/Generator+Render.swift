@@ -3,11 +3,11 @@ import Foundation
 import CreateOptions
 
 extension Generator {
-    func render(_ decl: Declaration) -> String {
+    func render(_ decl: Declaration) throws -> String {
         switch decl {
         case let decl as EnumOfStringsDeclaration: return render(decl)
-        case let decl as EntityDeclaration: return render(decl)
-        case let decl as TypealiasDeclaration: return render(decl)
+        case let decl as EntityDeclaration: return try render(decl)
+        case let decl as TypealiasDeclaration: return try render(decl)
         case let decl as AnyDeclaration: return decl.rawValue
         default: fatalError()
         }
@@ -21,25 +21,25 @@ extension Generator {
         return comments + templates.enumOfStrings(name: decl.name, contents: cases)
     }
 
-    private func render(_ decl: EntityDeclaration) -> String {
+    private func render(_ decl: EntityDeclaration) throws -> String {
         var properties = decl.properties
         addNamespacesForConflictsWithNestedTypes(properties: &properties, decl: decl)
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
-        let type = resolveGeneratedType(for: decl)
+        let type = try resolveGeneratedType(for: decl)
         let isReadOnly = !options.entities.mutableProperties.contains(type.isStruct ? .structs : .classes)
 
         var contents: [String] = []
         switch decl.type {
         case .object, .allOf, .anyOf:
             contents.append(templates.properties(properties, isReadonly: isReadOnly))
-            contents += decl.nested.map(render)
+            contents += try decl.nested.map(render)
             if options.entities.includeInitializer {
                 contents.append(templates.initializer(properties: properties))
             }
         case .oneOf:
             contents.append(properties.map(templates.case).joined(separator: "\n"))
-            contents += decl.nested.map(render)
+            contents += try decl.nested.map(render)
         }
 
         if decl.isForm {
@@ -123,9 +123,9 @@ extension Generator {
         return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
     }
 
-    private func render(_ value: TypealiasDeclaration) -> String {
+    private func render(_ value: TypealiasDeclaration) throws -> String {
         [templates.typealias(name: value.name, type: value.type.name),
-         value.nested.map(render)]
+         try value.nested.map(render)]
             .compactMap { $0 }
             .joined(separator: "\n\n")
     }
@@ -139,7 +139,7 @@ extension Generator {
         }
     }
 
-    private func resolveGeneratedType(for decl: EntityDeclaration) -> ResolvedType {
+    private func resolveGeneratedType(for decl: EntityDeclaration) throws -> ResolvedType {
         if decl.type == .oneOf {
             return .enumOneOf
         } else if decl.isRenderedAsStruct {
@@ -148,7 +148,12 @@ extension Generator {
 
         switch options.entities.preferredType(of: decl.name.rawValue) {
         case .struct where hasReferences(to: decl.name, decl):
-            // Assume final. Should add entity to `typeOverrides` to change this
+            try handle(warning: """
+                Entity '\(decl.name.rawValue)' cannot be generated as a struct because \
+                it has a stored property that recursively contains itself. Explicitly \
+                define an override using 'entities.typeOverrides' or ignore the \
+                entity/property using 'entities.ignore' to fix this issue.
+                """)
             return .class(isFinal: true)
         case .struct:
             return .struct
