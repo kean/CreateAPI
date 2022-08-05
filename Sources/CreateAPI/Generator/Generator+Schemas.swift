@@ -340,9 +340,9 @@ extension Generator {
         let excludedProperties = options.entities.exclude
             .filter { $0.name == type.rawValue }
             .compactMap { $0.property }
-        let excludedDiff = Set(excludedProperties).subtracting(object.properties.keys)
+        let unknownProperties = Set(excludedProperties).subtracting(object.properties.keys)
         
-        for diff in excludedDiff {
+        for diff in unknownProperties {
             try handle(warning: "Invalid entity exclude '\(type.rawValue).\(diff)'. Property '\(diff) does not exist on schema '\(type.rawValue)'")
         }
         
