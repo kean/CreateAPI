@@ -145,7 +145,9 @@ struct Generate: ParsableCommand {
         do {
             let options = try GenerateOptions(data: data) { options in
                 options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
-                options.entities.exclude = Set(options.entities.exclude.map { Template(arguments.entityNameTemplate).substitute($0) })
+                options.entities.exclude = Set(options.entities.exclude.map {
+                    EntityExclude(name: Template(arguments.entityNameTemplate).substitute($0.name), property: $0.property)
+                })
             }
 
             for message in options.warnings {

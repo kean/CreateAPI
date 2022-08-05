@@ -243,7 +243,7 @@ public struct ConfigOptions: Encodable {
         /// ```
         ///
         /// </details>
-        public var exclude: Set<String> = []
+        public var exclude: Set<EntityExclude> = []
 
         /// When set to a non-empty value, only entities matching the given names will be generated.
         /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).

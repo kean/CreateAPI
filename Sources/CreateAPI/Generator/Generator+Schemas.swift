@@ -99,7 +99,8 @@ extension Generator {
             return options.entities.include.contains(name)
         }
         if !options.entities.exclude.isEmpty {
-            return !options.entities.exclude.contains(name)
+//            return !options.entities.exclude.contains(name)
+            return true
         }
         return true
     }
@@ -337,14 +338,16 @@ extension Generator {
     }
 
     private func makeInlineProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
-        let excludedProperties = excludedProperties(for: type.rawValue)
-        let excludedDiff = excludedProperties.subtracting(object.properties.keys)
+        let excludedProperties = options.entities.exclude
+            .filter { $0.name == type.rawValue }
+            .compactMap { $0.property }
+        let excludedDiff = Set(excludedProperties).subtracting(object.properties.keys)
         
         for diff in excludedDiff {
             try handle(warning: "Excluded property \(type.rawValue).\(diff) does not exist on schema object \(type.rawValue)")
         }
-
-        var keys = object.properties.keys.filter { !excludedProperties.contains($0) }
+        
+        var keys = object.properties.keys.filter { excludedProperties.contains($0) }
         if options.entities.sortPropertiesAlphabetically { keys.sort() }
         return try keys.compactMap { key in
             let schema = object.properties[key]!
@@ -355,14 +358,6 @@ extension Generator {
                 return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
             }
         }
-    }
-    
-    private func excludedProperties(for type: String) -> Set<String> {
-        let excluded = options.entities.exclude
-            .map { $0.split(separator: ".") }
-            .filter { $0.count == 2 && $0[0].elementsEqual(type) }
-            .map { String($0[1]) }
-        return Set(excluded)
     }
 
     private func makeNestedElementTypeName(for key: String, context: Context) -> TypeName {
