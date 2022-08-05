@@ -113,9 +113,9 @@ extension Generator {
         var extensions: [GeneratedFile] = []
 
         if isAnyJSONUsed {
-            extensions.append(GeneratedFile(name: "Entities+AnyJSON", contents: templates.anyJSON))
+            extensions.append(GeneratedFile(name: "AnyJSON", contents: templates.anyJSON))
         }
-        extensions.append(GeneratedFile(name: "Entities+CodingKey", contents: stringCodingKey))
+        extensions.append(GeneratedFile(name: "StringCodingKey", contents: stringCodingKey))
 
         return extensions
     }

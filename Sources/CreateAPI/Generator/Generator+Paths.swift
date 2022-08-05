@@ -225,7 +225,7 @@ extension Generator {
     }
 
     private func makeExtensions() -> [GeneratedFile] {
-        [GeneratedFile(name: "Paths+Extensions", contents: templates.namespace(options.paths.namespace))]
+        [GeneratedFile(name: options.paths.namespace, contents: templates.namespace(options.paths.namespace))]
     }
 
     // MARK: - Paths (Rest)
