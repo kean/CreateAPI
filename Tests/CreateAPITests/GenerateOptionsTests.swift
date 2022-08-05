@@ -220,7 +220,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "petstore-disable-comments",
             "--config", config("""
             {
-                "commentOptions": []
+                "commentOptions": false
             }
             """)
         ])

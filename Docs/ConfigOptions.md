@@ -251,15 +251,21 @@ To disable comments completely, set this property to an empty array.
 <details>
 <summary>Examples</summary>
 
-**No Comments**
+**Disable Comments**
 ```yaml
-commentOptions: []
+commentOptions: [] # or false
 ```
 
-**Simple Comment**
+**Description Only**
+```yaml
+commentOptions: description
+```
+
+**Custom Comment**
 ```yaml
 commentOptions: [description, capitalized]
 ```
+
 
 **Detailed Comment** (default)
 ```yaml
