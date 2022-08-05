@@ -81,14 +81,6 @@ final class Generator {
     var fileHeader: String {
         var output = options.fileHeaderComment
 
-        if options.isSwiftLintDisabled {
-            output += "\n"
-            output += """
-            //
-            // swiftlint:disable all
-            """
-        }
-
         let imports = [
             "Foundation",
             isNaiveDateNeeded ? "NaiveDate" : nil
