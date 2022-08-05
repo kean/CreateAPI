@@ -1,6 +1,12 @@
 import Foundation
 
 extension Generator {
+    func package(named name: String?) -> (name: String, manifest: GeneratedFile)? {
+        guard let name = name else { return nil }
+        let manifest = GeneratedFile(name: "Package", contents: makePackageFile(name: name))
+        return (name, manifest)
+    }
+
     func makePackageFile(name: String) -> String {
         let packages: String = [
             #".package(url: "https://github.com/kean/Get", from: "1.0.2")"#,
