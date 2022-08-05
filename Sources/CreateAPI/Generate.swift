@@ -93,21 +93,15 @@ struct Generate: ParsableCommand {
         // IMPORTANT: Paths needs to be generated before schemes.
         let paths = generate.contains("paths") ? try generator.paths() : nil
         let schemas = generate.contains("entities") ? try generator.schemas() : nil
+        let package = generator.package(named: package)
 
         let outputURL = URL(filePath: output)
+        let output = Output(paths: paths, entities: schemas, package: package, options: options, mergeSources: mergeSources)
+
         if clean { try? FileManager.default.removeItem(at: outputURL) }
-        let sourceURL = package.map { outputURL.appending(path: "\($0)/Sources/") } ?? outputURL
 
         let benchmark = Benchmark(name: "Write output files")
-        if let package = package {
-            let packageURL = outputURL.appending(path: package)
-            try? packageURL.remove()
-            try packageURL.createDirectoryIfNeeded()
-            try generator.makePackageFile(name: package).write(to: packageURL.appending(path: "Package.swift"))
-        }
-        try sourceURL.createDirectoryIfNeeded()
-        try write(output: paths, name: "Paths", outputURL: sourceURL, filenameTemplate: options.paths.filenameTemplate, options: options)
-        try write(output: schemas, name: "Entities", outputURL: sourceURL, filenameTemplate: options.entities.filenameTemplate, options: options)
+        try output.write(to: outputURL)
         benchmark.stop()
     }
 
@@ -187,37 +181,6 @@ struct Generate: ParsableCommand {
         }
         bench.stop()
         return spec
-    }
-
-    private func write(output: GeneratorOutput?, name: String, outputURL: URL, filenameTemplate: String, options: GenerateOptions) throws {
-        guard let output = output else {
-            return
-        }
-
-        func process(_ contents: String) -> String {
-            contents.indent(using: options).appending("\n")
-        }
-
-        if mergeSources {
-            let contents = ([output.header] + output.files.map(\.contents))
-                .compactMap { $0 }
-                .joined(separator: "\n\n")
-            try process(contents).write(to: outputURL.appending(path: makeFilename(for: name, template: filenameTemplate)))
-        } else {
-            let outputURL = outputURL.appending(path: name)
-            try outputURL.createDirectoryIfNeeded()
-            for file in output.files {
-                try process(output.header + "\n\n" + file.contents).write(to: outputURL.appending(path: makeFilename(for: file.name, template: filenameTemplate)))
-            }
-        }
-
-        for file in output.extensions {
-            try process(output.header + "\n\n" + file.contents).write(to: outputURL.appendingPathComponent(makeFilename(for: file.name, template: "%0.swift")))
-        }
-    }
-
-    private func makeFilename(for name: String, template: String) -> String {
-        Template(template).substitute(name)
     }
 
     private var arguments: GenerateArguments {
