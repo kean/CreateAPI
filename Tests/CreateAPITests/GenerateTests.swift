@@ -14,8 +14,8 @@ final class GenerateTests: GenerateBaseTests {
         try testSpec(name: "inlining", ext: "yaml", package: "inlining-default", config: """
         entities:
           inlineReferencedSchemas: true
-          entitiesGeneratedAsClasses:
-            - Letter
+          typeOverrides:
+            Letter: finalClass
         """)
     }
 

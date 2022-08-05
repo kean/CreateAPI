@@ -129,11 +129,9 @@ extension ConfigOptions: Decodable {
 
 extension ConfigOptions.Entities: Decodable {
     enum KnownKeys: String {
-        case generateStructs
-        case entitiesGeneratedAsClasses
-        case entitiesGeneratedAsStructs
+        case defaultType
+        case typeOverrides
         case imports
-        case finalClasses
         case mutableProperties
         case baseClass
         case protocols
@@ -155,29 +153,19 @@ extension ConfigOptions.Entities: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
-        generateStructs = try container.decode(Bool.self,
-            forKey: .generateStructs,
-            defaultValue: true
+        defaultType = try container.decode(EntityType.self,
+            forKey: .defaultType,
+            defaultValue: .struct
         )
 
-        entitiesGeneratedAsClasses = try container.decode(Set<String>.self,
-            forKey: .entitiesGeneratedAsClasses,
-            defaultValue: []
-        )
-
-        entitiesGeneratedAsStructs = try container.decode(Set<String>.self,
-            forKey: .entitiesGeneratedAsStructs,
-            defaultValue: []
+        typeOverrides = try container.decode([String: EntityType].self,
+            forKey: .typeOverrides,
+            defaultValue: [:]
         )
 
         imports = try container.decode(Set<String>.self,
             forKey: .imports,
             defaultValue: []
-        )
-
-        finalClasses = try container.decode(Bool.self,
-            forKey: .finalClasses,
-            defaultValue: true
         )
 
         mutableProperties = try container.decode(Set<MutableProperties>.self,
@@ -264,8 +252,6 @@ extension ConfigOptions.Entities: Decodable {
             deprecations: [
             ],
             replacements: [
-                ("isGeneratingStructs", "Use 'generateStructs' instead."),
-                ("isMakingClassesFinal", "Use 'finalClasses' instead."),
                 ("isGeneratingIdentifiableConformance", "Use 'includeIdentifiableConformance' instead."),
                 ("isSkippingRedundantProtocols", "Use 'skipRedundantProtocols' instead."),
                 ("isGeneratingInitializers", "Use 'includeInitializer' instead."),
@@ -276,9 +262,13 @@ extension ConfigOptions.Entities: Decodable {
                 ("isAddingDefaultValues", "Use 'includeDefaultValues' instead."),
                 ("isInliningPropertiesFromReferencedSchemas", "Use 'inlineReferencedSchemas' instead."),
                 ("isStrippingParentNameInNestedObjects", "Use 'stripParentNameInNestedObjects' instead."),
+                ("entitiesGeneratedAsClasses", "Replaced by 'typeOverrides'"),
+                ("entitiesGeneratedAsStructs", "Replaced by 'typeOverrides'"),
                 ("isAdditionalPropertiesOnByDefault", "Enabled by default."),
                 ("isGeneratingMutableClassProperties", "Replaced by 'mutableProperties'"),
                 ("isGeneratingMutableStructProperties", "Replaced by 'mutableProperties'"),
+                ("isGeneratingStructs", "Replaced by 'defaultType'"),
+                ("isMakingClassesFinal", "Replaced by 'defaultType'"),
             ]
         )
     }

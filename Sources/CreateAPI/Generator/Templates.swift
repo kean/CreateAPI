@@ -23,8 +23,14 @@ final class Templates {
     ///         <contents>
     ///     }
     func entity(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let isStruct = (options.entities.generateStructs && !options.entities.entitiesGeneratedAsClasses.contains(name.rawValue)) || (options.entities.entitiesGeneratedAsStructs.contains(name.rawValue))
-        return isStruct ? self.struct(name: name, contents: contents, protocols: protocols) : self.class(name: name, contents: contents, protocols: protocols)
+        switch options.entities.preferredType(of: name.rawValue) {
+        case .struct:
+            return self.struct(name: name, contents: contents, protocols: protocols)
+        case .class:
+            return self.class(name: name, isFinal: false, contents: contents, protocols: protocols)
+        case .finalClass:
+            return self.class(name: name, isFinal: true, contents: contents, protocols: protocols)
+        }
     }
 
     func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
@@ -33,8 +39,8 @@ final class Templates {
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
 
-    func `class`(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let type = options.entities.finalClasses ? "final class" : "class"
+    func `class`(name: TypeName, isFinal: Bool, contents: [String], protocols: Protocols) -> String {
+        let type = isFinal ? "final class" : "class"
         let lhs = [options.access, type, name.rawValue].filter { !$0.isEmpty }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)

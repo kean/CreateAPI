@@ -12,7 +12,7 @@ import GrammaticalNumber
 // TODO: Generate IDs with phantom types
 // TODO: Add `byte` and `binary` string formats support
 // TODO: Clarify intentions behind `properties` mixed with `anyOf` https://github.com/github/rest-api-description/discussions/805
-// TODO: `entitiesGeneratedAsClasses` - add support for nesting
+// TODO: `typeOverrides` - add support for nesting
 // TODO: Remove StringCodingKeys when they are not needed
 
 extension Generator {

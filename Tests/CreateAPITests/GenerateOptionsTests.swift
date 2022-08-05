@@ -115,7 +115,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "generateStructs": false
+                    "defaultType": "finalClass"
                 }
             }
             """)
@@ -137,7 +137,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "entitiesGeneratedAsClasses": ["Store"]
+                    "typeOverrides": {
+                        "Store": "finalClass"
+                    }
                 }
             }
             """)
@@ -159,8 +161,10 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "generateStructs": false,
-                    "entitiesGeneratedAsStructs": ["Error"]
+                    "defaultType": "finalClass",
+                    "typeOverrides": {
+                        "Error": "struct"
+                    }
                 }
             }
             """)
@@ -182,7 +186,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "generateStructs": false,
+                    "defaultType": "finalClass",
                     "baseClass": "NSObject"
                 }
             }
@@ -268,7 +272,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "entitiesGeneratedAsClasses": ["Store"],
+                    "typeOverrides": {
+                        "Store": "finalClass"
+                    },
                     "mutableProperties": false
                 }
             }
@@ -292,7 +298,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--config", config("""
             {
                 "entities": {
-                    "entitiesGeneratedAsClasses": ["Store"],
+                    "typeOverrides": {
+                        "Store": "finalClass"
+                    },
                     "mutableProperties": ["classes", "structs"],
                 }
             }

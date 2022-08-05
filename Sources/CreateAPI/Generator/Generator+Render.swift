@@ -26,9 +26,8 @@ extension Generator {
         addNamespacesForConflictsWithNestedTypes(properties: &properties, decl: decl)
         addNamespacesForConflictsWithBuiltinTypes(properties: &properties, decl: decl)
 
-        let isStruct = shouldGenerateStruct(for: decl)
-        let thisType: ConfigOptions.Entities.MutableProperties = isStruct ? .structs : .classes
-        let isReadOnly = !options.entities.mutableProperties.contains(thisType)
+        let type = resolveGeneratedType(for: decl)
+        let isReadOnly = !options.entities.mutableProperties.contains(type.isStruct ? .structs : .classes)
 
         var contents: [String] = []
         switch decl.type {
@@ -112,15 +111,15 @@ extension Generator {
         }
 
         let entity: String
-        if decl.type == .oneOf {
+        switch type {
+        case .enumOneOf:
             entity = templates.enumOneOf(name: decl.name, contents: contents, protocols: decl.protocols)
-        } else {
-            if isStruct {
-                entity = templates.struct(name: decl.name, contents: contents, protocols: decl.protocols)
-            } else {
-                entity = templates.class(name: decl.name, contents: contents, protocols: decl.protocols)
-            }
+        case .struct:
+            entity = templates.struct(name: decl.name, contents: contents, protocols: decl.protocols)
+        case .class(let isFinal):
+            entity = templates.class(name: decl.name, isFinal: isFinal, contents: contents, protocols: decl.protocols)
         }
+
         return templates.comments(for: decl.metadata, name: decl.name.rawValue) + entity
     }
 
@@ -131,22 +130,33 @@ extension Generator {
             .joined(separator: "\n\n")
     }
 
-    private func shouldGenerateStruct(for decl: EntityDeclaration) -> Bool {
-        if decl.type == .oneOf {
-            return false
-        } else if options.entities.entitiesGeneratedAsClasses.contains(decl.name.rawValue) {
-            return false
-        } else if decl.isRenderedAsStruct || options.entities.entitiesGeneratedAsStructs.contains(decl.name.rawValue) {
+    enum ResolvedType {
+        case enumOneOf, `struct`, `class`(isFinal: Bool)
+
+        var isStruct: Bool {
+            guard case .struct = self else { return false }
             return true
-        } else if options.entities.generateStructs && hasRefeferencesToItself(decl) {
-            return false
-        } else {
-            return options.entities.generateStructs
         }
     }
 
-    private func hasRefeferencesToItself(_ entity: EntityDeclaration) -> Bool {
-        hasReferences(to: entity.name, entity)
+    private func resolveGeneratedType(for decl: EntityDeclaration) -> ResolvedType {
+        if decl.type == .oneOf {
+            return .enumOneOf
+        } else if decl.isRenderedAsStruct {
+            return .struct
+        }
+
+        switch options.entities.preferredType(of: decl.name.rawValue) {
+        case .struct where hasReferences(to: decl.name, decl):
+            // Assume final. Should add entity to `typeOverrides` to change this
+            return .class(isFinal: true)
+        case .struct:
+            return .struct
+        case .class:
+            return .class(isFinal: false)
+        case .finalClass:
+            return .class(isFinal: true)
+        }
     }
 
     // TODO: This doesn't handle a scenario where a reference is detected in an
