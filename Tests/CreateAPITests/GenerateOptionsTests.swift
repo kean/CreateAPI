@@ -18,22 +18,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "petstore-only-schemas")
     }
     
-    func testPestoreChangeFilename() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "petstore", ext: "yaml"),
-            "--output", temp.url.path,
-            "--package", "petstore-change-filename",
-            "--filename-template", "%0.generated.swift"
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "petstore-change-filename")
-    }
-    
     func testPetsStoreChangeEntityname() throws {
         // GIVEN
         let command = try Generate.parse([
@@ -220,7 +204,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "petstore-disable-comments",
             "--config", config("""
             {
-                "commentOptions": []
+                "commentOptions": false
             }
             """)
         ])
@@ -459,7 +443,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-disable-acronyms",
             "--config", config("""
             {
-                "isReplacingCommonAcronyms": false
+                "acronyms": []
             }
             """)
         ])
@@ -568,7 +552,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-int32-int64",
             "--config", config("""
             {
-                "useIntegersWithPredefinedCapacity": true
+                "useFixWidthIntegers": true
             }
             """)
         ])
@@ -633,7 +617,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try compare(package: "strip-parent-name-nested-objects-default")
     }
     
-    func testPestoreIdentifiableEnabled() throws {
+    func testPetstoreIdentifiableEnabled() throws {
         // GIVEN
         let command = try Generate.parse([
             pathForSpec(named: "petstore", ext: "yaml"),
@@ -642,7 +626,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--generate", "entities",
             "--config", config("""
             entities:
-                identifiableConformance: true
+                includeIdentifiableConformance: true
             rename:
                 properties:
                     Error.code: id
@@ -654,32 +638,5 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "petstore-identifiable")
-    }
-    
-    func testPetstoreEntityExclude() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "petstore", ext: "yaml"),
-            "--output", temp.url.path,
-            "--package", "petstore-entity-exclude",
-            "--generate", "entities",
-            "--config", config("""
-            entities:
-                exclude:
-                - Error
-                - Pet.id
-                - Store.pets
-            rename:
-                properties:
-                    Pet.id: notID
-                    Pet.name: id
-            """, ext: "yaml")
-        ])
-        
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "petstore-entity-exclude")
     }
 }

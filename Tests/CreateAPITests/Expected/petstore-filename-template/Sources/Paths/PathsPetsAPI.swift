@@ -16,7 +16,7 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(limit: Int? = nil) -> Request<[petstore_change_filename.Pet]> {
+        public func get(limit: Int? = nil) -> Request<[petstore_filename_template.Pet]> {
             Request(method: "GET", url: path, query: makeGetQuery(limit), id: "listPets")
         }
 

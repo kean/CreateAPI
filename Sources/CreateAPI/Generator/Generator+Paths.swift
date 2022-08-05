@@ -532,7 +532,7 @@ extension Generator {
             case .boolean: return QueryItemType("Bool")
             case .number: return QueryItemType("Double")
             case .integer(let info, _):
-                guard options.useIntegersWithPredefinedCapacity else {
+                guard options.useFixWidthIntegers else {
                     return QueryItemType("Int")
                 }
                 switch info.format {
@@ -754,7 +754,7 @@ extension Generator {
     // MARK: - Response Headers
 
     private func makeResponseHeaders(for task: GenerateOperationTask) throws -> Declaration? {
-        guard options.paths.generateResponseHeaders,
+        guard options.paths.includeResponseHeaders,
               let response = task.operation.firstSuccessfulResponse,
               let headers = response.responseValue?.headers else {
             return nil

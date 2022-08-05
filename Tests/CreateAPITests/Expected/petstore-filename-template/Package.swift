@@ -4,10 +4,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "petstore-change-filename",
+    name: "petstore-filename-template",
     platforms: [.iOS(.v13), .macCatalyst(.v13), .macOS(.v10_15), .watchOS(.v6), .tvOS(.v13)],
     products: [
-        .library(name: "petstore-change-filename", targets: ["petstore-change-filename"]),
+        .library(name: "petstore-filename-template", targets: ["petstore-filename-template"]),
     ],
     dependencies: [
         .package(url: "https://github.com/kean/Get", from: "1.0.2"), 
@@ -15,7 +15,7 @@ let package = Package(
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
-        .target(name: "petstore-change-filename", dependencies: [
+        .target(name: "petstore-filename-template", dependencies: [
             .product(name: "Get", package: "Get"), 
             .product(name: "HTTPHeaders", package: "HTTPHeaders"), 
             .product(name: "URLQueryEncoder", package: "URLQueryEncoder")

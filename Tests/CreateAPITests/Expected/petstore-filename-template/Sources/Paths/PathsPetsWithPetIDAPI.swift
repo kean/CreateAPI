@@ -16,7 +16,7 @@ extension Paths.Pets {
         public let path: String
 
         /// Info for a specific pet
-        public var get: Request<petstore_change_filename.Pet> {
+        public var get: Request<petstore_filename_template.Pet> {
             Request(method: "GET", url: path, id: "showPetById")
         }
     }

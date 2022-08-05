@@ -6,12 +6,6 @@ public final class GenerateOptions {
     /// The options loaded from a **.create-api.yaml** configuration file (or the default options)
     public let configOptions: ConfigOptions
 
-    /// Acronyms used for replacement when `isReplacingCommonAcronyms` is `true`.
-    ///
-    /// A set of all acronyms based on the default list after factoring in the `addedAcronyms` and removing `ignoredAcronyms`.
-    /// Results are ordered so that the longer acronyms come first.
-    public let allAcronyms: [String]
-
     /// Warnings detected when loading a configuration file
     public let warnings: [String]
 
@@ -19,8 +13,10 @@ public final class GenerateOptions {
     public static let `default` = GenerateOptions()
 
     init(configOptions: ConfigOptions = .default, warnings: [String] = []) {
+        var configOptions = configOptions
+        configOptions.acronyms.sort { $0.count > $1.count } // important that longest is found first when searching
+
         self.configOptions = configOptions
-        self.allAcronyms = Self.allAcronyms(including: configOptions.addedAcronyms, excluding: configOptions.ignoredAcronyms)
         self.warnings = warnings
     }
 
@@ -49,17 +45,5 @@ public extension GenerateOptions {
 
         // Call to the default initialiser
         self.init(configOptions: configOptions, warnings: recorder.issues.map(\.description))
-    }
-}
-
-// MARK: - Acronyms
-private extension GenerateOptions {
-    static let defaultAcronyms: Set<String> = ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]
-
-    static func allAcronyms(including: [String], excluding: [String]) -> [String] {
-        Self.defaultAcronyms
-            .union(including)
-            .subtracting(excluding)
-            .sorted { $0.count > $1.count }
     }
 }
