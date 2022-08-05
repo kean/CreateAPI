@@ -10,6 +10,7 @@ extension ConfigOptions: Decodable {
         case generateEnums
         case useSwiftyPropertyNames
         case inlineTypealiases
+        case acronyms
         case isReplacingCommonAcronyms
         case addedAcronyms
         case ignoredAcronyms
@@ -51,6 +52,11 @@ extension ConfigOptions: Decodable {
         inlineTypealiases = try container.decode(Bool.self,
             forKey: .inlineTypealiases,
             defaultValue: true
+        )
+
+        acronyms = try container.decode([String].self,
+            forKey: .acronyms,
+            defaultValue: ["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]
         )
 
         isReplacingCommonAcronyms = try container.decode(Bool.self,

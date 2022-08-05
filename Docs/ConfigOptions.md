@@ -48,6 +48,7 @@ Below you can find the complete documentation for all available options.
 - [generateEnums](#generateenums)
 - [useSwiftyPropertyNames](#useswiftypropertynames)
 - [inlineTypealiases](#inlinetypealiases)
+- [acronyms](#acronyms)
 - [isReplacingCommonAcronyms](#isreplacingcommonacronyms)
 - [addedAcronyms](#addedacronyms)
 - [ignoredAcronyms](#ignoredacronyms)
@@ -146,6 +147,61 @@ Prefixes booleans with `is` ("enabled" -> "isEnabled")
 
 Any schema that can be converted to a type identifier.
 For example, `typealias Pets = [Pet]` is inlined as `[Pet]`.
+
+<br/>
+
+## acronyms
+
+**Type:** [String]<br />
+**Default:** `["url", "id", "html", "ssl", "tls", "https", "http", "dns", "ftp", "api", "uuid", "json"]`
+
+A list of acronyms that should be uppercased when present in property names.
+
+To disable uppercasing of acronyms, set this property to an empty array.
+
+<details>
+<summary>Examples</summary>
+
+With the given schema:
+
+```yaml
+type: object
+properties:
+  user_id:
+    type: integer
+  image_url:
+    type: string
+    format: uri
+  acme_corporation:
+    type: boolean
+```
+
+**No Acronyms**
+```yaml
+acronyms: []
+```
+
+```swift
+var userId: Int
+var imageUrl: URL
+var isAcmeCorporation: Bool
+```
+
+**Custom Acronyms**
+```yaml
+acronyms:
+- id
+- url
+- acme
+```
+
+```swift
+var userID: Int
+var imageURL: URL
+var isACMECorporation: Bool
+```
+
+</details>
 
 <br/>
 
