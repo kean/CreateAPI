@@ -90,6 +90,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(tag: String, message: String, object: String, type: `Type`, tagger: Tagger? = nil) {
@@ -98,6 +105,15 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.object = object
                 self.type = type
                 self.tagger = tagger
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tag, forKey: "tag")
+                try values.encode(message, forKey: "message")
+                try values.encode(object, forKey: "object")
+                try values.encode(type, forKey: "type")
+                try values.encodeIfPresent(tagger, forKey: "tagger")
             }
         }
     }

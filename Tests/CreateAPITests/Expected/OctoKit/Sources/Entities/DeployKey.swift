@@ -24,13 +24,25 @@ public struct DeployKey: Codable {
         self.isReadOnly = isReadOnly
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case key
-        case url
-        case title
-        case isVerified = "verified"
-        case createdAt = "created_at"
-        case isReadOnly = "read_only"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.key = try values.decode(String.self, forKey: "key")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.isVerified = try values.decode(Bool.self, forKey: "verified")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.isReadOnly = try values.decode(Bool.self, forKey: "read_only")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(key, forKey: "key")
+        try values.encode(url, forKey: "url")
+        try values.encode(title, forKey: "title")
+        try values.encode(isVerified, forKey: "verified")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(isReadOnly, forKey: "read_only")
     }
 }

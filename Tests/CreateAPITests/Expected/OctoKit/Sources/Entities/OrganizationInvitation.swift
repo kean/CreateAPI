@@ -34,17 +34,33 @@ public struct OrganizationInvitation: Codable {
         self.invitationTeamsURL = invitationTeamsURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case login
-        case email
-        case role
-        case createdAt = "created_at"
-        case failedAt = "failed_at"
-        case failedReason = "failed_reason"
-        case inviter
-        case teamCount = "team_count"
-        case nodeID = "node_id"
-        case invitationTeamsURL = "invitation_teams_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.login = try values.decodeIfPresent(String.self, forKey: "login")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.role = try values.decode(String.self, forKey: "role")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.failedAt = try values.decodeIfPresent(String.self, forKey: "failed_at")
+        self.failedReason = try values.decodeIfPresent(String.self, forKey: "failed_reason")
+        self.inviter = try values.decode(SimpleUser.self, forKey: "inviter")
+        self.teamCount = try values.decode(Int.self, forKey: "team_count")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.invitationTeamsURL = try values.decode(String.self, forKey: "invitation_teams_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(login, forKey: "login")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encode(role, forKey: "role")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(failedAt, forKey: "failed_at")
+        try values.encodeIfPresent(failedReason, forKey: "failed_reason")
+        try values.encode(inviter, forKey: "inviter")
+        try values.encode(teamCount, forKey: "team_count")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(invitationTeamsURL, forKey: "invitation_teams_url")
     }
 }

@@ -73,19 +73,37 @@ public struct License: Codable {
         self.isFeatured = isFeatured
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case key
-        case name
-        case spdxID = "spdx_id"
-        case url
-        case nodeID = "node_id"
-        case htmlURL = "html_url"
-        case description
-        case implementation
-        case permissions
-        case conditions
-        case limitations
-        case body
-        case isFeatured = "featured"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.key = try values.decode(String.self, forKey: "key")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
+        self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.implementation = try values.decode(String.self, forKey: "implementation")
+        self.permissions = try values.decode([String].self, forKey: "permissions")
+        self.conditions = try values.decode([String].self, forKey: "conditions")
+        self.limitations = try values.decode([String].self, forKey: "limitations")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.isFeatured = try values.decode(Bool.self, forKey: "featured")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(key, forKey: "key")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(description, forKey: "description")
+        try values.encode(implementation, forKey: "implementation")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(conditions, forKey: "conditions")
+        try values.encode(limitations, forKey: "limitations")
+        try values.encode(body, forKey: "body")
+        try values.encode(isFeatured, forKey: "featured")
     }
 }

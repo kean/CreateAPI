@@ -27,10 +27,18 @@ public struct ActionsBillingUsage: Codable {
             self.windows = windows
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case ubuntu = "UBUNTU"
-            case macos = "MACOS"
-            case windows = "WINDOWS"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.ubuntu = try values.decodeIfPresent(Int.self, forKey: "UBUNTU")
+            self.macos = try values.decodeIfPresent(Int.self, forKey: "MACOS")
+            self.windows = try values.decodeIfPresent(Int.self, forKey: "WINDOWS")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
     }
 
@@ -41,10 +49,19 @@ public struct ActionsBillingUsage: Codable {
         self.minutesUsedBreakdown = minutesUsedBreakdown
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case totalMinutesUsed = "total_minutes_used"
-        case totalPaidMinutesUsed = "total_paid_minutes_used"
-        case includedMinutes = "included_minutes"
-        case minutesUsedBreakdown = "minutes_used_breakdown"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.totalMinutesUsed = try values.decode(Int.self, forKey: "total_minutes_used")
+        self.totalPaidMinutesUsed = try values.decode(Int.self, forKey: "total_paid_minutes_used")
+        self.includedMinutes = try values.decode(Int.self, forKey: "included_minutes")
+        self.minutesUsedBreakdown = try values.decode(MinutesUsedBreakdown.self, forKey: "minutes_used_breakdown")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(totalMinutesUsed, forKey: "total_minutes_used")
+        try values.encode(totalPaidMinutesUsed, forKey: "total_paid_minutes_used")
+        try values.encode(includedMinutes, forKey: "included_minutes")
+        try values.encode(minutesUsedBreakdown, forKey: "minutes_used_breakdown")
     }
 }

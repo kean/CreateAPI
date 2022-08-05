@@ -63,6 +63,12 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                     self.type = type
                     self.id = id
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encodeIfPresent(id, forKey: "id")
+                }
             }
 
             public init(waitTimer: Int? = nil, reviewers: [Reviewer]? = nil, deploymentBranchPolicy: OctoKit.DeploymentBranchPolicy? = nil) {
@@ -71,10 +77,11 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
                 self.deploymentBranchPolicy = deploymentBranchPolicy
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case waitTimer = "wait_timer"
-                case reviewers
-                case deploymentBranchPolicy = "deployment_branch_policy"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(waitTimer, forKey: "wait_timer")
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(deploymentBranchPolicy, forKey: "deployment_branch_policy")
             }
         }
 

@@ -52,13 +52,25 @@ public struct CodespaceMachine: Codable {
         self.prebuildAvailability = prebuildAvailability
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case displayName = "display_name"
-        case operatingSystem = "operating_system"
-        case storageInBytes = "storage_in_bytes"
-        case memoryInBytes = "memory_in_bytes"
-        case cpus
-        case prebuildAvailability = "prebuild_availability"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.displayName = try values.decode(String.self, forKey: "display_name")
+        self.operatingSystem = try values.decode(String.self, forKey: "operating_system")
+        self.storageInBytes = try values.decode(Int.self, forKey: "storage_in_bytes")
+        self.memoryInBytes = try values.decode(Int.self, forKey: "memory_in_bytes")
+        self.cpus = try values.decode(Int.self, forKey: "cpus")
+        self.prebuildAvailability = try values.decodeIfPresent(PrebuildAvailability.self, forKey: "prebuild_availability")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(displayName, forKey: "display_name")
+        try values.encode(operatingSystem, forKey: "operating_system")
+        try values.encode(storageInBytes, forKey: "storage_in_bytes")
+        try values.encode(memoryInBytes, forKey: "memory_in_bytes")
+        try values.encode(cpus, forKey: "cpus")
+        try values.encodeIfPresent(prebuildAvailability, forKey: "prebuild_availability")
     }
 }

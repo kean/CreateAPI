@@ -95,40 +95,41 @@ extension Paths {
                 self.userSearchURL = userSearchURL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case currentUserURL = "current_user_url"
-                case currentUserAuthorizationsHTMLURL = "current_user_authorizations_html_url"
-                case authorizationsURL = "authorizations_url"
-                case codeSearchURL = "code_search_url"
-                case commitSearchURL = "commit_search_url"
-                case emailsURL = "emails_url"
-                case emojisURL = "emojis_url"
-                case eventsURL = "events_url"
-                case feedsURL = "feeds_url"
-                case followersURL = "followers_url"
-                case followingURL = "following_url"
-                case gistsURL = "gists_url"
-                case hubURL = "hub_url"
-                case issueSearchURL = "issue_search_url"
-                case issuesURL = "issues_url"
-                case keysURL = "keys_url"
-                case labelSearchURL = "label_search_url"
-                case notificationsURL = "notifications_url"
-                case organizationURL = "organization_url"
-                case organizationRepositoriesURL = "organization_repositories_url"
-                case organizationTeamsURL = "organization_teams_url"
-                case publicGistsURL = "public_gists_url"
-                case rateLimitURL = "rate_limit_url"
-                case repositoryURL = "repository_url"
-                case repositorySearchURL = "repository_search_url"
-                case currentUserRepositoriesURL = "current_user_repositories_url"
-                case starredURL = "starred_url"
-                case starredGistsURL = "starred_gists_url"
-                case topicSearchURL = "topic_search_url"
-                case userURL = "user_url"
-                case userOrganizationsURL = "user_organizations_url"
-                case userRepositoriesURL = "user_repositories_url"
-                case userSearchURL = "user_search_url"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.currentUserURL = try values.decode(String.self, forKey: "current_user_url")
+                self.currentUserAuthorizationsHTMLURL = try values.decode(String.self, forKey: "current_user_authorizations_html_url")
+                self.authorizationsURL = try values.decode(String.self, forKey: "authorizations_url")
+                self.codeSearchURL = try values.decode(String.self, forKey: "code_search_url")
+                self.commitSearchURL = try values.decode(String.self, forKey: "commit_search_url")
+                self.emailsURL = try values.decode(String.self, forKey: "emails_url")
+                self.emojisURL = try values.decode(String.self, forKey: "emojis_url")
+                self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                self.feedsURL = try values.decode(String.self, forKey: "feeds_url")
+                self.followersURL = try values.decode(String.self, forKey: "followers_url")
+                self.followingURL = try values.decode(String.self, forKey: "following_url")
+                self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                self.hubURL = try values.decode(String.self, forKey: "hub_url")
+                self.issueSearchURL = try values.decode(String.self, forKey: "issue_search_url")
+                self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+                self.keysURL = try values.decode(String.self, forKey: "keys_url")
+                self.labelSearchURL = try values.decode(String.self, forKey: "label_search_url")
+                self.notificationsURL = try values.decode(String.self, forKey: "notifications_url")
+                self.organizationURL = try values.decode(String.self, forKey: "organization_url")
+                self.organizationRepositoriesURL = try values.decode(String.self, forKey: "organization_repositories_url")
+                self.organizationTeamsURL = try values.decode(String.self, forKey: "organization_teams_url")
+                self.publicGistsURL = try values.decode(String.self, forKey: "public_gists_url")
+                self.rateLimitURL = try values.decode(String.self, forKey: "rate_limit_url")
+                self.repositoryURL = try values.decode(String.self, forKey: "repository_url")
+                self.repositorySearchURL = try values.decode(String.self, forKey: "repository_search_url")
+                self.currentUserRepositoriesURL = try values.decode(String.self, forKey: "current_user_repositories_url")
+                self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                self.starredGistsURL = try values.decode(String.self, forKey: "starred_gists_url")
+                self.topicSearchURL = try values.decodeIfPresent(String.self, forKey: "topic_search_url")
+                self.userURL = try values.decode(String.self, forKey: "user_url")
+                self.userOrganizationsURL = try values.decode(String.self, forKey: "user_organizations_url")
+                self.userRepositoriesURL = try values.decode(String.self, forKey: "user_repositories_url")
+                self.userSearchURL = try values.decode(String.self, forKey: "user_search_url")
             }
         }
     }

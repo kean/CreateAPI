@@ -59,20 +59,39 @@ public struct IssueComment: Codable {
         self.reactions = reactions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case body
-        case bodyText = "body_text"
-        case bodyHTML = "body_html"
-        case htmlURL = "html_url"
-        case user
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case issueURL = "issue_url"
-        case authorAssociation = "author_association"
-        case performedViaGithubApp = "performed_via_github_app"
-        case reactions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.body = try values.decodeIfPresent(String.self, forKey: "body")
+        self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
+        self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.issueURL = try values.decode(URL.self, forKey: "issue_url")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
     }
 }

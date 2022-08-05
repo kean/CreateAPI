@@ -53,10 +53,21 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.branch = branch
                     self.path = path
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(branch, forKey: "branch")
+                    try values.encodeIfPresent(path, forKey: "path")
+                }
             }
 
             public init(source: Source) {
                 self.source = source
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(source, forKey: "source")
             }
         }
 
@@ -108,6 +119,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.branch = branch
                         self.path = path
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(branch, forKey: "branch")
+                        try values.encode(path, forKey: "path")
+                    }
                 }
 
                 public init(a: A? = nil, b: B? = nil) {
@@ -129,11 +146,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.source = source
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case cname
-                case isHTTPSEnforced = "https_enforced"
-                case isPublic = "public"
-                case source
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(cname, forKey: "cname")
+                try values.encodeIfPresent(isHTTPSEnforced, forKey: "https_enforced")
+                try values.encodeIfPresent(isPublic, forKey: "public")
+                try values.encodeIfPresent(source, forKey: "source")
             }
         }
 

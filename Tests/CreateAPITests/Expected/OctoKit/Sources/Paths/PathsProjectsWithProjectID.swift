@@ -67,12 +67,13 @@ extension Paths.Projects {
                 self.isPrivate = isPrivate
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case body
-                case state
-                case organizationPermission = "organization_permission"
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
 

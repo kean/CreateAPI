@@ -49,6 +49,12 @@ extension Paths.Teams.WithTeamID.Discussions {
                 self.title = title
                 self.body = body
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+            }
         }
 
         /// Delete a discussion (Legacy)

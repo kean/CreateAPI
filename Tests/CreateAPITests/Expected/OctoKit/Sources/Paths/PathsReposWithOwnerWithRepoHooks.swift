@@ -86,13 +86,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                     self.digest = digest
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
-                    case token
-                    case digest
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+                    try values.encodeIfPresent(token, forKey: "token")
+                    try values.encodeIfPresent(digest, forKey: "digest")
                 }
             }
 
@@ -103,11 +104,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isActive = isActive ?? true
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case config
-                case events
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
     }

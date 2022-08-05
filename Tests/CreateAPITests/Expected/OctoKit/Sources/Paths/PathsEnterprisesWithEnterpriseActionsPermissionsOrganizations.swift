@@ -35,9 +35,10 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
                 self.organizations = organizations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case organizations
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.organizations = try values.decode([OctoKit.OrganizationSimple].self, forKey: "organizations")
             }
         }
 

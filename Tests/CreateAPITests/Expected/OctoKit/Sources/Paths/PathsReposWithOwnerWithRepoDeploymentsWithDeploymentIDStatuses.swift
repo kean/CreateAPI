@@ -94,14 +94,15 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
                 self.isAutoInactive = isAutoInactive
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case targetURL = "target_url"
-                case logURL = "log_url"
-                case description
-                case environment
-                case environmentURL = "environment_url"
-                case isAutoInactive = "auto_inactive"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+                try values.encodeIfPresent(logURL, forKey: "log_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(environmentURL, forKey: "environment_url")
+                try values.encodeIfPresent(isAutoInactive, forKey: "auto_inactive")
             }
         }
     }

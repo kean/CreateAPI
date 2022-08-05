@@ -56,11 +56,12 @@ extension Paths.Authorizations.Clients.WithClientID {
                 self.noteURL = noteURL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case clientSecret = "client_secret"
-                case scopes
-                case note
-                case noteURL = "note_url"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(clientSecret, forKey: "client_secret")
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
             }
         }
     }

@@ -58,6 +58,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                     self.users = users
                     self.teams = teams
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(users, forKey: "users")
+                    try values.encodeIfPresent(teams, forKey: "teams")
+                }
             }
 
             public init(dismissalRestrictions: DismissalRestrictions? = nil, dismissStaleReviews: Bool? = nil, requireCodeOwnerReviews: Bool? = nil, requiredApprovingReviewCount: Int? = nil) {
@@ -67,11 +73,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
                 self.requiredApprovingReviewCount = requiredApprovingReviewCount
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case dismissalRestrictions = "dismissal_restrictions"
-                case dismissStaleReviews = "dismiss_stale_reviews"
-                case requireCodeOwnerReviews = "require_code_owner_reviews"
-                case requiredApprovingReviewCount = "required_approving_review_count"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
             }
         }
 

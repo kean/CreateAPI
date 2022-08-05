@@ -47,13 +47,25 @@ public struct ScopedInstallation: Codable {
         self.account = account
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case permissions
-        case repositorySelection = "repository_selection"
-        case singleFileName = "single_file_name"
-        case hasMultipleSingleFiles = "has_multiple_single_files"
-        case singleFilePaths = "single_file_paths"
-        case repositoriesURL = "repositories_url"
-        case account
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.permissions = try values.decode(AppPermissions.self, forKey: "permissions")
+        self.repositorySelection = try values.decode(RepositorySelection.self, forKey: "repository_selection")
+        self.singleFileName = try values.decodeIfPresent(String.self, forKey: "single_file_name")
+        self.hasMultipleSingleFiles = try values.decodeIfPresent(Bool.self, forKey: "has_multiple_single_files")
+        self.singleFilePaths = try values.decodeIfPresent([String].self, forKey: "single_file_paths")
+        self.repositoriesURL = try values.decode(URL.self, forKey: "repositories_url")
+        self.account = try values.decode(SimpleUser.self, forKey: "account")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(singleFileName, forKey: "single_file_name")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(account, forKey: "account")
     }
 }

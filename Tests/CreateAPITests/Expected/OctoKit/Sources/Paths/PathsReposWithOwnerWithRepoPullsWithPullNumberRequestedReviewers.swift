@@ -53,9 +53,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.teamReviewers = teamReviewers
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case reviewers
-                case teamReviewers = "team_reviewers"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(teamReviewers, forKey: "team_reviewers")
             }
         }
 
@@ -77,9 +78,10 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.teamReviewers = teamReviewers
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case reviewers
-                case teamReviewers = "team_reviewers"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(reviewers, forKey: "reviewers")
+                try values.encodeIfPresent(teamReviewers, forKey: "team_reviewers")
             }
         }
     }

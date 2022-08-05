@@ -45,14 +45,26 @@ public struct CommunityProfile: Codable {
             self.pullRequestTemplate = pullRequestTemplate
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case codeOfConduct = "code_of_conduct"
-            case codeOfConductFile = "code_of_conduct_file"
-            case license
-            case contributing
-            case readme
-            case issueTemplate = "issue_template"
-            case pullRequestTemplate = "pull_request_template"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.codeOfConduct = try values.decodeIfPresent(CodeOfConductSimple.self, forKey: "code_of_conduct")
+            self.codeOfConductFile = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "code_of_conduct_file")
+            self.license = try values.decodeIfPresent(LicenseSimple.self, forKey: "license")
+            self.contributing = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "contributing")
+            self.readme = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "readme")
+            self.issueTemplate = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "issue_template")
+            self.pullRequestTemplate = try values.decodeIfPresent(CommunityHealthFile.self, forKey: "pull_request_template")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(codeOfConduct, forKey: "code_of_conduct")
+            try values.encodeIfPresent(codeOfConductFile, forKey: "code_of_conduct_file")
+            try values.encodeIfPresent(license, forKey: "license")
+            try values.encodeIfPresent(contributing, forKey: "contributing")
+            try values.encodeIfPresent(readme, forKey: "readme")
+            try values.encodeIfPresent(issueTemplate, forKey: "issue_template")
+            try values.encodeIfPresent(pullRequestTemplate, forKey: "pull_request_template")
         }
     }
 
@@ -65,12 +77,23 @@ public struct CommunityProfile: Codable {
         self.isContentReportsEnabled = isContentReportsEnabled
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case healthPercentage = "health_percentage"
-        case description
-        case documentation
-        case files
-        case updatedAt = "updated_at"
-        case isContentReportsEnabled = "content_reports_enabled"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.healthPercentage = try values.decode(Int.self, forKey: "health_percentage")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.documentation = try values.decodeIfPresent(String.self, forKey: "documentation")
+        self.files = try values.decode(Files.self, forKey: "files")
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
+        self.isContentReportsEnabled = try values.decodeIfPresent(Bool.self, forKey: "content_reports_enabled")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(healthPercentage, forKey: "health_percentage")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(documentation, forKey: "documentation")
+        try values.encode(files, forKey: "files")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(isContentReportsEnabled, forKey: "content_reports_enabled")
     }
 }

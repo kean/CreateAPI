@@ -51,19 +51,37 @@ public struct CommitComparison: Codable {
         self.files = files
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case htmlURL = "html_url"
-        case permalinkURL = "permalink_url"
-        case diffURL = "diff_url"
-        case patchURL = "patch_url"
-        case baseCommit = "base_commit"
-        case mergeBaseCommit = "merge_base_commit"
-        case status
-        case aheadBy = "ahead_by"
-        case behindBy = "behind_by"
-        case totalCommits = "total_commits"
-        case commits
-        case files
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.permalinkURL = try values.decode(URL.self, forKey: "permalink_url")
+        self.diffURL = try values.decode(URL.self, forKey: "diff_url")
+        self.patchURL = try values.decode(URL.self, forKey: "patch_url")
+        self.baseCommit = try values.decode(Commit.self, forKey: "base_commit")
+        self.mergeBaseCommit = try values.decode(Commit.self, forKey: "merge_base_commit")
+        self.status = try values.decode(Status.self, forKey: "status")
+        self.aheadBy = try values.decode(Int.self, forKey: "ahead_by")
+        self.behindBy = try values.decode(Int.self, forKey: "behind_by")
+        self.totalCommits = try values.decode(Int.self, forKey: "total_commits")
+        self.commits = try values.decode([Commit].self, forKey: "commits")
+        self.files = try values.decodeIfPresent([DiffEntry].self, forKey: "files")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(permalinkURL, forKey: "permalink_url")
+        try values.encode(diffURL, forKey: "diff_url")
+        try values.encode(patchURL, forKey: "patch_url")
+        try values.encode(baseCommit, forKey: "base_commit")
+        try values.encode(mergeBaseCommit, forKey: "merge_base_commit")
+        try values.encode(status, forKey: "status")
+        try values.encode(aheadBy, forKey: "ahead_by")
+        try values.encode(behindBy, forKey: "behind_by")
+        try values.encode(totalCommits, forKey: "total_commits")
+        try values.encode(commits, forKey: "commits")
+        try values.encodeIfPresent(files, forKey: "files")
     }
 }

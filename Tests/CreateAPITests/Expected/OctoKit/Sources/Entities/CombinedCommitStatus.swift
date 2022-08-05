@@ -24,13 +24,25 @@ public struct CombinedCommitStatus: Codable {
         self.url = url
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case state
-        case statuses
-        case sha
-        case totalCount = "total_count"
-        case repository
-        case commitURL = "commit_url"
-        case url
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.state = try values.decode(String.self, forKey: "state")
+        self.statuses = try values.decode([SimpleCommitStatus].self, forKey: "statuses")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.totalCount = try values.decode(Int.self, forKey: "total_count")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.commitURL = try values.decode(URL.self, forKey: "commit_url")
+        self.url = try values.decode(URL.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(state, forKey: "state")
+        try values.encode(statuses, forKey: "statuses")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(totalCount, forKey: "total_count")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(commitURL, forKey: "commit_url")
+        try values.encode(url, forKey: "url")
     }
 }

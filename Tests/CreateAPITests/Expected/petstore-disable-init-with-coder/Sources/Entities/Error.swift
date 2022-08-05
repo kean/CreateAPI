@@ -11,4 +11,10 @@ public struct Error: Codable {
         self.code = code
         self.message = message
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(code, forKey: "code")
+        try values.encode(message, forKey: "message")
+    }
 }

@@ -57,6 +57,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.color = color
                 self.description = description
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
+            }
         }
     }
 }

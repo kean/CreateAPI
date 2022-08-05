@@ -41,12 +41,22 @@ public struct ProtectedBranch: Codable {
                 self.teams = teams
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case usersURL = "users_url"
-                case teamsURL = "teams_url"
-                case users
-                case teams
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.url = try values.decode(URL.self, forKey: "url")
+                self.usersURL = try values.decode(URL.self, forKey: "users_url")
+                self.teamsURL = try values.decode(URL.self, forKey: "teams_url")
+                self.users = try values.decode([SimpleUser].self, forKey: "users")
+                self.teams = try values.decode([Team].self, forKey: "teams")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(url, forKey: "url")
+                try values.encode(usersURL, forKey: "users_url")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encode(users, forKey: "users")
+                try values.encode(teams, forKey: "teams")
             }
         }
 
@@ -58,12 +68,22 @@ public struct ProtectedBranch: Codable {
             self.dismissalRestrictions = dismissalRestrictions
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case dismissStaleReviews = "dismiss_stale_reviews"
-            case requireCodeOwnerReviews = "require_code_owner_reviews"
-            case requiredApprovingReviewCount = "required_approving_review_count"
-            case dismissalRestrictions = "dismissal_restrictions"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.dismissStaleReviews = try values.decodeIfPresent(Bool.self, forKey: "dismiss_stale_reviews")
+            self.requireCodeOwnerReviews = try values.decodeIfPresent(Bool.self, forKey: "require_code_owner_reviews")
+            self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
+            self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+            try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+            try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
+            try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
         }
     }
 
@@ -78,9 +98,16 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(url, forKey: "url")
+            try values.encode(isEnabled, forKey: "enabled")
         }
     }
 
@@ -93,9 +120,16 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(url, forKey: "url")
+            try values.encode(isEnabled, forKey: "enabled")
         }
     }
 
@@ -106,8 +140,14 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
         }
     }
 
@@ -118,8 +158,14 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
         }
     }
 
@@ -130,8 +176,14 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isEnabled, forKey: "enabled")
         }
     }
 
@@ -142,8 +194,14 @@ public struct ProtectedBranch: Codable {
             self.isEnabled = isEnabled
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isEnabled = "enabled"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isEnabled = try values.decodeIfPresent(Bool.self, forKey: "enabled")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isEnabled, forKey: "enabled")
         }
     }
 
@@ -160,16 +218,31 @@ public struct ProtectedBranch: Codable {
         self.requiredConversationResolution = requiredConversationResolution
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case requiredStatusChecks = "required_status_checks"
-        case requiredPullRequestReviews = "required_pull_request_reviews"
-        case requiredSignatures = "required_signatures"
-        case enforceAdmins = "enforce_admins"
-        case requiredLinearHistory = "required_linear_history"
-        case allowForcePushes = "allow_force_pushes"
-        case allowDeletions = "allow_deletions"
-        case restrictions
-        case requiredConversationResolution = "required_conversation_resolution"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.requiredStatusChecks = try values.decodeIfPresent(StatusCheckPolicy.self, forKey: "required_status_checks")
+        self.requiredPullRequestReviews = try values.decodeIfPresent(RequiredPullRequestReviews.self, forKey: "required_pull_request_reviews")
+        self.requiredSignatures = try values.decodeIfPresent(RequiredSignatures.self, forKey: "required_signatures")
+        self.enforceAdmins = try values.decodeIfPresent(EnforceAdmins.self, forKey: "enforce_admins")
+        self.requiredLinearHistory = try values.decodeIfPresent(RequiredLinearHistory.self, forKey: "required_linear_history")
+        self.allowForcePushes = try values.decodeIfPresent(AllowForcePushes.self, forKey: "allow_force_pushes")
+        self.allowDeletions = try values.decodeIfPresent(AllowDeletions.self, forKey: "allow_deletions")
+        self.restrictions = try values.decodeIfPresent(BranchRestrictionPolicy.self, forKey: "restrictions")
+        self.requiredConversationResolution = try values.decodeIfPresent(RequiredConversationResolution.self, forKey: "required_conversation_resolution")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+        try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+        try values.encodeIfPresent(requiredSignatures, forKey: "required_signatures")
+        try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+        try values.encodeIfPresent(requiredLinearHistory, forKey: "required_linear_history")
+        try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+        try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+        try values.encodeIfPresent(restrictions, forKey: "restrictions")
+        try values.encodeIfPresent(requiredConversationResolution, forKey: "required_conversation_resolution")
     }
 }

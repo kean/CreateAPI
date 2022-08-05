@@ -72,6 +72,11 @@ extension Paths.Projects.Columns.WithColumnID {
                 public init(note: String? = nil) {
                     self.note = note
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(note, forKey: "note")
+                }
             }
 
             public struct B: Encodable {
@@ -89,9 +94,10 @@ extension Paths.Projects.Columns.WithColumnID {
                     self.contentType = contentType
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case contentID = "content_id"
-                    case contentType = "content_type"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contentID, forKey: "content_id")
+                    try values.encode(contentType, forKey: "content_type")
                 }
             }
 

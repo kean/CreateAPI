@@ -101,24 +101,47 @@ public struct Deployment: Codable {
         self.performedViaGithubApp = performedViaGithubApp
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case nodeID = "node_id"
-        case sha
-        case ref
-        case task
-        case payload
-        case originalEnvironment = "original_environment"
-        case environment
-        case description
-        case creator
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case statusesURL = "statuses_url"
-        case repositoryURL = "repository_url"
-        case isTransientEnvironment = "transient_environment"
-        case isProductionEnvironment = "production_environment"
-        case performedViaGithubApp = "performed_via_github_app"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.ref = try values.decode(String.self, forKey: "ref")
+        self.task = try values.decode(String.self, forKey: "task")
+        self.payload = try values.decode(Payload.self, forKey: "payload")
+        self.originalEnvironment = try values.decodeIfPresent(String.self, forKey: "original_environment")
+        self.environment = try values.decode(String.self, forKey: "environment")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.statusesURL = try values.decode(URL.self, forKey: "statuses_url")
+        self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
+        self.isTransientEnvironment = try values.decodeIfPresent(Bool.self, forKey: "transient_environment")
+        self.isProductionEnvironment = try values.decodeIfPresent(Bool.self, forKey: "production_environment")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(ref, forKey: "ref")
+        try values.encode(task, forKey: "task")
+        try values.encode(payload, forKey: "payload")
+        try values.encodeIfPresent(originalEnvironment, forKey: "original_environment")
+        try values.encode(environment, forKey: "environment")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+        try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
     }
 }

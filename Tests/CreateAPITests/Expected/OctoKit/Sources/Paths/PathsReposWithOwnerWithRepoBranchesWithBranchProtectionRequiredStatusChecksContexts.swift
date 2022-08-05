@@ -51,6 +51,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                 public init(contexts: [String]) {
                     self.contexts = contexts
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -89,6 +94,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
                 public init(contexts: [String]) {
                     self.contexts = contexts
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -126,6 +136,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
 
                 public init(contexts: [String]) {
                     self.contexts = contexts
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(contexts, forKey: "contexts")
                 }
             }
 

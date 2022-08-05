@@ -105,14 +105,15 @@ extension Paths.Orgs.WithOrg {
                 self.parentTeamID = parentTeamID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case maintainers
-                case repoNames = "repo_names"
-                case privacy
-                case permission
-                case parentTeamID = "parent_team_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(maintainers, forKey: "maintainers")
+                try values.encodeIfPresent(repoNames, forKey: "repo_names")
+                try values.encodeIfPresent(privacy, forKey: "privacy")
+                try values.encodeIfPresent(permission, forKey: "permission")
+                try values.encodeIfPresent(parentTeamID, forKey: "parent_team_id")
             }
         }
     }

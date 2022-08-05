@@ -37,9 +37,10 @@ extension Paths.Organizations.WithOrganizationID {
                 self.customRoles = customRoles
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case customRoles = "custom_roles"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+                self.customRoles = try values.decodeIfPresent([OctoKit.OrganizationCustomRepositoryRole].self, forKey: "custom_roles")
             }
         }
     }

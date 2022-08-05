@@ -94,6 +94,11 @@ extension Paths.Repos.WithOwner {
                     public init(status: String? = nil) {
                         self.status = status
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
                 }
 
                 /// Use the `status` property to enable or disable secret scanning for this repository. For more information, see "[About secret scanning](/code-security/secret-security/about-secret-scanning)."
@@ -104,6 +109,11 @@ extension Paths.Repos.WithOwner {
                     public init(status: String? = nil) {
                         self.status = status
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(status, forKey: "status")
+                    }
                 }
 
                 public init(advancedSecurity: AdvancedSecurity? = nil, secretScanning: SecretScanning? = nil) {
@@ -111,9 +121,10 @@ extension Paths.Repos.WithOwner {
                     self.secretScanning = secretScanning
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case advancedSecurity = "advanced_security"
-                    case secretScanning = "secret_scanning"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(advancedSecurity, forKey: "advanced_security")
+                    try values.encodeIfPresent(secretScanning, forKey: "secret_scanning")
                 }
             }
 
@@ -138,25 +149,26 @@ extension Paths.Repos.WithOwner {
                 self.allowForking = allowForking ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case homepage
-                case isPrivate = "private"
-                case visibility
-                case securityAndAnalysis = "security_and_analysis"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case isTemplate = "is_template"
-                case defaultBranch = "default_branch"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case allowAutoMerge = "allow_auto_merge"
-                case deleteBranchOnMerge = "delete_branch_on_merge"
-                case isArchived = "archived"
-                case allowForking = "allow_forking"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(securityAndAnalysis, forKey: "security_and_analysis")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encodeIfPresent(defaultBranch, forKey: "default_branch")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(isArchived, forKey: "archived")
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
             }
         }
 

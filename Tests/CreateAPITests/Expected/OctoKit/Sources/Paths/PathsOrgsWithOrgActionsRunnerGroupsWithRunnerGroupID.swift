@@ -62,10 +62,11 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
 

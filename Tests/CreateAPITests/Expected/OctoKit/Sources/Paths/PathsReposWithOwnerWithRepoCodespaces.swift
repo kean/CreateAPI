@@ -35,9 +35,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.codespaces = codespaces
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case codespaces
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.codespaces = try values.decode([OctoKit.Codespace].self, forKey: "codespaces")
             }
         }
 
@@ -79,12 +80,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case ref
-                case location
-                case machine
-                case workingDirectory = "working_directory"
-                case idleTimeoutMinutes = "idle_timeout_minutes"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(ref, forKey: "ref")
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
             }
         }
     }

@@ -79,32 +79,33 @@ public struct Page: Codable {
         self.isHTTPSEnforced = isHTTPSEnforced
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case status
-        case cname
-        case protectedDomainState = "protected_domain_state"
-        case pendingDomainUnverifiedAt = "pending_domain_unverified_at"
-        case isCustom404 = "custom_404"
-        case htmlURL = "html_url"
-        case source
-        case isPublic = "public"
-        case httpsCertificate = "https_certificate"
-        case isHTTPSEnforced = "https_enforced"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+        self.cname = try values.decodeIfPresent(String.self, forKey: "cname")
+        self.protectedDomainState = try values.decodeIfPresent(ProtectedDomainState.self, forKey: "protected_domain_state")
+        self.pendingDomainUnverifiedAt = try values.decodeIfPresent(Date.self, forKey: "pending_domain_unverified_at")
+        self.isCustom404 = try values.decode(Bool.self, forKey: "custom_404")
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+        self.source = try values.decodeIfPresent(PagesSourceHash.self, forKey: "source")
+        self.isPublic = try values.decode(Bool.self, forKey: "public")
+        self.httpsCertificate = try values.decodeIfPresent(PagesHTTPSCertificate.self, forKey: "https_certificate")
+        self.isHTTPSEnforced = try values.decodeIfPresent(Bool.self, forKey: "https_enforced")
     }
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try values.decode(URL.self, forKey: .url)
-        self.status = try values.decodeIfPresent(Status.self, forKey: .status)
-        self.cname = try values.decodeIfPresent(String.self, forKey: .cname)
-        self.protectedDomainState = try values.decodeIfPresent(ProtectedDomainState.self, forKey: .protectedDomainState)
-        self.pendingDomainUnverifiedAt = try values.decodeIfPresent(Date.self, forKey: .pendingDomainUnverifiedAt)
-        self.isCustom404 = try values.decode(Bool.self, forKey: .isCustom404)
-        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: .htmlURL)
-        self.source = try values.decodeIfPresent(PagesSourceHash.self, forKey: .source)
-        self.isPublic = try values.decode(Bool.self, forKey: .isPublic)
-        self.httpsCertificate = try values.decodeIfPresent(PagesHTTPSCertificate.self, forKey: .httpsCertificate)
-        self.isHTTPSEnforced = try values.decodeIfPresent(Bool.self, forKey: .isHTTPSEnforced)
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(cname, forKey: "cname")
+        try values.encodeIfPresent(protectedDomainState, forKey: "protected_domain_state")
+        try values.encodeIfPresent(pendingDomainUnverifiedAt, forKey: "pending_domain_unverified_at")
+        try values.encode(isCustom404, forKey: "custom_404")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(source, forKey: "source")
+        try values.encode(isPublic, forKey: "public")
+        try values.encodeIfPresent(httpsCertificate, forKey: "https_certificate")
+        try values.encodeIfPresent(isHTTPSEnforced, forKey: "https_enforced")
     }
 }

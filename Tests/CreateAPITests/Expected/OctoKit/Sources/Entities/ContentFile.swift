@@ -33,10 +33,18 @@ public struct ContentFile: Codable {
             self.this = this
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case git
-            case html
-            case this = "self"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.git = try values.decodeIfPresent(URL.self, forKey: "git")
+            self.html = try values.decodeIfPresent(URL.self, forKey: "html")
+            self.this = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -57,20 +65,39 @@ public struct ContentFile: Codable {
         self.submoduleGitURL = submoduleGitURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case type
-        case encoding
-        case size
-        case name
-        case path
-        case content
-        case sha
-        case url
-        case gitURL = "git_url"
-        case htmlURL = "html_url"
-        case downloadURL = "download_url"
-        case links = "_links"
-        case target
-        case submoduleGitURL = "submodule_git_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.type = try values.decode(String.self, forKey: "type")
+        self.encoding = try values.decode(String.self, forKey: "encoding")
+        self.size = try values.decode(Int.self, forKey: "size")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.content = try values.decode(String.self, forKey: "content")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.gitURL = try values.decodeIfPresent(URL.self, forKey: "git_url")
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+        self.downloadURL = try values.decodeIfPresent(URL.self, forKey: "download_url")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.target = try values.decodeIfPresent(String.self, forKey: "target")
+        self.submoduleGitURL = try values.decodeIfPresent(String.self, forKey: "submodule_git_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(type, forKey: "type")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encode(size, forKey: "size")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(content, forKey: "content")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(target, forKey: "target")
+        try values.encodeIfPresent(submoduleGitURL, forKey: "submodule_git_url")
     }
 }

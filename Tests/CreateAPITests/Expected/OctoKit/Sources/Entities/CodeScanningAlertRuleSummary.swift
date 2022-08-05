@@ -28,4 +28,20 @@ public struct CodeScanningAlertRuleSummary: Codable {
         self.severity = severity
         self.description = description
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(String.self, forKey: "id")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.severity = try values.decodeIfPresent(Severity.self, forKey: "severity")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(severity, forKey: "severity")
+        try values.encodeIfPresent(description, forKey: "description")
+    }
 }

@@ -53,17 +53,33 @@ public struct DiffEntry: Codable {
         self.previousFilename = previousFilename
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case sha
-        case filename
-        case status
-        case additions
-        case deletions
-        case changes
-        case blobURL = "blob_url"
-        case rawURL = "raw_url"
-        case contentsURL = "contents_url"
-        case patch
-        case previousFilename = "previous_filename"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.filename = try values.decode(String.self, forKey: "filename")
+        self.status = try values.decode(Status.self, forKey: "status")
+        self.additions = try values.decode(Int.self, forKey: "additions")
+        self.deletions = try values.decode(Int.self, forKey: "deletions")
+        self.changes = try values.decode(Int.self, forKey: "changes")
+        self.blobURL = try values.decode(URL.self, forKey: "blob_url")
+        self.rawURL = try values.decode(URL.self, forKey: "raw_url")
+        self.contentsURL = try values.decode(URL.self, forKey: "contents_url")
+        self.patch = try values.decodeIfPresent(String.self, forKey: "patch")
+        self.previousFilename = try values.decodeIfPresent(String.self, forKey: "previous_filename")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(sha, forKey: "sha")
+        try values.encode(filename, forKey: "filename")
+        try values.encode(status, forKey: "status")
+        try values.encode(additions, forKey: "additions")
+        try values.encode(deletions, forKey: "deletions")
+        try values.encode(changes, forKey: "changes")
+        try values.encode(blobURL, forKey: "blob_url")
+        try values.encode(rawURL, forKey: "raw_url")
+        try values.encode(contentsURL, forKey: "contents_url")
+        try values.encodeIfPresent(patch, forKey: "patch")
+        try values.encodeIfPresent(previousFilename, forKey: "previous_filename")
     }
 }

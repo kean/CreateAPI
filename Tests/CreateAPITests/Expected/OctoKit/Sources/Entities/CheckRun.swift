@@ -83,12 +83,22 @@ public struct CheckRun: Codable {
             self.annotationsURL = annotationsURL
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case title
-            case summary
-            case text
-            case annotationsCount = "annotations_count"
-            case annotationsURL = "annotations_url"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.title = try values.decodeIfPresent(String.self, forKey: "title")
+            self.summary = try values.decodeIfPresent(String.self, forKey: "summary")
+            self.text = try values.decodeIfPresent(String.self, forKey: "text")
+            self.annotationsCount = try values.decode(Int.self, forKey: "annotations_count")
+            self.annotationsURL = try values.decode(URL.self, forKey: "annotations_url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(title, forKey: "title")
+            try values.encodeIfPresent(summary, forKey: "summary")
+            try values.encodeIfPresent(text, forKey: "text")
+            try values.encode(annotationsCount, forKey: "annotations_count")
+            try values.encode(annotationsURL, forKey: "annotations_url")
         }
     }
 
@@ -97,6 +107,16 @@ public struct CheckRun: Codable {
 
         public init(id: Int) {
             self.id = id
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decode(Int.self, forKey: "id")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(id, forKey: "id")
         }
     }
 
@@ -120,23 +140,45 @@ public struct CheckRun: Codable {
         self.deployment = deployment
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case headSha = "head_sha"
-        case nodeID = "node_id"
-        case externalID = "external_id"
-        case url
-        case htmlURL = "html_url"
-        case detailsURL = "details_url"
-        case status
-        case conclusion
-        case startedAt = "started_at"
-        case completedAt = "completed_at"
-        case output
-        case name
-        case checkSuite = "check_suite"
-        case app
-        case pullRequests = "pull_requests"
-        case deployment
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.headSha = try values.decode(String.self, forKey: "head_sha")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.externalID = try values.decodeIfPresent(String.self, forKey: "external_id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+        self.detailsURL = try values.decodeIfPresent(String.self, forKey: "details_url")
+        self.status = try values.decode(Status.self, forKey: "status")
+        self.conclusion = try values.decodeIfPresent(Conclusion.self, forKey: "conclusion")
+        self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
+        self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
+        self.output = try values.decode(Output.self, forKey: "output")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.checkSuite = try values.decodeIfPresent(CheckSuite.self, forKey: "check_suite")
+        self.app = try values.decodeIfPresent(Integration.self, forKey: "app")
+        self.pullRequests = try values.decode([PullRequestMinimal].self, forKey: "pull_requests")
+        self.deployment = try values.decodeIfPresent(DeploymentSimple.self, forKey: "deployment")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(externalID, forKey: "external_id")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(detailsURL, forKey: "details_url")
+        try values.encode(status, forKey: "status")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encodeIfPresent(startedAt, forKey: "started_at")
+        try values.encodeIfPresent(completedAt, forKey: "completed_at")
+        try values.encode(output, forKey: "output")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(checkSuite, forKey: "check_suite")
+        try values.encodeIfPresent(app, forKey: "app")
+        try values.encode(pullRequests, forKey: "pull_requests")
+        try values.encodeIfPresent(deployment, forKey: "deployment")
     }
 }

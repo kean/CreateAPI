@@ -25,6 +25,20 @@ public struct GistCommit: Codable {
             self.additions = additions
             self.deletions = deletions
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.total = try values.decodeIfPresent(Int.self, forKey: "total")
+            self.additions = try values.decodeIfPresent(Int.self, forKey: "additions")
+            self.deletions = try values.decodeIfPresent(Int.self, forKey: "deletions")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(total, forKey: "total")
+            try values.encodeIfPresent(additions, forKey: "additions")
+            try values.encodeIfPresent(deletions, forKey: "deletions")
+        }
     }
 
     public init(url: URL, version: String, user: SimpleUser? = nil, changeStatus: ChangeStatus, committedAt: Date) {
@@ -35,11 +49,21 @@ public struct GistCommit: Codable {
         self.committedAt = committedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case version
-        case user
-        case changeStatus = "change_status"
-        case committedAt = "committed_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.version = try values.decode(String.self, forKey: "version")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.changeStatus = try values.decode(ChangeStatus.self, forKey: "change_status")
+        self.committedAt = try values.decode(Date.self, forKey: "committed_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(version, forKey: "version")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(changeStatus, forKey: "change_status")
+        try values.encode(committedAt, forKey: "committed_at")
     }
 }

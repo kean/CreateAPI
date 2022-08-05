@@ -45,6 +45,20 @@ public struct GitCommit: Codable {
             self.email = email
             self.name = name
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.date = try values.decode(Date.self, forKey: "date")
+            self.email = try values.decode(String.self, forKey: "email")
+            self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
     /// Identifying information for the git-user
@@ -67,6 +81,20 @@ public struct GitCommit: Codable {
             self.email = email
             self.name = name
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.date = try values.decode(Date.self, forKey: "date")
+            self.email = try values.decode(String.self, forKey: "email")
+            self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
     public struct Tree: Codable {
@@ -79,6 +107,18 @@ public struct GitCommit: Codable {
         public init(sha: String, url: URL) {
             self.sha = sha
             self.url = url
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -96,10 +136,18 @@ public struct GitCommit: Codable {
             self.htmlURL = htmlURL
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case sha
-            case url
-            case htmlURL = "html_url"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+            try values.encode(htmlURL, forKey: "html_url")
         }
     }
 
@@ -116,11 +164,20 @@ public struct GitCommit: Codable {
             self.payload = payload
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isVerified = "verified"
-            case reason
-            case signature
-            case payload
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isVerified = try values.decode(Bool.self, forKey: "verified")
+            self.reason = try values.decode(String.self, forKey: "reason")
+            self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
+            self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isVerified, forKey: "verified")
+            try values.encode(reason, forKey: "reason")
+            try values.encodeIfPresent(signature, forKey: "signature")
+            try values.encodeIfPresent(payload, forKey: "payload")
         }
     }
 
@@ -137,16 +194,31 @@ public struct GitCommit: Codable {
         self.htmlURL = htmlURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case sha
-        case nodeID = "node_id"
-        case url
-        case author
-        case committer
-        case message
-        case tree
-        case parents
-        case verification
-        case htmlURL = "html_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.author = try values.decode(Author.self, forKey: "author")
+        self.committer = try values.decode(Committer.self, forKey: "committer")
+        self.message = try values.decode(String.self, forKey: "message")
+        self.tree = try values.decode(Tree.self, forKey: "tree")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
+        self.verification = try values.decode(Verification.self, forKey: "verification")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(sha, forKey: "sha")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(author, forKey: "author")
+        try values.encode(committer, forKey: "committer")
+        try values.encode(message, forKey: "message")
+        try values.encode(tree, forKey: "tree")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(verification, forKey: "verification")
+        try values.encode(htmlURL, forKey: "html_url")
     }
 }

@@ -57,11 +57,12 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
                 self.context = context
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case targetURL = "target_url"
-                case description
-                case context
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(targetURL, forKey: "target_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(context, forKey: "context")
             }
         }
     }

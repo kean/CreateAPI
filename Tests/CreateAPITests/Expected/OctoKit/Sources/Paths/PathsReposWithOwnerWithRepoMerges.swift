@@ -36,10 +36,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.commitMessage = commitMessage
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case base
-                case head
-                case commitMessage = "commit_message"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(base, forKey: "base")
+                try values.encode(head, forKey: "head")
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
             }
         }
     }

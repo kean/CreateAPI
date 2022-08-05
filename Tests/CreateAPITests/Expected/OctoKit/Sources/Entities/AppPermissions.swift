@@ -289,36 +289,71 @@ public struct AppPermissions: Codable {
         self.teamDiscussions = teamDiscussions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case actions
-        case administration
-        case checks
-        case contents
-        case deployments
-        case environments
-        case issues
-        case metadata
-        case packages
-        case pages
-        case pullRequests = "pull_requests"
-        case repositoryHooks = "repository_hooks"
-        case repositoryProjects = "repository_projects"
-        case secretScanningAlerts = "secret_scanning_alerts"
-        case secrets
-        case securityEvents = "security_events"
-        case singleFile = "single_file"
-        case statuses
-        case vulnerabilityAlerts = "vulnerability_alerts"
-        case workflows
-        case members
-        case organizationAdministration = "organization_administration"
-        case organizationHooks = "organization_hooks"
-        case organizationPlan = "organization_plan"
-        case organizationProjects = "organization_projects"
-        case organizationPackages = "organization_packages"
-        case organizationSecrets = "organization_secrets"
-        case organizationSelfHostedRunners = "organization_self_hosted_runners"
-        case organizationUserBlocking = "organization_user_blocking"
-        case teamDiscussions = "team_discussions"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.actions = try values.decodeIfPresent(Actions.self, forKey: "actions")
+        self.administration = try values.decodeIfPresent(Administration.self, forKey: "administration")
+        self.checks = try values.decodeIfPresent(Checks.self, forKey: "checks")
+        self.contents = try values.decodeIfPresent(Contents.self, forKey: "contents")
+        self.deployments = try values.decodeIfPresent(Deployments.self, forKey: "deployments")
+        self.environments = try values.decodeIfPresent(Environments.self, forKey: "environments")
+        self.issues = try values.decodeIfPresent(Issues.self, forKey: "issues")
+        self.metadata = try values.decodeIfPresent(Metadata.self, forKey: "metadata")
+        self.packages = try values.decodeIfPresent(Packages.self, forKey: "packages")
+        self.pages = try values.decodeIfPresent(Pages.self, forKey: "pages")
+        self.pullRequests = try values.decodeIfPresent(PullRequests.self, forKey: "pull_requests")
+        self.repositoryHooks = try values.decodeIfPresent(RepositoryHooks.self, forKey: "repository_hooks")
+        self.repositoryProjects = try values.decodeIfPresent(RepositoryProjects.self, forKey: "repository_projects")
+        self.secretScanningAlerts = try values.decodeIfPresent(SecretScanningAlerts.self, forKey: "secret_scanning_alerts")
+        self.secrets = try values.decodeIfPresent(Secrets.self, forKey: "secrets")
+        self.securityEvents = try values.decodeIfPresent(SecurityEvents.self, forKey: "security_events")
+        self.singleFile = try values.decodeIfPresent(SingleFile.self, forKey: "single_file")
+        self.statuses = try values.decodeIfPresent(Statuses.self, forKey: "statuses")
+        self.vulnerabilityAlerts = try values.decodeIfPresent(VulnerabilityAlerts.self, forKey: "vulnerability_alerts")
+        self.workflows = try values.decodeIfPresent(Workflows.self, forKey: "workflows")
+        self.members = try values.decodeIfPresent(Members.self, forKey: "members")
+        self.organizationAdministration = try values.decodeIfPresent(OrganizationAdministration.self, forKey: "organization_administration")
+        self.organizationHooks = try values.decodeIfPresent(OrganizationHooks.self, forKey: "organization_hooks")
+        self.organizationPlan = try values.decodeIfPresent(OrganizationPlan.self, forKey: "organization_plan")
+        self.organizationProjects = try values.decodeIfPresent(OrganizationProjects.self, forKey: "organization_projects")
+        self.organizationPackages = try values.decodeIfPresent(OrganizationPackages.self, forKey: "organization_packages")
+        self.organizationSecrets = try values.decodeIfPresent(OrganizationSecrets.self, forKey: "organization_secrets")
+        self.organizationSelfHostedRunners = try values.decodeIfPresent(OrganizationSelfHostedRunners.self, forKey: "organization_self_hosted_runners")
+        self.organizationUserBlocking = try values.decodeIfPresent(OrganizationUserBlocking.self, forKey: "organization_user_blocking")
+        self.teamDiscussions = try values.decodeIfPresent(TeamDiscussions.self, forKey: "team_discussions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(actions, forKey: "actions")
+        try values.encodeIfPresent(administration, forKey: "administration")
+        try values.encodeIfPresent(checks, forKey: "checks")
+        try values.encodeIfPresent(contents, forKey: "contents")
+        try values.encodeIfPresent(deployments, forKey: "deployments")
+        try values.encodeIfPresent(environments, forKey: "environments")
+        try values.encodeIfPresent(issues, forKey: "issues")
+        try values.encodeIfPresent(metadata, forKey: "metadata")
+        try values.encodeIfPresent(packages, forKey: "packages")
+        try values.encodeIfPresent(pages, forKey: "pages")
+        try values.encodeIfPresent(pullRequests, forKey: "pull_requests")
+        try values.encodeIfPresent(repositoryHooks, forKey: "repository_hooks")
+        try values.encodeIfPresent(repositoryProjects, forKey: "repository_projects")
+        try values.encodeIfPresent(secretScanningAlerts, forKey: "secret_scanning_alerts")
+        try values.encodeIfPresent(secrets, forKey: "secrets")
+        try values.encodeIfPresent(securityEvents, forKey: "security_events")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encodeIfPresent(statuses, forKey: "statuses")
+        try values.encodeIfPresent(vulnerabilityAlerts, forKey: "vulnerability_alerts")
+        try values.encodeIfPresent(workflows, forKey: "workflows")
+        try values.encodeIfPresent(members, forKey: "members")
+        try values.encodeIfPresent(organizationAdministration, forKey: "organization_administration")
+        try values.encodeIfPresent(organizationHooks, forKey: "organization_hooks")
+        try values.encodeIfPresent(organizationPlan, forKey: "organization_plan")
+        try values.encodeIfPresent(organizationProjects, forKey: "organization_projects")
+        try values.encodeIfPresent(organizationPackages, forKey: "organization_packages")
+        try values.encodeIfPresent(organizationSecrets, forKey: "organization_secrets")
+        try values.encodeIfPresent(organizationSelfHostedRunners, forKey: "organization_self_hosted_runners")
+        try values.encodeIfPresent(organizationUserBlocking, forKey: "organization_user_blocking")
+        try values.encodeIfPresent(teamDiscussions, forKey: "team_discussions")
     }
 }

@@ -43,14 +43,27 @@ public struct Recipe: Codable {
         self.steps = steps
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case story
-        case imageURL = "image_url"
-        case publishedAt = "published_at"
-        case user
-        case ingredients
-        case steps
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.story = try values.decode(String.self, forKey: "story")
+        self.imageURL = try values.decodeIfPresent(URL.self, forKey: "image_url")
+        self.publishedAt = try values.decode(Date.self, forKey: "published_at")
+        self.user = try values.decode(User.self, forKey: "user")
+        self.ingredients = try values.decode([String].self, forKey: "ingredients")
+        self.steps = try values.decode([Step].self, forKey: "steps")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(title, forKey: "title")
+        try values.encode(story, forKey: "story")
+        try values.encodeIfPresent(imageURL, forKey: "image_url")
+        try values.encode(publishedAt, forKey: "published_at")
+        try values.encode(user, forKey: "user")
+        try values.encode(ingredients, forKey: "ingredients")
+        try values.encode(steps, forKey: "steps")
     }
 }

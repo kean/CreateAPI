@@ -58,11 +58,23 @@ extension Paths.Gists {
                     self.content = content
                     self.filename = filename
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(content, forKey: "content")
+                    try values.encodeIfPresent(filename, forKey: "filename")
+                }
             }
 
             public init(description: String? = nil, files: [String: File]? = nil) {
                 self.description = description
                 self.files = files
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(files, forKey: "files")
             }
         }
 

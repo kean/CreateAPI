@@ -64,9 +64,16 @@ public struct ExternalGroup: Codable {
             self.teamName = teamName
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case teamID = "team_id"
-            case teamName = "team_name"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.teamID = try values.decode(Int.self, forKey: "team_id")
+            self.teamName = try values.decode(String.self, forKey: "team_name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(teamID, forKey: "team_id")
+            try values.encode(teamName, forKey: "team_name")
         }
     }
 
@@ -93,11 +100,20 @@ public struct ExternalGroup: Codable {
             self.memberEmail = memberEmail
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case memberID = "member_id"
-            case memberLogin = "member_login"
-            case memberName = "member_name"
-            case memberEmail = "member_email"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.memberID = try values.decode(Int.self, forKey: "member_id")
+            self.memberLogin = try values.decode(String.self, forKey: "member_login")
+            self.memberName = try values.decode(String.self, forKey: "member_name")
+            self.memberEmail = try values.decode(String.self, forKey: "member_email")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(memberID, forKey: "member_id")
+            try values.encode(memberLogin, forKey: "member_login")
+            try values.encode(memberName, forKey: "member_name")
+            try values.encode(memberEmail, forKey: "member_email")
         }
     }
 
@@ -109,11 +125,21 @@ public struct ExternalGroup: Codable {
         self.members = members
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case groupID = "group_id"
-        case groupName = "group_name"
-        case updatedAt = "updated_at"
-        case teams
-        case members
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.groupID = try values.decode(Int.self, forKey: "group_id")
+        self.groupName = try values.decode(String.self, forKey: "group_name")
+        self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
+        self.teams = try values.decode([Team].self, forKey: "teams")
+        self.members = try values.decode([Member].self, forKey: "members")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(groupID, forKey: "group_id")
+        try values.encode(groupName, forKey: "group_name")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(teams, forKey: "teams")
+        try values.encode(members, forKey: "members")
     }
 }

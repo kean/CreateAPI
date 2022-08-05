@@ -54,6 +54,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 public init(labels: [String]? = nil) {
                     self.labels = labels
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
             }
 
             public struct Object2: Encodable {
@@ -65,10 +70,20 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     public init(name: String) {
                         self.name = name
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
                 }
 
                 public init(labels: [Label]? = nil) {
                     self.labels = labels
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
@@ -77,6 +92,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
                 public init(name: String) {
                     self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
                 }
             }
 
@@ -115,6 +135,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 public init(labels: [String]? = nil) {
                     self.labels = labels
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
+                }
             }
 
             public struct Object2: Encodable {
@@ -126,10 +151,20 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                     public init(name: String) {
                         self.name = name
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(name, forKey: "name")
+                    }
                 }
 
                 public init(labels: [Label]? = nil) {
                     self.labels = labels
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(labels, forKey: "labels")
                 }
             }
 
@@ -138,6 +173,11 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
 
                 public init(name: String) {
                     self.name = name
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
                 }
             }
 

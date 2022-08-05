@@ -35,9 +35,10 @@ extension Paths.User.Codespaces {
                 self.secrets = secrets
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case secrets
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.secrets = try values.decode([OctoKit.CodespacesSecret].self, forKey: "secrets")
             }
         }
 

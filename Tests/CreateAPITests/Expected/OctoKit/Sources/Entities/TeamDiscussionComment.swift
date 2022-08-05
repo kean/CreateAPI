@@ -54,19 +54,37 @@ public struct TeamDiscussionComment: Codable {
         self.reactions = reactions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case author
-        case body
-        case bodyHTML = "body_html"
-        case bodyVersion = "body_version"
-        case createdAt = "created_at"
-        case lastEditedAt = "last_edited_at"
-        case discussionURL = "discussion_url"
-        case htmlURL = "html_url"
-        case nodeID = "node_id"
-        case number
-        case updatedAt = "updated_at"
-        case url
-        case reactions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.author = try values.decodeIfPresent(SimpleUser.self, forKey: "author")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.bodyHTML = try values.decode(String.self, forKey: "body_html")
+        self.bodyVersion = try values.decode(String.self, forKey: "body_version")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.lastEditedAt = try values.decodeIfPresent(Date.self, forKey: "last_edited_at")
+        self.discussionURL = try values.decode(URL.self, forKey: "discussion_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encode(body, forKey: "body")
+        try values.encode(bodyHTML, forKey: "body_html")
+        try values.encode(bodyVersion, forKey: "body_version")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(lastEditedAt, forKey: "last_edited_at")
+        try values.encode(discussionURL, forKey: "discussion_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
     }
 }

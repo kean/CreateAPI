@@ -34,11 +34,21 @@ public struct OrganizationActionsSecret: Codable {
         self.selectedRepositoriesURL = selectedRepositoriesURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case visibility
-        case selectedRepositoriesURL = "selected_repositories_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.visibility = try values.decode(Visibility.self, forKey: "visibility")
+        self.selectedRepositoriesURL = try values.decodeIfPresent(URL.self, forKey: "selected_repositories_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(visibility, forKey: "visibility")
+        try values.encodeIfPresent(selectedRepositoriesURL, forKey: "selected_repositories_url")
     }
 }

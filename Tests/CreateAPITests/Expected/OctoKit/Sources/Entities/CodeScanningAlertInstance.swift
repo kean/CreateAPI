@@ -31,6 +31,16 @@ public struct CodeScanningAlertInstance: Codable {
         public init(text: String? = nil) {
             self.text = text
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.text = try values.decodeIfPresent(String.self, forKey: "text")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(text, forKey: "text")
+        }
     }
 
     public init(ref: String? = nil, analysisKey: String? = nil, environment: String? = nil, category: String? = nil, state: CodeScanningAlertState? = nil, commitSha: String? = nil, message: Message? = nil, location: CodeScanningAlertLocation? = nil, htmlURL: String? = nil, classifications: [CodeScanningAlertClassification]? = nil) {
@@ -46,16 +56,31 @@ public struct CodeScanningAlertInstance: Codable {
         self.classifications = classifications
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case ref
-        case analysisKey = "analysis_key"
-        case environment
-        case category
-        case state
-        case commitSha = "commit_sha"
-        case message
-        case location
-        case htmlURL = "html_url"
-        case classifications
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
+        self.analysisKey = try values.decodeIfPresent(String.self, forKey: "analysis_key")
+        self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
+        self.category = try values.decodeIfPresent(String.self, forKey: "category")
+        self.state = try values.decodeIfPresent(CodeScanningAlertState.self, forKey: "state")
+        self.commitSha = try values.decodeIfPresent(String.self, forKey: "commit_sha")
+        self.message = try values.decodeIfPresent(Message.self, forKey: "message")
+        self.location = try values.decodeIfPresent(CodeScanningAlertLocation.self, forKey: "location")
+        self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+        self.classifications = try values.decodeIfPresent([CodeScanningAlertClassification].self, forKey: "classifications")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(ref, forKey: "ref")
+        try values.encodeIfPresent(analysisKey, forKey: "analysis_key")
+        try values.encodeIfPresent(environment, forKey: "environment")
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encodeIfPresent(state, forKey: "state")
+        try values.encodeIfPresent(commitSha, forKey: "commit_sha")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(classifications, forKey: "classifications")
     }
 }

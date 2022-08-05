@@ -34,12 +34,22 @@ public struct ProtectedBranchPullRequestReview: Codable {
             self.teamsURL = teamsURL
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case users
-            case teams
-            case url
-            case usersURL = "users_url"
-            case teamsURL = "teams_url"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.users = try values.decodeIfPresent([SimpleUser].self, forKey: "users")
+            self.teams = try values.decodeIfPresent([Team].self, forKey: "teams")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.usersURL = try values.decodeIfPresent(String.self, forKey: "users_url")
+            self.teamsURL = try values.decodeIfPresent(String.self, forKey: "teams_url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(users, forKey: "users")
+            try values.encodeIfPresent(teams, forKey: "teams")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(usersURL, forKey: "users_url")
+            try values.encodeIfPresent(teamsURL, forKey: "teams_url")
         }
     }
 
@@ -51,11 +61,21 @@ public struct ProtectedBranchPullRequestReview: Codable {
         self.requiredApprovingReviewCount = requiredApprovingReviewCount
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case dismissalRestrictions = "dismissal_restrictions"
-        case dismissStaleReviews = "dismiss_stale_reviews"
-        case requireCodeOwnerReviews = "require_code_owner_reviews"
-        case requiredApprovingReviewCount = "required_approving_review_count"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        self.dismissalRestrictions = try values.decodeIfPresent(DismissalRestrictions.self, forKey: "dismissal_restrictions")
+        self.dismissStaleReviews = try values.decode(Bool.self, forKey: "dismiss_stale_reviews")
+        self.requireCodeOwnerReviews = try values.decode(Bool.self, forKey: "require_code_owner_reviews")
+        self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+        try values.encode(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+        try values.encode(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+        try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
     }
 }

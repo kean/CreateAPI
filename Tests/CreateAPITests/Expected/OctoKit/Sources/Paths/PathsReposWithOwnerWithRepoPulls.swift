@@ -122,14 +122,15 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.issue = issue
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case head
-                case base
-                case body
-                case maintainerCanModify = "maintainer_can_modify"
-                case isDraft = "draft"
-                case issue
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(head, forKey: "head")
+                try values.encode(base, forKey: "base")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(issue, forKey: "issue")
             }
         }
     }

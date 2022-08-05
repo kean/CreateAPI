@@ -32,9 +32,16 @@ struct ContainerA: Codable {
                 self.renameMe = renameMe
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case `enum`
-                case renameMe = "rename-me"
+            init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.enum = try values.decode(Enum.self, forKey: "enum")
+                self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(`enum`, forKey: "enum")
+                try values.encode(renameMe, forKey: "rename-me")
             }
         }
 
@@ -44,15 +51,35 @@ struct ContainerA: Codable {
             self.child = child
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case `enum`
-            case renameMe = "rename-me"
-            case child
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.enum = try values.decode(Enum.self, forKey: "enum")
+            self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            self.child = try values.decode(Child.self, forKey: "child")
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(`enum`, forKey: "enum")
+            try values.encode(renameMe, forKey: "rename-me")
+            try values.encode(child, forKey: "child")
         }
     }
 
     init(child: Child? = nil, refChild: AnyJSON) {
         self.child = child
         self.refChild = refChild
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.child = try values.decodeIfPresent(Child.self, forKey: "child")
+        self.refChild = try values.decode(AnyJSON.self, forKey: "refChild")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(child, forKey: "child")
+        try values.encode(refChild, forKey: "refChild")
     }
 }

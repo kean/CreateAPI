@@ -41,6 +41,11 @@ extension Paths.User.Memberships.Orgs {
             public init(state: State) {
                 self.state = state
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+            }
         }
     }
 }

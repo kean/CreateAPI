@@ -87,6 +87,11 @@ extension Paths {
                 public init(content: String) {
                     self.content = content
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(content, forKey: "content")
+                }
             }
 
             public enum Public: Encodable {
@@ -114,10 +119,11 @@ extension Paths {
                 self.public = `public`
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case description
-                case files
-                case `public`
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(files, forKey: "files")
+                try values.encodeIfPresent(`public`, forKey: "public")
             }
         }
     }

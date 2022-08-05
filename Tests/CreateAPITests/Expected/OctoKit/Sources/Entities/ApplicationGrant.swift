@@ -30,10 +30,18 @@ public struct ApplicationGrant: Codable {
             self.url = url
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case clientID = "client_id"
-            case name
-            case url
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.clientID = try values.decode(String.self, forKey: "client_id")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(clientID, forKey: "client_id")
+            try values.encode(name, forKey: "name")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -47,13 +55,25 @@ public struct ApplicationGrant: Codable {
         self.user = user
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case url
-        case app
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case scopes
-        case user
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.app = try values.decode(App.self, forKey: "app")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.scopes = try values.decode([String].self, forKey: "scopes")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
+        try values.encode(app, forKey: "app")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(scopes, forKey: "scopes")
+        try values.encodeIfPresent(user, forKey: "user")
     }
 }

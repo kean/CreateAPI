@@ -44,20 +44,39 @@ public struct CommitComment: Codable {
         self.reactions = reactions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case htmlURL = "html_url"
-        case url
-        case id
-        case nodeID = "node_id"
-        case body
-        case path
-        case position
-        case line
-        case commitID = "commit_id"
-        case user
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case authorAssociation = "author_association"
-        case reactions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.path = try values.decodeIfPresent(String.self, forKey: "path")
+        self.position = try values.decodeIfPresent(Int.self, forKey: "position")
+        self.line = try values.decodeIfPresent(Int.self, forKey: "line")
+        self.commitID = try values.decode(String.self, forKey: "commit_id")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(body, forKey: "body")
+        try values.encodeIfPresent(path, forKey: "path")
+        try values.encodeIfPresent(position, forKey: "position")
+        try values.encodeIfPresent(line, forKey: "line")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
     }
 }

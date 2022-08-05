@@ -17,10 +17,19 @@ public struct IssueEventDismissedReview: Codable {
         self.dismissalCommitID = dismissalCommitID
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case state
-        case reviewID = "review_id"
-        case dismissalMessage = "dismissal_message"
-        case dismissalCommitID = "dismissal_commit_id"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.state = try values.decode(String.self, forKey: "state")
+        self.reviewID = try values.decode(Int.self, forKey: "review_id")
+        self.dismissalMessage = try values.decodeIfPresent(String.self, forKey: "dismissal_message")
+        self.dismissalCommitID = try values.decodeIfPresent(String.self, forKey: "dismissal_commit_id")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(state, forKey: "state")
+        try values.encode(reviewID, forKey: "review_id")
+        try values.encodeIfPresent(dismissalMessage, forKey: "dismissal_message")
+        try values.encodeIfPresent(dismissalCommitID, forKey: "dismissal_commit_id")
     }
 }

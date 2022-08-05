@@ -19,8 +19,14 @@ public struct WorkflowUsage: Codable {
                 self.totalMs = totalMs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
             }
         }
 
@@ -31,8 +37,14 @@ public struct WorkflowUsage: Codable {
                 self.totalMs = totalMs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
             }
         }
 
@@ -43,8 +55,14 @@ public struct WorkflowUsage: Codable {
                 self.totalMs = totalMs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decodeIfPresent(Int.self, forKey: "total_ms")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(totalMs, forKey: "total_ms")
             }
         }
 
@@ -54,14 +72,32 @@ public struct WorkflowUsage: Codable {
             self.windows = windows
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case ubuntu = "UBUNTU"
-            case macos = "MACOS"
-            case windows = "WINDOWS"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.ubuntu = try values.decodeIfPresent(Ubuntu.self, forKey: "UBUNTU")
+            self.macos = try values.decodeIfPresent(Macos.self, forKey: "MACOS")
+            self.windows = try values.decodeIfPresent(Windows.self, forKey: "WINDOWS")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
     }
 
     public init(billable: Billable) {
         self.billable = billable
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.billable = try values.decode(Billable.self, forKey: "billable")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(billable, forKey: "billable")
     }
 }

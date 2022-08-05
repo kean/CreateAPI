@@ -34,16 +34,31 @@ public struct LockedIssueEvent: Codable {
         self.lockReason = lockReason
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case actor
-        case event
-        case commitID = "commit_id"
-        case commitURL = "commit_url"
-        case createdAt = "created_at"
-        case performedViaGithubApp = "performed_via_github_app"
-        case lockReason = "lock_reason"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.actor = try values.decode(SimpleUser.self, forKey: "actor")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+        self.lockReason = try values.decodeIfPresent(String.self, forKey: "lock_reason")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(actor, forKey: "actor")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(lockReason, forKey: "lock_reason")
     }
 }

@@ -13,8 +13,15 @@ public struct Image: Codable {
         self.url = url
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case url
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.identifier = try values.decode(String.self, forKey: "id")
+        self.url = try values.decode(String.self, forKey: "url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(identifier, forKey: "id")
+        try values.encode(url, forKey: "url")
     }
 }

@@ -12,7 +12,13 @@ public struct Return: Codable {
         self.return = `return`
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case `return`
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.return = try values.decodeIfPresent(Int32.self, forKey: "return")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(`return`, forKey: "return")
     }
 }

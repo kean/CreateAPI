@@ -25,9 +25,16 @@ public struct BranchWithProtection: Codable {
             self.this = this
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case html
-            case this = "self"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.html = try values.decode(String.self, forKey: "html")
+            self.this = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -42,14 +49,27 @@ public struct BranchWithProtection: Codable {
         self.requiredApprovingReviewCount = requiredApprovingReviewCount
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case commit
-        case links = "_links"
-        case isProtected = "protected"
-        case protection
-        case protectionURL = "protection_url"
-        case pattern
-        case requiredApprovingReviewCount = "required_approving_review_count"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.commit = try values.decode(Commit.self, forKey: "commit")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.isProtected = try values.decode(Bool.self, forKey: "protected")
+        self.protection = try values.decode(BranchProtection.self, forKey: "protection")
+        self.protectionURL = try values.decode(URL.self, forKey: "protection_url")
+        self.pattern = try values.decodeIfPresent(String.self, forKey: "pattern")
+        self.requiredApprovingReviewCount = try values.decodeIfPresent(Int.self, forKey: "required_approving_review_count")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(commit, forKey: "commit")
+        try values.encode(links, forKey: "_links")
+        try values.encode(isProtected, forKey: "protected")
+        try values.encode(protection, forKey: "protection")
+        try values.encode(protectionURL, forKey: "protection_url")
+        try values.encodeIfPresent(pattern, forKey: "pattern")
+        try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
     }
 }

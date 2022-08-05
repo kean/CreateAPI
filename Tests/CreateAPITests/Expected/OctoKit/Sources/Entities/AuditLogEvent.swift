@@ -66,8 +66,14 @@ public struct AuditLogEvent: Codable {
             self.countryName = countryName
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case countryName = "country_name"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.countryName = try values.decodeIfPresent(String.self, forKey: "country_name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(countryName, forKey: "country_name")
         }
     }
 
@@ -114,46 +120,91 @@ public struct AuditLogEvent: Codable {
         self.visibility = visibility
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case timestamp = "@timestamp"
-        case action
-        case isActive = "active"
-        case activeWas = "active_was"
-        case actor
-        case actorID = "actor_id"
-        case actorLocation = "actor_location"
-        case data
-        case orgID = "org_id"
-        case blockedUser = "blocked_user"
-        case business
-        case config
-        case configWas = "config_was"
-        case contentType = "content_type"
-        case createdAt = "created_at"
-        case deployKeyFingerprint = "deploy_key_fingerprint"
-        case documentID = "_document_id"
-        case emoji
-        case events
-        case eventsWere = "events_were"
-        case explanation
-        case fingerprint
-        case hookID = "hook_id"
-        case isLimitedAvailability = "limited_availability"
-        case message
-        case name
-        case oldUser = "old_user"
-        case opensshPublicKey = "openssh_public_key"
-        case org
-        case previousVisibility = "previous_visibility"
-        case isReadOnly = "read_only"
-        case repo
-        case repository
-        case isRepositoryPublic = "repository_public"
-        case targetLogin = "target_login"
-        case team
-        case transportProtocol = "transport_protocol"
-        case transportProtocolName = "transport_protocol_name"
-        case user
-        case visibility
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.timestamp = try values.decodeIfPresent(Int.self, forKey: "@timestamp")
+        self.action = try values.decodeIfPresent(String.self, forKey: "action")
+        self.isActive = try values.decodeIfPresent(Bool.self, forKey: "active")
+        self.activeWas = try values.decodeIfPresent(Bool.self, forKey: "active_was")
+        self.actor = try values.decodeIfPresent(String.self, forKey: "actor")
+        self.actorID = try values.decodeIfPresent(Int.self, forKey: "actor_id")
+        self.actorLocation = try values.decodeIfPresent(ActorLocation.self, forKey: "actor_location")
+        self.data = try values.decodeIfPresent([String: AnyJSON].self, forKey: "data")
+        self.orgID = try values.decodeIfPresent(Int.self, forKey: "org_id")
+        self.blockedUser = try values.decodeIfPresent(String.self, forKey: "blocked_user")
+        self.business = try values.decodeIfPresent(String.self, forKey: "business")
+        self.config = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "config")
+        self.configWas = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "config_was")
+        self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+        self.createdAt = try values.decodeIfPresent(Int.self, forKey: "created_at")
+        self.deployKeyFingerprint = try values.decodeIfPresent(String.self, forKey: "deploy_key_fingerprint")
+        self.documentID = try values.decodeIfPresent(String.self, forKey: "_document_id")
+        self.emoji = try values.decodeIfPresent(String.self, forKey: "emoji")
+        self.events = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "events")
+        self.eventsWere = try values.decodeIfPresent([[String: AnyJSON]].self, forKey: "events_were")
+        self.explanation = try values.decodeIfPresent(String.self, forKey: "explanation")
+        self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
+        self.hookID = try values.decodeIfPresent(Int.self, forKey: "hook_id")
+        self.isLimitedAvailability = try values.decodeIfPresent(Bool.self, forKey: "limited_availability")
+        self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.oldUser = try values.decodeIfPresent(String.self, forKey: "old_user")
+        self.opensshPublicKey = try values.decodeIfPresent(String.self, forKey: "openssh_public_key")
+        self.org = try values.decodeIfPresent(String.self, forKey: "org")
+        self.previousVisibility = try values.decodeIfPresent(String.self, forKey: "previous_visibility")
+        self.isReadOnly = try values.decodeIfPresent(Bool.self, forKey: "read_only")
+        self.repo = try values.decodeIfPresent(String.self, forKey: "repo")
+        self.repository = try values.decodeIfPresent(String.self, forKey: "repository")
+        self.isRepositoryPublic = try values.decodeIfPresent(Bool.self, forKey: "repository_public")
+        self.targetLogin = try values.decodeIfPresent(String.self, forKey: "target_login")
+        self.team = try values.decodeIfPresent(String.self, forKey: "team")
+        self.transportProtocol = try values.decodeIfPresent(Int.self, forKey: "transport_protocol")
+        self.transportProtocolName = try values.decodeIfPresent(String.self, forKey: "transport_protocol_name")
+        self.user = try values.decodeIfPresent(String.self, forKey: "user")
+        self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(timestamp, forKey: "@timestamp")
+        try values.encodeIfPresent(action, forKey: "action")
+        try values.encodeIfPresent(isActive, forKey: "active")
+        try values.encodeIfPresent(activeWas, forKey: "active_was")
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encodeIfPresent(actorID, forKey: "actor_id")
+        try values.encodeIfPresent(actorLocation, forKey: "actor_location")
+        try values.encodeIfPresent(data, forKey: "data")
+        try values.encodeIfPresent(orgID, forKey: "org_id")
+        try values.encodeIfPresent(blockedUser, forKey: "blocked_user")
+        try values.encodeIfPresent(business, forKey: "business")
+        try values.encodeIfPresent(config, forKey: "config")
+        try values.encodeIfPresent(configWas, forKey: "config_was")
+        try values.encodeIfPresent(contentType, forKey: "content_type")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(deployKeyFingerprint, forKey: "deploy_key_fingerprint")
+        try values.encodeIfPresent(documentID, forKey: "_document_id")
+        try values.encodeIfPresent(emoji, forKey: "emoji")
+        try values.encodeIfPresent(events, forKey: "events")
+        try values.encodeIfPresent(eventsWere, forKey: "events_were")
+        try values.encodeIfPresent(explanation, forKey: "explanation")
+        try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+        try values.encodeIfPresent(hookID, forKey: "hook_id")
+        try values.encodeIfPresent(isLimitedAvailability, forKey: "limited_availability")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(oldUser, forKey: "old_user")
+        try values.encodeIfPresent(opensshPublicKey, forKey: "openssh_public_key")
+        try values.encodeIfPresent(org, forKey: "org")
+        try values.encodeIfPresent(previousVisibility, forKey: "previous_visibility")
+        try values.encodeIfPresent(isReadOnly, forKey: "read_only")
+        try values.encodeIfPresent(repo, forKey: "repo")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encodeIfPresent(isRepositoryPublic, forKey: "repository_public")
+        try values.encodeIfPresent(targetLogin, forKey: "target_login")
+        try values.encodeIfPresent(team, forKey: "team")
+        try values.encodeIfPresent(transportProtocol, forKey: "transport_protocol")
+        try values.encodeIfPresent(transportProtocolName, forKey: "transport_protocol_name")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(visibility, forKey: "visibility")
     }
 }

@@ -18,8 +18,15 @@ public struct Step: Codable {
         self.imageURLs = imageURLs
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case description
-        case imageURLs = "image_urls"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.description = try values.decode(String.self, forKey: "description")
+        self.imageURLs = try values.decode([URL].self, forKey: "image_urls")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(description, forKey: "description")
+        try values.encode(imageURLs, forKey: "image_urls")
     }
 }

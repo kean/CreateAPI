@@ -21,6 +21,18 @@ public struct TimelineCrossReferencedEvent: Codable {
             self.type = type
             self.issue = issue
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(issue, forKey: "issue")
+        }
     }
 
     public init(event: String, actor: SimpleUser? = nil, createdAt: Date, updatedAt: Date, source: Source) {
@@ -31,11 +43,21 @@ public struct TimelineCrossReferencedEvent: Codable {
         self.source = source
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case event
-        case actor
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case source
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.event = try values.decode(String.self, forKey: "event")
+        self.actor = try values.decodeIfPresent(SimpleUser.self, forKey: "actor")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.source = try values.decode(Source.self, forKey: "source")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(source, forKey: "source")
     }
 }

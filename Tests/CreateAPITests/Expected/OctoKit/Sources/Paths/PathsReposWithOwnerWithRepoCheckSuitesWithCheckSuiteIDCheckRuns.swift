@@ -35,9 +35,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
                 self.checkRuns = checkRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case checkRuns = "check_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.checkRuns = try values.decode([OctoKit.CheckRun].self, forKey: "check_runs")
             }
         }
 

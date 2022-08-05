@@ -19,6 +19,18 @@ public struct SearchResultTextMatch: Codable {
             self.text = text
             self.indices = indices
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.text = try values.decodeIfPresent(String.self, forKey: "text")
+            self.indices = try values.decodeIfPresent([Int].self, forKey: "indices")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(text, forKey: "text")
+            try values.encodeIfPresent(indices, forKey: "indices")
+        }
     }
 
     public init(objectURL: String? = nil, objectType: String? = nil, property: String? = nil, fragment: String? = nil, matches: [Match]? = nil) {
@@ -29,11 +41,21 @@ public struct SearchResultTextMatch: Codable {
         self.matches = matches
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case objectURL = "object_url"
-        case objectType = "object_type"
-        case property
-        case fragment
-        case matches
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.objectURL = try values.decodeIfPresent(String.self, forKey: "object_url")
+        self.objectType = try values.decodeIfPresent(String.self, forKey: "object_type")
+        self.property = try values.decodeIfPresent(String.self, forKey: "property")
+        self.fragment = try values.decodeIfPresent(String.self, forKey: "fragment")
+        self.matches = try values.decodeIfPresent([Match].self, forKey: "matches")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(objectURL, forKey: "object_url")
+        try values.encodeIfPresent(objectType, forKey: "object_type")
+        try values.encodeIfPresent(property, forKey: "property")
+        try values.encodeIfPresent(fragment, forKey: "fragment")
+        try values.encodeIfPresent(matches, forKey: "matches")
     }
 }

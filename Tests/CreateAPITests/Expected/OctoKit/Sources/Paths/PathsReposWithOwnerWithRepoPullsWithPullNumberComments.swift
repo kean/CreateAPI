@@ -128,16 +128,17 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.inReplyTo = inReplyTo
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case body
-                case commitID = "commit_id"
-                case path
-                case position
-                case side
-                case line
-                case startLine = "start_line"
-                case startSide = "start_side"
-                case inReplyTo = "in_reply_to"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(path, forKey: "path")
+                try values.encodeIfPresent(position, forKey: "position")
+                try values.encodeIfPresent(side, forKey: "side")
+                try values.encodeIfPresent(line, forKey: "line")
+                try values.encodeIfPresent(startLine, forKey: "start_line")
+                try values.encodeIfPresent(startSide, forKey: "start_side")
+                try values.encodeIfPresent(inReplyTo, forKey: "in_reply_to")
             }
         }
     }

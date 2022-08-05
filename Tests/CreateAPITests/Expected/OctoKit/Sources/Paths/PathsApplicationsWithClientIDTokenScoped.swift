@@ -64,13 +64,14 @@ extension Paths.Applications.WithClientID.Token {
                 self.permissions = permissions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case accessToken = "access_token"
-                case target
-                case targetID = "target_id"
-                case repositories
-                case repositoryIDs = "repository_ids"
-                case permissions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(accessToken, forKey: "access_token")
+                try values.encodeIfPresent(target, forKey: "target")
+                try values.encodeIfPresent(targetID, forKey: "target_id")
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
     }

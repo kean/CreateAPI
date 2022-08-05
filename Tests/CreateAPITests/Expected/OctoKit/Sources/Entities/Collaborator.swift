@@ -60,12 +60,22 @@ public struct Collaborator: Codable {
             self.isAdmin = isAdmin
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isPull = "pull"
-            case isTriage = "triage"
-            case isPush = "push"
-            case isMaintain = "maintain"
-            case isAdmin = "admin"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isPull = try values.decode(Bool.self, forKey: "pull")
+            self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+            self.isPush = try values.decode(Bool.self, forKey: "push")
+            self.isMaintain = try values.decodeIfPresent(Bool.self, forKey: "maintain")
+            self.isAdmin = try values.decode(Bool.self, forKey: "admin")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isPull, forKey: "pull")
+            try values.encodeIfPresent(isTriage, forKey: "triage")
+            try values.encode(isPush, forKey: "push")
+            try values.encodeIfPresent(isMaintain, forKey: "maintain")
+            try values.encode(isAdmin, forKey: "admin")
         }
     }
 
@@ -94,28 +104,55 @@ public struct Collaborator: Codable {
         self.roleName = roleName
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case login
-        case id
-        case email
-        case name
-        case nodeID = "node_id"
-        case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
-        case url
-        case htmlURL = "html_url"
-        case followersURL = "followers_url"
-        case followingURL = "following_url"
-        case gistsURL = "gists_url"
-        case starredURL = "starred_url"
-        case subscriptionsURL = "subscriptions_url"
-        case organizationsURL = "organizations_url"
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case receivedEventsURL = "received_events_url"
-        case type
-        case isSiteAdmin = "site_admin"
-        case permissions
-        case roleName = "role_name"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.login = try values.decode(String.self, forKey: "login")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+        self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+        self.followingURL = try values.decode(String.self, forKey: "following_url")
+        self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+        self.starredURL = try values.decode(String.self, forKey: "starred_url")
+        self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+        self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+        self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+        self.eventsURL = try values.decode(String.self, forKey: "events_url")
+        self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+        self.roleName = try values.decode(String.self, forKey: "role_name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(login, forKey: "login")
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(roleName, forKey: "role_name")
     }
 }

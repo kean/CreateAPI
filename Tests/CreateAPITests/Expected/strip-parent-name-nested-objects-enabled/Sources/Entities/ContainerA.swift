@@ -9,4 +9,14 @@ public struct ContainerA: Codable {
     public init(a: String? = nil) {
         self.a = a
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.a = try values.decodeIfPresent(String.self, forKey: "a")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(a, forKey: "a")
+    }
 }

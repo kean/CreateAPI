@@ -29,10 +29,19 @@ public struct AutoMerge: Codable {
         self.commitMessage = commitMessage
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case enabledBy = "enabled_by"
-        case mergeMethod = "merge_method"
-        case commitTitle = "commit_title"
-        case commitMessage = "commit_message"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.enabledBy = try values.decode(SimpleUser.self, forKey: "enabled_by")
+        self.mergeMethod = try values.decode(MergeMethod.self, forKey: "merge_method")
+        self.commitTitle = try values.decode(String.self, forKey: "commit_title")
+        self.commitMessage = try values.decode(String.self, forKey: "commit_message")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(enabledBy, forKey: "enabled_by")
+        try values.encode(mergeMethod, forKey: "merge_method")
+        try values.encode(commitTitle, forKey: "commit_title")
+        try values.encode(commitMessage, forKey: "commit_message")
     }
 }

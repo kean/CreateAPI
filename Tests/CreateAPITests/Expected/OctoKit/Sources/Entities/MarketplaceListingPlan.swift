@@ -46,19 +46,37 @@ public struct MarketplaceListingPlan: Codable {
         self.bullets = bullets
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case accountsURL = "accounts_url"
-        case id
-        case number
-        case name
-        case description
-        case monthlyPriceInCents = "monthly_price_in_cents"
-        case yearlyPriceInCents = "yearly_price_in_cents"
-        case priceModel = "price_model"
-        case hasFreeTrial = "has_free_trial"
-        case unitName = "unit_name"
-        case state
-        case bullets
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.accountsURL = try values.decode(URL.self, forKey: "accounts_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.monthlyPriceInCents = try values.decode(Int.self, forKey: "monthly_price_in_cents")
+        self.yearlyPriceInCents = try values.decode(Int.self, forKey: "yearly_price_in_cents")
+        self.priceModel = try values.decode(String.self, forKey: "price_model")
+        self.hasFreeTrial = try values.decode(Bool.self, forKey: "has_free_trial")
+        self.unitName = try values.decodeIfPresent(String.self, forKey: "unit_name")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.bullets = try values.decode([String].self, forKey: "bullets")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(accountsURL, forKey: "accounts_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(number, forKey: "number")
+        try values.encode(name, forKey: "name")
+        try values.encode(description, forKey: "description")
+        try values.encode(monthlyPriceInCents, forKey: "monthly_price_in_cents")
+        try values.encode(yearlyPriceInCents, forKey: "yearly_price_in_cents")
+        try values.encode(priceModel, forKey: "price_model")
+        try values.encode(hasFreeTrial, forKey: "has_free_trial")
+        try values.encodeIfPresent(unitName, forKey: "unit_name")
+        try values.encode(state, forKey: "state")
+        try values.encode(bullets, forKey: "bullets")
     }
 }

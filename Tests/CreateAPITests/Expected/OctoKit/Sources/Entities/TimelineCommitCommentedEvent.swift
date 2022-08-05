@@ -17,10 +17,19 @@ public struct TimelineCommitCommentedEvent: Codable {
         self.comments = comments
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case event
-        case nodeID = "node_id"
-        case commitID = "commit_id"
-        case comments
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.event = try values.decodeIfPresent(String.self, forKey: "event")
+        self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.comments = try values.decodeIfPresent([CommitComment].self, forKey: "comments")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(event, forKey: "event")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(comments, forKey: "comments")
     }
 }

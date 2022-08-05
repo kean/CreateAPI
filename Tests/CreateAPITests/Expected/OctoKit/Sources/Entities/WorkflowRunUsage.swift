@@ -27,9 +27,16 @@ public struct WorkflowRunUsage: Codable {
                     self.durationMs = durationMs
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case jobID = "job_id"
-                    case durationMs = "duration_ms"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.jobID = try values.decode(Int.self, forKey: "job_id")
+                    self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(jobID, forKey: "job_id")
+                    try values.encode(durationMs, forKey: "duration_ms")
                 }
             }
 
@@ -39,10 +46,18 @@ public struct WorkflowRunUsage: Codable {
                 self.jobRuns = jobRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
-                case jobs
-                case jobRuns = "job_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+                self.jobs = try values.decode(Int.self, forKey: "jobs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalMs, forKey: "total_ms")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
             }
         }
 
@@ -60,9 +75,16 @@ public struct WorkflowRunUsage: Codable {
                     self.durationMs = durationMs
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case jobID = "job_id"
-                    case durationMs = "duration_ms"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.jobID = try values.decode(Int.self, forKey: "job_id")
+                    self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(jobID, forKey: "job_id")
+                    try values.encode(durationMs, forKey: "duration_ms")
                 }
             }
 
@@ -72,10 +94,18 @@ public struct WorkflowRunUsage: Codable {
                 self.jobRuns = jobRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
-                case jobs
-                case jobRuns = "job_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+                self.jobs = try values.decode(Int.self, forKey: "jobs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalMs, forKey: "total_ms")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
             }
         }
 
@@ -93,9 +123,16 @@ public struct WorkflowRunUsage: Codable {
                     self.durationMs = durationMs
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case jobID = "job_id"
-                    case durationMs = "duration_ms"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.jobID = try values.decode(Int.self, forKey: "job_id")
+                    self.durationMs = try values.decode(Int.self, forKey: "duration_ms")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(jobID, forKey: "job_id")
+                    try values.encode(durationMs, forKey: "duration_ms")
                 }
             }
 
@@ -105,10 +142,18 @@ public struct WorkflowRunUsage: Codable {
                 self.jobRuns = jobRuns
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalMs = "total_ms"
-                case jobs
-                case jobRuns = "job_runs"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalMs = try values.decode(Int.self, forKey: "total_ms")
+                self.jobs = try values.decode(Int.self, forKey: "jobs")
+                self.jobRuns = try values.decodeIfPresent([JobRun].self, forKey: "job_runs")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(totalMs, forKey: "total_ms")
+                try values.encode(jobs, forKey: "jobs")
+                try values.encodeIfPresent(jobRuns, forKey: "job_runs")
             }
         }
 
@@ -118,10 +163,18 @@ public struct WorkflowRunUsage: Codable {
             self.windows = windows
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case ubuntu = "UBUNTU"
-            case macos = "MACOS"
-            case windows = "WINDOWS"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.ubuntu = try values.decodeIfPresent(Ubuntu.self, forKey: "UBUNTU")
+            self.macos = try values.decodeIfPresent(Macos.self, forKey: "MACOS")
+            self.windows = try values.decodeIfPresent(Windows.self, forKey: "WINDOWS")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ubuntu, forKey: "UBUNTU")
+            try values.encodeIfPresent(macos, forKey: "MACOS")
+            try values.encodeIfPresent(windows, forKey: "WINDOWS")
         }
     }
 
@@ -130,8 +183,15 @@ public struct WorkflowRunUsage: Codable {
         self.runDurationMs = runDurationMs
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case billable
-        case runDurationMs = "run_duration_ms"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.billable = try values.decode(Billable.self, forKey: "billable")
+        self.runDurationMs = try values.decodeIfPresent(Int.self, forKey: "run_duration_ms")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(billable, forKey: "billable")
+        try values.encodeIfPresent(runDurationMs, forKey: "run_duration_ms")
     }
 }

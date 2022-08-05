@@ -85,6 +85,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             /// Information about the person who is making the commit. By default, `committer` will use the information set in `author`. See the `author` and `committer` object below for details.
@@ -101,6 +108,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(message: String, tree: String, parents: [String]? = nil, author: Author? = nil, committer: Committer? = nil, signature: String? = nil) {
@@ -110,6 +124,16 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.author = author
                 self.committer = committer
                 self.signature = signature
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(tree, forKey: "tree")
+                try values.encodeIfPresent(parents, forKey: "parents")
+                try values.encodeIfPresent(author, forKey: "author")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(signature, forKey: "signature")
             }
         }
     }

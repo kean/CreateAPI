@@ -51,19 +51,37 @@ public struct ProjectCard: Codable {
         self.projectURL = projectURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case nodeID = "node_id"
-        case note
-        case creator
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case isArchived = "archived"
-        case columnName = "column_name"
-        case projectID = "project_id"
-        case columnURL = "column_url"
-        case contentURL = "content_url"
-        case projectURL = "project_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.note = try values.decodeIfPresent(String.self, forKey: "note")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.isArchived = try values.decodeIfPresent(Bool.self, forKey: "archived")
+        self.columnName = try values.decodeIfPresent(String.self, forKey: "column_name")
+        self.projectID = try values.decodeIfPresent(String.self, forKey: "project_id")
+        self.columnURL = try values.decode(URL.self, forKey: "column_url")
+        self.contentURL = try values.decodeIfPresent(URL.self, forKey: "content_url")
+        self.projectURL = try values.decode(URL.self, forKey: "project_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(note, forKey: "note")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(isArchived, forKey: "archived")
+        try values.encodeIfPresent(columnName, forKey: "column_name")
+        try values.encodeIfPresent(projectID, forKey: "project_id")
+        try values.encode(columnURL, forKey: "column_url")
+        try values.encodeIfPresent(contentURL, forKey: "content_url")
+        try values.encode(projectURL, forKey: "project_url")
     }
 }

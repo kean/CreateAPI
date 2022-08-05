@@ -31,12 +31,23 @@ public struct ActionsPublicKey: Codable {
         self.createdAt = createdAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case keyID = "key_id"
-        case key
-        case id
-        case url
-        case title
-        case createdAt = "created_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.keyID = try values.decode(String.self, forKey: "key_id")
+        self.key = try values.decode(String.self, forKey: "key")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        self.title = try values.decodeIfPresent(String.self, forKey: "title")
+        self.createdAt = try values.decodeIfPresent(String.self, forKey: "created_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(keyID, forKey: "key_id")
+        try values.encode(key, forKey: "key")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(title, forKey: "title")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
     }
 }

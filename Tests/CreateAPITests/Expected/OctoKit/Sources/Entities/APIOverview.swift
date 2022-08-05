@@ -40,11 +40,20 @@ public struct APIOverview: Codable {
             self.sha256Ed25519 = sha256Ed25519
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case sha256Rsa = "SHA256_RSA"
-            case sha256Dsa = "SHA256_DSA"
-            case sha256Ecdsa = "SHA256_ECDSA"
-            case sha256Ed25519 = "SHA256_ED25519"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.sha256Rsa = try values.decodeIfPresent(String.self, forKey: "SHA256_RSA")
+            self.sha256Dsa = try values.decodeIfPresent(String.self, forKey: "SHA256_DSA")
+            self.sha256Ecdsa = try values.decodeIfPresent(String.self, forKey: "SHA256_ECDSA")
+            self.sha256Ed25519 = try values.decodeIfPresent(String.self, forKey: "SHA256_ED25519")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(sha256Rsa, forKey: "SHA256_RSA")
+            try values.encodeIfPresent(sha256Dsa, forKey: "SHA256_DSA")
+            try values.encodeIfPresent(sha256Ecdsa, forKey: "SHA256_ECDSA")
+            try values.encodeIfPresent(sha256Ed25519, forKey: "SHA256_ED25519")
         }
     }
 
@@ -62,17 +71,33 @@ public struct APIOverview: Codable {
         self.dependabot = dependabot
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case isVerifiablePasswordAuthentication = "verifiable_password_authentication"
-        case sshKeyFingerprints = "ssh_key_fingerprints"
-        case hooks
-        case web
-        case api
-        case git
-        case packages
-        case pages
-        case importer
-        case actions
-        case dependabot
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isVerifiablePasswordAuthentication = try values.decode(Bool.self, forKey: "verifiable_password_authentication")
+        self.sshKeyFingerprints = try values.decodeIfPresent(SshKeyFingerprints.self, forKey: "ssh_key_fingerprints")
+        self.hooks = try values.decodeIfPresent([String].self, forKey: "hooks")
+        self.web = try values.decodeIfPresent([String].self, forKey: "web")
+        self.api = try values.decodeIfPresent([String].self, forKey: "api")
+        self.git = try values.decodeIfPresent([String].self, forKey: "git")
+        self.packages = try values.decodeIfPresent([String].self, forKey: "packages")
+        self.pages = try values.decodeIfPresent([String].self, forKey: "pages")
+        self.importer = try values.decodeIfPresent([String].self, forKey: "importer")
+        self.actions = try values.decodeIfPresent([String].self, forKey: "actions")
+        self.dependabot = try values.decodeIfPresent([String].self, forKey: "dependabot")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isVerifiablePasswordAuthentication, forKey: "verifiable_password_authentication")
+        try values.encodeIfPresent(sshKeyFingerprints, forKey: "ssh_key_fingerprints")
+        try values.encodeIfPresent(hooks, forKey: "hooks")
+        try values.encodeIfPresent(web, forKey: "web")
+        try values.encodeIfPresent(api, forKey: "api")
+        try values.encodeIfPresent(git, forKey: "git")
+        try values.encodeIfPresent(packages, forKey: "packages")
+        try values.encodeIfPresent(pages, forKey: "pages")
+        try values.encodeIfPresent(importer, forKey: "importer")
+        try values.encodeIfPresent(actions, forKey: "actions")
+        try values.encodeIfPresent(dependabot, forKey: "dependabot")
     }
 }

@@ -39,6 +39,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
                 self.body = body
                 self.event = event
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encode(event, forKey: "event")
+            }
         }
     }
 }

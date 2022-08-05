@@ -30,12 +30,22 @@ public struct MarketplacePurchase: Codable {
             self.plan = plan
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isInstalled = "is_installed"
-            case effectiveDate = "effective_date"
-            case unitCount = "unit_count"
-            case id
-            case plan
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isInstalled = try values.decodeIfPresent(Bool.self, forKey: "is_installed")
+            self.effectiveDate = try values.decodeIfPresent(String.self, forKey: "effective_date")
+            self.unitCount = try values.decodeIfPresent(Int.self, forKey: "unit_count")
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.plan = try values.decodeIfPresent(MarketplaceListingPlan.self, forKey: "plan")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(isInstalled, forKey: "is_installed")
+            try values.encodeIfPresent(effectiveDate, forKey: "effective_date")
+            try values.encodeIfPresent(unitCount, forKey: "unit_count")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(plan, forKey: "plan")
         }
     }
 
@@ -61,15 +71,28 @@ public struct MarketplacePurchase: Codable {
             self.plan = plan
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case billingCycle = "billing_cycle"
-            case nextBillingDate = "next_billing_date"
-            case isInstalled = "is_installed"
-            case unitCount = "unit_count"
-            case isOnFreeTrial = "on_free_trial"
-            case freeTrialEndsOn = "free_trial_ends_on"
-            case updatedAt = "updated_at"
-            case plan
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.billingCycle = try values.decodeIfPresent(String.self, forKey: "billing_cycle")
+            self.nextBillingDate = try values.decodeIfPresent(String.self, forKey: "next_billing_date")
+            self.isInstalled = try values.decodeIfPresent(Bool.self, forKey: "is_installed")
+            self.unitCount = try values.decodeIfPresent(Int.self, forKey: "unit_count")
+            self.isOnFreeTrial = try values.decodeIfPresent(Bool.self, forKey: "on_free_trial")
+            self.freeTrialEndsOn = try values.decodeIfPresent(String.self, forKey: "free_trial_ends_on")
+            self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
+            self.plan = try values.decodeIfPresent(MarketplaceListingPlan.self, forKey: "plan")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(billingCycle, forKey: "billing_cycle")
+            try values.encodeIfPresent(nextBillingDate, forKey: "next_billing_date")
+            try values.encodeIfPresent(isInstalled, forKey: "is_installed")
+            try values.encodeIfPresent(unitCount, forKey: "unit_count")
+            try values.encodeIfPresent(isOnFreeTrial, forKey: "on_free_trial")
+            try values.encodeIfPresent(freeTrialEndsOn, forKey: "free_trial_ends_on")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+            try values.encodeIfPresent(plan, forKey: "plan")
         }
     }
 
@@ -84,14 +107,27 @@ public struct MarketplacePurchase: Codable {
         self.marketplacePurchase = marketplacePurchase
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case type
-        case id
-        case login
-        case organizationBillingEmail = "organization_billing_email"
-        case email
-        case marketplacePendingChange = "marketplace_pending_change"
-        case marketplacePurchase = "marketplace_purchase"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(String.self, forKey: "url")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.login = try values.decode(String.self, forKey: "login")
+        self.organizationBillingEmail = try values.decodeIfPresent(String.self, forKey: "organization_billing_email")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.marketplacePendingChange = try values.decodeIfPresent(MarketplacePendingChange.self, forKey: "marketplace_pending_change")
+        self.marketplacePurchase = try values.decode(MarketplacePurchase.self, forKey: "marketplace_purchase")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(type, forKey: "type")
+        try values.encode(id, forKey: "id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(organizationBillingEmail, forKey: "organization_billing_email")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(marketplacePendingChange, forKey: "marketplace_pending_change")
+        try values.encode(marketplacePurchase, forKey: "marketplace_purchase")
     }
 }

@@ -18,10 +18,19 @@ struct Name: Codable {
         self._123Number = _123Number
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case snakeCase = "snake_case"
-        case property
-        case _123Number = "123Number"
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(Int.self, forKey: "name")
+        self.snakeCase = try values.decodeIfPresent(Int.self, forKey: "snake_case")
+        self.property = try values.decodeIfPresent(String.self, forKey: "property")
+        self._123Number = try values.decodeIfPresent(Int.self, forKey: "123Number")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(snakeCase, forKey: "snake_case")
+        try values.encodeIfPresent(property, forKey: "property")
+        try values.encodeIfPresent(_123Number, forKey: "123Number")
     }
 }

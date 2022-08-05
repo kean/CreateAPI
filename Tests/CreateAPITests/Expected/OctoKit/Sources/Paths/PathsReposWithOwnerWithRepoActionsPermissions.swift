@@ -51,9 +51,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.allowedActions = allowedActions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isEnabled = "enabled"
-                case allowedActions = "allowed_actions"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(isEnabled, forKey: "enabled")
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
             }
         }
     }

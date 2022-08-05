@@ -28,15 +28,29 @@ public struct LabelSearchResultItem: Codable {
         self.textMatches = textMatches
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case name
-        case color
-        case isDefault = "default"
-        case description
-        case score
-        case textMatches = "text_matches"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.color = try values.decode(String.self, forKey: "color")
+        self.isDefault = try values.decode(Bool.self, forKey: "default")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.score = try values.decode(Double.self, forKey: "score")
+        self.textMatches = try values.decodeIfPresent([SearchResultTextMatch].self, forKey: "text_matches")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(name, forKey: "name")
+        try values.encode(color, forKey: "color")
+        try values.encode(isDefault, forKey: "default")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(score, forKey: "score")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
     }
 }

@@ -38,8 +38,9 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
                 self.useLfs = useLfs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case useLfs = "use_lfs"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(useLfs, forKey: "use_lfs")
             }
         }
     }

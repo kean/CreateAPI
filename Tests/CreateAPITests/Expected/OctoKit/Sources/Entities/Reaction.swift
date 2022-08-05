@@ -40,11 +40,21 @@ public struct Reaction: Codable {
         self.createdAt = createdAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case user
-        case content
-        case createdAt = "created_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.content = try values.decode(Content.self, forKey: "content")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(content, forKey: "content")
+        try values.encode(createdAt, forKey: "created_at")
     }
 }

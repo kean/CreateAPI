@@ -33,9 +33,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
                 self.runners = runners
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runners
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.runners = try values.decode([OctoKit.Runner].self, forKey: "runners")
             }
         }
 

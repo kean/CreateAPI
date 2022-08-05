@@ -12,7 +12,13 @@ struct ClassModel: Codable {
         self.class = `class`
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case `class` = "_class"
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.class = try values.decodeIfPresent(String.self, forKey: "_class")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(`class`, forKey: "_class")
     }
 }

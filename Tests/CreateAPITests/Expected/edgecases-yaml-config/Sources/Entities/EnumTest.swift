@@ -23,10 +23,19 @@ public struct EnumTest: Codable {
         self.outerEnum = outerEnum
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case enumString = "enum_string"
-        case enumInteger = "enum_integer"
-        case enumNumber = "enum_number"
-        case outerEnum
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
+        self.enumInteger = try values.decodeIfPresent(Int.self, forKey: "enum_integer")
+        self.enumNumber = try values.decodeIfPresent(Double.self, forKey: "enum_number")
+        self.outerEnum = try values.decodeIfPresent(OuterEnum.self, forKey: "outerEnum")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(enumString, forKey: "enum_string")
+        try values.encodeIfPresent(enumInteger, forKey: "enum_integer")
+        try values.encodeIfPresent(enumNumber, forKey: "enum_number")
+        try values.encodeIfPresent(outerEnum, forKey: "outerEnum")
     }
 }

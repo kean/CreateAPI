@@ -12,4 +12,16 @@ struct ReadOnlyFirst: Codable {
         self.bar = bar
         self.baz = baz
     }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.bar = try values.decodeIfPresent(String.self, forKey: "bar")
+        self.baz = try values.decodeIfPresent(String.self, forKey: "baz")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(bar, forKey: "bar")
+        try values.encodeIfPresent(baz, forKey: "baz")
+    }
 }

@@ -34,6 +34,12 @@ extension Paths.Repos.WithOwner.WithRepo.Import.Authors {
                 self.email = email
                 self.name = name
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(name, forKey: "name")
+            }
         }
     }
 }

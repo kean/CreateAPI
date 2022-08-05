@@ -55,14 +55,26 @@ public struct EnvironmentApprovals: Codable {
             self.updatedAt = updatedAt
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nodeID = "node_id"
-            case name
-            case url
-            case htmlURL = "html_url"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
+            self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
         }
     }
 
@@ -79,5 +91,21 @@ public struct EnvironmentApprovals: Codable {
         self.state = state
         self.user = user
         self.comment = comment
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.environments = try values.decode([Environment].self, forKey: "environments")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.user = try values.decode(SimpleUser.self, forKey: "user")
+        self.comment = try values.decode(String.self, forKey: "comment")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(environments, forKey: "environments")
+        try values.encode(state, forKey: "state")
+        try values.encode(user, forKey: "user")
+        try values.encode(comment, forKey: "comment")
     }
 }

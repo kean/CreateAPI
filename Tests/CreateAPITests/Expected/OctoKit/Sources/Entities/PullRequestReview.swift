@@ -49,6 +49,16 @@ public struct PullRequestReview: Codable {
             public init(href: String) {
                 self.href = href
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.href = try values.decode(String.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
         public struct PullRequest: Codable {
@@ -57,6 +67,16 @@ public struct PullRequestReview: Codable {
             public init(href: String) {
                 self.href = href
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.href = try values.decode(String.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
         public init(html: HTML, pullRequest: PullRequest) {
@@ -64,9 +84,16 @@ public struct PullRequestReview: Codable {
             self.pullRequest = pullRequest
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case html
-            case pullRequest = "pull_request"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.html = try values.decode(HTML.self, forKey: "html")
+            self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
         }
     }
 
@@ -86,19 +113,37 @@ public struct PullRequestReview: Codable {
         self.authorAssociation = authorAssociation
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case user
-        case body
-        case state
-        case htmlURL = "html_url"
-        case pullRequestURL = "pull_request_url"
-        case links = "_links"
-        case submittedAt = "submitted_at"
-        case commitID = "commit_id"
-        case bodyHTML = "body_html"
-        case bodyText = "body_text"
-        case authorAssociation = "author_association"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.pullRequestURL = try values.decode(URL.self, forKey: "pull_request_url")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.submittedAt = try values.decodeIfPresent(Date.self, forKey: "submitted_at")
+        self.commitID = try values.decode(String.self, forKey: "commit_id")
+        self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
+        self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(body, forKey: "body")
+        try values.encode(state, forKey: "state")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(submittedAt, forKey: "submitted_at")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encode(authorAssociation, forKey: "author_association")
     }
 }

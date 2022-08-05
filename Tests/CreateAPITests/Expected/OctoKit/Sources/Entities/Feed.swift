@@ -65,15 +65,28 @@ public struct Feed: Codable {
             self.currentUserOrganizations = currentUserOrganizations
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case timeline
-            case user
-            case securityAdvisories = "security_advisories"
-            case currentUser = "current_user"
-            case currentUserPublic = "current_user_public"
-            case currentUserActor = "current_user_actor"
-            case currentUserOrganization = "current_user_organization"
-            case currentUserOrganizations = "current_user_organizations"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.timeline = try values.decode(LinkWithType.self, forKey: "timeline")
+            self.user = try values.decode(LinkWithType.self, forKey: "user")
+            self.securityAdvisories = try values.decodeIfPresent(LinkWithType.self, forKey: "security_advisories")
+            self.currentUser = try values.decodeIfPresent(LinkWithType.self, forKey: "current_user")
+            self.currentUserPublic = try values.decodeIfPresent(LinkWithType.self, forKey: "current_user_public")
+            self.currentUserActor = try values.decodeIfPresent(LinkWithType.self, forKey: "current_user_actor")
+            self.currentUserOrganization = try values.decodeIfPresent(LinkWithType.self, forKey: "current_user_organization")
+            self.currentUserOrganizations = try values.decodeIfPresent([LinkWithType].self, forKey: "current_user_organizations")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(timeline, forKey: "timeline")
+            try values.encode(user, forKey: "user")
+            try values.encodeIfPresent(securityAdvisories, forKey: "security_advisories")
+            try values.encodeIfPresent(currentUser, forKey: "current_user")
+            try values.encodeIfPresent(currentUserPublic, forKey: "current_user_public")
+            try values.encodeIfPresent(currentUserActor, forKey: "current_user_actor")
+            try values.encodeIfPresent(currentUserOrganization, forKey: "current_user_organization")
+            try values.encodeIfPresent(currentUserOrganizations, forKey: "current_user_organizations")
         }
     }
 
@@ -89,15 +102,29 @@ public struct Feed: Codable {
         self.links = links
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case timelineURL = "timeline_url"
-        case userURL = "user_url"
-        case currentUserPublicURL = "current_user_public_url"
-        case currentUserURL = "current_user_url"
-        case currentUserActorURL = "current_user_actor_url"
-        case currentUserOrganizationURL = "current_user_organization_url"
-        case currentUserOrganizationURLs = "current_user_organization_urls"
-        case securityAdvisoriesURL = "security_advisories_url"
-        case links = "_links"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.timelineURL = try values.decode(String.self, forKey: "timeline_url")
+        self.userURL = try values.decode(String.self, forKey: "user_url")
+        self.currentUserPublicURL = try values.decodeIfPresent(String.self, forKey: "current_user_public_url")
+        self.currentUserURL = try values.decodeIfPresent(String.self, forKey: "current_user_url")
+        self.currentUserActorURL = try values.decodeIfPresent(String.self, forKey: "current_user_actor_url")
+        self.currentUserOrganizationURL = try values.decodeIfPresent(String.self, forKey: "current_user_organization_url")
+        self.currentUserOrganizationURLs = try values.decodeIfPresent([URL].self, forKey: "current_user_organization_urls")
+        self.securityAdvisoriesURL = try values.decodeIfPresent(String.self, forKey: "security_advisories_url")
+        self.links = try values.decode(Links.self, forKey: "_links")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(timelineURL, forKey: "timeline_url")
+        try values.encode(userURL, forKey: "user_url")
+        try values.encodeIfPresent(currentUserPublicURL, forKey: "current_user_public_url")
+        try values.encodeIfPresent(currentUserURL, forKey: "current_user_url")
+        try values.encodeIfPresent(currentUserActorURL, forKey: "current_user_actor_url")
+        try values.encodeIfPresent(currentUserOrganizationURL, forKey: "current_user_organization_url")
+        try values.encodeIfPresent(currentUserOrganizationURLs, forKey: "current_user_organization_urls")
+        try values.encodeIfPresent(securityAdvisoriesURL, forKey: "security_advisories_url")
+        try values.encode(links, forKey: "_links")
     }
 }

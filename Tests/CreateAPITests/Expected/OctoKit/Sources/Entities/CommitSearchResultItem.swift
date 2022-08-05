@@ -46,6 +46,20 @@ public struct CommitSearchResultItem: Codable {
                 self.email = email
                 self.date = date
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.name = try values.decode(String.self, forKey: "name")
+                self.email = try values.decode(String.self, forKey: "email")
+                self.date = try values.decode(Date.self, forKey: "date")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encode(email, forKey: "email")
+                try values.encode(date, forKey: "date")
+            }
         }
 
         public struct Tree: Codable {
@@ -55,6 +69,18 @@ public struct CommitSearchResultItem: Codable {
             public init(sha: String, url: URL) {
                 self.sha = sha
                 self.url = url
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.sha = try values.decode(String.self, forKey: "sha")
+                self.url = try values.decode(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(sha, forKey: "sha")
+                try values.encode(url, forKey: "url")
             }
         }
 
@@ -68,14 +94,26 @@ public struct CommitSearchResultItem: Codable {
             self.verification = verification
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case author
-            case committer
-            case commentCount = "comment_count"
-            case message
-            case tree
-            case url
-            case verification
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.author = try values.decode(Author.self, forKey: "author")
+            self.committer = try values.decodeIfPresent(GitUser.self, forKey: "committer")
+            self.commentCount = try values.decode(Int.self, forKey: "comment_count")
+            self.message = try values.decode(String.self, forKey: "message")
+            self.tree = try values.decode(Tree.self, forKey: "tree")
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(author, forKey: "author")
+            try values.encodeIfPresent(committer, forKey: "committer")
+            try values.encode(commentCount, forKey: "comment_count")
+            try values.encode(message, forKey: "message")
+            try values.encode(tree, forKey: "tree")
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(verification, forKey: "verification")
         }
     }
 
@@ -90,10 +128,18 @@ public struct CommitSearchResultItem: Codable {
             self.sha = sha
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case htmlURL = "html_url"
-            case sha
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(sha, forKey: "sha")
         }
     }
 
@@ -112,18 +158,35 @@ public struct CommitSearchResultItem: Codable {
         self.textMatches = textMatches
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case sha
-        case htmlURL = "html_url"
-        case commentsURL = "comments_url"
-        case commit
-        case author
-        case committer
-        case parents
-        case repository
-        case score
-        case nodeID = "node_id"
-        case textMatches = "text_matches"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.commentsURL = try values.decode(URL.self, forKey: "comments_url")
+        self.commit = try values.decode(Commit.self, forKey: "commit")
+        self.author = try values.decodeIfPresent(SimpleUser.self, forKey: "author")
+        self.committer = try values.decodeIfPresent(GitUser.self, forKey: "committer")
+        self.parents = try values.decode([Parent].self, forKey: "parents")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.score = try values.decode(Double.self, forKey: "score")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.textMatches = try values.decodeIfPresent([SearchResultTextMatch].self, forKey: "text_matches")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(commit, forKey: "commit")
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encodeIfPresent(committer, forKey: "committer")
+        try values.encode(parents, forKey: "parents")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(score, forKey: "score")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
     }
 }

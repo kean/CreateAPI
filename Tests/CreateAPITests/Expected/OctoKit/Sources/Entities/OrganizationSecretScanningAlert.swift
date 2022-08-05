@@ -45,18 +45,35 @@ public struct OrganizationSecretScanningAlert: Codable {
         self.repository = repository
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case number
-        case createdAt = "created_at"
-        case url
-        case htmlURL = "html_url"
-        case locationsURL = "locations_url"
-        case state
-        case resolution
-        case resolvedAt = "resolved_at"
-        case resolvedBy = "resolved_by"
-        case secretType = "secret_type"
-        case secret
-        case repository
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.number = try values.decodeIfPresent(Int.self, forKey: "number")
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
+        self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+        self.locationsURL = try values.decodeIfPresent(URL.self, forKey: "locations_url")
+        self.state = try values.decodeIfPresent(SecretScanningAlertState.self, forKey: "state")
+        self.resolution = try values.decodeIfPresent(SecretScanningAlertResolution.self, forKey: "resolution")
+        self.resolvedAt = try values.decodeIfPresent(Date.self, forKey: "resolved_at")
+        self.resolvedBy = try values.decodeIfPresent(SimpleUser.self, forKey: "resolved_by")
+        self.secretType = try values.decodeIfPresent(String.self, forKey: "secret_type")
+        self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+        self.repository = try values.decodeIfPresent(MinimalRepository.self, forKey: "repository")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(number, forKey: "number")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(locationsURL, forKey: "locations_url")
+        try values.encodeIfPresent(state, forKey: "state")
+        try values.encodeIfPresent(resolution, forKey: "resolution")
+        try values.encodeIfPresent(resolvedAt, forKey: "resolved_at")
+        try values.encodeIfPresent(resolvedBy, forKey: "resolved_by")
+        try values.encodeIfPresent(secretType, forKey: "secret_type")
+        try values.encodeIfPresent(secret, forKey: "secret")
+        try values.encodeIfPresent(repository, forKey: "repository")
     }
 }

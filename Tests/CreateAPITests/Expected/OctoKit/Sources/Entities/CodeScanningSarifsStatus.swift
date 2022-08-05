@@ -25,9 +25,17 @@ public struct CodeScanningSarifsStatus: Codable {
         self.errors = errors
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case processingStatus = "processing_status"
-        case analysesURL = "analyses_url"
-        case errors
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.processingStatus = try values.decodeIfPresent(ProcessingStatus.self, forKey: "processing_status")
+        self.analysesURL = try values.decodeIfPresent(URL.self, forKey: "analyses_url")
+        self.errors = try values.decodeIfPresent([String].self, forKey: "errors")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(processingStatus, forKey: "processing_status")
+        try values.encodeIfPresent(analysesURL, forKey: "analyses_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
     }
 }

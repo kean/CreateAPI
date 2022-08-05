@@ -36,9 +36,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.environments = environments
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case environments
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decodeIfPresent(Int.self, forKey: "total_count")
+                self.environments = try values.decodeIfPresent([OctoKit.Environment].self, forKey: "environments")
             }
         }
     }

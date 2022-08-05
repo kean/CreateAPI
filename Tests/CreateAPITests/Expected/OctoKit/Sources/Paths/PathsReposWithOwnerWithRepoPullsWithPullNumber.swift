@@ -75,12 +75,13 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
                 self.maintainerCanModify = maintainerCanModify
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case body
-                case state
-                case base
-                case maintainerCanModify = "maintainer_can_modify"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(base, forKey: "base")
+                try values.encodeIfPresent(maintainerCanModify, forKey: "maintainer_can_modify")
             }
         }
     }

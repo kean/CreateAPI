@@ -58,11 +58,20 @@ public struct PublicUser: Codable {
             self.privateRepos = privateRepos
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case collaborators
-            case name
-            case space
-            case privateRepos = "private_repos"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.collaborators = try values.decode(Int.self, forKey: "collaborators")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.space = try values.decode(Int.self, forKey: "space")
+            self.privateRepos = try values.decode(Int.self, forKey: "private_repos")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(collaborators, forKey: "collaborators")
+            try values.encode(name, forKey: "name")
+            try values.encode(space, forKey: "space")
+            try values.encode(privateRepos, forKey: "private_repos")
         }
     }
 
@@ -108,45 +117,89 @@ public struct PublicUser: Codable {
         self.collaborators = collaborators
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case login
-        case id
-        case nodeID = "node_id"
-        case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
-        case url
-        case htmlURL = "html_url"
-        case followersURL = "followers_url"
-        case followingURL = "following_url"
-        case gistsURL = "gists_url"
-        case starredURL = "starred_url"
-        case subscriptionsURL = "subscriptions_url"
-        case organizationsURL = "organizations_url"
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case receivedEventsURL = "received_events_url"
-        case type
-        case isSiteAdmin = "site_admin"
-        case name
-        case company
-        case blog
-        case location
-        case email
-        case isHireable = "hireable"
-        case bio
-        case twitterUsername = "twitter_username"
-        case publicRepos = "public_repos"
-        case publicGists = "public_gists"
-        case followers
-        case following
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case plan
-        case suspendedAt = "suspended_at"
-        case privateGists = "private_gists"
-        case totalPrivateRepos = "total_private_repos"
-        case ownedPrivateRepos = "owned_private_repos"
-        case diskUsage = "disk_usage"
-        case collaborators
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.login = try values.decode(String.self, forKey: "login")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+        self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+        self.followingURL = try values.decode(String.self, forKey: "following_url")
+        self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+        self.starredURL = try values.decode(String.self, forKey: "starred_url")
+        self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+        self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+        self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+        self.eventsURL = try values.decode(String.self, forKey: "events_url")
+        self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.company = try values.decodeIfPresent(String.self, forKey: "company")
+        self.blog = try values.decodeIfPresent(String.self, forKey: "blog")
+        self.location = try values.decodeIfPresent(String.self, forKey: "location")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.isHireable = try values.decodeIfPresent(Bool.self, forKey: "hireable")
+        self.bio = try values.decodeIfPresent(String.self, forKey: "bio")
+        self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
+        self.publicRepos = try values.decode(Int.self, forKey: "public_repos")
+        self.publicGists = try values.decode(Int.self, forKey: "public_gists")
+        self.followers = try values.decode(Int.self, forKey: "followers")
+        self.following = try values.decode(Int.self, forKey: "following")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.plan = try values.decodeIfPresent(Plan.self, forKey: "plan")
+        self.suspendedAt = try values.decodeIfPresent(Date.self, forKey: "suspended_at")
+        self.privateGists = try values.decodeIfPresent(Int.self, forKey: "private_gists")
+        self.totalPrivateRepos = try values.decodeIfPresent(Int.self, forKey: "total_private_repos")
+        self.ownedPrivateRepos = try values.decodeIfPresent(Int.self, forKey: "owned_private_repos")
+        self.diskUsage = try values.decodeIfPresent(Int.self, forKey: "disk_usage")
+        self.collaborators = try values.decodeIfPresent(Int.self, forKey: "collaborators")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(login, forKey: "login")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(followersURL, forKey: "followers_url")
+        try values.encode(followingURL, forKey: "following_url")
+        try values.encode(gistsURL, forKey: "gists_url")
+        try values.encode(starredURL, forKey: "starred_url")
+        try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encode(organizationsURL, forKey: "organizations_url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(type, forKey: "type")
+        try values.encode(isSiteAdmin, forKey: "site_admin")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(isHireable, forKey: "hireable")
+        try values.encodeIfPresent(bio, forKey: "bio")
+        try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+        try values.encode(publicRepos, forKey: "public_repos")
+        try values.encode(publicGists, forKey: "public_gists")
+        try values.encode(followers, forKey: "followers")
+        try values.encode(following, forKey: "following")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(plan, forKey: "plan")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encodeIfPresent(privateGists, forKey: "private_gists")
+        try values.encodeIfPresent(totalPrivateRepos, forKey: "total_private_repos")
+        try values.encodeIfPresent(ownedPrivateRepos, forKey: "owned_private_repos")
+        try values.encodeIfPresent(diskUsage, forKey: "disk_usage")
+        try values.encodeIfPresent(collaborators, forKey: "collaborators")
     }
 }

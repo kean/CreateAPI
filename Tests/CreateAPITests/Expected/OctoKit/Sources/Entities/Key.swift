@@ -23,13 +23,25 @@ public struct Key: Codable {
         self.isReadOnly = isReadOnly
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case key
-        case id
-        case url
-        case title
-        case createdAt = "created_at"
-        case isVerified = "verified"
-        case isReadOnly = "read_only"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.key = try values.decode(String.self, forKey: "key")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.isVerified = try values.decode(Bool.self, forKey: "verified")
+        self.isReadOnly = try values.decode(Bool.self, forKey: "read_only")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(key, forKey: "key")
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
+        try values.encode(title, forKey: "title")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(isVerified, forKey: "verified")
+        try values.encode(isReadOnly, forKey: "read_only")
     }
 }

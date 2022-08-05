@@ -81,17 +81,32 @@ public struct Hook: Codable {
             self.token = token
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case email
-            case password
-            case room
-            case subdomain
-            case url
-            case insecureSSL = "insecure_ssl"
-            case contentType = "content_type"
-            case digest
-            case secret
-            case token
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.email = try values.decodeIfPresent(String.self, forKey: "email")
+            self.password = try values.decodeIfPresent(String.self, forKey: "password")
+            self.room = try values.decodeIfPresent(String.self, forKey: "room")
+            self.subdomain = try values.decodeIfPresent(String.self, forKey: "subdomain")
+            self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+            self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+            self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+            self.digest = try values.decodeIfPresent(String.self, forKey: "digest")
+            self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+            self.token = try values.decodeIfPresent(String.self, forKey: "token")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(email, forKey: "email")
+            try values.encodeIfPresent(password, forKey: "password")
+            try values.encodeIfPresent(room, forKey: "room")
+            try values.encodeIfPresent(subdomain, forKey: "subdomain")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+            try values.encodeIfPresent(contentType, forKey: "content_type")
+            try values.encodeIfPresent(digest, forKey: "digest")
+            try values.encodeIfPresent(secret, forKey: "secret")
+            try values.encodeIfPresent(token, forKey: "token")
         }
     }
 
@@ -111,19 +126,37 @@ public struct Hook: Codable {
         self.lastResponse = lastResponse
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case type
-        case id
-        case name
-        case isActive = "active"
-        case events
-        case config
-        case updatedAt = "updated_at"
-        case createdAt = "created_at"
-        case url
-        case testURL = "test_url"
-        case pingURL = "ping_url"
-        case deliveriesURL = "deliveries_url"
-        case lastResponse = "last_response"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.type = try values.decode(String.self, forKey: "type")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.isActive = try values.decode(Bool.self, forKey: "active")
+        self.events = try values.decode([String].self, forKey: "events")
+        self.config = try values.decode(Config.self, forKey: "config")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.testURL = try values.decode(URL.self, forKey: "test_url")
+        self.pingURL = try values.decode(URL.self, forKey: "ping_url")
+        self.deliveriesURL = try values.decodeIfPresent(URL.self, forKey: "deliveries_url")
+        self.lastResponse = try values.decode(HookResponse.self, forKey: "last_response")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(type, forKey: "type")
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(isActive, forKey: "active")
+        try values.encode(events, forKey: "events")
+        try values.encode(config, forKey: "config")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(testURL, forKey: "test_url")
+        try values.encode(pingURL, forKey: "ping_url")
+        try values.encodeIfPresent(deliveriesURL, forKey: "deliveries_url")
+        try values.encode(lastResponse, forKey: "last_response")
     }
 }

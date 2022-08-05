@@ -51,17 +51,33 @@ public struct Workflow: Codable {
         self.deletedAt = deletedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case name
-        case path
-        case state
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case url
-        case htmlURL = "html_url"
-        case badgeURL = "badge_url"
-        case deletedAt = "deleted_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decode(String.self, forKey: "html_url")
+        self.badgeURL = try values.decode(String.self, forKey: "badge_url")
+        self.deletedAt = try values.decodeIfPresent(Date.self, forKey: "deleted_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(state, forKey: "state")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(badgeURL, forKey: "badge_url")
+        try values.encodeIfPresent(deletedAt, forKey: "deleted_at")
     }
 }

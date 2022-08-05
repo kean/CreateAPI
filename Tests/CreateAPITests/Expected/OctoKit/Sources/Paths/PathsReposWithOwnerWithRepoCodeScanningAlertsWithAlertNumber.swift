@@ -47,9 +47,10 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Alerts {
                 self.dismissedReason = dismissedReason
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case state
-                case dismissedReason = "dismissed_reason"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(state, forKey: "state")
+                try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
             }
         }
     }

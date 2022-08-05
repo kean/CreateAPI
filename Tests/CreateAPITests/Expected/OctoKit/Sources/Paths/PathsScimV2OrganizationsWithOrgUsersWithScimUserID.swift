@@ -87,6 +87,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.familyName = familyName
                     self.formatted = formatted
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encodeIfPresent(formatted, forKey: "formatted")
+                }
             }
 
             public struct Email: Encodable {
@@ -100,10 +107,11 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.isPrimary = isPrimary
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case type
-                    case value
-                    case isPrimary = "primary"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encode(value, forKey: "value")
+                    try values.encodeIfPresent(isPrimary, forKey: "primary")
                 }
             }
 
@@ -118,15 +126,16 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 self.emails = emails
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case displayName
-                case externalID = "externalId"
-                case groups
-                case isActive = "active"
-                case userName
-                case name
-                case emails
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encodeIfPresent(displayName, forKey: "displayName")
+                try values.encodeIfPresent(externalID, forKey: "externalId")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encode(userName, forKey: "userName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
             }
         }
 
@@ -201,12 +210,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                             self.familyName = familyName
                         }
 
-                        private enum CodingKeys: String, CodingKey {
-                            case isActive = "active"
-                            case userName
-                            case externalID = "externalId"
-                            case givenName
-                            case familyName
+                        public func encode(to encoder: Encoder) throws {
+                            var values = encoder.container(keyedBy: StringCodingKey.self)
+                            try values.encodeIfPresent(isActive, forKey: "active")
+                            try values.encodeIfPresent(userName, forKey: "userName")
+                            try values.encodeIfPresent(externalID, forKey: "externalId")
+                            try values.encodeIfPresent(givenName, forKey: "givenName")
+                            try values.encodeIfPresent(familyName, forKey: "familyName")
                         }
                     }
 
@@ -219,9 +229,10 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                             self.isPrimary = isPrimary
                         }
 
-                        private enum CodingKeys: String, CodingKey {
-                            case value
-                            case isPrimary = "primary"
+                        public func encode(to encoder: Encoder) throws {
+                            var values = encoder.container(keyedBy: StringCodingKey.self)
+                            try values.encodeIfPresent(value, forKey: "value")
+                            try values.encodeIfPresent(isPrimary, forKey: "primary")
                         }
                     }
 
@@ -240,6 +251,13 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                     self.path = path
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(op, forKey: "op")
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String]? = nil, operations: [Operation]) {
@@ -247,9 +265,10 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
                 self.operations = operations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case operations = "Operations"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encode(operations, forKey: "Operations")
             }
         }
 

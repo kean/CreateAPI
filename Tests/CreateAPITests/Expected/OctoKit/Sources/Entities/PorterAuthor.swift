@@ -23,13 +23,25 @@ public struct PorterAuthor: Codable {
         self.importURL = importURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case remoteID = "remote_id"
-        case remoteName = "remote_name"
-        case email
-        case name
-        case url
-        case importURL = "import_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.remoteID = try values.decode(String.self, forKey: "remote_id")
+        self.remoteName = try values.decode(String.self, forKey: "remote_name")
+        self.email = try values.decode(String.self, forKey: "email")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.importURL = try values.decode(URL.self, forKey: "import_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(remoteID, forKey: "remote_id")
+        try values.encode(remoteName, forKey: "remote_name")
+        try values.encode(email, forKey: "email")
+        try values.encode(name, forKey: "name")
+        try values.encode(url, forKey: "url")
+        try values.encode(importURL, forKey: "import_url")
     }
 }

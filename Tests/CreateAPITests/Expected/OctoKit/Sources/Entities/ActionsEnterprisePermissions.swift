@@ -21,10 +21,19 @@ public struct ActionsEnterprisePermissions: Codable {
         self.selectedActionsURL = selectedActionsURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case enabledOrganizations = "enabled_organizations"
-        case selectedOrganizationsURL = "selected_organizations_url"
-        case allowedActions = "allowed_actions"
-        case selectedActionsURL = "selected_actions_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.enabledOrganizations = try values.decode(EnabledOrganizations.self, forKey: "enabled_organizations")
+        self.selectedOrganizationsURL = try values.decodeIfPresent(String.self, forKey: "selected_organizations_url")
+        self.allowedActions = try values.decodeIfPresent(AllowedActions.self, forKey: "allowed_actions")
+        self.selectedActionsURL = try values.decodeIfPresent(String.self, forKey: "selected_actions_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(enabledOrganizations, forKey: "enabled_organizations")
+        try values.encodeIfPresent(selectedOrganizationsURL, forKey: "selected_organizations_url")
+        try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
+        try values.encodeIfPresent(selectedActionsURL, forKey: "selected_actions_url")
     }
 }

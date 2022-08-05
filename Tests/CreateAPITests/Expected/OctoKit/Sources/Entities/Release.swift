@@ -71,29 +71,57 @@ public struct Release: Codable {
         self.reactions = reactions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case htmlURL = "html_url"
-        case assetsURL = "assets_url"
-        case uploadURL = "upload_url"
-        case tarballURL = "tarball_url"
-        case zipballURL = "zipball_url"
-        case id
-        case nodeID = "node_id"
-        case tagName = "tag_name"
-        case targetCommitish = "target_commitish"
-        case name
-        case body
-        case isDraft = "draft"
-        case isPrerelease = "prerelease"
-        case createdAt = "created_at"
-        case publishedAt = "published_at"
-        case author
-        case assets
-        case bodyHTML = "body_html"
-        case bodyText = "body_text"
-        case mentionsCount = "mentions_count"
-        case discussionURL = "discussion_url"
-        case reactions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.assetsURL = try values.decode(URL.self, forKey: "assets_url")
+        self.uploadURL = try values.decode(String.self, forKey: "upload_url")
+        self.tarballURL = try values.decodeIfPresent(URL.self, forKey: "tarball_url")
+        self.zipballURL = try values.decodeIfPresent(URL.self, forKey: "zipball_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.tagName = try values.decode(String.self, forKey: "tag_name")
+        self.targetCommitish = try values.decode(String.self, forKey: "target_commitish")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.body = try values.decodeIfPresent(String.self, forKey: "body")
+        self.isDraft = try values.decode(Bool.self, forKey: "draft")
+        self.isPrerelease = try values.decode(Bool.self, forKey: "prerelease")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.publishedAt = try values.decodeIfPresent(Date.self, forKey: "published_at")
+        self.author = try values.decode(SimpleUser.self, forKey: "author")
+        self.assets = try values.decode([ReleaseAsset].self, forKey: "assets")
+        self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
+        self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
+        self.mentionsCount = try values.decodeIfPresent(Int.self, forKey: "mentions_count")
+        self.discussionURL = try values.decodeIfPresent(URL.self, forKey: "discussion_url")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(assetsURL, forKey: "assets_url")
+        try values.encode(uploadURL, forKey: "upload_url")
+        try values.encodeIfPresent(tarballURL, forKey: "tarball_url")
+        try values.encodeIfPresent(zipballURL, forKey: "zipball_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(tagName, forKey: "tag_name")
+        try values.encode(targetCommitish, forKey: "target_commitish")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(isDraft, forKey: "draft")
+        try values.encode(isPrerelease, forKey: "prerelease")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(publishedAt, forKey: "published_at")
+        try values.encode(author, forKey: "author")
+        try values.encode(assets, forKey: "assets")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encodeIfPresent(mentionsCount, forKey: "mentions_count")
+        try values.encodeIfPresent(discussionURL, forKey: "discussion_url")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
     }
 }

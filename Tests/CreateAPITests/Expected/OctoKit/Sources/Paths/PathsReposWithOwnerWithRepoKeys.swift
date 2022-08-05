@@ -62,10 +62,11 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isReadOnly = isReadOnly
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case key
-                case isReadOnly = "read_only"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(key, forKey: "key")
+                try values.encodeIfPresent(isReadOnly, forKey: "read_only")
             }
         }
     }

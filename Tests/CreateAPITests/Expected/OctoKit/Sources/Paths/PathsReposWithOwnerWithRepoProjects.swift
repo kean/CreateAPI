@@ -73,6 +73,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.name = name
                 self.body = body
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+            }
         }
     }
 }

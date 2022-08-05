@@ -17,10 +17,19 @@ public struct PorterLargeFile: Codable {
         self.size = size
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case refName = "ref_name"
-        case path
-        case oid
-        case size
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.refName = try values.decode(String.self, forKey: "ref_name")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.oid = try values.decode(String.self, forKey: "oid")
+        self.size = try values.decode(Int.self, forKey: "size")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(refName, forKey: "ref_name")
+        try values.encode(path, forKey: "path")
+        try values.encode(oid, forKey: "oid")
+        try values.encode(size, forKey: "size")
     }
 }

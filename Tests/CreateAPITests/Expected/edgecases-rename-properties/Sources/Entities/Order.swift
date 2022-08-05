@@ -29,22 +29,23 @@ public struct Order: Codable {
         self.isDone = isDone ?? false
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case petID = "petId"
-        case quantity
-        case shipDate
-        case status
-        case isDone = "complete"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
+        self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
+        self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete") ?? false
     }
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.identifier = try values.decodeIfPresent(Int.self, forKey: .identifier)
-        self.petID = try values.decodeIfPresent(Int.self, forKey: .petID)
-        self.quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
-        self.shipDate = try values.decodeIfPresent(Date.self, forKey: .shipDate)
-        self.status = try values.decodeIfPresent(Status.self, forKey: .status)
-        self.isDone = try values.decodeIfPresent(Bool.self, forKey: .isDone) ?? false
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(petID, forKey: "petId")
+        try values.encodeIfPresent(quantity, forKey: "quantity")
+        try values.encodeIfPresent(shipDate, forKey: "shipDate")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(isDone, forKey: "complete")
     }
 }

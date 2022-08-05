@@ -15,8 +15,15 @@ public struct ProtectedBranchAdminEnforced: Codable {
         self.isEnabled = isEnabled
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case isEnabled = "enabled"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.isEnabled = try values.decode(Bool.self, forKey: "enabled")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(isEnabled, forKey: "enabled")
     }
 }

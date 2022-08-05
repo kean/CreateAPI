@@ -26,14 +26,27 @@ public struct User: Codable {
         self.userStatus = userStatus
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case username
-        case firstName
-        case lastName
-        case email
-        case password
-        case phone
-        case userStatus
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.username = try values.decodeIfPresent(String.self, forKey: "username")
+        self.firstName = try values.decodeIfPresent(String.self, forKey: "firstName")
+        self.lastName = try values.decodeIfPresent(String.self, forKey: "lastName")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.password = try values.decodeIfPresent(String.self, forKey: "password")
+        self.phone = try values.decodeIfPresent(String.self, forKey: "phone")
+        self.userStatus = try values.decodeIfPresent(Int.self, forKey: "userStatus")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(username, forKey: "username")
+        try values.encodeIfPresent(firstName, forKey: "firstName")
+        try values.encodeIfPresent(lastName, forKey: "lastName")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(password, forKey: "password")
+        try values.encodeIfPresent(phone, forKey: "phone")
+        try values.encodeIfPresent(userStatus, forKey: "userStatus")
     }
 }

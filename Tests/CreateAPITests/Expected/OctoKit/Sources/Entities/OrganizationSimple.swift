@@ -44,18 +44,35 @@ public struct OrganizationSimple: Codable {
         self.description = description
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case login
-        case id
-        case nodeID = "node_id"
-        case url
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case hooksURL = "hooks_url"
-        case issuesURL = "issues_url"
-        case membersURL = "members_url"
-        case publicMembersURL = "public_members_url"
-        case avatarURL = "avatar_url"
-        case description
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.login = try values.decode(String.self, forKey: "login")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+        self.eventsURL = try values.decode(URL.self, forKey: "events_url")
+        self.hooksURL = try values.decode(String.self, forKey: "hooks_url")
+        self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+        self.membersURL = try values.decode(String.self, forKey: "members_url")
+        self.publicMembersURL = try values.decode(String.self, forKey: "public_members_url")
+        self.avatarURL = try values.decode(String.self, forKey: "avatar_url")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(login, forKey: "login")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(publicMembersURL, forKey: "public_members_url")
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(description, forKey: "description")
     }
 }

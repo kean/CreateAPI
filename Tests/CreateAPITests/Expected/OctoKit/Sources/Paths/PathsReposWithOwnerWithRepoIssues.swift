@@ -165,6 +165,14 @@ extension Paths.Repos.WithOwner.WithRepo {
                         self.description = description
                         self.color = color
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(id, forKey: "id")
+                        try values.encodeIfPresent(name, forKey: "name")
+                        try values.encodeIfPresent(description, forKey: "description")
+                        try values.encodeIfPresent(color, forKey: "color")
+                    }
                 }
 
                 public func encode(to encoder: Encoder) throws {
@@ -183,6 +191,16 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.milestone = milestone
                 self.labels = labels
                 self.assignees = assignees
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(assignee, forKey: "assignee")
+                try values.encodeIfPresent(milestone, forKey: "milestone")
+                try values.encodeIfPresent(labels, forKey: "labels")
+                try values.encodeIfPresent(assignees, forKey: "assignees")
             }
         }
     }

@@ -29,4 +29,24 @@ public struct Pet: Codable {
         self.tags = tags
         self.status = status
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.category = try values.decodeIfPresent(Category.self, forKey: "category")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.photoUrls = try values.decode([String].self, forKey: "photoUrls")
+        self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encode(name, forKey: "name")
+        try values.encode(photoUrls, forKey: "photoUrls")
+        try values.encodeIfPresent(tags, forKey: "tags")
+        try values.encodeIfPresent(status, forKey: "status")
+    }
 }

@@ -13,8 +13,15 @@ public struct EnumArrays: Codable {
         self.arrayEnum = arrayEnum
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case justSymbol = "just_symbol"
-        case arrayEnum = "array_enum"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.justSymbol = try values.decodeIfPresent(String.self, forKey: "just_symbol")
+        self.arrayEnum = try values.decodeIfPresent([String].self, forKey: "array_enum")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(justSymbol, forKey: "just_symbol")
+        try values.encodeIfPresent(arrayEnum, forKey: "array_enum")
     }
 }

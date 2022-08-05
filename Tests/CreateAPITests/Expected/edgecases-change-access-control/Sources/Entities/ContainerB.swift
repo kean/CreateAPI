@@ -31,9 +31,16 @@ struct ContainerB: Codable {
                 self.renameMe = renameMe
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case `enum`
-                case renameMe = "rename-me"
+            init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.enum = try values.decode(Enum.self, forKey: "enum")
+                self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(`enum`, forKey: "enum")
+                try values.encode(renameMe, forKey: "rename-me")
             }
         }
 
@@ -43,14 +50,32 @@ struct ContainerB: Codable {
             self.child = child
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case `enum`
-            case renameMe = "rename-me"
-            case child
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.enum = try values.decode(Enum.self, forKey: "enum")
+            self.renameMe = try values.decode(String.self, forKey: "rename-me")
+            self.child = try values.decode(Child.self, forKey: "child")
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(`enum`, forKey: "enum")
+            try values.encode(renameMe, forKey: "rename-me")
+            try values.encode(child, forKey: "child")
         }
     }
 
     init(child: Child) {
         self.child = child
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.child = try values.decode(Child.self, forKey: "child")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(child, forKey: "child")
     }
 }

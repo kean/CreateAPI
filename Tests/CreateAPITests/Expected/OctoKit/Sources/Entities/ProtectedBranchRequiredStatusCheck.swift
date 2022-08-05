@@ -21,9 +21,16 @@ public struct ProtectedBranchRequiredStatusCheck: Codable {
             self.appID = appID
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case context
-            case appID = "app_id"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.context = try values.decode(String.self, forKey: "context")
+            self.appID = try values.decodeIfPresent(Int.self, forKey: "app_id")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(context, forKey: "context")
+            try values.encodeIfPresent(appID, forKey: "app_id")
         }
     }
 
@@ -36,12 +43,23 @@ public struct ProtectedBranchRequiredStatusCheck: Codable {
         self.isStrict = isStrict
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case enforcementLevel = "enforcement_level"
-        case contexts
-        case checks
-        case contextsURL = "contexts_url"
-        case isStrict = "strict"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        self.enforcementLevel = try values.decodeIfPresent(String.self, forKey: "enforcement_level")
+        self.contexts = try values.decode([String].self, forKey: "contexts")
+        self.checks = try values.decode([Check].self, forKey: "checks")
+        self.contextsURL = try values.decodeIfPresent(String.self, forKey: "contexts_url")
+        self.isStrict = try values.decodeIfPresent(Bool.self, forKey: "strict")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(enforcementLevel, forKey: "enforcement_level")
+        try values.encode(contexts, forKey: "contexts")
+        try values.encode(checks, forKey: "checks")
+        try values.encodeIfPresent(contextsURL, forKey: "contexts_url")
+        try values.encodeIfPresent(isStrict, forKey: "strict")
     }
 }

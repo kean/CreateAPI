@@ -98,6 +98,16 @@ public struct PullRequestReviewComment: Codable {
             public init(href: URL) {
                 self.href = href
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.href = try values.decode(URL.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
         public struct HTML: Codable {
@@ -106,6 +116,16 @@ public struct PullRequestReviewComment: Codable {
 
             public init(href: URL) {
                 self.href = href
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.href = try values.decode(URL.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
             }
         }
 
@@ -116,6 +136,16 @@ public struct PullRequestReviewComment: Codable {
             public init(href: URL) {
                 self.href = href
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.href = try values.decode(URL.self, forKey: "href")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(href, forKey: "href")
+            }
         }
 
         public init(this: `Self`, html: HTML, pullRequest: PullRequest) {
@@ -124,10 +154,18 @@ public struct PullRequestReviewComment: Codable {
             self.pullRequest = pullRequest
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case this = "self"
-            case html
-            case pullRequest = "pull_request"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.this = try values.decode(`Self`.self, forKey: "self")
+            self.html = try values.decode(HTML.self, forKey: "html")
+            self.pullRequest = try values.decode(PullRequest.self, forKey: "pull_request")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(this, forKey: "self")
+            try values.encode(html, forKey: "html")
+            try values.encode(pullRequest, forKey: "pull_request")
         }
     }
 
@@ -174,34 +212,67 @@ public struct PullRequestReviewComment: Codable {
         self.bodyText = bodyText
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case pullRequestReviewID = "pull_request_review_id"
-        case id
-        case nodeID = "node_id"
-        case diffHunk = "diff_hunk"
-        case path
-        case position
-        case originalPosition = "original_position"
-        case commitID = "commit_id"
-        case originalCommitID = "original_commit_id"
-        case inReplyToID = "in_reply_to_id"
-        case user
-        case body
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case htmlURL = "html_url"
-        case pullRequestURL = "pull_request_url"
-        case authorAssociation = "author_association"
-        case links = "_links"
-        case startLine = "start_line"
-        case originalStartLine = "original_start_line"
-        case startSide = "start_side"
-        case line
-        case originalLine = "original_line"
-        case side
-        case reactions
-        case bodyHTML = "body_html"
-        case bodyText = "body_text"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(String.self, forKey: "url")
+        self.pullRequestReviewID = try values.decodeIfPresent(Int.self, forKey: "pull_request_review_id")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.diffHunk = try values.decode(String.self, forKey: "diff_hunk")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.position = try values.decode(Int.self, forKey: "position")
+        self.originalPosition = try values.decode(Int.self, forKey: "original_position")
+        self.commitID = try values.decode(String.self, forKey: "commit_id")
+        self.originalCommitID = try values.decode(String.self, forKey: "original_commit_id")
+        self.inReplyToID = try values.decodeIfPresent(Int.self, forKey: "in_reply_to_id")
+        self.user = try values.decode(SimpleUser.self, forKey: "user")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.pullRequestURL = try values.decode(URL.self, forKey: "pull_request_url")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
+        self.originalStartLine = try values.decodeIfPresent(Int.self, forKey: "original_start_line")
+        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
+        self.line = try values.decodeIfPresent(Int.self, forKey: "line")
+        self.originalLine = try values.decodeIfPresent(Int.self, forKey: "original_line")
+        self.side = try values.decodeIfPresent(Side.self, forKey: "side")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+        self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
+        self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(pullRequestReviewID, forKey: "pull_request_review_id")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(diffHunk, forKey: "diff_hunk")
+        try values.encode(path, forKey: "path")
+        try values.encode(position, forKey: "position")
+        try values.encode(originalPosition, forKey: "original_position")
+        try values.encode(commitID, forKey: "commit_id")
+        try values.encode(originalCommitID, forKey: "original_commit_id")
+        try values.encodeIfPresent(inReplyToID, forKey: "in_reply_to_id")
+        try values.encode(user, forKey: "user")
+        try values.encode(body, forKey: "body")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(pullRequestURL, forKey: "pull_request_url")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encode(links, forKey: "_links")
+        try values.encodeIfPresent(startLine, forKey: "start_line")
+        try values.encodeIfPresent(originalStartLine, forKey: "original_start_line")
+        try values.encodeIfPresent(startSide, forKey: "start_side")
+        try values.encodeIfPresent(line, forKey: "line")
+        try values.encodeIfPresent(originalLine, forKey: "original_line")
+        try values.encodeIfPresent(side, forKey: "side")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
     }
 }

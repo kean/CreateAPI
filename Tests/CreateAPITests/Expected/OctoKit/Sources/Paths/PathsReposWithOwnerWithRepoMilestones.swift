@@ -102,11 +102,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.dueOn = dueOn
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case state
-                case description
-                case dueOn = "due_on"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encodeIfPresent(state, forKey: "state")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(dueOn, forKey: "due_on")
             }
         }
     }

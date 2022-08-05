@@ -76,6 +76,15 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                     self.sha = sha
                     self.content = content
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(path, forKey: "path")
+                    try values.encodeIfPresent(mode, forKey: "mode")
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encodeIfPresent(sha, forKey: "sha")
+                    try values.encodeIfPresent(content, forKey: "content")
+                }
             }
 
             public init(tree: [TreeItem], baseTree: String? = nil) {
@@ -83,9 +92,10 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.baseTree = baseTree
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tree
-                case baseTree = "base_tree"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tree, forKey: "tree")
+                try values.encodeIfPresent(baseTree, forKey: "base_tree")
             }
         }
     }

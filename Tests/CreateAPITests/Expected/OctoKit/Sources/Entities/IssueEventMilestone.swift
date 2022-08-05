@@ -10,4 +10,14 @@ public struct IssueEventMilestone: Codable {
     public init(title: String) {
         self.title = title
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.title = try values.decode(String.self, forKey: "title")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(title, forKey: "title")
+    }
 }

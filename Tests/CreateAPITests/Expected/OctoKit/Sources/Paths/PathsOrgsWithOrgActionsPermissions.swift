@@ -50,9 +50,10 @@ extension Paths.Orgs.WithOrg.Actions {
                 self.allowedActions = allowedActions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case enabledRepositories = "enabled_repositories"
-                case allowedActions = "allowed_actions"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(enabledRepositories, forKey: "enabled_repositories")
+                try values.encodeIfPresent(allowedActions, forKey: "allowed_actions")
             }
         }
     }

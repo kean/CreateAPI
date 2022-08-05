@@ -64,9 +64,16 @@ public struct GpgKey: Codable {
             self.isVerified = isVerified
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case email
-            case isVerified = "verified"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.email = try values.decodeIfPresent(String.self, forKey: "email")
+            self.isVerified = try values.decodeIfPresent(Bool.self, forKey: "verified")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(email, forKey: "email")
+            try values.encodeIfPresent(isVerified, forKey: "verified")
         }
     }
 
@@ -101,20 +108,38 @@ public struct GpgKey: Codable {
             self.rawKey = rawKey
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case primaryKeyID = "primary_key_id"
-            case keyID = "key_id"
-            case publicKey = "public_key"
-            case emails
-            case subkeys
-            case canSign = "can_sign"
-            case canEncryptComms = "can_encrypt_comms"
-            case canEncryptStorage = "can_encrypt_storage"
-            case canCertify = "can_certify"
-            case createdAt = "created_at"
-            case expiresAt = "expires_at"
-            case rawKey = "raw_key"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.primaryKeyID = try values.decodeIfPresent(Int.self, forKey: "primary_key_id")
+            self.keyID = try values.decodeIfPresent(String.self, forKey: "key_id")
+            self.publicKey = try values.decodeIfPresent(String.self, forKey: "public_key")
+            self.emails = try values.decodeIfPresent([AnyJSON].self, forKey: "emails")
+            self.subkeys = try values.decodeIfPresent([AnyJSON].self, forKey: "subkeys")
+            self.canSign = try values.decodeIfPresent(Bool.self, forKey: "can_sign")
+            self.canEncryptComms = try values.decodeIfPresent(Bool.self, forKey: "can_encrypt_comms")
+            self.canEncryptStorage = try values.decodeIfPresent(Bool.self, forKey: "can_encrypt_storage")
+            self.canCertify = try values.decodeIfPresent(Bool.self, forKey: "can_certify")
+            self.createdAt = try values.decodeIfPresent(String.self, forKey: "created_at")
+            self.expiresAt = try values.decodeIfPresent(String.self, forKey: "expires_at")
+            self.rawKey = try values.decodeIfPresent(String.self, forKey: "raw_key")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(primaryKeyID, forKey: "primary_key_id")
+            try values.encodeIfPresent(keyID, forKey: "key_id")
+            try values.encodeIfPresent(publicKey, forKey: "public_key")
+            try values.encodeIfPresent(emails, forKey: "emails")
+            try values.encodeIfPresent(subkeys, forKey: "subkeys")
+            try values.encodeIfPresent(canSign, forKey: "can_sign")
+            try values.encodeIfPresent(canEncryptComms, forKey: "can_encrypt_comms")
+            try values.encodeIfPresent(canEncryptStorage, forKey: "can_encrypt_storage")
+            try values.encodeIfPresent(canCertify, forKey: "can_certify")
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+            try values.encodeIfPresent(rawKey, forKey: "raw_key")
         }
     }
 
@@ -134,19 +159,37 @@ public struct GpgKey: Codable {
         self.rawKey = rawKey
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case primaryKeyID = "primary_key_id"
-        case keyID = "key_id"
-        case publicKey = "public_key"
-        case emails
-        case subkeys
-        case canSign = "can_sign"
-        case canEncryptComms = "can_encrypt_comms"
-        case canEncryptStorage = "can_encrypt_storage"
-        case canCertify = "can_certify"
-        case createdAt = "created_at"
-        case expiresAt = "expires_at"
-        case rawKey = "raw_key"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.primaryKeyID = try values.decodeIfPresent(Int.self, forKey: "primary_key_id")
+        self.keyID = try values.decode(String.self, forKey: "key_id")
+        self.publicKey = try values.decode(String.self, forKey: "public_key")
+        self.emails = try values.decode([Email].self, forKey: "emails")
+        self.subkeys = try values.decode([Subkey].self, forKey: "subkeys")
+        self.canSign = try values.decode(Bool.self, forKey: "can_sign")
+        self.canEncryptComms = try values.decode(Bool.self, forKey: "can_encrypt_comms")
+        self.canEncryptStorage = try values.decode(Bool.self, forKey: "can_encrypt_storage")
+        self.canCertify = try values.decode(Bool.self, forKey: "can_certify")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.expiresAt = try values.decodeIfPresent(Date.self, forKey: "expires_at")
+        self.rawKey = try values.decodeIfPresent(String.self, forKey: "raw_key")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(primaryKeyID, forKey: "primary_key_id")
+        try values.encode(keyID, forKey: "key_id")
+        try values.encode(publicKey, forKey: "public_key")
+        try values.encode(emails, forKey: "emails")
+        try values.encode(subkeys, forKey: "subkeys")
+        try values.encode(canSign, forKey: "can_sign")
+        try values.encode(canEncryptComms, forKey: "can_encrypt_comms")
+        try values.encode(canEncryptStorage, forKey: "can_encrypt_storage")
+        try values.encode(canCertify, forKey: "can_certify")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(rawKey, forKey: "raw_key")
     }
 }

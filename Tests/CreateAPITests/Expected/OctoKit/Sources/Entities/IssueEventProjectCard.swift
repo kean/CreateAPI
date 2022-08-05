@@ -21,12 +21,23 @@ public struct IssueEventProjectCard: Codable {
         self.previousColumnName = previousColumnName
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case projectURL = "project_url"
-        case projectID = "project_id"
-        case columnName = "column_name"
-        case previousColumnName = "previous_column_name"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.projectURL = try values.decode(URL.self, forKey: "project_url")
+        self.projectID = try values.decode(Int.self, forKey: "project_id")
+        self.columnName = try values.decode(String.self, forKey: "column_name")
+        self.previousColumnName = try values.decodeIfPresent(String.self, forKey: "previous_column_name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(projectURL, forKey: "project_url")
+        try values.encode(projectID, forKey: "project_id")
+        try values.encode(columnName, forKey: "column_name")
+        try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
     }
 }

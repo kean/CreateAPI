@@ -41,11 +41,12 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.configurationFilePath = configurationFilePath
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tagName = "tag_name"
-                case targetCommitish = "target_commitish"
-                case previousTagName = "previous_tag_name"
-                case configurationFilePath = "configuration_file_path"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+                try values.encodeIfPresent(previousTagName, forKey: "previous_tag_name")
+                try values.encodeIfPresent(configurationFilePath, forKey: "configuration_file_path")
             }
         }
     }

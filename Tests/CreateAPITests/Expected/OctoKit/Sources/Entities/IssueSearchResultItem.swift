@@ -73,14 +73,26 @@ public struct IssueSearchResultItem: Codable {
             self.description = description
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nodeID = "node_id"
-            case url
-            case name
-            case color
-            case isDefault = "default"
-            case description
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.color = try values.decodeIfPresent(String.self, forKey: "color")
+            self.isDefault = try values.decodeIfPresent(Bool.self, forKey: "default")
+            self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(color, forKey: "color")
+            try values.encodeIfPresent(isDefault, forKey: "default")
+            try values.encodeIfPresent(description, forKey: "description")
         }
     }
 
@@ -99,12 +111,22 @@ public struct IssueSearchResultItem: Codable {
             self.url = url
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case mergedAt = "merged_at"
-            case diffURL = "diff_url"
-            case htmlURL = "html_url"
-            case patchURL = "patch_url"
-            case url
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.mergedAt = try values.decodeIfPresent(Date.self, forKey: "merged_at")
+            self.diffURL = try values.decodeIfPresent(URL.self, forKey: "diff_url")
+            self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+            self.patchURL = try values.decodeIfPresent(URL.self, forKey: "patch_url")
+            self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+            try values.encodeIfPresent(diffURL, forKey: "diff_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(patchURL, forKey: "patch_url")
+            try values.encodeIfPresent(url, forKey: "url")
         }
     }
 
@@ -145,40 +167,79 @@ public struct IssueSearchResultItem: Codable {
         self.reactions = reactions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case repositoryURL = "repository_url"
-        case labelsURL = "labels_url"
-        case commentsURL = "comments_url"
-        case eventsURL = "events_url"
-        case htmlURL = "html_url"
-        case id
-        case nodeID = "node_id"
-        case number
-        case title
-        case isLocked = "locked"
-        case activeLockReason = "active_lock_reason"
-        case assignees
-        case user
-        case labels
-        case state
-        case assignee
-        case milestone
-        case comments
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case closedAt = "closed_at"
-        case textMatches = "text_matches"
-        case pullRequest = "pull_request"
-        case body
-        case score
-        case authorAssociation = "author_association"
-        case isDraft = "draft"
-        case repository
-        case bodyHTML = "body_html"
-        case bodyText = "body_text"
-        case timelineURL = "timeline_url"
-        case performedViaGithubApp = "performed_via_github_app"
-        case reactions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
+        self.labelsURL = try values.decode(String.self, forKey: "labels_url")
+        self.commentsURL = try values.decode(URL.self, forKey: "comments_url")
+        self.eventsURL = try values.decode(URL.self, forKey: "events_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.isLocked = try values.decode(Bool.self, forKey: "locked")
+        self.activeLockReason = try values.decodeIfPresent(String.self, forKey: "active_lock_reason")
+        self.assignees = try values.decodeIfPresent([SimpleUser].self, forKey: "assignees")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.labels = try values.decode([Label].self, forKey: "labels")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.assignee = try values.decodeIfPresent(SimpleUser.self, forKey: "assignee")
+        self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
+        self.comments = try values.decode(Int.self, forKey: "comments")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.closedAt = try values.decodeIfPresent(Date.self, forKey: "closed_at")
+        self.textMatches = try values.decodeIfPresent([SearchResultTextMatch].self, forKey: "text_matches")
+        self.pullRequest = try values.decodeIfPresent(PullRequest.self, forKey: "pull_request")
+        self.body = try values.decodeIfPresent(String.self, forKey: "body")
+        self.score = try values.decode(Double.self, forKey: "score")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+        self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
+        self.repository = try values.decodeIfPresent(Repository.self, forKey: "repository")
+        self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
+        self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
+        self.timelineURL = try values.decodeIfPresent(URL.self, forKey: "timeline_url")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+        self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(title, forKey: "title")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(labels, forKey: "labels")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encode(comments, forKey: "comments")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encodeIfPresent(pullRequest, forKey: "pull_request")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(score, forKey: "score")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encodeIfPresent(bodyHTML, forKey: "body_html")
+        try values.encodeIfPresent(bodyText, forKey: "body_text")
+        try values.encodeIfPresent(timelineURL, forKey: "timeline_url")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(reactions, forKey: "reactions")
     }
 }

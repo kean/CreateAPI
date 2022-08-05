@@ -33,11 +33,20 @@ public struct ReviewDismissedIssueEvent: Codable {
             self.dismissalCommitID = dismissalCommitID
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case state
-            case reviewID = "review_id"
-            case dismissalMessage = "dismissal_message"
-            case dismissalCommitID = "dismissal_commit_id"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.state = try values.decode(String.self, forKey: "state")
+            self.reviewID = try values.decode(Int.self, forKey: "review_id")
+            self.dismissalMessage = try values.decodeIfPresent(String.self, forKey: "dismissal_message")
+            self.dismissalCommitID = try values.decodeIfPresent(String.self, forKey: "dismissal_commit_id")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(state, forKey: "state")
+            try values.encode(reviewID, forKey: "review_id")
+            try values.encodeIfPresent(dismissalMessage, forKey: "dismissal_message")
+            try values.encodeIfPresent(dismissalCommitID, forKey: "dismissal_commit_id")
         }
     }
 
@@ -54,16 +63,31 @@ public struct ReviewDismissedIssueEvent: Codable {
         self.dismissedReview = dismissedReview
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case actor
-        case event
-        case commitID = "commit_id"
-        case commitURL = "commit_url"
-        case createdAt = "created_at"
-        case performedViaGithubApp = "performed_via_github_app"
-        case dismissedReview = "dismissed_review"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.actor = try values.decode(SimpleUser.self, forKey: "actor")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+        self.dismissedReview = try values.decode(DismissedReview.self, forKey: "dismissed_review")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(actor, forKey: "actor")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encode(dismissedReview, forKey: "dismissed_review")
     }
 }

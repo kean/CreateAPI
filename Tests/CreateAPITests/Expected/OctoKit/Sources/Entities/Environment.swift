@@ -56,11 +56,20 @@ public struct Environment: Codable {
                 self.waitTimer = waitTimer
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case id
-                case nodeID = "node_id"
-                case type
-                case waitTimer = "wait_timer"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.type = try values.decode(String.self, forKey: "type")
+                self.waitTimer = try values.decodeIfPresent(Int.self, forKey: "wait_timer")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(type, forKey: "type")
+                try values.encodeIfPresent(waitTimer, forKey: "wait_timer")
             }
         }
 
@@ -108,6 +117,18 @@ public struct Environment: Codable {
                     self.type = type
                     self.reviewer = reviewer
                 }
+
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.type = try values.decodeIfPresent(DeploymentReviewerType.self, forKey: "type")
+                    self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(type, forKey: "type")
+                    try values.encodeIfPresent(reviewer, forKey: "reviewer")
+                }
             }
 
             public init(id: Int, nodeID: String, type: String, reviewers: [Reviewer]? = nil) {
@@ -117,11 +138,20 @@ public struct Environment: Codable {
                 self.reviewers = reviewers
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case id
-                case nodeID = "node_id"
-                case type
-                case reviewers
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.type = try values.decode(String.self, forKey: "type")
+                self.reviewers = try values.decodeIfPresent([Reviewer].self, forKey: "reviewers")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(type, forKey: "type")
+                try values.encodeIfPresent(reviewers, forKey: "reviewers")
             }
         }
 
@@ -139,10 +169,18 @@ public struct Environment: Codable {
                 self.type = type
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case id
-                case nodeID = "node_id"
-                case type
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.type = try values.decode(String.self, forKey: "type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(type, forKey: "type")
             }
         }
 
@@ -179,15 +217,29 @@ public struct Environment: Codable {
         self.deploymentBranchPolicy = deploymentBranchPolicy
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case name
-        case url
-        case htmlURL = "html_url"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case protectionRules = "protection_rules"
-        case deploymentBranchPolicy = "deployment_branch_policy"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decode(String.self, forKey: "html_url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.protectionRules = try values.decodeIfPresent([ProtectionRule].self, forKey: "protection_rules")
+        self.deploymentBranchPolicy = try values.decodeIfPresent(DeploymentBranchPolicy.self, forKey: "deployment_branch_policy")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(protectionRules, forKey: "protection_rules")
+        try values.encodeIfPresent(deploymentBranchPolicy, forKey: "deployment_branch_policy")
     }
 }

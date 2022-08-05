@@ -42,11 +42,20 @@ public struct OrgHook: Codable {
             self.secret = secret
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case url
-            case insecureSSL = "insecure_ssl"
-            case contentType = "content_type"
-            case secret
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.insecureSSL = try values.decodeIfPresent(String.self, forKey: "insecure_ssl")
+            self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+            self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
+            try values.encodeIfPresent(contentType, forKey: "content_type")
+            try values.encodeIfPresent(secret, forKey: "secret")
         }
     }
 
@@ -64,17 +73,33 @@ public struct OrgHook: Codable {
         self.type = type
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case url
-        case pingURL = "ping_url"
-        case deliveriesURL = "deliveries_url"
-        case name
-        case events
-        case isActive = "active"
-        case config
-        case updatedAt = "updated_at"
-        case createdAt = "created_at"
-        case type
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.pingURL = try values.decode(URL.self, forKey: "ping_url")
+        self.deliveriesURL = try values.decodeIfPresent(URL.self, forKey: "deliveries_url")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.events = try values.decode([String].self, forKey: "events")
+        self.isActive = try values.decode(Bool.self, forKey: "active")
+        self.config = try values.decode(Config.self, forKey: "config")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.type = try values.decode(String.self, forKey: "type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
+        try values.encode(pingURL, forKey: "ping_url")
+        try values.encodeIfPresent(deliveriesURL, forKey: "deliveries_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(events, forKey: "events")
+        try values.encode(isActive, forKey: "active")
+        try values.encode(config, forKey: "config")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(type, forKey: "type")
     }
 }

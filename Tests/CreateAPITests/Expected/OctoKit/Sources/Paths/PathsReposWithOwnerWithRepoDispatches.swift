@@ -44,9 +44,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.clientPayload = clientPayload
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case eventType = "event_type"
-                case clientPayload = "client_payload"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(eventType, forKey: "event_type")
+                try values.encodeIfPresent(clientPayload, forKey: "client_payload")
             }
         }
     }

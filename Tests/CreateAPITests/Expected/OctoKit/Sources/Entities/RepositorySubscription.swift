@@ -31,12 +31,23 @@ public struct RepositorySubscription: Codable {
         self.repositoryURL = repositoryURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case isSubscribed = "subscribed"
-        case isIgnored = "ignored"
-        case reason
-        case createdAt = "created_at"
-        case url
-        case repositoryURL = "repository_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isSubscribed = try values.decode(Bool.self, forKey: "subscribed")
+        self.isIgnored = try values.decode(Bool.self, forKey: "ignored")
+        self.reason = try values.decodeIfPresent(String.self, forKey: "reason")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(isSubscribed, forKey: "subscribed")
+        try values.encode(isIgnored, forKey: "ignored")
+        try values.encodeIfPresent(reason, forKey: "reason")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(repositoryURL, forKey: "repository_url")
     }
 }

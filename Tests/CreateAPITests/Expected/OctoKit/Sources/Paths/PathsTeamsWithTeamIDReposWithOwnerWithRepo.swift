@@ -67,6 +67,11 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
             public init(permission: Permission? = nil) {
                 self.permission = permission
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permission, forKey: "permission")
+            }
         }
 
         /// Remove a repository from a team (Legacy)

@@ -56,6 +56,12 @@ extension Paths.User {
                 self.title = title
                 self.key = key
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(title, forKey: "title")
+                try values.encode(key, forKey: "key")
+            }
         }
     }
 }

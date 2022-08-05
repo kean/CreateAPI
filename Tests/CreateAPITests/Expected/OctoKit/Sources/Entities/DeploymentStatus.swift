@@ -81,21 +81,41 @@ public struct DeploymentStatus: Codable {
         self.performedViaGithubApp = performedViaGithubApp
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case nodeID = "node_id"
-        case state
-        case creator
-        case description
-        case environment
-        case targetURL = "target_url"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case deploymentURL = "deployment_url"
-        case repositoryURL = "repository_url"
-        case environmentURL = "environment_url"
-        case logURL = "log_url"
-        case performedViaGithubApp = "performed_via_github_app"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
+        self.targetURL = try values.decode(URL.self, forKey: "target_url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.deploymentURL = try values.decode(URL.self, forKey: "deployment_url")
+        self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
+        self.environmentURL = try values.decodeIfPresent(URL.self, forKey: "environment_url")
+        self.logURL = try values.decodeIfPresent(URL.self, forKey: "log_url")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(description, forKey: "description")
+        try values.encodeIfPresent(environment, forKey: "environment")
+        try values.encode(targetURL, forKey: "target_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(deploymentURL, forKey: "deployment_url")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encodeIfPresent(environmentURL, forKey: "environment_url")
+        try values.encodeIfPresent(logURL, forKey: "log_url")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
     }
 }

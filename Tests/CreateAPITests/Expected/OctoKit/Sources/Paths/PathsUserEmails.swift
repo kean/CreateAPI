@@ -66,6 +66,11 @@ extension Paths.User {
                 public init(emails: [String]) {
                     self.emails = emails
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -108,6 +113,11 @@ extension Paths.User {
 
                 public init(emails: [String]) {
                     self.emails = emails
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(emails, forKey: "emails")
                 }
             }
 

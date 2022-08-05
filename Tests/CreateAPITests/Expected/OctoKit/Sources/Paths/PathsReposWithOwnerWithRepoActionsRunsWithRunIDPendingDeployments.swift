@@ -65,10 +65,11 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
                 self.comment = comment
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case environmentIDs = "environment_ids"
-                case state
-                case comment
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(environmentIDs, forKey: "environment_ids")
+                try values.encode(state, forKey: "state")
+                try values.encode(comment, forKey: "comment")
             }
         }
     }

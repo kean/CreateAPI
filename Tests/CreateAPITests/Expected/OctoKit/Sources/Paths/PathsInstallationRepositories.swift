@@ -38,10 +38,11 @@ extension Paths.Installation {
                 self.repositorySelection = repositorySelection
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
-                case repositorySelection = "repository_selection"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.Repository].self, forKey: "repositories")
+                self.repositorySelection = try values.decodeIfPresent(String.self, forKey: "repository_selection")
             }
         }
 

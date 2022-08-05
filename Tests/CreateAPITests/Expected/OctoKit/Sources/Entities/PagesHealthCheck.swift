@@ -70,35 +70,68 @@ public struct PagesHealthCheck: Codable {
             self.caaError = caaError
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case host
-            case uri
-            case nameservers
-            case dnsResolves = "dns_resolves"
-            case isProxied = "is_proxied"
-            case isCloudflareIp = "is_cloudflare_ip"
-            case isFastlyIp = "is_fastly_ip"
-            case isOldIpAddress = "is_old_ip_address"
-            case isARecord = "is_a_record"
-            case hasCnameRecord = "has_cname_record"
-            case hasMxRecordsPresent = "has_mx_records_present"
-            case isValidDomain = "is_valid_domain"
-            case isApexDomain = "is_apex_domain"
-            case shouldBeARecord = "should_be_a_record"
-            case isCnameToGithubUserDomain = "is_cname_to_github_user_domain"
-            case isCnameToPagesDotGithubDotCom = "is_cname_to_pages_dot_github_dot_com"
-            case isCnameToFastly = "is_cname_to_fastly"
-            case isPointedToGithubPagesIp = "is_pointed_to_github_pages_ip"
-            case isNonGithubPagesIpPresent = "is_non_github_pages_ip_present"
-            case isPagesDomain = "is_pages_domain"
-            case isServedByPages = "is_served_by_pages"
-            case isValid = "is_valid"
-            case reason
-            case respondsToHTTPS = "responds_to_https"
-            case enforcesHTTPS = "enforces_https"
-            case httpsError = "https_error"
-            case isHTTPSEligible = "is_https_eligible"
-            case caaError = "caa_error"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.host = try values.decodeIfPresent(String.self, forKey: "host")
+            self.uri = try values.decodeIfPresent(String.self, forKey: "uri")
+            self.nameservers = try values.decodeIfPresent(String.self, forKey: "nameservers")
+            self.dnsResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
+            self.isProxied = try values.decodeIfPresent(Bool.self, forKey: "is_proxied")
+            self.isCloudflareIp = try values.decodeIfPresent(Bool.self, forKey: "is_cloudflare_ip")
+            self.isFastlyIp = try values.decodeIfPresent(Bool.self, forKey: "is_fastly_ip")
+            self.isOldIpAddress = try values.decodeIfPresent(Bool.self, forKey: "is_old_ip_address")
+            self.isARecord = try values.decodeIfPresent(Bool.self, forKey: "is_a_record")
+            self.hasCnameRecord = try values.decodeIfPresent(Bool.self, forKey: "has_cname_record")
+            self.hasMxRecordsPresent = try values.decodeIfPresent(Bool.self, forKey: "has_mx_records_present")
+            self.isValidDomain = try values.decodeIfPresent(Bool.self, forKey: "is_valid_domain")
+            self.isApexDomain = try values.decodeIfPresent(Bool.self, forKey: "is_apex_domain")
+            self.shouldBeARecord = try values.decodeIfPresent(Bool.self, forKey: "should_be_a_record")
+            self.isCnameToGithubUserDomain = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_github_user_domain")
+            self.isCnameToPagesDotGithubDotCom = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_pages_dot_github_dot_com")
+            self.isCnameToFastly = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_fastly")
+            self.isPointedToGithubPagesIp = try values.decodeIfPresent(Bool.self, forKey: "is_pointed_to_github_pages_ip")
+            self.isNonGithubPagesIpPresent = try values.decodeIfPresent(Bool.self, forKey: "is_non_github_pages_ip_present")
+            self.isPagesDomain = try values.decodeIfPresent(Bool.self, forKey: "is_pages_domain")
+            self.isServedByPages = try values.decodeIfPresent(Bool.self, forKey: "is_served_by_pages")
+            self.isValid = try values.decodeIfPresent(Bool.self, forKey: "is_valid")
+            self.reason = try values.decodeIfPresent(String.self, forKey: "reason")
+            self.respondsToHTTPS = try values.decodeIfPresent(Bool.self, forKey: "responds_to_https")
+            self.enforcesHTTPS = try values.decodeIfPresent(Bool.self, forKey: "enforces_https")
+            self.httpsError = try values.decodeIfPresent(String.self, forKey: "https_error")
+            self.isHTTPSEligible = try values.decodeIfPresent(Bool.self, forKey: "is_https_eligible")
+            self.caaError = try values.decodeIfPresent(String.self, forKey: "caa_error")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(host, forKey: "host")
+            try values.encodeIfPresent(uri, forKey: "uri")
+            try values.encodeIfPresent(nameservers, forKey: "nameservers")
+            try values.encodeIfPresent(dnsResolves, forKey: "dns_resolves")
+            try values.encodeIfPresent(isProxied, forKey: "is_proxied")
+            try values.encodeIfPresent(isCloudflareIp, forKey: "is_cloudflare_ip")
+            try values.encodeIfPresent(isFastlyIp, forKey: "is_fastly_ip")
+            try values.encodeIfPresent(isOldIpAddress, forKey: "is_old_ip_address")
+            try values.encodeIfPresent(isARecord, forKey: "is_a_record")
+            try values.encodeIfPresent(hasCnameRecord, forKey: "has_cname_record")
+            try values.encodeIfPresent(hasMxRecordsPresent, forKey: "has_mx_records_present")
+            try values.encodeIfPresent(isValidDomain, forKey: "is_valid_domain")
+            try values.encodeIfPresent(isApexDomain, forKey: "is_apex_domain")
+            try values.encodeIfPresent(shouldBeARecord, forKey: "should_be_a_record")
+            try values.encodeIfPresent(isCnameToGithubUserDomain, forKey: "is_cname_to_github_user_domain")
+            try values.encodeIfPresent(isCnameToPagesDotGithubDotCom, forKey: "is_cname_to_pages_dot_github_dot_com")
+            try values.encodeIfPresent(isCnameToFastly, forKey: "is_cname_to_fastly")
+            try values.encodeIfPresent(isPointedToGithubPagesIp, forKey: "is_pointed_to_github_pages_ip")
+            try values.encodeIfPresent(isNonGithubPagesIpPresent, forKey: "is_non_github_pages_ip_present")
+            try values.encodeIfPresent(isPagesDomain, forKey: "is_pages_domain")
+            try values.encodeIfPresent(isServedByPages, forKey: "is_served_by_pages")
+            try values.encodeIfPresent(isValid, forKey: "is_valid")
+            try values.encodeIfPresent(reason, forKey: "reason")
+            try values.encodeIfPresent(respondsToHTTPS, forKey: "responds_to_https")
+            try values.encodeIfPresent(enforcesHTTPS, forKey: "enforces_https")
+            try values.encodeIfPresent(httpsError, forKey: "https_error")
+            try values.encodeIfPresent(isHTTPSEligible, forKey: "is_https_eligible")
+            try values.encodeIfPresent(caaError, forKey: "caa_error")
         }
     }
 
@@ -163,35 +196,68 @@ public struct PagesHealthCheck: Codable {
             self.caaError = caaError
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case host
-            case uri
-            case nameservers
-            case dnsResolves = "dns_resolves"
-            case isProxied = "is_proxied"
-            case isCloudflareIp = "is_cloudflare_ip"
-            case isFastlyIp = "is_fastly_ip"
-            case isOldIpAddress = "is_old_ip_address"
-            case isARecord = "is_a_record"
-            case hasCnameRecord = "has_cname_record"
-            case hasMxRecordsPresent = "has_mx_records_present"
-            case isValidDomain = "is_valid_domain"
-            case isApexDomain = "is_apex_domain"
-            case shouldBeARecord = "should_be_a_record"
-            case isCnameToGithubUserDomain = "is_cname_to_github_user_domain"
-            case isCnameToPagesDotGithubDotCom = "is_cname_to_pages_dot_github_dot_com"
-            case isCnameToFastly = "is_cname_to_fastly"
-            case isPointedToGithubPagesIp = "is_pointed_to_github_pages_ip"
-            case isNonGithubPagesIpPresent = "is_non_github_pages_ip_present"
-            case isPagesDomain = "is_pages_domain"
-            case isServedByPages = "is_served_by_pages"
-            case isValid = "is_valid"
-            case reason
-            case respondsToHTTPS = "responds_to_https"
-            case enforcesHTTPS = "enforces_https"
-            case httpsError = "https_error"
-            case isHTTPSEligible = "is_https_eligible"
-            case caaError = "caa_error"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.host = try values.decodeIfPresent(String.self, forKey: "host")
+            self.uri = try values.decodeIfPresent(String.self, forKey: "uri")
+            self.nameservers = try values.decodeIfPresent(String.self, forKey: "nameservers")
+            self.dnsResolves = try values.decodeIfPresent(Bool.self, forKey: "dns_resolves")
+            self.isProxied = try values.decodeIfPresent(Bool.self, forKey: "is_proxied")
+            self.isCloudflareIp = try values.decodeIfPresent(Bool.self, forKey: "is_cloudflare_ip")
+            self.isFastlyIp = try values.decodeIfPresent(Bool.self, forKey: "is_fastly_ip")
+            self.isOldIpAddress = try values.decodeIfPresent(Bool.self, forKey: "is_old_ip_address")
+            self.isARecord = try values.decodeIfPresent(Bool.self, forKey: "is_a_record")
+            self.hasCnameRecord = try values.decodeIfPresent(Bool.self, forKey: "has_cname_record")
+            self.hasMxRecordsPresent = try values.decodeIfPresent(Bool.self, forKey: "has_mx_records_present")
+            self.isValidDomain = try values.decodeIfPresent(Bool.self, forKey: "is_valid_domain")
+            self.isApexDomain = try values.decodeIfPresent(Bool.self, forKey: "is_apex_domain")
+            self.shouldBeARecord = try values.decodeIfPresent(Bool.self, forKey: "should_be_a_record")
+            self.isCnameToGithubUserDomain = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_github_user_domain")
+            self.isCnameToPagesDotGithubDotCom = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_pages_dot_github_dot_com")
+            self.isCnameToFastly = try values.decodeIfPresent(Bool.self, forKey: "is_cname_to_fastly")
+            self.isPointedToGithubPagesIp = try values.decodeIfPresent(Bool.self, forKey: "is_pointed_to_github_pages_ip")
+            self.isNonGithubPagesIpPresent = try values.decodeIfPresent(Bool.self, forKey: "is_non_github_pages_ip_present")
+            self.isPagesDomain = try values.decodeIfPresent(Bool.self, forKey: "is_pages_domain")
+            self.isServedByPages = try values.decodeIfPresent(Bool.self, forKey: "is_served_by_pages")
+            self.isValid = try values.decodeIfPresent(Bool.self, forKey: "is_valid")
+            self.reason = try values.decodeIfPresent(String.self, forKey: "reason")
+            self.respondsToHTTPS = try values.decodeIfPresent(Bool.self, forKey: "responds_to_https")
+            self.enforcesHTTPS = try values.decodeIfPresent(Bool.self, forKey: "enforces_https")
+            self.httpsError = try values.decodeIfPresent(String.self, forKey: "https_error")
+            self.isHTTPSEligible = try values.decodeIfPresent(Bool.self, forKey: "is_https_eligible")
+            self.caaError = try values.decodeIfPresent(String.self, forKey: "caa_error")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(host, forKey: "host")
+            try values.encodeIfPresent(uri, forKey: "uri")
+            try values.encodeIfPresent(nameservers, forKey: "nameservers")
+            try values.encodeIfPresent(dnsResolves, forKey: "dns_resolves")
+            try values.encodeIfPresent(isProxied, forKey: "is_proxied")
+            try values.encodeIfPresent(isCloudflareIp, forKey: "is_cloudflare_ip")
+            try values.encodeIfPresent(isFastlyIp, forKey: "is_fastly_ip")
+            try values.encodeIfPresent(isOldIpAddress, forKey: "is_old_ip_address")
+            try values.encodeIfPresent(isARecord, forKey: "is_a_record")
+            try values.encodeIfPresent(hasCnameRecord, forKey: "has_cname_record")
+            try values.encodeIfPresent(hasMxRecordsPresent, forKey: "has_mx_records_present")
+            try values.encodeIfPresent(isValidDomain, forKey: "is_valid_domain")
+            try values.encodeIfPresent(isApexDomain, forKey: "is_apex_domain")
+            try values.encodeIfPresent(shouldBeARecord, forKey: "should_be_a_record")
+            try values.encodeIfPresent(isCnameToGithubUserDomain, forKey: "is_cname_to_github_user_domain")
+            try values.encodeIfPresent(isCnameToPagesDotGithubDotCom, forKey: "is_cname_to_pages_dot_github_dot_com")
+            try values.encodeIfPresent(isCnameToFastly, forKey: "is_cname_to_fastly")
+            try values.encodeIfPresent(isPointedToGithubPagesIp, forKey: "is_pointed_to_github_pages_ip")
+            try values.encodeIfPresent(isNonGithubPagesIpPresent, forKey: "is_non_github_pages_ip_present")
+            try values.encodeIfPresent(isPagesDomain, forKey: "is_pages_domain")
+            try values.encodeIfPresent(isServedByPages, forKey: "is_served_by_pages")
+            try values.encodeIfPresent(isValid, forKey: "is_valid")
+            try values.encodeIfPresent(reason, forKey: "reason")
+            try values.encodeIfPresent(respondsToHTTPS, forKey: "responds_to_https")
+            try values.encodeIfPresent(enforcesHTTPS, forKey: "enforces_https")
+            try values.encodeIfPresent(httpsError, forKey: "https_error")
+            try values.encodeIfPresent(isHTTPSEligible, forKey: "is_https_eligible")
+            try values.encodeIfPresent(caaError, forKey: "caa_error")
         }
     }
 
@@ -200,8 +266,15 @@ public struct PagesHealthCheck: Codable {
         self.altDomain = altDomain
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case domain
-        case altDomain = "alt_domain"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.domain = try values.decodeIfPresent(Domain.self, forKey: "domain")
+        self.altDomain = try values.decodeIfPresent(AltDomain.self, forKey: "alt_domain")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(domain, forKey: "domain")
+        try values.encodeIfPresent(altDomain, forKey: "alt_domain")
     }
 }

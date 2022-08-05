@@ -35,9 +35,10 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.runnerGroups = runnerGroups
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case runnerGroups = "runner_groups"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.runnerGroups = try values.decode([OctoKit.RunnerGroupsEnterprise].self, forKey: "runner_groups")
             }
         }
 
@@ -85,12 +86,13 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 self.allowsPublicRepositories = allowsPublicRepositories ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case visibility
-                case selectedOrganizationIDs = "selected_organization_ids"
-                case runners
-                case allowsPublicRepositories = "allows_public_repositories"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(selectedOrganizationIDs, forKey: "selected_organization_ids")
+                try values.encodeIfPresent(runners, forKey: "runners")
+                try values.encodeIfPresent(allowsPublicRepositories, forKey: "allows_public_repositories")
             }
         }
     }

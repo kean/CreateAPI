@@ -78,23 +78,45 @@ public struct Integration: Codable {
         self.pem = pem
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case slug
-        case nodeID = "node_id"
-        case owner
-        case name
-        case description
-        case externalURL = "external_url"
-        case htmlURL = "html_url"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case permissions
-        case events
-        case installationsCount = "installations_count"
-        case clientID = "client_id"
-        case clientSecret = "client_secret"
-        case webhookSecret = "webhook_secret"
-        case pem
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.slug = try values.decodeIfPresent(String.self, forKey: "slug")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.owner = try values.decodeIfPresent(SimpleUser.self, forKey: "owner")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.externalURL = try values.decode(URL.self, forKey: "external_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.permissions = try values.decode([String: String].self, forKey: "permissions")
+        self.events = try values.decode([String].self, forKey: "events")
+        self.installationsCount = try values.decodeIfPresent(Int.self, forKey: "installations_count")
+        self.clientID = try values.decodeIfPresent(String.self, forKey: "client_id")
+        self.clientSecret = try values.decodeIfPresent(String.self, forKey: "client_secret")
+        self.webhookSecret = try values.decodeIfPresent(String.self, forKey: "webhook_secret")
+        self.pem = try values.decodeIfPresent(String.self, forKey: "pem")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(slug, forKey: "slug")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(externalURL, forKey: "external_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(events, forKey: "events")
+        try values.encodeIfPresent(installationsCount, forKey: "installations_count")
+        try values.encodeIfPresent(clientID, forKey: "client_id")
+        try values.encodeIfPresent(clientSecret, forKey: "client_secret")
+        try values.encodeIfPresent(webhookSecret, forKey: "webhook_secret")
+        try values.encodeIfPresent(pem, forKey: "pem")
     }
 }

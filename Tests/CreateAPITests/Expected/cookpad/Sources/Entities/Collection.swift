@@ -33,11 +33,21 @@ public struct Collection: Codable {
         self.previewImageURLs = previewImageURLs
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case description
-        case recipeCount = "recipe_count"
-        case previewImageURLs = "preview_image_urls"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.recipeCount = try values.decode(Int.self, forKey: "recipe_count")
+        self.previewImageURLs = try values.decode([URL].self, forKey: "preview_image_urls")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(title, forKey: "title")
+        try values.encode(description, forKey: "description")
+        try values.encode(recipeCount, forKey: "recipe_count")
+        try values.encode(previewImageURLs, forKey: "preview_image_urls")
     }
 }

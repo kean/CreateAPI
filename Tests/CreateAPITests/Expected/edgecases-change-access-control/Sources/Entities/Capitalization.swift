@@ -22,12 +22,23 @@ struct Capitalization: Codable {
         self.attName = attName
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case smallCamel
-        case capitalCamel = "CapitalCamel"
-        case smallSnake = "small_Snake"
-        case capitalSnake = "Capital_Snake"
-        case sCAETHFlowPoints = "SCA_ETH_Flow_Points"
-        case attName = "ATT_NAME"
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.smallCamel = try values.decodeIfPresent(String.self, forKey: "smallCamel")
+        self.capitalCamel = try values.decodeIfPresent(String.self, forKey: "CapitalCamel")
+        self.smallSnake = try values.decodeIfPresent(String.self, forKey: "small_Snake")
+        self.capitalSnake = try values.decodeIfPresent(String.self, forKey: "Capital_Snake")
+        self.sCAETHFlowPoints = try values.decodeIfPresent(String.self, forKey: "SCA_ETH_Flow_Points")
+        self.attName = try values.decodeIfPresent(String.self, forKey: "ATT_NAME")
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(smallCamel, forKey: "smallCamel")
+        try values.encodeIfPresent(capitalCamel, forKey: "CapitalCamel")
+        try values.encodeIfPresent(smallSnake, forKey: "small_Snake")
+        try values.encodeIfPresent(capitalSnake, forKey: "Capital_Snake")
+        try values.encodeIfPresent(sCAETHFlowPoints, forKey: "SCA_ETH_Flow_Points")
+        try values.encodeIfPresent(attName, forKey: "ATT_NAME")
     }
 }
