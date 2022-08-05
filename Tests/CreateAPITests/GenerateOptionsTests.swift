@@ -578,7 +578,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--package", "edgecases-coding-keys",
             "--config", config("""
             entities:
-                optimizeCodingKeys: true
+                optimizeCodingKeys: false
             """, ext: "yaml")
         ])
                 

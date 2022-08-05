@@ -11,13 +11,7 @@ public struct NumberOnly: Codable {
         self.justNumber = justNumber
     }
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.justNumber = try values.decodeIfPresent(Double.self, forKey: "JustNumber")
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encodeIfPresent(justNumber, forKey: "JustNumber")
+    private enum CodingKeys: String, CodingKey {
+        case justNumber = "JustNumber"
     }
 }
