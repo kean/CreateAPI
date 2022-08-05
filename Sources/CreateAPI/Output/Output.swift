@@ -14,42 +14,42 @@ struct Output {
         let rootWriter = try OutputWriter(outputURL: outputURL)
 
         // Write the Package.swift manifest file, or figure out the writer for source files
-        let sourceWriter: OutputWriter
+        let sourcesWriter: OutputWriter
         if let package = package {
             let packageWriter = rootWriter.writer(in: package.name)
             // TODO: Use `write(file:header:template:options:)` to match indentation for Package.swift?
             try packageWriter.write(package.manifest.contents, to: "\(package.manifest.name).swift")
 
-            sourceWriter = packageWriter.writer(in: "Sources")
+            sourcesWriter = packageWriter.writer(in: "Sources")
         } else {
-            sourceWriter = rootWriter
+            sourcesWriter = rootWriter
         }
 
         // Write paths into the source directory
         if let paths = paths {
-            try write(paths, to: sourceWriter, group: "Paths", template: options.paths.filenameTemplate)
+            try write(paths, to: sourcesWriter, group: "Paths", template: options.paths.filenameTemplate)
         }
 
         // Write entities into the source directory
         if let entities = entities {
-            try write(entities, to: sourceWriter, group: "Entities", template: options.entities.filenameTemplate)
+            try write(entities, to: sourcesWriter, group: "Entities", template: options.entities.filenameTemplate)
         }
     }
 
-    private func write(_ output: GeneratorOutput, to writer: OutputWriter, group: String, template: String) throws {
+    private func write(_ output: GeneratorOutput, to sourcesWriter: OutputWriter, group: String, template: String) throws {
         let template = Template(template)
         if mergeSources {
             let merged = GeneratedFile(name: group, merging: output.files)
-            try writer.write(file: merged, header: output.header, template: template, options: options)
+            try sourcesWriter.write(file: merged, header: output.header, template: template, options: options)
         } else {
-            let writer = writer.writer(in: group)
+            let groupWriter = sourcesWriter.writer(in: group)
             for file in output.files {
-                try writer.write(file: file, header: output.header, template: template, options: options)
+                try groupWriter.write(file: file, header: output.header, template: template, options: options)
             }
         }
 
         for file in output.extensions {
-            try writer.write(file: file, header: output.header, options: options)
+            try sourcesWriter.write(file: file, header: output.header, options: options)
         }
     }
 }
