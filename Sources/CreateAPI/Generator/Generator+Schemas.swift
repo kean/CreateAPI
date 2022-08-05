@@ -343,7 +343,7 @@ extension Generator {
         let excludedDiff = Set(excludedProperties).subtracting(object.properties.keys)
         
         for diff in excludedDiff {
-            try handle(warning: "Excluded property \(type.rawValue).\(diff) does not exist on schema object \(type.rawValue)")
+            try handle(warning: "Invalid entity exclude '\(type.rawValue).\(diff)'. Property '\(diff) does not exist on schema '\(type.rawValue)'")
         }
         
         var keys = object.properties.keys.filter { !excludedProperties.contains($0) }
