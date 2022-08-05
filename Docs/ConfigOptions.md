@@ -68,7 +68,7 @@ Below you can find the complete documentation for all available options.
   - [mutableStructProperties](#entitiesmutablestructproperties)
   - [baseClass](#entitiesbaseclass)
   - [protocols](#entitiesprotocols)
-  - [identifiableConformance](#entitiesidentifiableconformance)
+  - [includeIdentifiableConformance](#entitiesincludeidentifiableconformance)
   - [skipRedundantProtocols](#entitiesskipredundantprotocols)
   - [includeInitializer](#entitiesincludeinitializer)
   - [alwaysIncludeDecodableImplementation](#entitiesalwaysincludedecodableimplementation)
@@ -362,7 +362,7 @@ Protocols to be adopted by each generated entity
 
 <br/>
 
-## entities.identifiableConformance
+## entities.includeIdentifiableConformance
 
 **Type:** Bool<br />
 **Default:** `false`

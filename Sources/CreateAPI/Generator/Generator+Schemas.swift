@@ -328,7 +328,7 @@ extension Generator {
         if !isDecodable { protocols.removeDecodable() }
         if !isEncodable { protocols.removeEncodable() }
 
-        if options.entities.identifiableConformance {
+        if options.entities.includeIdentifiableConformance {
             let isIdentifiable = entity.properties.contains { $0.name.rawValue == "id" && $0.type.isBuiltin }
             if isIdentifiable { protocols.insert("Identifiable") }
         }

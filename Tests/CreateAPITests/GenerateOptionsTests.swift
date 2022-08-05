@@ -642,7 +642,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
             "--generate", "entities",
             "--config", config("""
             entities:
-                identifiableConformance: true
+                includeIdentifiableConformance: true
             rename:
                 properties:
                     Error.code: id
