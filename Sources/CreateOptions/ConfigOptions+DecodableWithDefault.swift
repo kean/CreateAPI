@@ -215,7 +215,7 @@ extension ConfigOptions.Entities: Decodable {
 
         optimizeCodingKeys = try container.decode(Bool.self,
             forKey: .optimizeCodingKeys,
-            defaultValue: false
+            defaultValue: true
         )
 
         includeDefaultValues = try container.decode(Bool.self,
