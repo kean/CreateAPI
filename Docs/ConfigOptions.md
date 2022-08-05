@@ -75,7 +75,7 @@ Below you can find the complete documentation for all available options.
   - [alwaysIncludeEncodableImplementation](#entitiesalwaysincludeencodableimplementation)
   - [sortPropertiesAlphabetically](#entitiessortpropertiesalphabetically)
   - [optimizeCodingKeys](#entitiesoptimizecodingkeys)
-  - [defaultValues](#entitiesdefaultvalues)
+  - [includeDefaultValues](#entitiesincludedefaultvalues)
   - [inlineReferencedSchemas](#entitiesinlinereferencedschemas)
   - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
@@ -427,7 +427,7 @@ For schemas with a large number of entities, this approach significantly reduces
 
 <br/>
 
-## entities.defaultValues
+## entities.includeDefaultValues
 
 **Type:** Bool<br />
 **Default:** `true`

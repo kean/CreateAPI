@@ -220,7 +220,7 @@ public struct ConfigOptions: Encodable {
         public var optimizeCodingKeys: Bool = false // sourcery: replacementFor = isGeneratingCustomCodingKeys
 
         /// If set to `true`, uses the `default` value from the schema for the generated property for booleans
-        public var defaultValues: Bool = true // sourcery: replacementFor = isAddingDefaultValues
+        public var includeDefaultValues: Bool = true // sourcery: replacementFor = isAddingDefaultValues
 
         // TODO: Improve this documentation
         /// For `allOf` inline properties from references

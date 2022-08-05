@@ -729,7 +729,7 @@ extension Generator {
                 type = type.asPatchParameter()
             }
             var defaultValue: String?
-            if options.entities.defaultValues {
+            if options.entities.includeDefaultValues {
                 if type.isBool {
                     defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
                 }
