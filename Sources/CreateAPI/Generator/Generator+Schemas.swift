@@ -340,10 +340,8 @@ extension Generator {
         let excludedProperties = excludedProperties(for: type.rawValue)
         let excludedDiff = excludedProperties.subtracting(object.properties.keys)
         
-        if !excludedDiff.isEmpty {
-            for diff in excludedDiff {
-                try handle(warning: "Excluded property \(type.rawValue).\(diff) does not exist on schema object \(type.rawValue)")
-            }
+        for diff in excludedDiff {
+            try handle(warning: "Excluded property \(type.rawValue).\(diff) does not exist on schema object \(type.rawValue)")
         }
 
         var keys = object.properties.keys.filter { !excludedProperties.contains($0) }
