@@ -490,7 +490,7 @@ Strips the parent name of enum cases within objects that are `oneOf` / `allOf` /
 
 ## entities.exclude
 
-**Type:** Set<String><br />
+**Type:** Set<EntityExclude><br />
 **Default:** `[]`
 
 When set to a non-empty value, entities and entity properties with the given names will be ignored during generation.
