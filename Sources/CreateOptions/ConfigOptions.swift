@@ -65,9 +65,14 @@ import Foundation
 public struct ConfigOptions: Encodable {
     /// The default generator options
     public static let `default` = ConfigOptions()
+    
+    /// Available access controls
+    public enum Access: String, Codable {
+        case `internal`, `public`
+    }
 
     /// Access level modifier for all generated declarations
-    public var access: String = "public"
+    public var access: Access = .public
 
     /// Add `@available(*, deprecated)` attribute to deprecated types and properties
     public var annotateDeprecations: Bool = true // sourcery: replacementFor = isAddingDeprecations

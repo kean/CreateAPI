@@ -26,9 +26,9 @@ extension ConfigOptions: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try StringCodingContainer<KnownKeys>(decoder: decoder)
 
-        access = try container.decode(String.self,
+        access = try container.decode(Access.self,
             forKey: .access,
-            defaultValue: "public"
+            defaultValue: .public
         )
 
         annotateDeprecations = try container.decode(Bool.self,

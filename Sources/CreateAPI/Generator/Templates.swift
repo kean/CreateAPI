@@ -4,11 +4,12 @@ import Foundation
 
 // TODO: When parsing additionalProperties remove known keys
 final class Templates {
+    
     let options: GenerateOptions
 
     var access: String {
-        guard !options.access.isEmpty else { return "" }
-        return options.access + " "
+        guard options.access != .internal else { return ""}
+        return options.access.rawValue + " "
     }
 
     init(options: GenerateOptions) {
@@ -34,14 +35,16 @@ final class Templates {
     }
 
     func `struct`(name: TypeName, contents: [String], protocols: Protocols) -> String {
-        let lhs = [options.access, "struct", name.rawValue].filter { !$0.isEmpty }
+        let access = options.access == .internal ? "" : options.access.rawValue
+        let lhs = [access, "struct", name.rawValue].filter { !$0.isEmpty }
         let rhs = protocols.sorted()
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
 
     func `class`(name: TypeName, isFinal: Bool, contents: [String], protocols: Protocols) -> String {
         let type = isFinal ? "final class" : "class"
-        let lhs = [options.access, type, name.rawValue].filter { !$0.isEmpty }
+        let access = options.access == .internal ? "" : options.access.rawValue
+        let lhs = [access, type, name.rawValue].filter { !$0.isEmpty }
         let rhs = ([options.entities.baseClass] + protocols.sorted()).compactMap { $0 }
         return declaration(lhs: lhs, rhs: rhs, contents: contents)
     }
