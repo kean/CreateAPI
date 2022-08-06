@@ -41,7 +41,7 @@
 ## {{ type.localName|lowercase }}.{{ variable.name }}
 {% endif %}
 
-**Type:** {{ variable.typeName|replace:"?",""|replace:"EntityExclude","String" }}<br />
+**Type:** {{ variable.typeName|replace:"?","" }}<br />
 **Default:** `{{ variable.defaultValue }}`
 
 {% call format_documentation variable.documentation %}
