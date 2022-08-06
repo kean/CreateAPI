@@ -17,7 +17,6 @@ let package = Package(
     dependencies: [
         .package(path: "../Expected/cookpad"),
         .package(path: "../Expected/discriminator"),
-        .package(path: "../Expected/edgecases-change-access-control"),
         .package(path: "../Expected/edgecases-coding-keys"),
         .package(path: "../Expected/edgecases-default"),
         .package(path: "../Expected/edgecases-disable-acronyms"),
@@ -59,7 +58,6 @@ let package = Package(
             dependencies: [
                 "cookpad",
                 "discriminator",
-                "edgecases-change-access-control",
                 "edgecases-coding-keys",
                 "edgecases-default",
                 "edgecases-disable-acronyms",
