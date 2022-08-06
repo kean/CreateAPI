@@ -72,6 +72,8 @@ public struct ConfigOptions: Encodable {
     }
 
     /// Access level modifier for all generated declarations
+    /// - `public`
+    /// - `internal`
     public var access: Access = .public
 
     /// Add `@available(*, deprecated)` attribute to deprecated types and properties

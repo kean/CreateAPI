@@ -102,10 +102,12 @@ Below you can find the complete documentation for all available options.
 
 ## access
 
-**Type:** String<br />
-**Default:** `"public"`
+**Type:** Access<br />
+**Default:** `.public`
 
 Access level modifier for all generated declarations
+- `public`
+- `internal`
 
 <br/>
 
