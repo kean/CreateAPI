@@ -359,6 +359,24 @@ final class GenerateOptionsTests: GenerateBaseTests {
         // THEN
         try compare(package: "petstore-change-namespace-when-operations-style")
     }
+    
+    func testPetstoreInternalAccessControl() throws {
+        // GIVEN
+        let command = try Generate.parse([
+            pathForSpec(named: "petstore", ext: "yaml"),
+            "--output", temp.url.path,
+            "--package", "petstore-internal-access-control",
+            "--config", config("""
+            access: internal
+            """, ext: "yaml")
+            ])
+            
+        // WHEN
+        try command.run()
+        
+        // THEN
+        try compare(package: "petstore-internal-access-control")
+    }
         
     func testEdgecasesRenamePrperties() throws {
         // GIVEN
@@ -419,26 +437,6 @@ final class GenerateOptionsTests: GenerateBaseTests {
         
         // THEN
         try compare(package: "edgecases-yaml-config")
-    }
-    
-    func testEdgecasesChangeAccessControl() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "edgecases", ext: "yaml"),
-            "--output", temp.url.path,
-            "--package", "edgecases-change-access-control",
-            "--config", config("""
-            {
-                "access": ""
-            }
-            """)
-        ])
-                
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "edgecases-change-access-control")
     }
                     
     func testEdgecasesDisableAcronyms() throws {
