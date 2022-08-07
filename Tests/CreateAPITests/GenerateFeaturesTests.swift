@@ -3,6 +3,12 @@ import XCTest
 
 final class GenerateFeaturesTests: GenerateBaseTests {    
     func testQueryParameters() throws {
-        try testSpec(name: "test-query-parameters", ext: "yaml")
+        try snapshot(
+            spec: .testQueryParameters,
+            name: "test-query-parameters",
+            arguments: [
+                "--package", "test-query-parameters"
+            ]
+        )
     }
 }

@@ -3,35 +3,61 @@ import XCTest
 
 final class GenerateTests: GenerateBaseTests {
     func testPestore() throws {
-        try testSpec(name: "petstore", ext: "yaml", package: "petstore-default")
+        try snapshot(
+            spec: .petstore,
+            name: "petstore-default",
+            arguments: [
+                "--package", "petstore-default"
+            ]
+        )
     }
     
     func testEdgecases() throws {
-        try testSpec(name: "edgecases", ext: "yaml", package: "edgecases-default")
+        try snapshot(
+            spec: .edgecases,
+            name: "edgecases-default",
+            arguments: [
+                "--package", "edgecases-default"
+            ]
+        )
     }
 
     func testInlining() throws {
-        try testSpec(name: "inlining", ext: "yaml", package: "inlining-default", config: """
-        entities:
-          inlineReferencedSchemas: true
-          typeOverrides:
-            Letter: finalClass
-        """)
+        try snapshot(
+            spec: .inlining,
+            name: "inlining-default",
+            arguments: [
+                "--package", "inlining-default"
+            ],
+            configuration: """
+            entities:
+              inlineReferencedSchemas: true
+              typeOverrides:
+                Letter: finalClass
+            """
+        )
     }
 
     func testDiscriminator() throws {
-        try testSpec(name: "discriminator", ext: "yaml", package: "discriminator")
+        try snapshot(
+            spec: .discriminator,
+            name: "discriminator",
+            arguments: [
+                "--package", "discriminator"
+            ]
+        )
     }    
     
     func testGitHub() throws {
-        // GIVEN
-        let command = try Generate.parse([
-            pathForSpec(named: "github", ext: "yaml"),
-            "--output", temp.url.path,
-            "--strict",
-            "--package", "OctoKit",
-            "--vendor", "github",
-            "--config", config("""
+        try snapshot(
+            spec: .github,
+            name: "OctoKit",
+            arguments: [
+                "--strict",
+                "--package", "OctoKit",
+                "--vendor", "github"
+            ],
+            configuration: """
             paths:
               overriddenResponses:
                 accepted: "Void"
@@ -41,17 +67,17 @@ final class GenerateTests: GenerateBaseTests {
               enumCases:
                 reactions-+1: "reactionsPlusOne"
                 reactions--1: "reactionsMinusOne"
-            """, ext: "yaml")
-        ])
-                
-        // WHEN
-        try command.run()
-        
-        // THEN
-        try compare(package: "OctoKit")
+            """
+        )
     }
 
     func testCookpad() throws {
-        try testSpec(name: "cookpad", ext: "json")
+        try snapshot(
+            spec: .cookpad,
+            name: "cookpad",
+            arguments: [
+                "--package", "cookpad"
+            ]
+        )
     }
 }
