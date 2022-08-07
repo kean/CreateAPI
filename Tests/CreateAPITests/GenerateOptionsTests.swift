@@ -363,9 +363,9 @@ final class GenerateOptionsTests: GenerateBaseTests {
     func testPetstoreInternalAccessControl() throws {
         // GIVEN
         let command = try Generate.parse([
-            pathForSpec(named: "petstore", ext: "yaml"),
+            pathForSpec(named: "edgecases", ext: "yaml"),
             "--output", temp.url.path,
-            "--package", "petstore-internal-access-control",
+            "--package", "edgecases-change-access-control",
             "--config", config("""
             access: internal
             """, ext: "yaml")
@@ -375,7 +375,7 @@ final class GenerateOptionsTests: GenerateBaseTests {
         try command.run()
         
         // THEN
-        try compare(package: "petstore-internal-access-control")
+        try compare(package: "edgecases-change-access-control")
     }
         
     func testEdgecasesRenamePrperties() throws {

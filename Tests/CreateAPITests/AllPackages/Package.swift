@@ -17,6 +17,7 @@ let package = Package(
     dependencies: [
         .package(path: "../Expected/cookpad"),
         .package(path: "../Expected/discriminator"),
+        .package(path: "../Expected/edgecases-change-access-control"),
         .package(path: "../Expected/edgecases-coding-keys"),
         .package(path: "../Expected/edgecases-default"),
         .package(path: "../Expected/edgecases-disable-acronyms"),
@@ -43,7 +44,6 @@ let package = Package(
         .package(path: "../Expected/petstore-entity-exclude"),
         .package(path: "../Expected/petstore-filename-template"),
         .package(path: "../Expected/petstore-generate-classes"),
-        .package(path: "../Expected/petstore-internal-access-control"),
         .package(path: "../Expected/petstore-identifiable"),
         .package(path: "../Expected/petstore-only-schemas"),
         .package(path: "../Expected/petstore-single-threaded"),
@@ -60,6 +60,7 @@ let package = Package(
             dependencies: [
                 "cookpad",
                 "discriminator",
+                "edgecases-change-access-control",
                 "edgecases-coding-keys",
                 "edgecases-default",
                 "edgecases-disable-acronyms",
@@ -86,7 +87,6 @@ let package = Package(
                 "petstore-entity-exclude",
                 "petstore-filename-template",
                 "petstore-generate-classes",
-                "petstore-internal-access-control",
                 "petstore-identifiable",
                 "petstore-only-schemas",
                 "petstore-single-threaded",
