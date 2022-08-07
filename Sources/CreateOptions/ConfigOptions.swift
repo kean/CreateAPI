@@ -9,10 +9,7 @@ import Foundation
 // 2. A reference for the default values of each option
 // 3. The documentation for all options
 //
-// We use Sourcery to generate the CreateOptions.md document from this type as
-// well as a custom Decodable initializer implementation that falls back to the
-// default values.
-//
+// We use Sourcery to generate the CreateOptions.md document from this type.
 // If you modify the ConfigOptions type below, be sure to run `make documentation`
 // again from terminal and commit the changes. You will need sourcery installed.
 //

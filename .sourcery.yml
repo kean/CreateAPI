@@ -6,10 +6,3 @@ configurations:
   - Sourcery/ConfigOptions.md.stencil
   sources:
   - Sources/CreateOptions/ConfigOptions.swift
-
-# Generates the Decodable initializer with default values
-- output: Sources/CreateOptions/ConfigOptions+DecodableWithDefault.swift
-  templates:
-  - Sourcery/DecodableWithDefault.swift.stencil
-  sources:
-  - Sources/CreateOptions/ConfigOptions.swift
