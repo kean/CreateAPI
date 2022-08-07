@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "swift-configuration-parser",
+        "repositoryURL": "https://github.com/liamnichols/swift-configuration-parser",
+        "state": {
+          "branch": null,
+          "revision": "168d5c7722a7d40560bc48178be51c81421edea4",
+          "version": "0.0.2"
+        }
+      },
+      {
         "package": "Yams",
         "repositoryURL": "https://github.com/CreateAPI/Yams",
         "state": {
