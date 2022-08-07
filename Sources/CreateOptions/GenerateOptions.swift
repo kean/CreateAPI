@@ -1,3 +1,4 @@
+import ConfigurationParser
 import Foundation
 import Yams
 
@@ -33,17 +34,16 @@ public extension GenerateOptions {
     }
 
     convenience init(data: Data, process: (inout ConfigOptions) -> Void = { _ in }) throws {
-        // Decode the options and record any warnings/issues
-        let recorder = IssueRecorder()
-        let decoder = YAMLDecoder()
-        var configOptions = try decoder.decode(ConfigOptions.self, from: data, userInfo: [
-            .issueRecorder: recorder
-        ])
+        // Parse the options being sure to record any issues
+        var issues: [Issue] = []
+        var configOptions = try ConfigOptions.parse(data, decoder: YAMLDecoder()) { issue in
+            issues.append(issue)
+        }
 
         // Provide an opportunity to make any required mutations
         process(&configOptions)
 
         // Call to the default initialiser
-        self.init(configOptions: configOptions, warnings: recorder.issues.map(\.description))
+        self.init(configOptions: configOptions, warnings: Issue.warnings(for: issues))
     }
 }
