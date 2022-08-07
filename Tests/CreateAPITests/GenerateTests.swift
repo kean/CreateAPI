@@ -1,7 +1,7 @@
 import XCTest
 @testable import create_api
 
-final class GenerateTests: GenerateBaseTests {
+final class GenerateTests: GenerateTestCase {
     func testPestore() throws {
         try snapshot(
             spec: .petstore,

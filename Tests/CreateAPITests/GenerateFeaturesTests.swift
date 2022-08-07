@@ -1,7 +1,7 @@
 import XCTest
 @testable import create_api
 
-final class GenerateFeaturesTests: GenerateBaseTests {    
+final class GenerateFeaturesTests: GenerateTestCase {    
     func testQueryParameters() throws {
         try snapshot(
             spec: .testQueryParameters,

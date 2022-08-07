@@ -1,7 +1,7 @@
 import XCTest
 @testable import create_api
 
-class GenerateBaseTests: XCTestCase {
+class GenerateTestCase: XCTestCase {
     struct SpecFixture {
         let name: String
         let ext: String
