@@ -18,4 +18,18 @@ public struct GitUser: Codable {
         self.email = email
         self.date = date
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.date = try values.decodeIfPresent(String.self, forKey: "date")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(date, forKey: "date")
+    }
 }

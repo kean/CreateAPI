@@ -39,9 +39,10 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                     self.isSetting = isSetting
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case appID = "app_id"
-                    case isSetting = "setting"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(appID, forKey: "app_id")
+                    try values.encode(isSetting, forKey: "setting")
                 }
             }
 
@@ -49,8 +50,9 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                 self.autoTriggerChecks = autoTriggerChecks
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case autoTriggerChecks = "auto_trigger_checks"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(autoTriggerChecks, forKey: "auto_trigger_checks")
             }
         }
     }

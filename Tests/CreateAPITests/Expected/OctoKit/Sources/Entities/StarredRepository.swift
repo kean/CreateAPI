@@ -16,8 +16,15 @@ public struct StarredRepository: Codable {
         self.repo = repo
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case starredAt = "starred_at"
-        case repo
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.starredAt = try values.decode(Date.self, forKey: "starred_at")
+        self.repo = try values.decode(Repository.self, forKey: "repo")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(starredAt, forKey: "starred_at")
+        try values.encode(repo, forKey: "repo")
     }
 }

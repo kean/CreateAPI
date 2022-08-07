@@ -74,6 +74,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.message = message
                 self.url = url
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            }
         }
     }
 }

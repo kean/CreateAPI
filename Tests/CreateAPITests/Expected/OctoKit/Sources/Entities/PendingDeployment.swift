@@ -46,12 +46,22 @@ public struct PendingDeployment: Codable {
             self.htmlURL = htmlURL
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nodeID = "node_id"
-            case name
-            case url
-            case htmlURL = "html_url"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
         }
     }
 
@@ -89,6 +99,18 @@ public struct PendingDeployment: Codable {
             self.type = type
             self.reviewer = reviewer
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.type = try values.decodeIfPresent(DeploymentReviewerType.self, forKey: "type")
+            self.reviewer = try values.decodeIfPresent(Reviewer.self, forKey: "reviewer")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(reviewer, forKey: "reviewer")
+        }
     }
 
     public init(environment: Environment, waitTimer: Int, waitTimerStartedAt: Date? = nil, currentUserCanApprove: Bool, reviewers: [Reviewer]) {
@@ -99,11 +121,21 @@ public struct PendingDeployment: Codable {
         self.reviewers = reviewers
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case environment
-        case waitTimer = "wait_timer"
-        case waitTimerStartedAt = "wait_timer_started_at"
-        case currentUserCanApprove = "current_user_can_approve"
-        case reviewers
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.environment = try values.decode(Environment.self, forKey: "environment")
+        self.waitTimer = try values.decode(Int.self, forKey: "wait_timer")
+        self.waitTimerStartedAt = try values.decodeIfPresent(Date.self, forKey: "wait_timer_started_at")
+        self.currentUserCanApprove = try values.decode(Bool.self, forKey: "current_user_can_approve")
+        self.reviewers = try values.decode([Reviewer].self, forKey: "reviewers")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(environment, forKey: "environment")
+        try values.encode(waitTimer, forKey: "wait_timer")
+        try values.encodeIfPresent(waitTimerStartedAt, forKey: "wait_timer_started_at")
+        try values.encode(currentUserCanApprove, forKey: "current_user_can_approve")
+        try values.encode(reviewers, forKey: "reviewers")
     }
 }

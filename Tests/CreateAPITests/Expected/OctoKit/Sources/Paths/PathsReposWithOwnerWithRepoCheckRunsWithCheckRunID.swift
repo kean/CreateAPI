@@ -130,16 +130,17 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.rawDetails = rawDetails
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case path
-                        case startLine = "start_line"
-                        case endLine = "end_line"
-                        case startColumn = "start_column"
-                        case endColumn = "end_column"
-                        case annotationLevel = "annotation_level"
-                        case message
-                        case title
-                        case rawDetails = "raw_details"
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(path, forKey: "path")
+                        try values.encode(startLine, forKey: "start_line")
+                        try values.encode(endLine, forKey: "end_line")
+                        try values.encodeIfPresent(startColumn, forKey: "start_column")
+                        try values.encodeIfPresent(endColumn, forKey: "end_column")
+                        try values.encode(annotationLevel, forKey: "annotation_level")
+                        try values.encode(message, forKey: "message")
+                        try values.encodeIfPresent(title, forKey: "title")
+                        try values.encodeIfPresent(rawDetails, forKey: "raw_details")
                     }
                 }
 
@@ -157,10 +158,11 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                         self.caption = caption
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case alt
-                        case imageURL = "image_url"
-                        case caption
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(alt, forKey: "alt")
+                        try values.encode(imageURL, forKey: "image_url")
+                        try values.encodeIfPresent(caption, forKey: "caption")
                     }
                 }
 
@@ -170,6 +172,15 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.text = text
                     self.annotations = annotations
                     self.images = images
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(title, forKey: "title")
+                    try values.encode(summary, forKey: "summary")
+                    try values.encodeIfPresent(text, forKey: "text")
+                    try values.encodeIfPresent(annotations, forKey: "annotations")
+                    try values.encodeIfPresent(images, forKey: "images")
                 }
             }
 
@@ -188,6 +199,14 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                     self.identifier = identifier
                     self.identifie = identifie
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(label, forKey: "label")
+                    try values.encode(description, forKey: "description")
+                    try values.encodeIfPresent(identifier, forKey: "identifier")
+                    try values.encode(identifie, forKey: "identifie")
+                }
             }
 
             public init(name: String? = nil, detailsURL: String? = nil, externalID: String? = nil, startedAt: Date? = nil, status: Status? = nil, conclusion: Conclusion? = nil, completedAt: Date? = nil, output: Output? = nil, actions: [Action]? = nil) {
@@ -202,16 +221,17 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
                 self.actions = actions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case detailsURL = "details_url"
-                case externalID = "external_id"
-                case startedAt = "started_at"
-                case status
-                case conclusion
-                case completedAt = "completed_at"
-                case output
-                case actions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(detailsURL, forKey: "details_url")
+                try values.encodeIfPresent(externalID, forKey: "external_id")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(status, forKey: "status")
+                try values.encodeIfPresent(conclusion, forKey: "conclusion")
+                try values.encodeIfPresent(completedAt, forKey: "completed_at")
+                try values.encodeIfPresent(output, forKey: "output")
+                try values.encodeIfPresent(actions, forKey: "actions")
             }
         }
     }

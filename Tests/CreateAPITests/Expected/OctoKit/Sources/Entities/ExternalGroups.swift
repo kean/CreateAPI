@@ -42,14 +42,32 @@ public struct ExternalGroups: Codable {
             self.updatedAt = updatedAt
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case groupID = "group_id"
-            case groupName = "group_name"
-            case updatedAt = "updated_at"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.groupID = try values.decode(Int.self, forKey: "group_id")
+            self.groupName = try values.decode(String.self, forKey: "group_name")
+            self.updatedAt = try values.decode(String.self, forKey: "updated_at")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(groupID, forKey: "group_id")
+            try values.encode(groupName, forKey: "group_name")
+            try values.encode(updatedAt, forKey: "updated_at")
         }
     }
 
     public init(groups: [Group]? = nil) {
         self.groups = groups
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(groups, forKey: "groups")
     }
 }

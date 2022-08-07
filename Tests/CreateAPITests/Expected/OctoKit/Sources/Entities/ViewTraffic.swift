@@ -16,4 +16,18 @@ public struct ViewTraffic: Codable {
         self.uniques = uniques
         self.views = views
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.count = try values.decode(Int.self, forKey: "count")
+        self.uniques = try values.decode(Int.self, forKey: "uniques")
+        self.views = try values.decode([Traffic].self, forKey: "views")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(count, forKey: "count")
+        try values.encode(uniques, forKey: "uniques")
+        try values.encode(views, forKey: "views")
+    }
 }

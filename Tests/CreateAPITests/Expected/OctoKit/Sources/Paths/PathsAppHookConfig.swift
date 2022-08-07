@@ -67,11 +67,12 @@ extension Paths.App.Hook {
                 self.insecureSSL = insecureSSL
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case contentType = "content_type"
-                case secret
-                case insecureSSL = "insecure_ssl"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(contentType, forKey: "content_type")
+                try values.encodeIfPresent(secret, forKey: "secret")
+                try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
             }
         }
     }

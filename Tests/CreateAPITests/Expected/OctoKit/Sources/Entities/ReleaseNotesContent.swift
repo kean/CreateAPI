@@ -19,4 +19,16 @@ public struct ReleaseNotesContent: Codable {
         self.name = name
         self.body = body
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.body = try values.decode(String.self, forKey: "body")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(body, forKey: "body")
+    }
 }

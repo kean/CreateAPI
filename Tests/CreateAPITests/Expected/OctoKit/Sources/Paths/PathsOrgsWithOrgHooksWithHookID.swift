@@ -66,11 +66,12 @@ extension Paths.Orgs.WithOrg.Hooks {
                     self.insecureSSL = insecureSSL
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case url
-                    case contentType = "content_type"
-                    case secret
-                    case insecureSSL = "insecure_ssl"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(url, forKey: "url")
+                    try values.encodeIfPresent(contentType, forKey: "content_type")
+                    try values.encodeIfPresent(secret, forKey: "secret")
+                    try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
                 }
             }
 
@@ -81,11 +82,12 @@ extension Paths.Orgs.WithOrg.Hooks {
                 self.name = name
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case config
-                case events
-                case isActive = "active"
-                case name
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(config, forKey: "config")
+                try values.encodeIfPresent(events, forKey: "events")
+                try values.encodeIfPresent(isActive, forKey: "active")
+                try values.encodeIfPresent(name, forKey: "name")
             }
         }
 

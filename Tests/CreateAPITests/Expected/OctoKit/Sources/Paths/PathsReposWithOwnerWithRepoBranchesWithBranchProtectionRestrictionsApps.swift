@@ -59,6 +59,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(apps: [String]) {
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -103,6 +108,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
                 public init(apps: [String]) {
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
+                }
             }
 
             public func encode(to encoder: Encoder) throws {
@@ -146,6 +156,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
 
                 public init(apps: [String]) {
                     self.apps = apps
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(apps, forKey: "apps")
                 }
             }
 

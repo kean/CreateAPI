@@ -35,9 +35,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.teamIDs = teamIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case newOwner = "new_owner"
-                case teamIDs = "team_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(newOwner, forKey: "new_owner")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
             }
         }
     }

@@ -23,9 +23,17 @@ public struct InteractionLimitResponse: Codable {
         self.expiresAt = expiresAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case limit
-        case origin
-        case expiresAt = "expires_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.limit = try values.decode(InteractionGroup.self, forKey: "limit")
+        self.origin = try values.decode(String.self, forKey: "origin")
+        self.expiresAt = try values.decode(Date.self, forKey: "expires_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(limit, forKey: "limit")
+        try values.encode(origin, forKey: "origin")
+        try values.encode(expiresAt, forKey: "expires_at")
     }
 }

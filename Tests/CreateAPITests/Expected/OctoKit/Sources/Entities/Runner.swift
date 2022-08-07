@@ -34,12 +34,23 @@ public struct Runner: Codable {
         self.labels = labels
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case os
-        case status
-        case isBusy = "busy"
-        case labels
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.os = try values.decode(String.self, forKey: "os")
+        self.status = try values.decode(String.self, forKey: "status")
+        self.isBusy = try values.decode(Bool.self, forKey: "busy")
+        self.labels = try values.decode([RunnerLabel].self, forKey: "labels")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(os, forKey: "os")
+        try values.encode(status, forKey: "status")
+        try values.encode(isBusy, forKey: "busy")
+        try values.encode(labels, forKey: "labels")
     }
 }

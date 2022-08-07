@@ -55,12 +55,13 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
                 self.isPrivate = isPrivate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case owner
-                case name
-                case description
-                case isIncludeAllBranches = "include_all_branches"
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(owner, forKey: "owner")
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(isIncludeAllBranches, forKey: "include_all_branches")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
     }

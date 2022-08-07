@@ -14,8 +14,15 @@ public struct AdvancedSecurityActiveCommittersUser: Codable {
         self.lastPushedDate = lastPushedDate
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case userLogin = "user_login"
-        case lastPushedDate = "last_pushed_date"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.userLogin = try values.decode(String.self, forKey: "user_login")
+        self.lastPushedDate = try values.decode(String.self, forKey: "last_pushed_date")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(userLogin, forKey: "user_login")
+        try values.encode(lastPushedDate, forKey: "last_pushed_date")
     }
 }

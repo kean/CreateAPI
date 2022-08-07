@@ -14,8 +14,15 @@ public struct __200Response: Codable {
 		self.class = `class`
 	}
 
-	private enum CodingKeys: String, CodingKey {
-		case name
-		case `class`
+	public init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: StringCodingKey.self)
+		self.name = try values.decodeIfPresent(Int.self, forKey: "name")
+		self.class = try values.decodeIfPresent(String.self, forKey: "class")
+	}
+
+	public func encode(to encoder: Encoder) throws {
+		var values = encoder.container(keyedBy: StringCodingKey.self)
+		try values.encodeIfPresent(name, forKey: "name")
+		try values.encodeIfPresent(`class`, forKey: "class")
 	}
 }

@@ -127,37 +127,73 @@ public struct WorkflowRun: Codable {
         self.headRepositoryID = headRepositoryID
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case nodeID = "node_id"
-        case checkSuiteID = "check_suite_id"
-        case checkSuiteNodeID = "check_suite_node_id"
-        case headBranch = "head_branch"
-        case headSha = "head_sha"
-        case runNumber = "run_number"
-        case runAttempt = "run_attempt"
-        case event
-        case status
-        case conclusion
-        case workflowID = "workflow_id"
-        case url
-        case htmlURL = "html_url"
-        case pullRequests = "pull_requests"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case runStartedAt = "run_started_at"
-        case jobsURL = "jobs_url"
-        case logsURL = "logs_url"
-        case checkSuiteURL = "check_suite_url"
-        case artifactsURL = "artifacts_url"
-        case cancelURL = "cancel_url"
-        case rerunURL = "rerun_url"
-        case previousAttemptURL = "previous_attempt_url"
-        case workflowURL = "workflow_url"
-        case headCommit = "head_commit"
-        case repository
-        case headRepository = "head_repository"
-        case headRepositoryID = "head_repository_id"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.checkSuiteID = try values.decodeIfPresent(Int.self, forKey: "check_suite_id")
+        self.checkSuiteNodeID = try values.decodeIfPresent(String.self, forKey: "check_suite_node_id")
+        self.headBranch = try values.decodeIfPresent(String.self, forKey: "head_branch")
+        self.headSha = try values.decode(String.self, forKey: "head_sha")
+        self.runNumber = try values.decode(Int.self, forKey: "run_number")
+        self.runAttempt = try values.decodeIfPresent(Int.self, forKey: "run_attempt")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+        self.conclusion = try values.decodeIfPresent(String.self, forKey: "conclusion")
+        self.workflowID = try values.decode(Int.self, forKey: "workflow_id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decode(String.self, forKey: "html_url")
+        self.pullRequests = try values.decodeIfPresent([PullRequestMinimal].self, forKey: "pull_requests")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.runStartedAt = try values.decodeIfPresent(Date.self, forKey: "run_started_at")
+        self.jobsURL = try values.decode(String.self, forKey: "jobs_url")
+        self.logsURL = try values.decode(String.self, forKey: "logs_url")
+        self.checkSuiteURL = try values.decode(String.self, forKey: "check_suite_url")
+        self.artifactsURL = try values.decode(String.self, forKey: "artifacts_url")
+        self.cancelURL = try values.decode(String.self, forKey: "cancel_url")
+        self.rerunURL = try values.decode(String.self, forKey: "rerun_url")
+        self.previousAttemptURL = try values.decodeIfPresent(String.self, forKey: "previous_attempt_url")
+        self.workflowURL = try values.decode(String.self, forKey: "workflow_url")
+        self.headCommit = try values.decodeIfPresent(SimpleCommit.self, forKey: "head_commit")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.headRepository = try values.decode(MinimalRepository.self, forKey: "head_repository")
+        self.headRepositoryID = try values.decodeIfPresent(Int.self, forKey: "head_repository_id")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(checkSuiteID, forKey: "check_suite_id")
+        try values.encodeIfPresent(checkSuiteNodeID, forKey: "check_suite_node_id")
+        try values.encodeIfPresent(headBranch, forKey: "head_branch")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encode(runNumber, forKey: "run_number")
+        try values.encodeIfPresent(runAttempt, forKey: "run_attempt")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encode(workflowID, forKey: "workflow_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(pullRequests, forKey: "pull_requests")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(runStartedAt, forKey: "run_started_at")
+        try values.encode(jobsURL, forKey: "jobs_url")
+        try values.encode(logsURL, forKey: "logs_url")
+        try values.encode(checkSuiteURL, forKey: "check_suite_url")
+        try values.encode(artifactsURL, forKey: "artifacts_url")
+        try values.encode(cancelURL, forKey: "cancel_url")
+        try values.encode(rerunURL, forKey: "rerun_url")
+        try values.encodeIfPresent(previousAttemptURL, forKey: "previous_attempt_url")
+        try values.encode(workflowURL, forKey: "workflow_url")
+        try values.encodeIfPresent(headCommit, forKey: "head_commit")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(headRepository, forKey: "head_repository")
+        try values.encodeIfPresent(headRepositoryID, forKey: "head_repository_id")
     }
 }

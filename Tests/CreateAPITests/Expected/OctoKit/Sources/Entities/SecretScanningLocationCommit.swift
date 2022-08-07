@@ -43,15 +43,29 @@ public struct SecretScanningLocationCommit: Codable {
         self.commitURL = commitURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case path
-        case startLine = "start_line"
-        case endLine = "end_line"
-        case startColumn = "start_column"
-        case endColumn = "end_column"
-        case blobSha = "blob_sha"
-        case blobURL = "blob_url"
-        case commitSha = "commit_sha"
-        case commitURL = "commit_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.path = try values.decode(String.self, forKey: "path")
+        self.startLine = try values.decode(Double.self, forKey: "start_line")
+        self.endLine = try values.decode(Double.self, forKey: "end_line")
+        self.startColumn = try values.decode(Double.self, forKey: "start_column")
+        self.endColumn = try values.decode(Double.self, forKey: "end_column")
+        self.blobSha = try values.decode(String.self, forKey: "blob_sha")
+        self.blobURL = try values.decode(String.self, forKey: "blob_url")
+        self.commitSha = try values.decode(String.self, forKey: "commit_sha")
+        self.commitURL = try values.decode(String.self, forKey: "commit_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(path, forKey: "path")
+        try values.encode(startLine, forKey: "start_line")
+        try values.encode(endLine, forKey: "end_line")
+        try values.encode(startColumn, forKey: "start_column")
+        try values.encode(endColumn, forKey: "end_column")
+        try values.encode(blobSha, forKey: "blob_sha")
+        try values.encode(blobURL, forKey: "blob_url")
+        try values.encode(commitSha, forKey: "commit_sha")
+        try values.encode(commitURL, forKey: "commit_url")
     }
 }

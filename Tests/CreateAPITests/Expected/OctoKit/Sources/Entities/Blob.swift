@@ -23,13 +23,25 @@ public struct Blob: Codable {
         self.highlightedContent = highlightedContent
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case content
-        case encoding
-        case url
-        case sha
-        case size
-        case nodeID = "node_id"
-        case highlightedContent = "highlighted_content"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.content = try values.decode(String.self, forKey: "content")
+        self.encoding = try values.decode(String.self, forKey: "encoding")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.size = try values.decodeIfPresent(Int.self, forKey: "size")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.highlightedContent = try values.decodeIfPresent(String.self, forKey: "highlighted_content")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(content, forKey: "content")
+        try values.encode(encoding, forKey: "encoding")
+        try values.encode(url, forKey: "url")
+        try values.encode(sha, forKey: "sha")
+        try values.encodeIfPresent(size, forKey: "size")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(highlightedContent, forKey: "highlighted_content")
     }
 }

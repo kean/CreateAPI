@@ -14,4 +14,18 @@ public struct Traffic: Codable {
         self.uniques = uniques
         self.count = count
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.timestamp = try values.decode(Date.self, forKey: "timestamp")
+        self.uniques = try values.decode(Int.self, forKey: "uniques")
+        self.count = try values.decode(Int.self, forKey: "count")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(timestamp, forKey: "timestamp")
+        try values.encode(uniques, forKey: "uniques")
+        try values.encode(count, forKey: "count")
+    }
 }

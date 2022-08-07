@@ -107,12 +107,22 @@ public struct OrganizationFull: Codable {
             self.seats = seats
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case name
-            case space
-            case privateRepos = "private_repos"
-            case filledSeats = "filled_seats"
-            case seats
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.name = try values.decode(String.self, forKey: "name")
+            self.space = try values.decode(Int.self, forKey: "space")
+            self.privateRepos = try values.decode(Int.self, forKey: "private_repos")
+            self.filledSeats = try values.decodeIfPresent(Int.self, forKey: "filled_seats")
+            self.seats = try values.decodeIfPresent(Int.self, forKey: "seats")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(name, forKey: "name")
+            try values.encode(space, forKey: "space")
+            try values.encode(privateRepos, forKey: "private_repos")
+            try values.encodeIfPresent(filledSeats, forKey: "filled_seats")
+            try values.encodeIfPresent(seats, forKey: "seats")
         }
     }
 
@@ -166,53 +176,105 @@ public struct OrganizationFull: Codable {
         self.updatedAt = updatedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case login
-        case id
-        case nodeID = "node_id"
-        case url
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case hooksURL = "hooks_url"
-        case issuesURL = "issues_url"
-        case membersURL = "members_url"
-        case publicMembersURL = "public_members_url"
-        case avatarURL = "avatar_url"
-        case description
-        case name
-        case company
-        case blog
-        case location
-        case email
-        case twitterUsername = "twitter_username"
-        case isVerified = "is_verified"
-        case hasOrganizationProjects = "has_organization_projects"
-        case hasRepositoryProjects = "has_repository_projects"
-        case publicRepos = "public_repos"
-        case publicGists = "public_gists"
-        case followers
-        case following
-        case htmlURL = "html_url"
-        case createdAt = "created_at"
-        case type
-        case totalPrivateRepos = "total_private_repos"
-        case ownedPrivateRepos = "owned_private_repos"
-        case privateGists = "private_gists"
-        case diskUsage = "disk_usage"
-        case collaborators
-        case billingEmail = "billing_email"
-        case plan
-        case defaultRepositoryPermission = "default_repository_permission"
-        case membersCanCreateRepositories = "members_can_create_repositories"
-        case isTwoFactorRequirementEnabled = "two_factor_requirement_enabled"
-        case membersAllowedRepositoryCreationType = "members_allowed_repository_creation_type"
-        case membersCanCreatePublicRepositories = "members_can_create_public_repositories"
-        case membersCanCreatePrivateRepositories = "members_can_create_private_repositories"
-        case membersCanCreateInternalRepositories = "members_can_create_internal_repositories"
-        case membersCanCreatePages = "members_can_create_pages"
-        case membersCanCreatePublicPages = "members_can_create_public_pages"
-        case membersCanCreatePrivatePages = "members_can_create_private_pages"
-        case membersCanForkPrivateRepositories = "members_can_fork_private_repositories"
-        case updatedAt = "updated_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.login = try values.decode(String.self, forKey: "login")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+        self.eventsURL = try values.decode(URL.self, forKey: "events_url")
+        self.hooksURL = try values.decode(String.self, forKey: "hooks_url")
+        self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+        self.membersURL = try values.decode(String.self, forKey: "members_url")
+        self.publicMembersURL = try values.decode(String.self, forKey: "public_members_url")
+        self.avatarURL = try values.decode(String.self, forKey: "avatar_url")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.company = try values.decodeIfPresent(String.self, forKey: "company")
+        self.blog = try values.decodeIfPresent(URL.self, forKey: "blog")
+        self.location = try values.decodeIfPresent(String.self, forKey: "location")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.twitterUsername = try values.decodeIfPresent(String.self, forKey: "twitter_username")
+        self.isVerified = try values.decodeIfPresent(Bool.self, forKey: "is_verified")
+        self.hasOrganizationProjects = try values.decode(Bool.self, forKey: "has_organization_projects")
+        self.hasRepositoryProjects = try values.decode(Bool.self, forKey: "has_repository_projects")
+        self.publicRepos = try values.decode(Int.self, forKey: "public_repos")
+        self.publicGists = try values.decode(Int.self, forKey: "public_gists")
+        self.followers = try values.decode(Int.self, forKey: "followers")
+        self.following = try values.decode(Int.self, forKey: "following")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.totalPrivateRepos = try values.decodeIfPresent(Int.self, forKey: "total_private_repos")
+        self.ownedPrivateRepos = try values.decodeIfPresent(Int.self, forKey: "owned_private_repos")
+        self.privateGists = try values.decodeIfPresent(Int.self, forKey: "private_gists")
+        self.diskUsage = try values.decodeIfPresent(Int.self, forKey: "disk_usage")
+        self.collaborators = try values.decodeIfPresent(Int.self, forKey: "collaborators")
+        self.billingEmail = try values.decodeIfPresent(String.self, forKey: "billing_email")
+        self.plan = try values.decodeIfPresent(Plan.self, forKey: "plan")
+        self.defaultRepositoryPermission = try values.decodeIfPresent(String.self, forKey: "default_repository_permission")
+        self.membersCanCreateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_repositories")
+        self.isTwoFactorRequirementEnabled = try values.decodeIfPresent(Bool.self, forKey: "two_factor_requirement_enabled")
+        self.membersAllowedRepositoryCreationType = try values.decodeIfPresent(String.self, forKey: "members_allowed_repository_creation_type")
+        self.membersCanCreatePublicRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_repositories")
+        self.membersCanCreatePrivateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_repositories")
+        self.membersCanCreateInternalRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_internal_repositories")
+        self.membersCanCreatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_pages")
+        self.membersCanCreatePublicPages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_public_pages")
+        self.membersCanCreatePrivatePages = try values.decodeIfPresent(Bool.self, forKey: "members_can_create_private_pages")
+        self.membersCanForkPrivateRepositories = try values.decodeIfPresent(Bool.self, forKey: "members_can_fork_private_repositories")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(login, forKey: "login")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(reposURL, forKey: "repos_url")
+        try values.encode(eventsURL, forKey: "events_url")
+        try values.encode(hooksURL, forKey: "hooks_url")
+        try values.encode(issuesURL, forKey: "issues_url")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(publicMembersURL, forKey: "public_members_url")
+        try values.encode(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(company, forKey: "company")
+        try values.encodeIfPresent(blog, forKey: "blog")
+        try values.encodeIfPresent(location, forKey: "location")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+        try values.encodeIfPresent(isVerified, forKey: "is_verified")
+        try values.encode(hasOrganizationProjects, forKey: "has_organization_projects")
+        try values.encode(hasRepositoryProjects, forKey: "has_repository_projects")
+        try values.encode(publicRepos, forKey: "public_repos")
+        try values.encode(publicGists, forKey: "public_gists")
+        try values.encode(followers, forKey: "followers")
+        try values.encode(following, forKey: "following")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(type, forKey: "type")
+        try values.encodeIfPresent(totalPrivateRepos, forKey: "total_private_repos")
+        try values.encodeIfPresent(ownedPrivateRepos, forKey: "owned_private_repos")
+        try values.encodeIfPresent(privateGists, forKey: "private_gists")
+        try values.encodeIfPresent(diskUsage, forKey: "disk_usage")
+        try values.encodeIfPresent(collaborators, forKey: "collaborators")
+        try values.encodeIfPresent(billingEmail, forKey: "billing_email")
+        try values.encodeIfPresent(plan, forKey: "plan")
+        try values.encodeIfPresent(defaultRepositoryPermission, forKey: "default_repository_permission")
+        try values.encodeIfPresent(membersCanCreateRepositories, forKey: "members_can_create_repositories")
+        try values.encodeIfPresent(isTwoFactorRequirementEnabled, forKey: "two_factor_requirement_enabled")
+        try values.encodeIfPresent(membersAllowedRepositoryCreationType, forKey: "members_allowed_repository_creation_type")
+        try values.encodeIfPresent(membersCanCreatePublicRepositories, forKey: "members_can_create_public_repositories")
+        try values.encodeIfPresent(membersCanCreatePrivateRepositories, forKey: "members_can_create_private_repositories")
+        try values.encodeIfPresent(membersCanCreateInternalRepositories, forKey: "members_can_create_internal_repositories")
+        try values.encodeIfPresent(membersCanCreatePages, forKey: "members_can_create_pages")
+        try values.encodeIfPresent(membersCanCreatePublicPages, forKey: "members_can_create_public_pages")
+        try values.encodeIfPresent(membersCanCreatePrivatePages, forKey: "members_can_create_private_pages")
+        try values.encodeIfPresent(membersCanForkPrivateRepositories, forKey: "members_can_fork_private_repositories")
+        try values.encode(updatedAt, forKey: "updated_at")
     }
 }

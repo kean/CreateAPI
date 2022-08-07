@@ -44,9 +44,10 @@ extension Paths.Projects.Columns.Cards {
                 self.isArchived = isArchived
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case note
-                case isArchived = "archived"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(isArchived, forKey: "archived")
             }
         }
 

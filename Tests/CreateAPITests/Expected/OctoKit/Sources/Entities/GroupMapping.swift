@@ -54,16 +54,36 @@ public struct GroupMapping: Codable {
             self.syncedAt = syncedAt
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case groupID = "group_id"
-            case groupName = "group_name"
-            case groupDescription = "group_description"
-            case status
-            case syncedAt = "synced_at"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.groupID = try values.decode(String.self, forKey: "group_id")
+            self.groupName = try values.decode(String.self, forKey: "group_name")
+            self.groupDescription = try values.decode(String.self, forKey: "group_description")
+            self.status = try values.decodeIfPresent(String.self, forKey: "status")
+            self.syncedAt = try values.decodeIfPresent(String.self, forKey: "synced_at")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(groupID, forKey: "group_id")
+            try values.encode(groupName, forKey: "group_name")
+            try values.encode(groupDescription, forKey: "group_description")
+            try values.encodeIfPresent(status, forKey: "status")
+            try values.encodeIfPresent(syncedAt, forKey: "synced_at")
         }
     }
 
     public init(groups: [Group]? = nil) {
         self.groups = groups
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.groups = try values.decodeIfPresent([Group].self, forKey: "groups")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(groups, forKey: "groups")
     }
 }

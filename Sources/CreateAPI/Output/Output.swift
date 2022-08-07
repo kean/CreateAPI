@@ -39,17 +39,17 @@ struct Output {
     private func write(_ output: GeneratorOutput, to sourcesWriter: OutputWriter, group: String, template: String) throws {
         let template = Template(template)
         if mergeSources {
-            let merged = GeneratedFile(name: group, merging: output.files)
+            let merged = GeneratedFile(name: group, merging: output.extensions + output.files)
             try sourcesWriter.write(file: merged, header: output.header, template: template, options: options)
         } else {
             let groupWriter = sourcesWriter.writer(in: group)
             for file in output.files {
                 try groupWriter.write(file: file, header: output.header, template: template, options: options)
             }
-        }
 
-        for file in output.extensions {
-            try sourcesWriter.write(file: file, header: output.header, options: options)
+            for file in output.extensions {
+                try sourcesWriter.write(file: file, header: output.header, options: options)
+            }
         }
     }
 }

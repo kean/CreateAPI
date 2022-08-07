@@ -21,12 +21,23 @@ public struct ScimError: Codable {
         self.schemas = schemas
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case message
-        case documentationURL = "documentation_url"
-        case detail
-        case status
-        case scimType
-        case schemas
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        self.documentationURL = try values.decodeIfPresent(String.self, forKey: "documentation_url")
+        self.detail = try values.decodeIfPresent(String.self, forKey: "detail")
+        self.status = try values.decodeIfPresent(Int.self, forKey: "status")
+        self.scimType = try values.decodeIfPresent(String.self, forKey: "scimType")
+        self.schemas = try values.decodeIfPresent([String].self, forKey: "schemas")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(detail, forKey: "detail")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(scimType, forKey: "scimType")
+        try values.encodeIfPresent(schemas, forKey: "schemas")
     }
 }

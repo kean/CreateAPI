@@ -68,21 +68,41 @@ public struct Project: Codable {
         self.isPrivate = isPrivate
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case ownerURL = "owner_url"
-        case url
-        case htmlURL = "html_url"
-        case columnsURL = "columns_url"
-        case id
-        case nodeID = "node_id"
-        case name
-        case body
-        case number
-        case state
-        case creator
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case organizationPermission = "organization_permission"
-        case isPrivate = "private"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.ownerURL = try values.decode(URL.self, forKey: "owner_url")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.columnsURL = try values.decode(URL.self, forKey: "columns_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.body = try values.decodeIfPresent(String.self, forKey: "body")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.organizationPermission = try values.decodeIfPresent(OrganizationPermission.self, forKey: "organization_permission")
+        self.isPrivate = try values.decodeIfPresent(Bool.self, forKey: "private")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(ownerURL, forKey: "owner_url")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(columnsURL, forKey: "columns_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(number, forKey: "number")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(organizationPermission, forKey: "organization_permission")
+        try values.encodeIfPresent(isPrivate, forKey: "private")
     }
 }

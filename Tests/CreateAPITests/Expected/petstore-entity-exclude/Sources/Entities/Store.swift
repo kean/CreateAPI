@@ -2,8 +2,7 @@
 // https://github.com/CreateAPI/CreateAPI
 
 import Foundation
-import Get
-import HTTPHeaders
-import URLQueryEncoder
 
-public enum Paths {}
+public struct Store: Codable {
+    public init() {}
+}

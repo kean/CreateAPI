@@ -12,4 +12,16 @@ public struct IssueEventLabel: Codable {
         self.name = name
         self.color = color
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.color = try values.decodeIfPresent(String.self, forKey: "color")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(color, forKey: "color")
+    }
 }

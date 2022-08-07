@@ -72,12 +72,24 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise {
                 public init(value: String) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], displayName: String, members: [Member]? = nil) {
                 self.schemas = schemas
                 self.displayName = displayName
                 self.members = members
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(displayName, forKey: "displayName")
+                try values.encodeIfPresent(members, forKey: "members")
             }
         }
     }

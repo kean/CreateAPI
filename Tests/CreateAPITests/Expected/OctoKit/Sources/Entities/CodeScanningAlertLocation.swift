@@ -20,11 +20,21 @@ public struct CodeScanningAlertLocation: Codable {
         self.endColumn = endColumn
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case path
-        case startLine = "start_line"
-        case endLine = "end_line"
-        case startColumn = "start_column"
-        case endColumn = "end_column"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.path = try values.decodeIfPresent(String.self, forKey: "path")
+        self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
+        self.endLine = try values.decodeIfPresent(Int.self, forKey: "end_line")
+        self.startColumn = try values.decodeIfPresent(Int.self, forKey: "start_column")
+        self.endColumn = try values.decodeIfPresent(Int.self, forKey: "end_column")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(path, forKey: "path")
+        try values.encodeIfPresent(startLine, forKey: "start_line")
+        try values.encodeIfPresent(endLine, forKey: "end_line")
+        try values.encodeIfPresent(startColumn, forKey: "start_column")
+        try values.encodeIfPresent(endColumn, forKey: "end_column")
     }
 }

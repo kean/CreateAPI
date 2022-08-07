@@ -98,13 +98,14 @@ extension Paths.Orgs.WithOrg {
                 self.exclude = exclude
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case repositories
-                case lockRepositories = "lock_repositories"
-                case excludeAttachments = "exclude_attachments"
-                case excludeReleases = "exclude_releases"
-                case excludeOwnerProjects = "exclude_owner_projects"
-                case exclude
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(repositories, forKey: "repositories")
+                try values.encodeIfPresent(lockRepositories, forKey: "lock_repositories")
+                try values.encodeIfPresent(excludeAttachments, forKey: "exclude_attachments")
+                try values.encodeIfPresent(excludeReleases, forKey: "exclude_releases")
+                try values.encodeIfPresent(excludeOwnerProjects, forKey: "exclude_owner_projects")
+                try values.encodeIfPresent(exclude, forKey: "exclude")
             }
         }
     }

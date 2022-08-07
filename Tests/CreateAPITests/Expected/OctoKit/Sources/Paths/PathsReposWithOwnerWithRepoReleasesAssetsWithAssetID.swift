@@ -46,6 +46,13 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.Assets {
                 self.label = label
                 self.state = state
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(label, forKey: "label")
+                try values.encodeIfPresent(state, forKey: "state")
+            }
         }
 
         /// Delete a release asset

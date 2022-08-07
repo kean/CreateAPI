@@ -29,22 +29,23 @@ public struct Order: Codable {
         self.isComplete = isComplete ?? false
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case petID = "petId"
-        case quantity
-        case shipDate
-        case status
-        case isComplete = "complete"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
+        self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
+        self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
+        self.status = try values.decodeIfPresent(Status.self, forKey: "status")
+        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete") ?? false
     }
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try values.decodeIfPresent(Int.self, forKey: .id)
-        self.petID = try values.decodeIfPresent(Int.self, forKey: .petID)
-        self.quantity = try values.decodeIfPresent(Int.self, forKey: .quantity)
-        self.shipDate = try values.decodeIfPresent(Date.self, forKey: .shipDate)
-        self.status = try values.decodeIfPresent(Status.self, forKey: .status)
-        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: .isComplete) ?? false
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(petID, forKey: "petId")
+        try values.encodeIfPresent(quantity, forKey: "quantity")
+        try values.encodeIfPresent(shipDate, forKey: "shipDate")
+        try values.encodeIfPresent(status, forKey: "status")
+        try values.encodeIfPresent(isComplete, forKey: "complete")
     }
 }

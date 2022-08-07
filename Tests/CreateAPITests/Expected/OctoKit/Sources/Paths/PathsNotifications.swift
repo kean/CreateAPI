@@ -72,6 +72,11 @@ extension Paths {
             public init(message: String? = nil) {
                 self.message = message
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.message = try values.decodeIfPresent(String.self, forKey: "message")
+            }
         }
 
         public struct PutRequest: Encodable {
@@ -85,9 +90,10 @@ extension Paths {
                 self.isRead = isRead
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case lastReadAt = "last_read_at"
-                case isRead = "read"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+                try values.encodeIfPresent(isRead, forKey: "read")
             }
         }
     }

@@ -48,20 +48,39 @@ public struct CodeScanningAlert: Codable {
         self.mostRecentInstance = mostRecentInstance
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case number
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case url
-        case htmlURL = "html_url"
-        case instancesURL = "instances_url"
-        case state
-        case fixedAt = "fixed_at"
-        case dismissedBy = "dismissed_by"
-        case dismissedAt = "dismissed_at"
-        case dismissedReason = "dismissed_reason"
-        case rule
-        case tool
-        case mostRecentInstance = "most_recent_instance"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.instancesURL = try values.decode(URL.self, forKey: "instances_url")
+        self.state = try values.decode(CodeScanningAlertState.self, forKey: "state")
+        self.fixedAt = try values.decodeIfPresent(Date.self, forKey: "fixed_at")
+        self.dismissedBy = try values.decodeIfPresent(SimpleUser.self, forKey: "dismissed_by")
+        self.dismissedAt = try values.decodeIfPresent(Date.self, forKey: "dismissed_at")
+        self.dismissedReason = try values.decodeIfPresent(CodeScanningAlertDismissedReason.self, forKey: "dismissed_reason")
+        self.rule = try values.decode(CodeScanningAlertRule.self, forKey: "rule")
+        self.tool = try values.decode(CodeScanningAnalysisTool.self, forKey: "tool")
+        self.mostRecentInstance = try values.decode(CodeScanningAlertInstance.self, forKey: "most_recent_instance")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(number, forKey: "number")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(instancesURL, forKey: "instances_url")
+        try values.encode(state, forKey: "state")
+        try values.encodeIfPresent(fixedAt, forKey: "fixed_at")
+        try values.encodeIfPresent(dismissedBy, forKey: "dismissed_by")
+        try values.encodeIfPresent(dismissedAt, forKey: "dismissed_at")
+        try values.encodeIfPresent(dismissedReason, forKey: "dismissed_reason")
+        try values.encode(rule, forKey: "rule")
+        try values.encode(tool, forKey: "tool")
+        try values.encode(mostRecentInstance, forKey: "most_recent_instance")
     }
 }

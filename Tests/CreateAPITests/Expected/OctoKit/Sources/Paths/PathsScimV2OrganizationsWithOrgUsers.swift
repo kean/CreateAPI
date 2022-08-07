@@ -120,6 +120,13 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                     self.familyName = familyName
                     self.formatted = formatted
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                    try values.encodeIfPresent(formatted, forKey: "formatted")
+                }
             }
 
             public struct Email: Encodable {
@@ -133,10 +140,11 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                     self.type = type
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case value
-                    case isPrimary = "primary"
-                    case type
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                    try values.encodeIfPresent(isPrimary, forKey: "primary")
+                    try values.encodeIfPresent(type, forKey: "type")
                 }
             }
 
@@ -151,15 +159,16 @@ extension Paths.Scim.V2.Organizations.WithOrg {
                 self.isActive = isActive
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case userName
-                case displayName
-                case name
-                case emails
-                case schemas
-                case externalID = "externalId"
-                case groups
-                case isActive = "active"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(userName, forKey: "userName")
+                try values.encodeIfPresent(displayName, forKey: "displayName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(schemas, forKey: "schemas")
+                try values.encodeIfPresent(externalID, forKey: "externalId")
+                try values.encodeIfPresent(groups, forKey: "groups")
+                try values.encodeIfPresent(isActive, forKey: "active")
             }
         }
     }

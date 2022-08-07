@@ -31,10 +31,18 @@ public struct FileCommit: Codable {
                 self.html = html
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case this = "self"
-                case git
-                case html
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.this = try values.decodeIfPresent(String.self, forKey: "self")
+                self.git = try values.decodeIfPresent(String.self, forKey: "git")
+                self.html = try values.decodeIfPresent(String.self, forKey: "html")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(this, forKey: "self")
+                try values.encodeIfPresent(git, forKey: "git")
+                try values.encodeIfPresent(html, forKey: "html")
             }
         }
 
@@ -51,17 +59,32 @@ public struct FileCommit: Codable {
             self.links = links
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case name
-            case path
-            case sha
-            case size
-            case url
-            case htmlURL = "html_url"
-            case gitURL = "git_url"
-            case downloadURL = "download_url"
-            case type
-            case links = "_links"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.path = try values.decodeIfPresent(String.self, forKey: "path")
+            self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            self.size = try values.decodeIfPresent(Int.self, forKey: "size")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.gitURL = try values.decodeIfPresent(String.self, forKey: "git_url")
+            self.downloadURL = try values.decodeIfPresent(String.self, forKey: "download_url")
+            self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            self.links = try values.decodeIfPresent(Links.self, forKey: "_links")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(path, forKey: "path")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(gitURL, forKey: "git_url")
+            try values.encodeIfPresent(downloadURL, forKey: "download_url")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(links, forKey: "_links")
         }
     }
 
@@ -87,6 +110,20 @@ public struct FileCommit: Codable {
                 self.name = name
                 self.email = email
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.date = try values.decodeIfPresent(String.self, forKey: "date")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(date, forKey: "date")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(email, forKey: "email")
+            }
         }
 
         public struct Committer: Codable {
@@ -99,6 +136,20 @@ public struct FileCommit: Codable {
                 self.name = name
                 self.email = email
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.date = try values.decodeIfPresent(String.self, forKey: "date")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.email = try values.decodeIfPresent(String.self, forKey: "email")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(date, forKey: "date")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(email, forKey: "email")
+            }
         }
 
         public struct Tree: Codable {
@@ -108,6 +159,18 @@ public struct FileCommit: Codable {
             public init(url: String? = nil, sha: String? = nil) {
                 self.url = url
                 self.sha = sha
+            }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(sha, forKey: "sha")
             }
         }
 
@@ -122,10 +185,18 @@ public struct FileCommit: Codable {
                 self.sha = sha
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case url
-                case htmlURL = "html_url"
-                case sha
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+                self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+                self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(sha, forKey: "sha")
             }
         }
 
@@ -142,11 +213,20 @@ public struct FileCommit: Codable {
                 self.payload = payload
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isVerified = "verified"
-                case reason
-                case signature
-                case payload
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.isVerified = try values.decodeIfPresent(Bool.self, forKey: "verified")
+                self.reason = try values.decodeIfPresent(String.self, forKey: "reason")
+                self.signature = try values.decodeIfPresent(String.self, forKey: "signature")
+                self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isVerified, forKey: "verified")
+                try values.encodeIfPresent(reason, forKey: "reason")
+                try values.encodeIfPresent(signature, forKey: "signature")
+                try values.encodeIfPresent(payload, forKey: "payload")
             }
         }
 
@@ -163,22 +243,49 @@ public struct FileCommit: Codable {
             self.verification = verification
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case sha
-            case nodeID = "node_id"
-            case url
-            case htmlURL = "html_url"
-            case author
-            case committer
-            case message
-            case tree
-            case parents
-            case verification
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.author = try values.decodeIfPresent(Author.self, forKey: "author")
+            self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
+            self.message = try values.decodeIfPresent(String.self, forKey: "message")
+            self.tree = try values.decodeIfPresent(Tree.self, forKey: "tree")
+            self.parents = try values.decodeIfPresent([Parent].self, forKey: "parents")
+            self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(author, forKey: "author")
+            try values.encodeIfPresent(committer, forKey: "committer")
+            try values.encodeIfPresent(message, forKey: "message")
+            try values.encodeIfPresent(tree, forKey: "tree")
+            try values.encodeIfPresent(parents, forKey: "parents")
+            try values.encodeIfPresent(verification, forKey: "verification")
         }
     }
 
     public init(content: Content? = nil, commit: Commit) {
         self.content = content
         self.commit = commit
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.content = try values.decodeIfPresent(Content.self, forKey: "content")
+        self.commit = try values.decode(Commit.self, forKey: "commit")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(content, forKey: "content")
+        try values.encode(commit, forKey: "commit")
     }
 }

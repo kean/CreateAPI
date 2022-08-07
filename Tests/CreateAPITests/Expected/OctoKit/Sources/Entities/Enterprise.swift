@@ -45,16 +45,31 @@ public struct Enterprise: Codable {
         self.avatarURL = avatarURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case description
-        case htmlURL = "html_url"
-        case websiteURL = "website_url"
-        case id
-        case nodeID = "node_id"
-        case name
-        case slug
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case avatarURL = "avatar_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.websiteURL = try values.decodeIfPresent(URL.self, forKey: "website_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.slug = try values.decode(String.self, forKey: "slug")
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
+        self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(websiteURL, forKey: "website_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encode(slug, forKey: "slug")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+        try values.encode(avatarURL, forKey: "avatar_url")
     }
 }

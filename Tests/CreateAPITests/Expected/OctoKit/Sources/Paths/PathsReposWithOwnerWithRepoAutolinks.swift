@@ -56,9 +56,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.urlTemplate = urlTemplate
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case keyPrefix = "key_prefix"
-                case urlTemplate = "url_template"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(keyPrefix, forKey: "key_prefix")
+                try values.encode(urlTemplate, forKey: "url_template")
             }
         }
     }

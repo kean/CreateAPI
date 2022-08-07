@@ -38,6 +38,11 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
             public init(permissions: Permissions? = nil) {
                 self.permissions = permissions
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+            }
         }
 
         /// Delete a repository invitation

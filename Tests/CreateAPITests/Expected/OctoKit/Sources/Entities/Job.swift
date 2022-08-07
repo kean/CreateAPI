@@ -117,13 +117,24 @@ public struct Job: Codable {
             self.completedAt = completedAt
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case status
-            case conclusion
-            case name
-            case number
-            case startedAt = "started_at"
-            case completedAt = "completed_at"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.status = try values.decode(Status.self, forKey: "status")
+            self.conclusion = try values.decodeIfPresent(String.self, forKey: "conclusion")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.number = try values.decode(Int.self, forKey: "number")
+            self.startedAt = try values.decodeIfPresent(Date.self, forKey: "started_at")
+            self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(status, forKey: "status")
+            try values.encodeIfPresent(conclusion, forKey: "conclusion")
+            try values.encode(name, forKey: "name")
+            try values.encode(number, forKey: "number")
+            try values.encodeIfPresent(startedAt, forKey: "started_at")
+            try values.encodeIfPresent(completedAt, forKey: "completed_at")
         }
     }
 
@@ -150,26 +161,51 @@ public struct Job: Codable {
         self.runnerGroupName = runnerGroupName
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case runID = "run_id"
-        case runURL = "run_url"
-        case runAttempt = "run_attempt"
-        case nodeID = "node_id"
-        case headSha = "head_sha"
-        case url
-        case htmlURL = "html_url"
-        case status
-        case conclusion
-        case startedAt = "started_at"
-        case completedAt = "completed_at"
-        case name
-        case steps
-        case checkRunURL = "check_run_url"
-        case labels
-        case runnerID = "runner_id"
-        case runnerName = "runner_name"
-        case runnerGroupID = "runner_group_id"
-        case runnerGroupName = "runner_group_name"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.runID = try values.decode(Int.self, forKey: "run_id")
+        self.runURL = try values.decode(String.self, forKey: "run_url")
+        self.runAttempt = try values.decodeIfPresent(Int.self, forKey: "run_attempt")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.headSha = try values.decode(String.self, forKey: "head_sha")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+        self.status = try values.decode(Status.self, forKey: "status")
+        self.conclusion = try values.decodeIfPresent(String.self, forKey: "conclusion")
+        self.startedAt = try values.decode(Date.self, forKey: "started_at")
+        self.completedAt = try values.decodeIfPresent(Date.self, forKey: "completed_at")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.steps = try values.decodeIfPresent([Step].self, forKey: "steps")
+        self.checkRunURL = try values.decode(String.self, forKey: "check_run_url")
+        self.labels = try values.decode([String].self, forKey: "labels")
+        self.runnerID = try values.decodeIfPresent(Int.self, forKey: "runner_id")
+        self.runnerName = try values.decodeIfPresent(String.self, forKey: "runner_name")
+        self.runnerGroupID = try values.decodeIfPresent(Int.self, forKey: "runner_group_id")
+        self.runnerGroupName = try values.decodeIfPresent(String.self, forKey: "runner_group_name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(runID, forKey: "run_id")
+        try values.encode(runURL, forKey: "run_url")
+        try values.encodeIfPresent(runAttempt, forKey: "run_attempt")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(headSha, forKey: "head_sha")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encode(status, forKey: "status")
+        try values.encodeIfPresent(conclusion, forKey: "conclusion")
+        try values.encode(startedAt, forKey: "started_at")
+        try values.encodeIfPresent(completedAt, forKey: "completed_at")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(steps, forKey: "steps")
+        try values.encode(checkRunURL, forKey: "check_run_url")
+        try values.encode(labels, forKey: "labels")
+        try values.encodeIfPresent(runnerID, forKey: "runner_id")
+        try values.encodeIfPresent(runnerName, forKey: "runner_name")
+        try values.encodeIfPresent(runnerGroupID, forKey: "runner_group_id")
+        try values.encodeIfPresent(runnerGroupName, forKey: "runner_group_name")
     }
 }

@@ -137,11 +137,12 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
                 self.selectedRepositoryIDs = selectedRepositoryIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case encryptedValue = "encrypted_value"
-                case keyID = "key_id"
-                case visibility
-                case selectedRepositoryIDs = "selected_repository_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(encryptedValue, forKey: "encrypted_value")
+                try values.encodeIfPresent(keyID, forKey: "key_id")
+                try values.encode(visibility, forKey: "visibility")
+                try values.encodeIfPresent(selectedRepositoryIDs, forKey: "selected_repository_ids")
             }
         }
 

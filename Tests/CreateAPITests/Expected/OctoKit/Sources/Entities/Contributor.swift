@@ -51,27 +51,53 @@ public struct Contributor: Codable {
         self.name = name
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case login
-        case id
-        case nodeID = "node_id"
-        case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
-        case url
-        case htmlURL = "html_url"
-        case followersURL = "followers_url"
-        case followingURL = "following_url"
-        case gistsURL = "gists_url"
-        case starredURL = "starred_url"
-        case subscriptionsURL = "subscriptions_url"
-        case organizationsURL = "organizations_url"
-        case reposURL = "repos_url"
-        case eventsURL = "events_url"
-        case receivedEventsURL = "received_events_url"
-        case type
-        case isSiteAdmin = "site_admin"
-        case contributions
-        case email
-        case name
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.login = try values.decodeIfPresent(String.self, forKey: "login")
+        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+        self.avatarURL = try values.decodeIfPresent(URL.self, forKey: "avatar_url")
+        self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+        self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+        self.followersURL = try values.decodeIfPresent(URL.self, forKey: "followers_url")
+        self.followingURL = try values.decodeIfPresent(String.self, forKey: "following_url")
+        self.gistsURL = try values.decodeIfPresent(String.self, forKey: "gists_url")
+        self.starredURL = try values.decodeIfPresent(String.self, forKey: "starred_url")
+        self.subscriptionsURL = try values.decodeIfPresent(URL.self, forKey: "subscriptions_url")
+        self.organizationsURL = try values.decodeIfPresent(URL.self, forKey: "organizations_url")
+        self.reposURL = try values.decodeIfPresent(URL.self, forKey: "repos_url")
+        self.eventsURL = try values.decodeIfPresent(String.self, forKey: "events_url")
+        self.receivedEventsURL = try values.decodeIfPresent(URL.self, forKey: "received_events_url")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.isSiteAdmin = try values.decodeIfPresent(Bool.self, forKey: "site_admin")
+        self.contributions = try values.decode(Int.self, forKey: "contributions")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(login, forKey: "login")
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+        try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(followersURL, forKey: "followers_url")
+        try values.encodeIfPresent(followingURL, forKey: "following_url")
+        try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+        try values.encodeIfPresent(starredURL, forKey: "starred_url")
+        try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+        try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+        try values.encodeIfPresent(reposURL, forKey: "repos_url")
+        try values.encodeIfPresent(eventsURL, forKey: "events_url")
+        try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+        try values.encode(type, forKey: "type")
+        try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
+        try values.encode(contributions, forKey: "contributions")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(name, forKey: "name")
     }
 }

@@ -37,9 +37,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID {
                 self.repositories = repositories
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case repositories
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Double.self, forKey: "total_count")
+                self.repositories = try values.decode([OctoKit.MinimalRepository].self, forKey: "repositories")
             }
         }
 

@@ -154,16 +154,17 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isProductionEnvironment = isProductionEnvironment
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case ref
-                case task
-                case isAutoMerge = "auto_merge"
-                case requiredContexts = "required_contexts"
-                case payload
-                case environment
-                case description
-                case isTransientEnvironment = "transient_environment"
-                case isProductionEnvironment = "production_environment"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encodeIfPresent(task, forKey: "task")
+                try values.encodeIfPresent(isAutoMerge, forKey: "auto_merge")
+                try values.encodeIfPresent(requiredContexts, forKey: "required_contexts")
+                try values.encodeIfPresent(payload, forKey: "payload")
+                try values.encodeIfPresent(environment, forKey: "environment")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(isTransientEnvironment, forKey: "transient_environment")
+                try values.encodeIfPresent(isProductionEnvironment, forKey: "production_environment")
             }
         }
     }

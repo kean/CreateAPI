@@ -42,9 +42,10 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.isIgnored = isIgnored
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case isSubscribed = "subscribed"
-                case isIgnored = "ignored"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(isSubscribed, forKey: "subscribed")
+                try values.encodeIfPresent(isIgnored, forKey: "ignored")
             }
         }
 

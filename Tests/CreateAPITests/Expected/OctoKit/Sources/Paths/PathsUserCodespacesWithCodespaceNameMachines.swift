@@ -35,9 +35,10 @@ extension Paths.User.Codespaces.WithCodespaceName {
                 self.machines = machines
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case machines
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.machines = try values.decode([OctoKit.CodespaceMachine].self, forKey: "machines")
             }
         }
     }

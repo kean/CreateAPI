@@ -37,9 +37,10 @@ extension Paths.Projects.Columns.Cards.WithCardID {
                 self.columnID = columnID
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case position
-                case columnID = "column_id"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(position, forKey: "position")
+                try values.encodeIfPresent(columnID, forKey: "column_id")
             }
         }
     }

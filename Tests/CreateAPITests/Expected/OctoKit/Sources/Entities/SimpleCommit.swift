@@ -20,6 +20,18 @@ public struct SimpleCommit: Codable {
             self.name = name
             self.email = email
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.name = try values.decode(String.self, forKey: "name")
+            self.email = try values.decode(String.self, forKey: "email")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(name, forKey: "name")
+            try values.encode(email, forKey: "email")
+        }
     }
 
     public struct Committer: Codable {
@@ -29,6 +41,18 @@ public struct SimpleCommit: Codable {
         public init(name: String, email: String) {
             self.name = name
             self.email = email
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.name = try values.decode(String.self, forKey: "name")
+            self.email = try values.decode(String.self, forKey: "email")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(name, forKey: "name")
+            try values.encode(email, forKey: "email")
         }
     }
 
@@ -41,12 +65,23 @@ public struct SimpleCommit: Codable {
         self.committer = committer
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case treeID = "tree_id"
-        case message
-        case timestamp
-        case author
-        case committer
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(String.self, forKey: "id")
+        self.treeID = try values.decode(String.self, forKey: "tree_id")
+        self.message = try values.decode(String.self, forKey: "message")
+        self.timestamp = try values.decode(Date.self, forKey: "timestamp")
+        self.author = try values.decodeIfPresent(Author.self, forKey: "author")
+        self.committer = try values.decodeIfPresent(Committer.self, forKey: "committer")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(treeID, forKey: "tree_id")
+        try values.encode(message, forKey: "message")
+        try values.encode(timestamp, forKey: "timestamp")
+        try values.encodeIfPresent(author, forKey: "author")
+        try values.encodeIfPresent(committer, forKey: "committer")
     }
 }

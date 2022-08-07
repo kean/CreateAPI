@@ -29,16 +29,31 @@ public struct ReactionRollup: Codable {
         self.rocket = rocket
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case totalCount = "total_count"
-        case plus1 = "+1"
-        case minus1 = "-1"
-        case laugh
-        case confused
-        case heart
-        case hooray
-        case eyes
-        case rocket
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.totalCount = try values.decode(Int.self, forKey: "total_count")
+        self.plus1 = try values.decode(Int.self, forKey: "+1")
+        self.minus1 = try values.decode(Int.self, forKey: "-1")
+        self.laugh = try values.decode(Int.self, forKey: "laugh")
+        self.confused = try values.decode(Int.self, forKey: "confused")
+        self.heart = try values.decode(Int.self, forKey: "heart")
+        self.hooray = try values.decode(Int.self, forKey: "hooray")
+        self.eyes = try values.decode(Int.self, forKey: "eyes")
+        self.rocket = try values.decode(Int.self, forKey: "rocket")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(totalCount, forKey: "total_count")
+        try values.encode(plus1, forKey: "+1")
+        try values.encode(minus1, forKey: "-1")
+        try values.encode(laugh, forKey: "laugh")
+        try values.encode(confused, forKey: "confused")
+        try values.encode(heart, forKey: "heart")
+        try values.encode(hooray, forKey: "hooray")
+        try values.encode(eyes, forKey: "eyes")
+        try values.encode(rocket, forKey: "rocket")
     }
 }

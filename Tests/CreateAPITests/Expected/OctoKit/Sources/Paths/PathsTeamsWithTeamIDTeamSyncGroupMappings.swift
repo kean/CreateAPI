@@ -72,13 +72,14 @@ extension Paths.Teams.WithTeamID.TeamSync {
                     self.description = description
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case groupID = "group_id"
-                    case groupName = "group_name"
-                    case groupDescription = "group_description"
-                    case id
-                    case name
-                    case description
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(groupID, forKey: "group_id")
+                    try values.encode(groupName, forKey: "group_name")
+                    try values.encode(groupDescription, forKey: "group_description")
+                    try values.encodeIfPresent(id, forKey: "id")
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(description, forKey: "description")
                 }
             }
 
@@ -87,9 +88,10 @@ extension Paths.Teams.WithTeamID.TeamSync {
                 self.syncedAt = syncedAt
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case groups
-                case syncedAt = "synced_at"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(groups, forKey: "groups")
+                try values.encodeIfPresent(syncedAt, forKey: "synced_at")
             }
         }
     }

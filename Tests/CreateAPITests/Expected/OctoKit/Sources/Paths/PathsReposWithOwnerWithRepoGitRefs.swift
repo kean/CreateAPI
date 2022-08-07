@@ -41,6 +41,13 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.sha = sha
                 self.key = key
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sha, forKey: "sha")
+                try values.encodeIfPresent(key, forKey: "key")
+            }
         }
     }
 }

@@ -23,13 +23,25 @@ public struct MarketplaceAccount: Codable {
         self.organizationBillingEmail = organizationBillingEmail
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case type
-        case nodeID = "node_id"
-        case login
-        case email
-        case organizationBillingEmail = "organization_billing_email"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.type = try values.decode(String.self, forKey: "type")
+        self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+        self.login = try values.decode(String.self, forKey: "login")
+        self.email = try values.decodeIfPresent(String.self, forKey: "email")
+        self.organizationBillingEmail = try values.decodeIfPresent(String.self, forKey: "organization_billing_email")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(type, forKey: "type")
+        try values.encodeIfPresent(nodeID, forKey: "node_id")
+        try values.encode(login, forKey: "login")
+        try values.encodeIfPresent(email, forKey: "email")
+        try values.encodeIfPresent(organizationBillingEmail, forKey: "organization_billing_email")
     }
 }

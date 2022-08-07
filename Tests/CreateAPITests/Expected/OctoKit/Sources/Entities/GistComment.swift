@@ -39,14 +39,27 @@ public struct GistComment: Codable {
         self.authorAssociation = authorAssociation
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case body
-        case user
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case authorAssociation = "author_association"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.body = try values.decode(String.self, forKey: "body")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(body, forKey: "body")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(authorAssociation, forKey: "author_association")
     }
 }

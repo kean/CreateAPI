@@ -67,13 +67,14 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning {
                 self.toolName = toolName
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitSha = "commit_sha"
-                case ref
-                case sarif
-                case checkoutUri = "checkout_uri"
-                case startedAt = "started_at"
-                case toolName = "tool_name"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(commitSha, forKey: "commit_sha")
+                try values.encode(ref, forKey: "ref")
+                try values.encode(sarif, forKey: "sarif")
+                try values.encodeIfPresent(checkoutUri, forKey: "checkout_uri")
+                try values.encodeIfPresent(startedAt, forKey: "started_at")
+                try values.encodeIfPresent(toolName, forKey: "tool_name")
             }
         }
     }

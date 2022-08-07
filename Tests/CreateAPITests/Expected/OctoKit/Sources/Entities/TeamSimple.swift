@@ -58,18 +58,35 @@ public struct TeamSimple: Codable {
         self.ldapDn = ldapDn
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case membersURL = "members_url"
-        case name
-        case description
-        case permission
-        case privacy
-        case htmlURL = "html_url"
-        case repositoriesURL = "repositories_url"
-        case slug
-        case ldapDn = "ldap_dn"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.membersURL = try values.decode(String.self, forKey: "members_url")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.permission = try values.decode(String.self, forKey: "permission")
+        self.privacy = try values.decodeIfPresent(String.self, forKey: "privacy")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.repositoriesURL = try values.decode(URL.self, forKey: "repositories_url")
+        self.slug = try values.decode(String.self, forKey: "slug")
+        self.ldapDn = try values.decodeIfPresent(String.self, forKey: "ldap_dn")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(slug, forKey: "slug")
+        try values.encodeIfPresent(ldapDn, forKey: "ldap_dn")
     }
 }

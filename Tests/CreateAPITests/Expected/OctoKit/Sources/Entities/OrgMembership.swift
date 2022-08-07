@@ -47,8 +47,14 @@ public struct OrgMembership: Codable {
             self.canCreateRepository = canCreateRepository
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case canCreateRepository = "can_create_repository"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.canCreateRepository = try values.decode(Bool.self, forKey: "can_create_repository")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(canCreateRepository, forKey: "can_create_repository")
         }
     }
 
@@ -62,13 +68,25 @@ public struct OrgMembership: Codable {
         self.permissions = permissions
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case state
-        case role
-        case organizationURL = "organization_url"
-        case organization
-        case user
-        case permissions
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.role = try values.decode(Role.self, forKey: "role")
+        self.organizationURL = try values.decode(URL.self, forKey: "organization_url")
+        self.organization = try values.decode(OrganizationSimple.self, forKey: "organization")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(state, forKey: "state")
+        try values.encode(role, forKey: "role")
+        try values.encode(organizationURL, forKey: "organization_url")
+        try values.encode(organization, forKey: "organization")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
     }
 }

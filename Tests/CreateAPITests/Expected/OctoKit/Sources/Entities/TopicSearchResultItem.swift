@@ -39,11 +39,20 @@ public struct TopicSearchResultItem: Codable {
                 self.relationType = relationType
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case id
-                case name
-                case topicID = "topic_id"
-                case relationType = "relation_type"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.topicID = try values.decodeIfPresent(Int.self, forKey: "topic_id")
+                self.relationType = try values.decodeIfPresent(String.self, forKey: "relation_type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(topicID, forKey: "topic_id")
+                try values.encodeIfPresent(relationType, forKey: "relation_type")
             }
         }
 
@@ -51,8 +60,14 @@ public struct TopicSearchResultItem: Codable {
             self.topicRelation = topicRelation
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case topicRelation = "topic_relation"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.topicRelation = try values.decodeIfPresent(TopicRelation.self, forKey: "topic_relation")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(topicRelation, forKey: "topic_relation")
         }
     }
 
@@ -72,11 +87,20 @@ public struct TopicSearchResultItem: Codable {
                 self.relationType = relationType
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case id
-                case name
-                case topicID = "topic_id"
-                case relationType = "relation_type"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                self.name = try values.decodeIfPresent(String.self, forKey: "name")
+                self.topicID = try values.decodeIfPresent(Int.self, forKey: "topic_id")
+                self.relationType = try values.decodeIfPresent(String.self, forKey: "relation_type")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(topicID, forKey: "topic_id")
+                try values.encodeIfPresent(relationType, forKey: "relation_type")
             }
         }
 
@@ -84,8 +108,14 @@ public struct TopicSearchResultItem: Codable {
             self.topicRelation = topicRelation
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case topicRelation = "topic_relation"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.topicRelation = try values.decodeIfPresent(TopicRelation.self, forKey: "topic_relation")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(topicRelation, forKey: "topic_relation")
         }
     }
 
@@ -108,22 +138,43 @@ public struct TopicSearchResultItem: Codable {
         self.aliases = aliases
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case displayName = "display_name"
-        case shortDescription = "short_description"
-        case description
-        case createdBy = "created_by"
-        case released
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case isFeatured = "featured"
-        case isCurated = "curated"
-        case score
-        case repositoryCount = "repository_count"
-        case logoURL = "logo_url"
-        case textMatches = "text_matches"
-        case related
-        case aliases
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.displayName = try values.decodeIfPresent(String.self, forKey: "display_name")
+        self.shortDescription = try values.decodeIfPresent(String.self, forKey: "short_description")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.createdBy = try values.decodeIfPresent(String.self, forKey: "created_by")
+        self.released = try values.decodeIfPresent(String.self, forKey: "released")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.isFeatured = try values.decode(Bool.self, forKey: "featured")
+        self.isCurated = try values.decode(Bool.self, forKey: "curated")
+        self.score = try values.decode(Double.self, forKey: "score")
+        self.repositoryCount = try values.decodeIfPresent(Int.self, forKey: "repository_count")
+        self.logoURL = try values.decodeIfPresent(URL.self, forKey: "logo_url")
+        self.textMatches = try values.decodeIfPresent([SearchResultTextMatch].self, forKey: "text_matches")
+        self.related = try values.decodeIfPresent([RelatedItem].self, forKey: "related")
+        self.aliases = try values.decodeIfPresent([Alias].self, forKey: "aliases")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(displayName, forKey: "display_name")
+        try values.encodeIfPresent(shortDescription, forKey: "short_description")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(createdBy, forKey: "created_by")
+        try values.encodeIfPresent(released, forKey: "released")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(isFeatured, forKey: "featured")
+        try values.encode(isCurated, forKey: "curated")
+        try values.encode(score, forKey: "score")
+        try values.encodeIfPresent(repositoryCount, forKey: "repository_count")
+        try values.encodeIfPresent(logoURL, forKey: "logo_url")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
+        try values.encodeIfPresent(related, forKey: "related")
+        try values.encodeIfPresent(aliases, forKey: "aliases")
     }
 }

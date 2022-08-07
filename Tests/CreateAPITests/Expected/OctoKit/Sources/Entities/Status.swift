@@ -33,17 +33,33 @@ public struct Status: Codable {
         self.creator = creator
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case avatarURL = "avatar_url"
-        case id
-        case nodeID = "node_id"
-        case state
-        case description
-        case targetURL = "target_url"
-        case context
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case creator
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(String.self, forKey: "url")
+        self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.targetURL = try values.decode(String.self, forKey: "target_url")
+        self.context = try values.decode(String.self, forKey: "context")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.updatedAt = try values.decode(String.self, forKey: "updated_at")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(state, forKey: "state")
+        try values.encode(description, forKey: "description")
+        try values.encode(targetURL, forKey: "target_url")
+        try values.encode(context, forKey: "context")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(creator, forKey: "creator")
     }
 }

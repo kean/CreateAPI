@@ -39,12 +39,22 @@ public struct Team: Codable {
             self.isAdmin = isAdmin
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case isPull = "pull"
-            case isTriage = "triage"
-            case isPush = "push"
-            case isMaintain = "maintain"
-            case isAdmin = "admin"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.isPull = try values.decode(Bool.self, forKey: "pull")
+            self.isTriage = try values.decode(Bool.self, forKey: "triage")
+            self.isPush = try values.decode(Bool.self, forKey: "push")
+            self.isMaintain = try values.decode(Bool.self, forKey: "maintain")
+            self.isAdmin = try values.decode(Bool.self, forKey: "admin")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(isPull, forKey: "pull")
+            try values.encode(isTriage, forKey: "triage")
+            try values.encode(isPush, forKey: "push")
+            try values.encode(isMaintain, forKey: "maintain")
+            try values.encode(isAdmin, forKey: "admin")
         }
     }
 
@@ -64,19 +74,37 @@ public struct Team: Codable {
         self.parent = parent
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case name
-        case slug
-        case description
-        case privacy
-        case permission
-        case permissions
-        case url
-        case htmlURL = "html_url"
-        case membersURL = "members_url"
-        case repositoriesURL = "repositories_url"
-        case parent
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.slug = try values.decode(String.self, forKey: "slug")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.privacy = try values.decodeIfPresent(String.self, forKey: "privacy")
+        self.permission = try values.decode(String.self, forKey: "permission")
+        self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.membersURL = try values.decode(String.self, forKey: "members_url")
+        self.repositoriesURL = try values.decode(URL.self, forKey: "repositories_url")
+        self.parent = try values.decodeIfPresent(TeamSimple.self, forKey: "parent")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encode(slug, forKey: "slug")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(permission, forKey: "permission")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encodeIfPresent(parent, forKey: "parent")
     }
 }

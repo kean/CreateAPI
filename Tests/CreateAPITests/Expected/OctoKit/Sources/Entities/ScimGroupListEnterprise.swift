@@ -30,10 +30,18 @@ public struct ScimGroupListEnterprise: Codable {
                 self.display = display
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case value
-                case ref = "$ref"
-                case display
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.value = try values.decodeIfPresent(String.self, forKey: "value")
+                self.ref = try values.decodeIfPresent(String.self, forKey: "$ref")
+                self.display = try values.decodeIfPresent(String.self, forKey: "display")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(value, forKey: "value")
+                try values.encodeIfPresent(ref, forKey: "$ref")
+                try values.encodeIfPresent(display, forKey: "display")
             }
         }
 
@@ -49,6 +57,22 @@ public struct ScimGroupListEnterprise: Codable {
                 self.lastModified = lastModified
                 self.location = location
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.resourceType = try values.decodeIfPresent(String.self, forKey: "resourceType")
+                self.created = try values.decodeIfPresent(String.self, forKey: "created")
+                self.lastModified = try values.decodeIfPresent(String.self, forKey: "lastModified")
+                self.location = try values.decodeIfPresent(String.self, forKey: "location")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(resourceType, forKey: "resourceType")
+                try values.encodeIfPresent(created, forKey: "created")
+                try values.encodeIfPresent(lastModified, forKey: "lastModified")
+                try values.encodeIfPresent(location, forKey: "location")
+            }
         }
 
         public init(schemas: [String], id: String, externalID: String? = nil, displayName: String? = nil, members: [Member]? = nil, meta: Meta? = nil) {
@@ -60,13 +84,24 @@ public struct ScimGroupListEnterprise: Codable {
             self.meta = meta
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case schemas
-            case id
-            case externalID = "externalId"
-            case displayName
-            case members
-            case meta
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.schemas = try values.decode([String].self, forKey: "schemas")
+            self.id = try values.decode(String.self, forKey: "id")
+            self.externalID = try values.decodeIfPresent(String.self, forKey: "externalId")
+            self.displayName = try values.decodeIfPresent(String.self, forKey: "displayName")
+            self.members = try values.decodeIfPresent([Member].self, forKey: "members")
+            self.meta = try values.decodeIfPresent(Meta.self, forKey: "meta")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(schemas, forKey: "schemas")
+            try values.encode(id, forKey: "id")
+            try values.encodeIfPresent(externalID, forKey: "externalId")
+            try values.encodeIfPresent(displayName, forKey: "displayName")
+            try values.encodeIfPresent(members, forKey: "members")
+            try values.encodeIfPresent(meta, forKey: "meta")
         }
     }
 
@@ -78,11 +113,21 @@ public struct ScimGroupListEnterprise: Codable {
         self.resources = resources
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case schemas
-        case totalResults
-        case itemsPerPage
-        case startIndex
-        case resources = "Resources"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.schemas = try values.decode([String].self, forKey: "schemas")
+        self.totalResults = try values.decode(Double.self, forKey: "totalResults")
+        self.itemsPerPage = try values.decode(Double.self, forKey: "itemsPerPage")
+        self.startIndex = try values.decode(Double.self, forKey: "startIndex")
+        self.resources = try values.decode([Resource].self, forKey: "Resources")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(schemas, forKey: "schemas")
+        try values.encode(totalResults, forKey: "totalResults")
+        try values.encode(itemsPerPage, forKey: "itemsPerPage")
+        try values.encode(startIndex, forKey: "startIndex")
+        try values.encode(resources, forKey: "Resources")
     }
 }

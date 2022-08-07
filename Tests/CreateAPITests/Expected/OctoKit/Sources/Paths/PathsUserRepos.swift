@@ -195,25 +195,26 @@ extension Paths.User {
                 self.isTemplate = isTemplate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case description
-                case homepage
-                case isPrivate = "private"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case teamID = "team_id"
-                case isAutoInit = "auto_init"
-                case gitignoreTemplate = "gitignore_template"
-                case licenseTemplate = "license_template"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case allowAutoMerge = "allow_auto_merge"
-                case deleteBranchOnMerge = "delete_branch_on_merge"
-                case hasDownloads = "has_downloads"
-                case isTemplate = "is_template"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
+                try values.encodeIfPresent(hasIssues, forKey: "has_issues")
+                try values.encodeIfPresent(hasProjects, forKey: "has_projects")
+                try values.encodeIfPresent(hasWiki, forKey: "has_wiki")
+                try values.encodeIfPresent(teamID, forKey: "team_id")
+                try values.encodeIfPresent(isAutoInit, forKey: "auto_init")
+                try values.encodeIfPresent(gitignoreTemplate, forKey: "gitignore_template")
+                try values.encodeIfPresent(licenseTemplate, forKey: "license_template")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(allowAutoMerge, forKey: "allow_auto_merge")
+                try values.encodeIfPresent(deleteBranchOnMerge, forKey: "delete_branch_on_merge")
+                try values.encodeIfPresent(hasDownloads, forKey: "has_downloads")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
             }
         }
     }

@@ -49,14 +49,27 @@ public struct CodeScanningAlertRule: Codable {
         self.help = help
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case severity
-        case securitySeverityLevel = "security_severity_level"
-        case description
-        case fullDescription = "full_description"
-        case tags
-        case help
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decodeIfPresent(String.self, forKey: "id")
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.severity = try values.decodeIfPresent(Severity.self, forKey: "severity")
+        self.securitySeverityLevel = try values.decodeIfPresent(SecuritySeverityLevel.self, forKey: "security_severity_level")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.fullDescription = try values.decodeIfPresent(String.self, forKey: "full_description")
+        self.tags = try values.decodeIfPresent([String].self, forKey: "tags")
+        self.help = try values.decodeIfPresent(String.self, forKey: "help")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(id, forKey: "id")
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(severity, forKey: "severity")
+        try values.encodeIfPresent(securitySeverityLevel, forKey: "security_severity_level")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(fullDescription, forKey: "full_description")
+        try values.encodeIfPresent(tags, forKey: "tags")
+        try values.encodeIfPresent(help, forKey: "help")
     }
 }

@@ -92,15 +92,16 @@ extension Paths {
                 self.bio = bio
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case name
-                case email
-                case blog
-                case twitterUsername = "twitter_username"
-                case company
-                case location
-                case isHireable = "hireable"
-                case bio
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(blog, forKey: "blog")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(isHireable, forKey: "hireable")
+                try values.encodeIfPresent(bio, forKey: "bio")
             }
         }
     }

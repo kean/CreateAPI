@@ -53,6 +53,26 @@ public struct ValidationError: Codable {
             self.index = index
             self.value = value
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.resource = try values.decodeIfPresent(String.self, forKey: "resource")
+            self.field = try values.decodeIfPresent(String.self, forKey: "field")
+            self.message = try values.decodeIfPresent(String.self, forKey: "message")
+            self.code = try values.decode(String.self, forKey: "code")
+            self.index = try values.decodeIfPresent(Int.self, forKey: "index")
+            self.value = try values.decodeIfPresent(Value.self, forKey: "value")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(resource, forKey: "resource")
+            try values.encodeIfPresent(field, forKey: "field")
+            try values.encodeIfPresent(message, forKey: "message")
+            try values.encode(code, forKey: "code")
+            try values.encodeIfPresent(index, forKey: "index")
+            try values.encodeIfPresent(value, forKey: "value")
+        }
     }
 
     public init(message: String, documentationURL: String, errors: [Error]? = nil) {
@@ -61,9 +81,17 @@ public struct ValidationError: Codable {
         self.errors = errors
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case message
-        case documentationURL = "documentation_url"
-        case errors
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.message = try values.decode(String.self, forKey: "message")
+        self.documentationURL = try values.decode(String.self, forKey: "documentation_url")
+        self.errors = try values.decodeIfPresent([Error].self, forKey: "errors")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(message, forKey: "message")
+        try values.encode(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
     }
 }

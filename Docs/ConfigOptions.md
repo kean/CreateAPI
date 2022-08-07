@@ -489,9 +489,9 @@ Orders properties of an entity alphabetically instead of the order defined in th
 ## entities.optimizeCodingKeys
 
 **Type:** Bool<br />
-**Default:** `false`
+**Default:** `true`
 
-When `true`, uses a single `StringCodingKey` type allowing string literals to be used in the place of individual `CodingKey` enum types.
+When `true` (the default), uses a single `StringCodingKey` type allowing string literals to be used in the place of individual `CodingKey` enum types.
 
 For schemas with a large number of entities, this approach significantly reduces the binary size of the compiled code ([apple/swift#60287](https://github.com/apple/swift/issues/60287))
 
@@ -526,11 +526,23 @@ Strips the parent name of enum cases within objects that are `oneOf` / `allOf` /
 
 ## entities.exclude
 
-**Type:** Set<String><br />
+**Type:** Set<EntityExclude><br />
 **Default:** `[]`
 
-When set to a non-empty value, entities with the given names will be ignored during generation.
+When set to a non-empty value, entities and entity properties with the given names will be ignored during generation.
 Cannot be used in conjunction with [`include`](#entitiesinclude).
+
+<details>
+<summary>Examples</summary>
+
+```yaml
+entities:
+  exclude:
+  - Pet
+  - Store.id
+```
+
+</details>
 
 <br/>
 

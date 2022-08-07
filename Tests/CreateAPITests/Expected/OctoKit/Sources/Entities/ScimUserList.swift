@@ -21,11 +21,21 @@ public struct ScimUserList: Codable {
         self.resources = resources
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case schemas
-        case totalResults
-        case itemsPerPage
-        case startIndex
-        case resources = "Resources"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.schemas = try values.decode([String].self, forKey: "schemas")
+        self.totalResults = try values.decode(Int.self, forKey: "totalResults")
+        self.itemsPerPage = try values.decode(Int.self, forKey: "itemsPerPage")
+        self.startIndex = try values.decode(Int.self, forKey: "startIndex")
+        self.resources = try values.decode([ScimUser].self, forKey: "Resources")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(schemas, forKey: "schemas")
+        try values.encode(totalResults, forKey: "totalResults")
+        try values.encode(itemsPerPage, forKey: "itemsPerPage")
+        try values.encode(startIndex, forKey: "startIndex")
+        try values.encode(resources, forKey: "Resources")
     }
 }

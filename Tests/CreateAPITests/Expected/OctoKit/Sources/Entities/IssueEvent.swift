@@ -81,28 +81,55 @@ public struct IssueEvent: Codable {
         self.performedViaGithubApp = performedViaGithubApp
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case actor
-        case event
-        case commitID = "commit_id"
-        case commitURL = "commit_url"
-        case createdAt = "created_at"
-        case issue
-        case label
-        case assignee
-        case assigner
-        case reviewRequester = "review_requester"
-        case requestedReviewer = "requested_reviewer"
-        case requestedTeam = "requested_team"
-        case dismissedReview = "dismissed_review"
-        case milestone
-        case projectCard = "project_card"
-        case rename
-        case authorAssociation = "author_association"
-        case lockReason = "lock_reason"
-        case performedViaGithubApp = "performed_via_github_app"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.actor = try values.decodeIfPresent(SimpleUser.self, forKey: "actor")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.issue = try values.decodeIfPresent(Issue.self, forKey: "issue")
+        self.label = try values.decodeIfPresent(IssueEventLabel.self, forKey: "label")
+        self.assignee = try values.decodeIfPresent(SimpleUser.self, forKey: "assignee")
+        self.assigner = try values.decodeIfPresent(SimpleUser.self, forKey: "assigner")
+        self.reviewRequester = try values.decodeIfPresent(SimpleUser.self, forKey: "review_requester")
+        self.requestedReviewer = try values.decodeIfPresent(SimpleUser.self, forKey: "requested_reviewer")
+        self.requestedTeam = try values.decodeIfPresent(Team.self, forKey: "requested_team")
+        self.dismissedReview = try values.decodeIfPresent(IssueEventDismissedReview.self, forKey: "dismissed_review")
+        self.milestone = try values.decodeIfPresent(IssueEventMilestone.self, forKey: "milestone")
+        self.projectCard = try values.decodeIfPresent(IssueEventProjectCard.self, forKey: "project_card")
+        self.rename = try values.decodeIfPresent(IssueEventRename.self, forKey: "rename")
+        self.authorAssociation = try values.decodeIfPresent(AuthorAssociation.self, forKey: "author_association")
+        self.lockReason = try values.decodeIfPresent(String.self, forKey: "lock_reason")
+        self.performedViaGithubApp = try values.decodeIfPresent(Integration.self, forKey: "performed_via_github_app")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(actor, forKey: "actor")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(issue, forKey: "issue")
+        try values.encodeIfPresent(label, forKey: "label")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assigner, forKey: "assigner")
+        try values.encodeIfPresent(reviewRequester, forKey: "review_requester")
+        try values.encodeIfPresent(requestedReviewer, forKey: "requested_reviewer")
+        try values.encodeIfPresent(requestedTeam, forKey: "requested_team")
+        try values.encodeIfPresent(dismissedReview, forKey: "dismissed_review")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
+        try values.encodeIfPresent(rename, forKey: "rename")
+        try values.encodeIfPresent(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(lockReason, forKey: "lock_reason")
+        try values.encodeIfPresent(performedViaGithubApp, forKey: "performed_via_github_app")
     }
 }

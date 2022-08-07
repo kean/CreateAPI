@@ -85,10 +85,11 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
                 self.isPrivate = isPrivate ?? false
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case title
-                case body
-                case isPrivate = "private"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(title, forKey: "title")
+                try values.encode(body, forKey: "body")
+                try values.encodeIfPresent(isPrivate, forKey: "private")
             }
         }
     }

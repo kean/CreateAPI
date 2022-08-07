@@ -76,11 +76,12 @@ extension Paths.Orgs.WithOrg {
                 self.teamIDs = teamIDs
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case inviteeID = "invitee_id"
-                case email
-                case role
-                case teamIDs = "team_ids"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(inviteeID, forKey: "invitee_id")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(role, forKey: "role")
+                try values.encodeIfPresent(teamIDs, forKey: "team_ids")
             }
         }
     }

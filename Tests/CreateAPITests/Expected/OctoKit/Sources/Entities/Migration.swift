@@ -52,23 +52,45 @@ public struct Migration: Codable {
         self.exclude = exclude
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case owner
-        case guid
-        case state
-        case lockRepositories = "lock_repositories"
-        case excludeMetadata = "exclude_metadata"
-        case excludeGitData = "exclude_git_data"
-        case excludeAttachments = "exclude_attachments"
-        case excludeReleases = "exclude_releases"
-        case excludeOwnerProjects = "exclude_owner_projects"
-        case repositories
-        case url
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case nodeID = "node_id"
-        case archiveURL = "archive_url"
-        case exclude
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.owner = try values.decodeIfPresent(SimpleUser.self, forKey: "owner")
+        self.guid = try values.decode(String.self, forKey: "guid")
+        self.state = try values.decode(String.self, forKey: "state")
+        self.lockRepositories = try values.decode(Bool.self, forKey: "lock_repositories")
+        self.excludeMetadata = try values.decode(Bool.self, forKey: "exclude_metadata")
+        self.excludeGitData = try values.decode(Bool.self, forKey: "exclude_git_data")
+        self.excludeAttachments = try values.decode(Bool.self, forKey: "exclude_attachments")
+        self.excludeReleases = try values.decode(Bool.self, forKey: "exclude_releases")
+        self.excludeOwnerProjects = try values.decode(Bool.self, forKey: "exclude_owner_projects")
+        self.repositories = try values.decode([Repository].self, forKey: "repositories")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.archiveURL = try values.decodeIfPresent(URL.self, forKey: "archive_url")
+        self.exclude = try values.decodeIfPresent([AnyJSON].self, forKey: "exclude")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encode(guid, forKey: "guid")
+        try values.encode(state, forKey: "state")
+        try values.encode(lockRepositories, forKey: "lock_repositories")
+        try values.encode(excludeMetadata, forKey: "exclude_metadata")
+        try values.encode(excludeGitData, forKey: "exclude_git_data")
+        try values.encode(excludeAttachments, forKey: "exclude_attachments")
+        try values.encode(excludeReleases, forKey: "exclude_releases")
+        try values.encode(excludeOwnerProjects, forKey: "exclude_owner_projects")
+        try values.encode(repositories, forKey: "repositories")
+        try values.encode(url, forKey: "url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encodeIfPresent(archiveURL, forKey: "archive_url")
+        try values.encodeIfPresent(exclude, forKey: "exclude")
     }
 }

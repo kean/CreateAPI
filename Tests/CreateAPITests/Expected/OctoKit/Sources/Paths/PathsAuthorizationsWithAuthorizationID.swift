@@ -66,13 +66,14 @@ extension Paths.Authorizations {
                 self.fingerprint = fingerprint
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case scopes
-                case addScopes = "add_scopes"
-                case removeScopes = "remove_scopes"
-                case note
-                case noteURL = "note_url"
-                case fingerprint
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(scopes, forKey: "scopes")
+                try values.encodeIfPresent(addScopes, forKey: "add_scopes")
+                try values.encodeIfPresent(removeScopes, forKey: "remove_scopes")
+                try values.encodeIfPresent(note, forKey: "note")
+                try values.encodeIfPresent(noteURL, forKey: "note_url")
+                try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
             }
         }
 

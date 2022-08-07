@@ -154,27 +154,28 @@ extension Paths.Orgs {
                 self.blog = blog
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case billingEmail = "billing_email"
-                case company
-                case email
-                case twitterUsername = "twitter_username"
-                case location
-                case name
-                case description
-                case hasOrganizationProjects = "has_organization_projects"
-                case hasRepositoryProjects = "has_repository_projects"
-                case defaultRepositoryPermission = "default_repository_permission"
-                case membersCanCreateRepositories = "members_can_create_repositories"
-                case membersCanCreateInternalRepositories = "members_can_create_internal_repositories"
-                case membersCanCreatePrivateRepositories = "members_can_create_private_repositories"
-                case membersCanCreatePublicRepositories = "members_can_create_public_repositories"
-                case membersAllowedRepositoryCreationType = "members_allowed_repository_creation_type"
-                case membersCanCreatePages = "members_can_create_pages"
-                case membersCanCreatePublicPages = "members_can_create_public_pages"
-                case membersCanCreatePrivatePages = "members_can_create_private_pages"
-                case membersCanForkPrivateRepositories = "members_can_fork_private_repositories"
-                case blog
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(billingEmail, forKey: "billing_email")
+                try values.encodeIfPresent(company, forKey: "company")
+                try values.encodeIfPresent(email, forKey: "email")
+                try values.encodeIfPresent(twitterUsername, forKey: "twitter_username")
+                try values.encodeIfPresent(location, forKey: "location")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(hasOrganizationProjects, forKey: "has_organization_projects")
+                try values.encodeIfPresent(hasRepositoryProjects, forKey: "has_repository_projects")
+                try values.encodeIfPresent(defaultRepositoryPermission, forKey: "default_repository_permission")
+                try values.encodeIfPresent(membersCanCreateRepositories, forKey: "members_can_create_repositories")
+                try values.encodeIfPresent(membersCanCreateInternalRepositories, forKey: "members_can_create_internal_repositories")
+                try values.encodeIfPresent(membersCanCreatePrivateRepositories, forKey: "members_can_create_private_repositories")
+                try values.encodeIfPresent(membersCanCreatePublicRepositories, forKey: "members_can_create_public_repositories")
+                try values.encodeIfPresent(membersAllowedRepositoryCreationType, forKey: "members_allowed_repository_creation_type")
+                try values.encodeIfPresent(membersCanCreatePages, forKey: "members_can_create_pages")
+                try values.encodeIfPresent(membersCanCreatePublicPages, forKey: "members_can_create_public_pages")
+                try values.encodeIfPresent(membersCanCreatePrivatePages, forKey: "members_can_create_private_pages")
+                try values.encodeIfPresent(membersCanForkPrivateRepositories, forKey: "members_can_fork_private_repositories")
+                try values.encodeIfPresent(blog, forKey: "blog")
             }
         }
     }

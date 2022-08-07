@@ -103,26 +103,51 @@ public struct Installation: Codable {
         self.contactEmail = contactEmail
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case account
-        case repositorySelection = "repository_selection"
-        case accessTokensURL = "access_tokens_url"
-        case repositoriesURL = "repositories_url"
-        case htmlURL = "html_url"
-        case appID = "app_id"
-        case targetID = "target_id"
-        case targetType = "target_type"
-        case permissions
-        case events
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case singleFileName = "single_file_name"
-        case hasMultipleSingleFiles = "has_multiple_single_files"
-        case singleFilePaths = "single_file_paths"
-        case appSlug = "app_slug"
-        case suspendedBy = "suspended_by"
-        case suspendedAt = "suspended_at"
-        case contactEmail = "contact_email"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.account = try values.decodeIfPresent(Account.self, forKey: "account")
+        self.repositorySelection = try values.decode(RepositorySelection.self, forKey: "repository_selection")
+        self.accessTokensURL = try values.decode(URL.self, forKey: "access_tokens_url")
+        self.repositoriesURL = try values.decode(URL.self, forKey: "repositories_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.appID = try values.decode(Int.self, forKey: "app_id")
+        self.targetID = try values.decode(Int.self, forKey: "target_id")
+        self.targetType = try values.decode(String.self, forKey: "target_type")
+        self.permissions = try values.decode(AppPermissions.self, forKey: "permissions")
+        self.events = try values.decode([String].self, forKey: "events")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.singleFileName = try values.decodeIfPresent(String.self, forKey: "single_file_name")
+        self.hasMultipleSingleFiles = try values.decodeIfPresent(Bool.self, forKey: "has_multiple_single_files")
+        self.singleFilePaths = try values.decodeIfPresent([String].self, forKey: "single_file_paths")
+        self.appSlug = try values.decode(String.self, forKey: "app_slug")
+        self.suspendedBy = try values.decodeIfPresent(SimpleUser.self, forKey: "suspended_by")
+        self.suspendedAt = try values.decodeIfPresent(Date.self, forKey: "suspended_at")
+        self.contactEmail = try values.decodeIfPresent(String.self, forKey: "contact_email")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encodeIfPresent(account, forKey: "account")
+        try values.encode(repositorySelection, forKey: "repository_selection")
+        try values.encode(accessTokensURL, forKey: "access_tokens_url")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(appID, forKey: "app_id")
+        try values.encode(targetID, forKey: "target_id")
+        try values.encode(targetType, forKey: "target_type")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(events, forKey: "events")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(singleFileName, forKey: "single_file_name")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
+        try values.encode(appSlug, forKey: "app_slug")
+        try values.encodeIfPresent(suspendedBy, forKey: "suspended_by")
+        try values.encodeIfPresent(suspendedAt, forKey: "suspended_at")
+        try values.encodeIfPresent(contactEmail, forKey: "contact_email")
     }
 }

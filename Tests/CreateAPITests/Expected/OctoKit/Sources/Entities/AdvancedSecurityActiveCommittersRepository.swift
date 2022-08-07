@@ -17,9 +17,17 @@ public struct AdvancedSecurityActiveCommittersRepository: Codable {
         self.advancedSecurityCommittersBreakdown = advancedSecurityCommittersBreakdown
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case advancedSecurityCommitters = "advanced_security_committers"
-        case advancedSecurityCommittersBreakdown = "advanced_security_committers_breakdown"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.advancedSecurityCommitters = try values.decode(Int.self, forKey: "advanced_security_committers")
+        self.advancedSecurityCommittersBreakdown = try values.decode([AdvancedSecurityActiveCommittersUser].self, forKey: "advanced_security_committers_breakdown")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(advancedSecurityCommitters, forKey: "advanced_security_committers")
+        try values.encode(advancedSecurityCommittersBreakdown, forKey: "advanced_security_committers_breakdown")
     }
 }

@@ -21,6 +21,16 @@ public struct PageBuild: Codable {
         public init(message: String? = nil) {
             self.message = message
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(message, forKey: "message")
+        }
     }
 
     public init(url: URL, status: String, error: Error, pusher: SimpleUser? = nil, commit: String, duration: Int, createdAt: Date, updatedAt: Date) {
@@ -34,14 +44,27 @@ public struct PageBuild: Codable {
         self.updatedAt = updatedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case status
-        case error
-        case pusher
-        case commit
-        case duration
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.status = try values.decode(String.self, forKey: "status")
+        self.error = try values.decode(Error.self, forKey: "error")
+        self.pusher = try values.decodeIfPresent(SimpleUser.self, forKey: "pusher")
+        self.commit = try values.decode(String.self, forKey: "commit")
+        self.duration = try values.decode(Int.self, forKey: "duration")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(status, forKey: "status")
+        try values.encode(error, forKey: "error")
+        try values.encodeIfPresent(pusher, forKey: "pusher")
+        try values.encode(commit, forKey: "commit")
+        try values.encode(duration, forKey: "duration")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
     }
 }

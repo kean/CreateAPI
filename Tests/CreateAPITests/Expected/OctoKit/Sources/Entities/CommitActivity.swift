@@ -17,4 +17,18 @@ public struct CommitActivity: Codable {
         self.total = total
         self.week = week
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.days = try values.decode([Int].self, forKey: "days")
+        self.total = try values.decode(Int.self, forKey: "total")
+        self.week = try values.decode(Int.self, forKey: "week")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(days, forKey: "days")
+        try values.encode(total, forKey: "total")
+        try values.encode(week, forKey: "week")
+    }
 }

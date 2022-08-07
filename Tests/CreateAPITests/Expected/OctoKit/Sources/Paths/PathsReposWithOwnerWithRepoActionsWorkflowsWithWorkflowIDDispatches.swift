@@ -38,6 +38,12 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
                 self.ref = ref
                 self.inputs = inputs
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(ref, forKey: "ref")
+                try values.encodeIfPresent(inputs, forKey: "inputs")
+            }
         }
     }
 }

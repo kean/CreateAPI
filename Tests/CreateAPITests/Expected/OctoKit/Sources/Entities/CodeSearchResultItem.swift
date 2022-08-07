@@ -38,19 +38,37 @@ public struct CodeSearchResultItem: Codable {
         self.textMatches = textMatches
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case path
-        case sha
-        case url
-        case gitURL = "git_url"
-        case htmlURL = "html_url"
-        case repository
-        case score
-        case fileSize = "file_size"
-        case language
-        case lastModifiedAt = "last_modified_at"
-        case lineNumbers = "line_numbers"
-        case textMatches = "text_matches"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.gitURL = try values.decode(URL.self, forKey: "git_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.score = try values.decode(Double.self, forKey: "score")
+        self.fileSize = try values.decodeIfPresent(Int.self, forKey: "file_size")
+        self.language = try values.decodeIfPresent(String.self, forKey: "language")
+        self.lastModifiedAt = try values.decodeIfPresent(Date.self, forKey: "last_modified_at")
+        self.lineNumbers = try values.decodeIfPresent([String].self, forKey: "line_numbers")
+        self.textMatches = try values.decodeIfPresent([SearchResultTextMatch].self, forKey: "text_matches")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+        try values.encode(gitURL, forKey: "git_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(score, forKey: "score")
+        try values.encodeIfPresent(fileSize, forKey: "file_size")
+        try values.encodeIfPresent(language, forKey: "language")
+        try values.encodeIfPresent(lastModifiedAt, forKey: "last_modified_at")
+        try values.encodeIfPresent(lineNumbers, forKey: "line_numbers")
+        try values.encodeIfPresent(textMatches, forKey: "text_matches")
     }
 }

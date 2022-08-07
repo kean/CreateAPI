@@ -60,6 +60,12 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                     self.givenName = givenName
                     self.familyName = familyName
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(givenName, forKey: "givenName")
+                    try values.encode(familyName, forKey: "familyName")
+                }
             }
 
             public struct Email: Encodable {
@@ -76,10 +82,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                     self.isPrimary = isPrimary
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case value
-                    case type
-                    case isPrimary = "primary"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(value, forKey: "value")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(isPrimary, forKey: "primary")
                 }
             }
 
@@ -89,6 +96,11 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 public init(value: String? = nil) {
                     self.value = value
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(value, forKey: "value")
+                }
             }
 
             public init(schemas: [String], userName: String, name: Name, emails: [Email], groups: [Group]? = nil) {
@@ -97,6 +109,15 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 self.name = name
                 self.emails = emails
                 self.groups = groups
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(userName, forKey: "userName")
+                try values.encode(name, forKey: "name")
+                try values.encode(emails, forKey: "emails")
+                try values.encodeIfPresent(groups, forKey: "groups")
             }
         }
 
@@ -137,9 +158,10 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
                 self.operations = operations
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case schemas
-                case operations = "Operations"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(schemas, forKey: "schemas")
+                try values.encode(operations, forKey: "Operations")
             }
         }
 

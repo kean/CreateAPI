@@ -75,6 +75,26 @@ public struct GitTree: Codable {
             self.size = size
             self.url = url
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.path = try values.decodeIfPresent(String.self, forKey: "path")
+            self.mode = try values.decodeIfPresent(String.self, forKey: "mode")
+            self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            self.sha = try values.decodeIfPresent(String.self, forKey: "sha")
+            self.size = try values.decodeIfPresent(Int.self, forKey: "size")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(path, forKey: "path")
+            try values.encodeIfPresent(mode, forKey: "mode")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(sha, forKey: "sha")
+            try values.encodeIfPresent(size, forKey: "size")
+            try values.encodeIfPresent(url, forKey: "url")
+        }
     }
 
     public init(sha: String, url: URL, isTruncated: Bool, tree: [TreeItem]) {
@@ -84,10 +104,19 @@ public struct GitTree: Codable {
         self.tree = tree
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case sha
-        case url
-        case isTruncated = "truncated"
-        case tree
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.isTruncated = try values.decode(Bool.self, forKey: "truncated")
+        self.tree = try values.decode([TreeItem].self, forKey: "tree")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+        try values.encode(isTruncated, forKey: "truncated")
+        try values.encode(tree, forKey: "tree")
     }
 }

@@ -55,11 +55,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.mergeMethod = mergeMethod
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitTitle = "commit_title"
-                case commitMessage = "commit_message"
-                case sha
-                case mergeMethod = "merge_method"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(commitTitle, forKey: "commit_title")
+                try values.encodeIfPresent(commitMessage, forKey: "commit_message")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(mergeMethod, forKey: "merge_method")
             }
         }
     }

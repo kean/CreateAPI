@@ -93,14 +93,15 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                     self.startSide = startSide
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case path
-                    case position
-                    case body
-                    case line
-                    case side
-                    case startLine = "start_line"
-                    case startSide = "start_side"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(path, forKey: "path")
+                    try values.encodeIfPresent(position, forKey: "position")
+                    try values.encode(body, forKey: "body")
+                    try values.encodeIfPresent(line, forKey: "line")
+                    try values.encodeIfPresent(side, forKey: "side")
+                    try values.encodeIfPresent(startLine, forKey: "start_line")
+                    try values.encodeIfPresent(startSide, forKey: "start_side")
                 }
             }
 
@@ -111,11 +112,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.comments = comments
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case commitID = "commit_id"
-                case body
-                case event
-                case comments
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(commitID, forKey: "commit_id")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(event, forKey: "event")
+                try values.encodeIfPresent(comments, forKey: "comments")
             }
         }
     }

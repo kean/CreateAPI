@@ -18,9 +18,17 @@ public struct SelectedActions: Codable {
         self.patternsAllowed = patternsAllowed
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case isGithubOwnedAllowed = "github_owned_allowed"
-        case isVerifiedAllowed = "verified_allowed"
-        case patternsAllowed = "patterns_allowed"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.isGithubOwnedAllowed = try values.decodeIfPresent(Bool.self, forKey: "github_owned_allowed")
+        self.isVerifiedAllowed = try values.decodeIfPresent(Bool.self, forKey: "verified_allowed")
+        self.patternsAllowed = try values.decodeIfPresent([String].self, forKey: "patterns_allowed")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(isGithubOwnedAllowed, forKey: "github_owned_allowed")
+        try values.encodeIfPresent(isVerifiedAllowed, forKey: "verified_allowed")
+        try values.encodeIfPresent(patternsAllowed, forKey: "patterns_allowed")
     }
 }

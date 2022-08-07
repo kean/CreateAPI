@@ -36,6 +36,20 @@ public struct GitTag: Codable {
             self.email = email
             self.name = name
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.date = try values.decode(String.self, forKey: "date")
+            self.email = try values.decode(String.self, forKey: "email")
+            self.name = try values.decode(String.self, forKey: "name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(date, forKey: "date")
+            try values.encode(email, forKey: "email")
+            try values.encode(name, forKey: "name")
+        }
     }
 
     public struct Object: Codable {
@@ -47,6 +61,20 @@ public struct GitTag: Codable {
             self.sha = sha
             self.type = type
             self.url = url
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.type = try values.decode(String.self, forKey: "type")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(sha, forKey: "sha")
+            try values.encode(type, forKey: "type")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -61,14 +89,27 @@ public struct GitTag: Codable {
         self.verification = verification
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case nodeID = "node_id"
-        case tag
-        case sha
-        case url
-        case message
-        case tagger
-        case object
-        case verification
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.tag = try values.decode(String.self, forKey: "tag")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.message = try values.decode(String.self, forKey: "message")
+        self.tagger = try values.decode(Tagger.self, forKey: "tagger")
+        self.object = try values.decode(Object.self, forKey: "object")
+        self.verification = try values.decodeIfPresent(Verification.self, forKey: "verification")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(tag, forKey: "tag")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+        try values.encode(message, forKey: "message")
+        try values.encode(tagger, forKey: "tagger")
+        try values.encode(object, forKey: "object")
+        try values.encodeIfPresent(verification, forKey: "verification")
     }
 }

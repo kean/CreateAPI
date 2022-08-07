@@ -98,12 +98,13 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.tfvcProject = tfvcProject
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case vcsURL = "vcs_url"
-                case vcs
-                case vcsUsername = "vcs_username"
-                case vcsPassword = "vcs_password"
-                case tfvcProject = "tfvc_project"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(vcsURL, forKey: "vcs_url")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
             }
         }
 
@@ -134,11 +135,12 @@ extension Paths.Repos.WithOwner.WithRepo {
                 self.tfvcProject = tfvcProject
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case vcsUsername = "vcs_username"
-                case vcsPassword = "vcs_password"
-                case vcs
-                case tfvcProject = "tfvc_project"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(vcsUsername, forKey: "vcs_username")
+                try values.encodeIfPresent(vcsPassword, forKey: "vcs_password")
+                try values.encodeIfPresent(vcs, forKey: "vcs")
+                try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
             }
         }
 

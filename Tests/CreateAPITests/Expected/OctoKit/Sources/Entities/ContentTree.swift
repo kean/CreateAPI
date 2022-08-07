@@ -43,10 +43,18 @@ public struct ContentTree: Codable {
                 self.this = this
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case git
-                case html
-                case this = "self"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.git = try values.decodeIfPresent(URL.self, forKey: "git")
+                self.html = try values.decodeIfPresent(URL.self, forKey: "html")
+                self.this = try values.decode(URL.self, forKey: "self")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(git, forKey: "git")
+                try values.encodeIfPresent(html, forKey: "html")
+                try values.encode(this, forKey: "self")
             }
         }
 
@@ -64,18 +72,34 @@ public struct ContentTree: Codable {
             self.links = links
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case type
-            case size
-            case name
-            case path
-            case content
-            case sha
-            case url
-            case gitURL = "git_url"
-            case htmlURL = "html_url"
-            case downloadURL = "download_url"
-            case links = "_links"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.type = try values.decode(String.self, forKey: "type")
+            self.size = try values.decode(Int.self, forKey: "size")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.path = try values.decode(String.self, forKey: "path")
+            self.content = try values.decodeIfPresent(String.self, forKey: "content")
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.gitURL = try values.decodeIfPresent(URL.self, forKey: "git_url")
+            self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+            self.downloadURL = try values.decodeIfPresent(URL.self, forKey: "download_url")
+            self.links = try values.decode(Links.self, forKey: "_links")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(type, forKey: "type")
+            try values.encode(size, forKey: "size")
+            try values.encode(name, forKey: "name")
+            try values.encode(path, forKey: "path")
+            try values.encodeIfPresent(content, forKey: "content")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(url, forKey: "url")
+            try values.encodeIfPresent(gitURL, forKey: "git_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(downloadURL, forKey: "download_url")
+            try values.encode(links, forKey: "_links")
         }
     }
 
@@ -90,10 +114,18 @@ public struct ContentTree: Codable {
             self.this = this
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case git
-            case html
-            case this = "self"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.git = try values.decodeIfPresent(URL.self, forKey: "git")
+            self.html = try values.decodeIfPresent(URL.self, forKey: "html")
+            self.this = try values.decode(URL.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(git, forKey: "git")
+            try values.encodeIfPresent(html, forKey: "html")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -113,19 +145,37 @@ public struct ContentTree: Codable {
         self.encoding = encoding
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case type
-        case size
-        case name
-        case path
-        case sha
-        case url
-        case gitURL = "git_url"
-        case htmlURL = "html_url"
-        case downloadURL = "download_url"
-        case entries
-        case links = "_links"
-        case content
-        case encoding
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.type = try values.decode(String.self, forKey: "type")
+        self.size = try values.decode(Int.self, forKey: "size")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.path = try values.decode(String.self, forKey: "path")
+        self.sha = try values.decode(String.self, forKey: "sha")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.gitURL = try values.decodeIfPresent(URL.self, forKey: "git_url")
+        self.htmlURL = try values.decodeIfPresent(URL.self, forKey: "html_url")
+        self.downloadURL = try values.decodeIfPresent(URL.self, forKey: "download_url")
+        self.entries = try values.decodeIfPresent([Entry].self, forKey: "entries")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.content = try values.decode(AnyJSON.self, forKey: "content")
+        self.encoding = try values.decode(AnyJSON.self, forKey: "encoding")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(type, forKey: "type")
+        try values.encode(size, forKey: "size")
+        try values.encode(name, forKey: "name")
+        try values.encode(path, forKey: "path")
+        try values.encode(sha, forKey: "sha")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(gitURL, forKey: "git_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(downloadURL, forKey: "download_url")
+        try values.encodeIfPresent(entries, forKey: "entries")
+        try values.encode(links, forKey: "_links")
+        try values.encode(content, forKey: "content")
+        try values.encode(encoding, forKey: "encoding")
     }
 }

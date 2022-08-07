@@ -131,14 +131,26 @@ public struct PullRequest: Codable {
             self.isDefault = isDefault
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nodeID = "node_id"
-            case url
-            case name
-            case description
-            case color
-            case isDefault = "default"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decode(Int.self, forKey: "id")
+            self.nodeID = try values.decode(String.self, forKey: "node_id")
+            self.url = try values.decode(String.self, forKey: "url")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.description = try values.decodeIfPresent(String.self, forKey: "description")
+            self.color = try values.decode(String.self, forKey: "color")
+            self.isDefault = try values.decode(Bool.self, forKey: "default")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(id, forKey: "id")
+            try values.encode(nodeID, forKey: "node_id")
+            try values.encode(url, forKey: "url")
+            try values.encode(name, forKey: "name")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encode(color, forKey: "color")
+            try values.encode(isDefault, forKey: "default")
         }
     }
 
@@ -276,25 +288,48 @@ public struct PullRequest: Codable {
                     self.url = url
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case avatarURL = "avatar_url"
-                    case eventsURL = "events_url"
-                    case followersURL = "followers_url"
-                    case followingURL = "following_url"
-                    case gistsURL = "gists_url"
-                    case gravatarID = "gravatar_id"
-                    case htmlURL = "html_url"
-                    case id
-                    case nodeID = "node_id"
-                    case login
-                    case organizationsURL = "organizations_url"
-                    case receivedEventsURL = "received_events_url"
-                    case reposURL = "repos_url"
-                    case isSiteAdmin = "site_admin"
-                    case starredURL = "starred_url"
-                    case subscriptionsURL = "subscriptions_url"
-                    case type
-                    case url
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+                    self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                    self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+                    self.followingURL = try values.decode(String.self, forKey: "following_url")
+                    self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                    self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+                    self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                    self.id = try values.decode(Int.self, forKey: "id")
+                    self.nodeID = try values.decode(String.self, forKey: "node_id")
+                    self.login = try values.decode(String.self, forKey: "login")
+                    self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+                    self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+                    self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+                    self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+                    self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                    self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+                    self.type = try values.decode(String.self, forKey: "type")
+                    self.url = try values.decode(URL.self, forKey: "url")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(avatarURL, forKey: "avatar_url")
+                    try values.encode(eventsURL, forKey: "events_url")
+                    try values.encode(followersURL, forKey: "followers_url")
+                    try values.encode(followingURL, forKey: "following_url")
+                    try values.encode(gistsURL, forKey: "gists_url")
+                    try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                    try values.encode(htmlURL, forKey: "html_url")
+                    try values.encode(id, forKey: "id")
+                    try values.encode(nodeID, forKey: "node_id")
+                    try values.encode(login, forKey: "login")
+                    try values.encode(organizationsURL, forKey: "organizations_url")
+                    try values.encode(receivedEventsURL, forKey: "received_events_url")
+                    try values.encode(reposURL, forKey: "repos_url")
+                    try values.encode(isSiteAdmin, forKey: "site_admin")
+                    try values.encode(starredURL, forKey: "starred_url")
+                    try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(url, forKey: "url")
                 }
             }
 
@@ -313,12 +348,22 @@ public struct PullRequest: Codable {
                     self.isPull = isPull
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case isAdmin = "admin"
-                    case isMaintain = "maintain"
-                    case isPush = "push"
-                    case isTriage = "triage"
-                    case isPull = "pull"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.isAdmin = try values.decode(Bool.self, forKey: "admin")
+                    self.isMaintain = try values.decodeIfPresent(Bool.self, forKey: "maintain")
+                    self.isPush = try values.decode(Bool.self, forKey: "push")
+                    self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+                    self.isPull = try values.decode(Bool.self, forKey: "pull")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isAdmin, forKey: "admin")
+                    try values.encodeIfPresent(isMaintain, forKey: "maintain")
+                    try values.encode(isPush, forKey: "push")
+                    try values.encodeIfPresent(isTriage, forKey: "triage")
+                    try values.encode(isPull, forKey: "pull")
                 }
             }
 
@@ -337,12 +382,22 @@ public struct PullRequest: Codable {
                     self.nodeID = nodeID
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case key
-                    case name
-                    case url
-                    case spdxID = "spdx_id"
-                    case nodeID = "node_id"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.key = try values.decode(String.self, forKey: "key")
+                    self.name = try values.decode(String.self, forKey: "name")
+                    self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+                    self.spdxID = try values.decodeIfPresent(String.self, forKey: "spdx_id")
+                    self.nodeID = try values.decode(String.self, forKey: "node_id")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(key, forKey: "key")
+                    try values.encode(name, forKey: "name")
+                    try values.encodeIfPresent(url, forKey: "url")
+                    try values.encodeIfPresent(spdxID, forKey: "spdx_id")
+                    try values.encode(nodeID, forKey: "node_id")
                 }
             }
 
@@ -432,90 +487,178 @@ public struct PullRequest: Codable {
                 self.isTemplate = isTemplate
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case archiveURL = "archive_url"
-                case assigneesURL = "assignees_url"
-                case blobsURL = "blobs_url"
-                case branchesURL = "branches_url"
-                case collaboratorsURL = "collaborators_url"
-                case commentsURL = "comments_url"
-                case commitsURL = "commits_url"
-                case compareURL = "compare_url"
-                case contentsURL = "contents_url"
-                case contributorsURL = "contributors_url"
-                case deploymentsURL = "deployments_url"
-                case description
-                case downloadsURL = "downloads_url"
-                case eventsURL = "events_url"
-                case isFork = "fork"
-                case forksURL = "forks_url"
-                case fullName = "full_name"
-                case gitCommitsURL = "git_commits_url"
-                case gitRefsURL = "git_refs_url"
-                case gitTagsURL = "git_tags_url"
-                case hooksURL = "hooks_url"
-                case htmlURL = "html_url"
-                case id
-                case nodeID = "node_id"
-                case issueCommentURL = "issue_comment_url"
-                case issueEventsURL = "issue_events_url"
-                case issuesURL = "issues_url"
-                case keysURL = "keys_url"
-                case labelsURL = "labels_url"
-                case languagesURL = "languages_url"
-                case mergesURL = "merges_url"
-                case milestonesURL = "milestones_url"
-                case name
-                case notificationsURL = "notifications_url"
-                case owner
-                case isPrivate = "private"
-                case pullsURL = "pulls_url"
-                case releasesURL = "releases_url"
-                case stargazersURL = "stargazers_url"
-                case statusesURL = "statuses_url"
-                case subscribersURL = "subscribers_url"
-                case subscriptionURL = "subscription_url"
-                case tagsURL = "tags_url"
-                case teamsURL = "teams_url"
-                case treesURL = "trees_url"
-                case url
-                case cloneURL = "clone_url"
-                case defaultBranch = "default_branch"
-                case forks
-                case forksCount = "forks_count"
-                case gitURL = "git_url"
-                case hasDownloads = "has_downloads"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case hasPages = "has_pages"
-                case homepage
-                case language
-                case masterBranch = "master_branch"
-                case isArchived = "archived"
-                case isDisabled = "disabled"
-                case visibility
-                case mirrorURL = "mirror_url"
-                case openIssues = "open_issues"
-                case openIssuesCount = "open_issues_count"
-                case permissions
-                case tempCloneToken = "temp_clone_token"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case license
-                case pushedAt = "pushed_at"
-                case size
-                case sshURL = "ssh_url"
-                case stargazersCount = "stargazers_count"
-                case svnURL = "svn_url"
-                case topics
-                case watchers
-                case watchersCount = "watchers_count"
-                case createdAt = "created_at"
-                case updatedAt = "updated_at"
-                case allowForking = "allow_forking"
-                case isTemplate = "is_template"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.archiveURL = try values.decode(String.self, forKey: "archive_url")
+                self.assigneesURL = try values.decode(String.self, forKey: "assignees_url")
+                self.blobsURL = try values.decode(String.self, forKey: "blobs_url")
+                self.branchesURL = try values.decode(String.self, forKey: "branches_url")
+                self.collaboratorsURL = try values.decode(String.self, forKey: "collaborators_url")
+                self.commentsURL = try values.decode(String.self, forKey: "comments_url")
+                self.commitsURL = try values.decode(String.self, forKey: "commits_url")
+                self.compareURL = try values.decode(String.self, forKey: "compare_url")
+                self.contentsURL = try values.decode(String.self, forKey: "contents_url")
+                self.contributorsURL = try values.decode(URL.self, forKey: "contributors_url")
+                self.deploymentsURL = try values.decode(URL.self, forKey: "deployments_url")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.downloadsURL = try values.decode(URL.self, forKey: "downloads_url")
+                self.eventsURL = try values.decode(URL.self, forKey: "events_url")
+                self.isFork = try values.decode(Bool.self, forKey: "fork")
+                self.forksURL = try values.decode(URL.self, forKey: "forks_url")
+                self.fullName = try values.decode(String.self, forKey: "full_name")
+                self.gitCommitsURL = try values.decode(String.self, forKey: "git_commits_url")
+                self.gitRefsURL = try values.decode(String.self, forKey: "git_refs_url")
+                self.gitTagsURL = try values.decode(String.self, forKey: "git_tags_url")
+                self.hooksURL = try values.decode(URL.self, forKey: "hooks_url")
+                self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.issueCommentURL = try values.decode(String.self, forKey: "issue_comment_url")
+                self.issueEventsURL = try values.decode(String.self, forKey: "issue_events_url")
+                self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+                self.keysURL = try values.decode(String.self, forKey: "keys_url")
+                self.labelsURL = try values.decode(String.self, forKey: "labels_url")
+                self.languagesURL = try values.decode(URL.self, forKey: "languages_url")
+                self.mergesURL = try values.decode(URL.self, forKey: "merges_url")
+                self.milestonesURL = try values.decode(String.self, forKey: "milestones_url")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.notificationsURL = try values.decode(String.self, forKey: "notifications_url")
+                self.owner = try values.decode(Owner.self, forKey: "owner")
+                self.isPrivate = try values.decode(Bool.self, forKey: "private")
+                self.pullsURL = try values.decode(String.self, forKey: "pulls_url")
+                self.releasesURL = try values.decode(String.self, forKey: "releases_url")
+                self.stargazersURL = try values.decode(URL.self, forKey: "stargazers_url")
+                self.statusesURL = try values.decode(String.self, forKey: "statuses_url")
+                self.subscribersURL = try values.decode(URL.self, forKey: "subscribers_url")
+                self.subscriptionURL = try values.decode(URL.self, forKey: "subscription_url")
+                self.tagsURL = try values.decode(URL.self, forKey: "tags_url")
+                self.teamsURL = try values.decode(URL.self, forKey: "teams_url")
+                self.treesURL = try values.decode(String.self, forKey: "trees_url")
+                self.url = try values.decode(URL.self, forKey: "url")
+                self.cloneURL = try values.decode(String.self, forKey: "clone_url")
+                self.defaultBranch = try values.decode(String.self, forKey: "default_branch")
+                self.forks = try values.decode(Int.self, forKey: "forks")
+                self.forksCount = try values.decode(Int.self, forKey: "forks_count")
+                self.gitURL = try values.decode(String.self, forKey: "git_url")
+                self.hasDownloads = try values.decode(Bool.self, forKey: "has_downloads")
+                self.hasIssues = try values.decode(Bool.self, forKey: "has_issues")
+                self.hasProjects = try values.decode(Bool.self, forKey: "has_projects")
+                self.hasWiki = try values.decode(Bool.self, forKey: "has_wiki")
+                self.hasPages = try values.decode(Bool.self, forKey: "has_pages")
+                self.homepage = try values.decodeIfPresent(URL.self, forKey: "homepage")
+                self.language = try values.decodeIfPresent(String.self, forKey: "language")
+                self.masterBranch = try values.decodeIfPresent(String.self, forKey: "master_branch")
+                self.isArchived = try values.decode(Bool.self, forKey: "archived")
+                self.isDisabled = try values.decode(Bool.self, forKey: "disabled")
+                self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
+                self.mirrorURL = try values.decodeIfPresent(URL.self, forKey: "mirror_url")
+                self.openIssues = try values.decode(Int.self, forKey: "open_issues")
+                self.openIssuesCount = try values.decode(Int.self, forKey: "open_issues_count")
+                self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+                self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: "temp_clone_token")
+                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
+                self.license = try values.decodeIfPresent(License.self, forKey: "license")
+                self.pushedAt = try values.decode(Date.self, forKey: "pushed_at")
+                self.size = try values.decode(Int.self, forKey: "size")
+                self.sshURL = try values.decode(String.self, forKey: "ssh_url")
+                self.stargazersCount = try values.decode(Int.self, forKey: "stargazers_count")
+                self.svnURL = try values.decode(URL.self, forKey: "svn_url")
+                self.topics = try values.decodeIfPresent([String].self, forKey: "topics")
+                self.watchers = try values.decode(Int.self, forKey: "watchers")
+                self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
+                self.createdAt = try values.decode(Date.self, forKey: "created_at")
+                self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+                self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking")
+                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(archiveURL, forKey: "archive_url")
+                try values.encode(assigneesURL, forKey: "assignees_url")
+                try values.encode(blobsURL, forKey: "blobs_url")
+                try values.encode(branchesURL, forKey: "branches_url")
+                try values.encode(collaboratorsURL, forKey: "collaborators_url")
+                try values.encode(commentsURL, forKey: "comments_url")
+                try values.encode(commitsURL, forKey: "commits_url")
+                try values.encode(compareURL, forKey: "compare_url")
+                try values.encode(contentsURL, forKey: "contents_url")
+                try values.encode(contributorsURL, forKey: "contributors_url")
+                try values.encode(deploymentsURL, forKey: "deployments_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(downloadsURL, forKey: "downloads_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(isFork, forKey: "fork")
+                try values.encode(forksURL, forKey: "forks_url")
+                try values.encode(fullName, forKey: "full_name")
+                try values.encode(gitCommitsURL, forKey: "git_commits_url")
+                try values.encode(gitRefsURL, forKey: "git_refs_url")
+                try values.encode(gitTagsURL, forKey: "git_tags_url")
+                try values.encode(hooksURL, forKey: "hooks_url")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(issueCommentURL, forKey: "issue_comment_url")
+                try values.encode(issueEventsURL, forKey: "issue_events_url")
+                try values.encode(issuesURL, forKey: "issues_url")
+                try values.encode(keysURL, forKey: "keys_url")
+                try values.encode(labelsURL, forKey: "labels_url")
+                try values.encode(languagesURL, forKey: "languages_url")
+                try values.encode(mergesURL, forKey: "merges_url")
+                try values.encode(milestonesURL, forKey: "milestones_url")
+                try values.encode(name, forKey: "name")
+                try values.encode(notificationsURL, forKey: "notifications_url")
+                try values.encode(owner, forKey: "owner")
+                try values.encode(isPrivate, forKey: "private")
+                try values.encode(pullsURL, forKey: "pulls_url")
+                try values.encode(releasesURL, forKey: "releases_url")
+                try values.encode(stargazersURL, forKey: "stargazers_url")
+                try values.encode(statusesURL, forKey: "statuses_url")
+                try values.encode(subscribersURL, forKey: "subscribers_url")
+                try values.encode(subscriptionURL, forKey: "subscription_url")
+                try values.encode(tagsURL, forKey: "tags_url")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encode(treesURL, forKey: "trees_url")
+                try values.encode(url, forKey: "url")
+                try values.encode(cloneURL, forKey: "clone_url")
+                try values.encode(defaultBranch, forKey: "default_branch")
+                try values.encode(forks, forKey: "forks")
+                try values.encode(forksCount, forKey: "forks_count")
+                try values.encode(gitURL, forKey: "git_url")
+                try values.encode(hasDownloads, forKey: "has_downloads")
+                try values.encode(hasIssues, forKey: "has_issues")
+                try values.encode(hasProjects, forKey: "has_projects")
+                try values.encode(hasWiki, forKey: "has_wiki")
+                try values.encode(hasPages, forKey: "has_pages")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(language, forKey: "language")
+                try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+                try values.encode(isArchived, forKey: "archived")
+                try values.encode(isDisabled, forKey: "disabled")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+                try values.encode(openIssues, forKey: "open_issues")
+                try values.encode(openIssuesCount, forKey: "open_issues_count")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(license, forKey: "license")
+                try values.encode(pushedAt, forKey: "pushed_at")
+                try values.encode(size, forKey: "size")
+                try values.encode(sshURL, forKey: "ssh_url")
+                try values.encode(stargazersCount, forKey: "stargazers_count")
+                try values.encode(svnURL, forKey: "svn_url")
+                try values.encodeIfPresent(topics, forKey: "topics")
+                try values.encode(watchers, forKey: "watchers")
+                try values.encode(watchersCount, forKey: "watchers_count")
+                try values.encode(createdAt, forKey: "created_at")
+                try values.encode(updatedAt, forKey: "updated_at")
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
             }
         }
 
@@ -560,25 +703,48 @@ public struct PullRequest: Codable {
                 self.url = url
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case avatarURL = "avatar_url"
-                case eventsURL = "events_url"
-                case followersURL = "followers_url"
-                case followingURL = "following_url"
-                case gistsURL = "gists_url"
-                case gravatarID = "gravatar_id"
-                case htmlURL = "html_url"
-                case id
-                case nodeID = "node_id"
-                case login
-                case organizationsURL = "organizations_url"
-                case receivedEventsURL = "received_events_url"
-                case reposURL = "repos_url"
-                case isSiteAdmin = "site_admin"
-                case starredURL = "starred_url"
-                case subscriptionsURL = "subscriptions_url"
-                case type
-                case url
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+                self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+                self.followingURL = try values.decode(String.self, forKey: "following_url")
+                self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+                self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.login = try values.decode(String.self, forKey: "login")
+                self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+                self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+                self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+                self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+                self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+                self.type = try values.decode(String.self, forKey: "type")
+                self.url = try values.decode(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(avatarURL, forKey: "avatar_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(followersURL, forKey: "followers_url")
+                try values.encode(followingURL, forKey: "following_url")
+                try values.encode(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(login, forKey: "login")
+                try values.encode(organizationsURL, forKey: "organizations_url")
+                try values.encode(receivedEventsURL, forKey: "received_events_url")
+                try values.encode(reposURL, forKey: "repos_url")
+                try values.encode(isSiteAdmin, forKey: "site_admin")
+                try values.encode(starredURL, forKey: "starred_url")
+                try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encode(type, forKey: "type")
+                try values.encode(url, forKey: "url")
             }
         }
 
@@ -588,6 +754,24 @@ public struct PullRequest: Codable {
             self.repo = repo
             self.sha = sha
             self.user = user
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.label = try values.decode(String.self, forKey: "label")
+            self.ref = try values.decode(String.self, forKey: "ref")
+            self.repo = try values.decodeIfPresent(Repo.self, forKey: "repo")
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.user = try values.decode(User.self, forKey: "user")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encodeIfPresent(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(user, forKey: "user")
         }
     }
 
@@ -726,25 +910,48 @@ public struct PullRequest: Codable {
                     self.url = url
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case avatarURL = "avatar_url"
-                    case eventsURL = "events_url"
-                    case followersURL = "followers_url"
-                    case followingURL = "following_url"
-                    case gistsURL = "gists_url"
-                    case gravatarID = "gravatar_id"
-                    case htmlURL = "html_url"
-                    case id
-                    case nodeID = "node_id"
-                    case login
-                    case organizationsURL = "organizations_url"
-                    case receivedEventsURL = "received_events_url"
-                    case reposURL = "repos_url"
-                    case isSiteAdmin = "site_admin"
-                    case starredURL = "starred_url"
-                    case subscriptionsURL = "subscriptions_url"
-                    case type
-                    case url
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+                    self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                    self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+                    self.followingURL = try values.decode(String.self, forKey: "following_url")
+                    self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                    self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+                    self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                    self.id = try values.decode(Int.self, forKey: "id")
+                    self.nodeID = try values.decode(String.self, forKey: "node_id")
+                    self.login = try values.decode(String.self, forKey: "login")
+                    self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+                    self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+                    self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+                    self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+                    self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                    self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+                    self.type = try values.decode(String.self, forKey: "type")
+                    self.url = try values.decode(URL.self, forKey: "url")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(avatarURL, forKey: "avatar_url")
+                    try values.encode(eventsURL, forKey: "events_url")
+                    try values.encode(followersURL, forKey: "followers_url")
+                    try values.encode(followingURL, forKey: "following_url")
+                    try values.encode(gistsURL, forKey: "gists_url")
+                    try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                    try values.encode(htmlURL, forKey: "html_url")
+                    try values.encode(id, forKey: "id")
+                    try values.encode(nodeID, forKey: "node_id")
+                    try values.encode(login, forKey: "login")
+                    try values.encode(organizationsURL, forKey: "organizations_url")
+                    try values.encode(receivedEventsURL, forKey: "received_events_url")
+                    try values.encode(reposURL, forKey: "repos_url")
+                    try values.encode(isSiteAdmin, forKey: "site_admin")
+                    try values.encode(starredURL, forKey: "starred_url")
+                    try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                    try values.encode(type, forKey: "type")
+                    try values.encode(url, forKey: "url")
                 }
             }
 
@@ -763,12 +970,22 @@ public struct PullRequest: Codable {
                     self.isPull = isPull
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case isAdmin = "admin"
-                    case isMaintain = "maintain"
-                    case isPush = "push"
-                    case isTriage = "triage"
-                    case isPull = "pull"
+                public init(from decoder: Decoder) throws {
+                    let values = try decoder.container(keyedBy: StringCodingKey.self)
+                    self.isAdmin = try values.decode(Bool.self, forKey: "admin")
+                    self.isMaintain = try values.decodeIfPresent(Bool.self, forKey: "maintain")
+                    self.isPush = try values.decode(Bool.self, forKey: "push")
+                    self.isTriage = try values.decodeIfPresent(Bool.self, forKey: "triage")
+                    self.isPull = try values.decode(Bool.self, forKey: "pull")
+                }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isAdmin, forKey: "admin")
+                    try values.encodeIfPresent(isMaintain, forKey: "maintain")
+                    try values.encode(isPush, forKey: "push")
+                    try values.encodeIfPresent(isTriage, forKey: "triage")
+                    try values.encode(isPull, forKey: "pull")
                 }
             }
 
@@ -858,90 +1075,178 @@ public struct PullRequest: Codable {
                 self.allowForking = allowForking
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case archiveURL = "archive_url"
-                case assigneesURL = "assignees_url"
-                case blobsURL = "blobs_url"
-                case branchesURL = "branches_url"
-                case collaboratorsURL = "collaborators_url"
-                case commentsURL = "comments_url"
-                case commitsURL = "commits_url"
-                case compareURL = "compare_url"
-                case contentsURL = "contents_url"
-                case contributorsURL = "contributors_url"
-                case deploymentsURL = "deployments_url"
-                case description
-                case downloadsURL = "downloads_url"
-                case eventsURL = "events_url"
-                case isFork = "fork"
-                case forksURL = "forks_url"
-                case fullName = "full_name"
-                case gitCommitsURL = "git_commits_url"
-                case gitRefsURL = "git_refs_url"
-                case gitTagsURL = "git_tags_url"
-                case hooksURL = "hooks_url"
-                case htmlURL = "html_url"
-                case id
-                case isTemplate = "is_template"
-                case nodeID = "node_id"
-                case issueCommentURL = "issue_comment_url"
-                case issueEventsURL = "issue_events_url"
-                case issuesURL = "issues_url"
-                case keysURL = "keys_url"
-                case labelsURL = "labels_url"
-                case languagesURL = "languages_url"
-                case mergesURL = "merges_url"
-                case milestonesURL = "milestones_url"
-                case name
-                case notificationsURL = "notifications_url"
-                case owner
-                case isPrivate = "private"
-                case pullsURL = "pulls_url"
-                case releasesURL = "releases_url"
-                case stargazersURL = "stargazers_url"
-                case statusesURL = "statuses_url"
-                case subscribersURL = "subscribers_url"
-                case subscriptionURL = "subscription_url"
-                case tagsURL = "tags_url"
-                case teamsURL = "teams_url"
-                case treesURL = "trees_url"
-                case url
-                case cloneURL = "clone_url"
-                case defaultBranch = "default_branch"
-                case forks
-                case forksCount = "forks_count"
-                case gitURL = "git_url"
-                case hasDownloads = "has_downloads"
-                case hasIssues = "has_issues"
-                case hasProjects = "has_projects"
-                case hasWiki = "has_wiki"
-                case hasPages = "has_pages"
-                case homepage
-                case language
-                case masterBranch = "master_branch"
-                case isArchived = "archived"
-                case isDisabled = "disabled"
-                case visibility
-                case mirrorURL = "mirror_url"
-                case openIssues = "open_issues"
-                case openIssuesCount = "open_issues_count"
-                case permissions
-                case tempCloneToken = "temp_clone_token"
-                case allowMergeCommit = "allow_merge_commit"
-                case allowSquashMerge = "allow_squash_merge"
-                case allowRebaseMerge = "allow_rebase_merge"
-                case license
-                case pushedAt = "pushed_at"
-                case size
-                case sshURL = "ssh_url"
-                case stargazersCount = "stargazers_count"
-                case svnURL = "svn_url"
-                case topics
-                case watchers
-                case watchersCount = "watchers_count"
-                case createdAt = "created_at"
-                case updatedAt = "updated_at"
-                case allowForking = "allow_forking"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.archiveURL = try values.decode(String.self, forKey: "archive_url")
+                self.assigneesURL = try values.decode(String.self, forKey: "assignees_url")
+                self.blobsURL = try values.decode(String.self, forKey: "blobs_url")
+                self.branchesURL = try values.decode(String.self, forKey: "branches_url")
+                self.collaboratorsURL = try values.decode(String.self, forKey: "collaborators_url")
+                self.commentsURL = try values.decode(String.self, forKey: "comments_url")
+                self.commitsURL = try values.decode(String.self, forKey: "commits_url")
+                self.compareURL = try values.decode(String.self, forKey: "compare_url")
+                self.contentsURL = try values.decode(String.self, forKey: "contents_url")
+                self.contributorsURL = try values.decode(URL.self, forKey: "contributors_url")
+                self.deploymentsURL = try values.decode(URL.self, forKey: "deployments_url")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.downloadsURL = try values.decode(URL.self, forKey: "downloads_url")
+                self.eventsURL = try values.decode(URL.self, forKey: "events_url")
+                self.isFork = try values.decode(Bool.self, forKey: "fork")
+                self.forksURL = try values.decode(URL.self, forKey: "forks_url")
+                self.fullName = try values.decode(String.self, forKey: "full_name")
+                self.gitCommitsURL = try values.decode(String.self, forKey: "git_commits_url")
+                self.gitRefsURL = try values.decode(String.self, forKey: "git_refs_url")
+                self.gitTagsURL = try values.decode(String.self, forKey: "git_tags_url")
+                self.hooksURL = try values.decode(URL.self, forKey: "hooks_url")
+                self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.issueCommentURL = try values.decode(String.self, forKey: "issue_comment_url")
+                self.issueEventsURL = try values.decode(String.self, forKey: "issue_events_url")
+                self.issuesURL = try values.decode(String.self, forKey: "issues_url")
+                self.keysURL = try values.decode(String.self, forKey: "keys_url")
+                self.labelsURL = try values.decode(String.self, forKey: "labels_url")
+                self.languagesURL = try values.decode(URL.self, forKey: "languages_url")
+                self.mergesURL = try values.decode(URL.self, forKey: "merges_url")
+                self.milestonesURL = try values.decode(String.self, forKey: "milestones_url")
+                self.name = try values.decode(String.self, forKey: "name")
+                self.notificationsURL = try values.decode(String.self, forKey: "notifications_url")
+                self.owner = try values.decode(Owner.self, forKey: "owner")
+                self.isPrivate = try values.decode(Bool.self, forKey: "private")
+                self.pullsURL = try values.decode(String.self, forKey: "pulls_url")
+                self.releasesURL = try values.decode(String.self, forKey: "releases_url")
+                self.stargazersURL = try values.decode(URL.self, forKey: "stargazers_url")
+                self.statusesURL = try values.decode(String.self, forKey: "statuses_url")
+                self.subscribersURL = try values.decode(URL.self, forKey: "subscribers_url")
+                self.subscriptionURL = try values.decode(URL.self, forKey: "subscription_url")
+                self.tagsURL = try values.decode(URL.self, forKey: "tags_url")
+                self.teamsURL = try values.decode(URL.self, forKey: "teams_url")
+                self.treesURL = try values.decode(String.self, forKey: "trees_url")
+                self.url = try values.decode(URL.self, forKey: "url")
+                self.cloneURL = try values.decode(String.self, forKey: "clone_url")
+                self.defaultBranch = try values.decode(String.self, forKey: "default_branch")
+                self.forks = try values.decode(Int.self, forKey: "forks")
+                self.forksCount = try values.decode(Int.self, forKey: "forks_count")
+                self.gitURL = try values.decode(String.self, forKey: "git_url")
+                self.hasDownloads = try values.decode(Bool.self, forKey: "has_downloads")
+                self.hasIssues = try values.decode(Bool.self, forKey: "has_issues")
+                self.hasProjects = try values.decode(Bool.self, forKey: "has_projects")
+                self.hasWiki = try values.decode(Bool.self, forKey: "has_wiki")
+                self.hasPages = try values.decode(Bool.self, forKey: "has_pages")
+                self.homepage = try values.decodeIfPresent(URL.self, forKey: "homepage")
+                self.language = try values.decodeIfPresent(String.self, forKey: "language")
+                self.masterBranch = try values.decodeIfPresent(String.self, forKey: "master_branch")
+                self.isArchived = try values.decode(Bool.self, forKey: "archived")
+                self.isDisabled = try values.decode(Bool.self, forKey: "disabled")
+                self.visibility = try values.decodeIfPresent(String.self, forKey: "visibility")
+                self.mirrorURL = try values.decodeIfPresent(URL.self, forKey: "mirror_url")
+                self.openIssues = try values.decode(Int.self, forKey: "open_issues")
+                self.openIssuesCount = try values.decode(Int.self, forKey: "open_issues_count")
+                self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+                self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: "temp_clone_token")
+                self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+                self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+                self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
+                self.license = try values.decodeIfPresent(LicenseSimple.self, forKey: "license")
+                self.pushedAt = try values.decode(Date.self, forKey: "pushed_at")
+                self.size = try values.decode(Int.self, forKey: "size")
+                self.sshURL = try values.decode(String.self, forKey: "ssh_url")
+                self.stargazersCount = try values.decode(Int.self, forKey: "stargazers_count")
+                self.svnURL = try values.decode(URL.self, forKey: "svn_url")
+                self.topics = try values.decodeIfPresent([String].self, forKey: "topics")
+                self.watchers = try values.decode(Int.self, forKey: "watchers")
+                self.watchersCount = try values.decode(Int.self, forKey: "watchers_count")
+                self.createdAt = try values.decode(Date.self, forKey: "created_at")
+                self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+                self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(archiveURL, forKey: "archive_url")
+                try values.encode(assigneesURL, forKey: "assignees_url")
+                try values.encode(blobsURL, forKey: "blobs_url")
+                try values.encode(branchesURL, forKey: "branches_url")
+                try values.encode(collaboratorsURL, forKey: "collaborators_url")
+                try values.encode(commentsURL, forKey: "comments_url")
+                try values.encode(commitsURL, forKey: "commits_url")
+                try values.encode(compareURL, forKey: "compare_url")
+                try values.encode(contentsURL, forKey: "contents_url")
+                try values.encode(contributorsURL, forKey: "contributors_url")
+                try values.encode(deploymentsURL, forKey: "deployments_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encode(downloadsURL, forKey: "downloads_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(isFork, forKey: "fork")
+                try values.encode(forksURL, forKey: "forks_url")
+                try values.encode(fullName, forKey: "full_name")
+                try values.encode(gitCommitsURL, forKey: "git_commits_url")
+                try values.encode(gitRefsURL, forKey: "git_refs_url")
+                try values.encode(gitTagsURL, forKey: "git_tags_url")
+                try values.encode(hooksURL, forKey: "hooks_url")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encodeIfPresent(isTemplate, forKey: "is_template")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(issueCommentURL, forKey: "issue_comment_url")
+                try values.encode(issueEventsURL, forKey: "issue_events_url")
+                try values.encode(issuesURL, forKey: "issues_url")
+                try values.encode(keysURL, forKey: "keys_url")
+                try values.encode(labelsURL, forKey: "labels_url")
+                try values.encode(languagesURL, forKey: "languages_url")
+                try values.encode(mergesURL, forKey: "merges_url")
+                try values.encode(milestonesURL, forKey: "milestones_url")
+                try values.encode(name, forKey: "name")
+                try values.encode(notificationsURL, forKey: "notifications_url")
+                try values.encode(owner, forKey: "owner")
+                try values.encode(isPrivate, forKey: "private")
+                try values.encode(pullsURL, forKey: "pulls_url")
+                try values.encode(releasesURL, forKey: "releases_url")
+                try values.encode(stargazersURL, forKey: "stargazers_url")
+                try values.encode(statusesURL, forKey: "statuses_url")
+                try values.encode(subscribersURL, forKey: "subscribers_url")
+                try values.encode(subscriptionURL, forKey: "subscription_url")
+                try values.encode(tagsURL, forKey: "tags_url")
+                try values.encode(teamsURL, forKey: "teams_url")
+                try values.encode(treesURL, forKey: "trees_url")
+                try values.encode(url, forKey: "url")
+                try values.encode(cloneURL, forKey: "clone_url")
+                try values.encode(defaultBranch, forKey: "default_branch")
+                try values.encode(forks, forKey: "forks")
+                try values.encode(forksCount, forKey: "forks_count")
+                try values.encode(gitURL, forKey: "git_url")
+                try values.encode(hasDownloads, forKey: "has_downloads")
+                try values.encode(hasIssues, forKey: "has_issues")
+                try values.encode(hasProjects, forKey: "has_projects")
+                try values.encode(hasWiki, forKey: "has_wiki")
+                try values.encode(hasPages, forKey: "has_pages")
+                try values.encodeIfPresent(homepage, forKey: "homepage")
+                try values.encodeIfPresent(language, forKey: "language")
+                try values.encodeIfPresent(masterBranch, forKey: "master_branch")
+                try values.encode(isArchived, forKey: "archived")
+                try values.encode(isDisabled, forKey: "disabled")
+                try values.encodeIfPresent(visibility, forKey: "visibility")
+                try values.encodeIfPresent(mirrorURL, forKey: "mirror_url")
+                try values.encode(openIssues, forKey: "open_issues")
+                try values.encode(openIssuesCount, forKey: "open_issues_count")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
+                try values.encodeIfPresent(tempCloneToken, forKey: "temp_clone_token")
+                try values.encodeIfPresent(allowMergeCommit, forKey: "allow_merge_commit")
+                try values.encodeIfPresent(allowSquashMerge, forKey: "allow_squash_merge")
+                try values.encodeIfPresent(allowRebaseMerge, forKey: "allow_rebase_merge")
+                try values.encodeIfPresent(license, forKey: "license")
+                try values.encode(pushedAt, forKey: "pushed_at")
+                try values.encode(size, forKey: "size")
+                try values.encode(sshURL, forKey: "ssh_url")
+                try values.encode(stargazersCount, forKey: "stargazers_count")
+                try values.encode(svnURL, forKey: "svn_url")
+                try values.encodeIfPresent(topics, forKey: "topics")
+                try values.encode(watchers, forKey: "watchers")
+                try values.encode(watchersCount, forKey: "watchers_count")
+                try values.encode(createdAt, forKey: "created_at")
+                try values.encode(updatedAt, forKey: "updated_at")
+                try values.encodeIfPresent(allowForking, forKey: "allow_forking")
             }
         }
 
@@ -986,25 +1291,48 @@ public struct PullRequest: Codable {
                 self.url = url
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case avatarURL = "avatar_url"
-                case eventsURL = "events_url"
-                case followersURL = "followers_url"
-                case followingURL = "following_url"
-                case gistsURL = "gists_url"
-                case gravatarID = "gravatar_id"
-                case htmlURL = "html_url"
-                case id
-                case nodeID = "node_id"
-                case login
-                case organizationsURL = "organizations_url"
-                case receivedEventsURL = "received_events_url"
-                case reposURL = "repos_url"
-                case isSiteAdmin = "site_admin"
-                case starredURL = "starred_url"
-                case subscriptionsURL = "subscriptions_url"
-                case type
-                case url
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.avatarURL = try values.decode(URL.self, forKey: "avatar_url")
+                self.eventsURL = try values.decode(String.self, forKey: "events_url")
+                self.followersURL = try values.decode(URL.self, forKey: "followers_url")
+                self.followingURL = try values.decode(String.self, forKey: "following_url")
+                self.gistsURL = try values.decode(String.self, forKey: "gists_url")
+                self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+                self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+                self.id = try values.decode(Int.self, forKey: "id")
+                self.nodeID = try values.decode(String.self, forKey: "node_id")
+                self.login = try values.decode(String.self, forKey: "login")
+                self.organizationsURL = try values.decode(URL.self, forKey: "organizations_url")
+                self.receivedEventsURL = try values.decode(URL.self, forKey: "received_events_url")
+                self.reposURL = try values.decode(URL.self, forKey: "repos_url")
+                self.isSiteAdmin = try values.decode(Bool.self, forKey: "site_admin")
+                self.starredURL = try values.decode(String.self, forKey: "starred_url")
+                self.subscriptionsURL = try values.decode(URL.self, forKey: "subscriptions_url")
+                self.type = try values.decode(String.self, forKey: "type")
+                self.url = try values.decode(URL.self, forKey: "url")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(avatarURL, forKey: "avatar_url")
+                try values.encode(eventsURL, forKey: "events_url")
+                try values.encode(followersURL, forKey: "followers_url")
+                try values.encode(followingURL, forKey: "following_url")
+                try values.encode(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encode(htmlURL, forKey: "html_url")
+                try values.encode(id, forKey: "id")
+                try values.encode(nodeID, forKey: "node_id")
+                try values.encode(login, forKey: "login")
+                try values.encode(organizationsURL, forKey: "organizations_url")
+                try values.encode(receivedEventsURL, forKey: "received_events_url")
+                try values.encode(reposURL, forKey: "repos_url")
+                try values.encode(isSiteAdmin, forKey: "site_admin")
+                try values.encode(starredURL, forKey: "starred_url")
+                try values.encode(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encode(type, forKey: "type")
+                try values.encode(url, forKey: "url")
             }
         }
 
@@ -1014,6 +1342,24 @@ public struct PullRequest: Codable {
             self.repo = repo
             self.sha = sha
             self.user = user
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.label = try values.decode(String.self, forKey: "label")
+            self.ref = try values.decode(String.self, forKey: "ref")
+            self.repo = try values.decode(Repo.self, forKey: "repo")
+            self.sha = try values.decode(String.self, forKey: "sha")
+            self.user = try values.decode(User.self, forKey: "user")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(label, forKey: "label")
+            try values.encode(ref, forKey: "ref")
+            try values.encode(repo, forKey: "repo")
+            try values.encode(sha, forKey: "sha")
+            try values.encode(user, forKey: "user")
         }
     }
 
@@ -1062,15 +1408,28 @@ public struct PullRequest: Codable {
             self.this = this
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case comments
-            case commits
-            case statuses
-            case html
-            case issue
-            case reviewComments = "review_comments"
-            case reviewComment = "review_comment"
-            case this = "self"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.comments = try values.decode(Link.self, forKey: "comments")
+            self.commits = try values.decode(Link.self, forKey: "commits")
+            self.statuses = try values.decode(Link.self, forKey: "statuses")
+            self.html = try values.decode(Link.self, forKey: "html")
+            self.issue = try values.decode(Link.self, forKey: "issue")
+            self.reviewComments = try values.decode(Link.self, forKey: "review_comments")
+            self.reviewComment = try values.decode(Link.self, forKey: "review_comment")
+            self.this = try values.decode(Link.self, forKey: "self")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(comments, forKey: "comments")
+            try values.encode(commits, forKey: "commits")
+            try values.encode(statuses, forKey: "statuses")
+            try values.encode(html, forKey: "html")
+            try values.encode(issue, forKey: "issue")
+            try values.encode(reviewComments, forKey: "review_comments")
+            try values.encode(reviewComment, forKey: "review_comment")
+            try values.encode(this, forKey: "self")
         }
     }
 
@@ -1125,54 +1484,107 @@ public struct PullRequest: Codable {
         self.changedFiles = changedFiles
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case id
-        case nodeID = "node_id"
-        case htmlURL = "html_url"
-        case diffURL = "diff_url"
-        case patchURL = "patch_url"
-        case issueURL = "issue_url"
-        case commitsURL = "commits_url"
-        case reviewCommentsURL = "review_comments_url"
-        case reviewCommentURL = "review_comment_url"
-        case commentsURL = "comments_url"
-        case statusesURL = "statuses_url"
-        case number
-        case state
-        case isLocked = "locked"
-        case title
-        case user
-        case body
-        case labels
-        case milestone
-        case activeLockReason = "active_lock_reason"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case closedAt = "closed_at"
-        case mergedAt = "merged_at"
-        case mergeCommitSha = "merge_commit_sha"
-        case assignee
-        case assignees
-        case requestedReviewers = "requested_reviewers"
-        case requestedTeams = "requested_teams"
-        case head
-        case base
-        case links = "_links"
-        case authorAssociation = "author_association"
-        case autoMerge = "auto_merge"
-        case isDraft = "draft"
-        case isMerged = "merged"
-        case isMergeable = "mergeable"
-        case isRebaseable = "rebaseable"
-        case mergeableState = "mergeable_state"
-        case mergedBy = "merged_by"
-        case comments
-        case reviewComments = "review_comments"
-        case maintainerCanModify = "maintainer_can_modify"
-        case commits
-        case additions
-        case deletions
-        case changedFiles = "changed_files"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.diffURL = try values.decode(URL.self, forKey: "diff_url")
+        self.patchURL = try values.decode(URL.self, forKey: "patch_url")
+        self.issueURL = try values.decode(URL.self, forKey: "issue_url")
+        self.commitsURL = try values.decode(URL.self, forKey: "commits_url")
+        self.reviewCommentsURL = try values.decode(URL.self, forKey: "review_comments_url")
+        self.reviewCommentURL = try values.decode(String.self, forKey: "review_comment_url")
+        self.commentsURL = try values.decode(URL.self, forKey: "comments_url")
+        self.statusesURL = try values.decode(URL.self, forKey: "statuses_url")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.isLocked = try values.decode(Bool.self, forKey: "locked")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.body = try values.decodeIfPresent(String.self, forKey: "body")
+        self.labels = try values.decode([Label].self, forKey: "labels")
+        self.milestone = try values.decodeIfPresent(Milestone.self, forKey: "milestone")
+        self.activeLockReason = try values.decodeIfPresent(String.self, forKey: "active_lock_reason")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.closedAt = try values.decodeIfPresent(Date.self, forKey: "closed_at")
+        self.mergedAt = try values.decodeIfPresent(Date.self, forKey: "merged_at")
+        self.mergeCommitSha = try values.decodeIfPresent(String.self, forKey: "merge_commit_sha")
+        self.assignee = try values.decodeIfPresent(SimpleUser.self, forKey: "assignee")
+        self.assignees = try values.decodeIfPresent([SimpleUser].self, forKey: "assignees")
+        self.requestedReviewers = try values.decodeIfPresent([SimpleUser].self, forKey: "requested_reviewers")
+        self.requestedTeams = try values.decodeIfPresent([TeamSimple].self, forKey: "requested_teams")
+        self.head = try values.decode(Head.self, forKey: "head")
+        self.base = try values.decode(Base.self, forKey: "base")
+        self.links = try values.decode(Links.self, forKey: "_links")
+        self.authorAssociation = try values.decode(AuthorAssociation.self, forKey: "author_association")
+        self.autoMerge = try values.decodeIfPresent(AutoMerge.self, forKey: "auto_merge")
+        self.isDraft = try values.decodeIfPresent(Bool.self, forKey: "draft")
+        self.isMerged = try values.decode(Bool.self, forKey: "merged")
+        self.isMergeable = try values.decodeIfPresent(Bool.self, forKey: "mergeable")
+        self.isRebaseable = try values.decodeIfPresent(Bool.self, forKey: "rebaseable")
+        self.mergeableState = try values.decode(String.self, forKey: "mergeable_state")
+        self.mergedBy = try values.decodeIfPresent(SimpleUser.self, forKey: "merged_by")
+        self.comments = try values.decode(Int.self, forKey: "comments")
+        self.reviewComments = try values.decode(Int.self, forKey: "review_comments")
+        self.maintainerCanModify = try values.decode(Bool.self, forKey: "maintainer_can_modify")
+        self.commits = try values.decode(Int.self, forKey: "commits")
+        self.additions = try values.decode(Int.self, forKey: "additions")
+        self.deletions = try values.decode(Int.self, forKey: "deletions")
+        self.changedFiles = try values.decode(Int.self, forKey: "changed_files")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(diffURL, forKey: "diff_url")
+        try values.encode(patchURL, forKey: "patch_url")
+        try values.encode(issueURL, forKey: "issue_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(reviewCommentsURL, forKey: "review_comments_url")
+        try values.encode(reviewCommentURL, forKey: "review_comment_url")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encode(statusesURL, forKey: "statuses_url")
+        try values.encode(number, forKey: "number")
+        try values.encode(state, forKey: "state")
+        try values.encode(isLocked, forKey: "locked")
+        try values.encode(title, forKey: "title")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(body, forKey: "body")
+        try values.encode(labels, forKey: "labels")
+        try values.encodeIfPresent(milestone, forKey: "milestone")
+        try values.encodeIfPresent(activeLockReason, forKey: "active_lock_reason")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encodeIfPresent(mergedAt, forKey: "merged_at")
+        try values.encodeIfPresent(mergeCommitSha, forKey: "merge_commit_sha")
+        try values.encodeIfPresent(assignee, forKey: "assignee")
+        try values.encodeIfPresent(assignees, forKey: "assignees")
+        try values.encodeIfPresent(requestedReviewers, forKey: "requested_reviewers")
+        try values.encodeIfPresent(requestedTeams, forKey: "requested_teams")
+        try values.encode(head, forKey: "head")
+        try values.encode(base, forKey: "base")
+        try values.encode(links, forKey: "_links")
+        try values.encode(authorAssociation, forKey: "author_association")
+        try values.encodeIfPresent(autoMerge, forKey: "auto_merge")
+        try values.encodeIfPresent(isDraft, forKey: "draft")
+        try values.encode(isMerged, forKey: "merged")
+        try values.encodeIfPresent(isMergeable, forKey: "mergeable")
+        try values.encodeIfPresent(isRebaseable, forKey: "rebaseable")
+        try values.encode(mergeableState, forKey: "mergeable_state")
+        try values.encodeIfPresent(mergedBy, forKey: "merged_by")
+        try values.encode(comments, forKey: "comments")
+        try values.encode(reviewComments, forKey: "review_comments")
+        try values.encode(maintainerCanModify, forKey: "maintainer_can_modify")
+        try values.encode(commits, forKey: "commits")
+        try values.encode(additions, forKey: "additions")
+        try values.encode(deletions, forKey: "deletions")
+        try values.encode(changedFiles, forKey: "changed_files")
     }
 }

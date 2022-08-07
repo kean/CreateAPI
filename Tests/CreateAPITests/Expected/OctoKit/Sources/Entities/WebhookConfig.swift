@@ -29,10 +29,19 @@ public struct WebhookConfig: Codable {
         self.insecureSSL = insecureSSL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case contentType = "content_type"
-        case secret
-        case insecureSSL = "insecure_ssl"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decodeIfPresent(URL.self, forKey: "url")
+        self.contentType = try values.decodeIfPresent(String.self, forKey: "content_type")
+        self.secret = try values.decodeIfPresent(String.self, forKey: "secret")
+        self.insecureSSL = try values.decodeIfPresent(WebhookConfigInsecureSSL.self, forKey: "insecure_ssl")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(contentType, forKey: "content_type")
+        try values.encodeIfPresent(secret, forKey: "secret")
+        try values.encodeIfPresent(insecureSSL, forKey: "insecure_ssl")
     }
 }

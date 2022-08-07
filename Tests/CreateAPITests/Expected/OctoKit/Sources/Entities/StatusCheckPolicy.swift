@@ -25,9 +25,16 @@ public struct StatusCheckPolicy: Codable {
             self.appID = appID
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case context
-            case appID = "app_id"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.context = try values.decode(String.self, forKey: "context")
+            self.appID = try values.decodeIfPresent(Int.self, forKey: "app_id")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(context, forKey: "context")
+            try values.encodeIfPresent(appID, forKey: "app_id")
         }
     }
 
@@ -39,11 +46,21 @@ public struct StatusCheckPolicy: Codable {
         self.contextsURL = contextsURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case isStrict = "strict"
-        case contexts
-        case checks
-        case contextsURL = "contexts_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.isStrict = try values.decode(Bool.self, forKey: "strict")
+        self.contexts = try values.decode([String].self, forKey: "contexts")
+        self.checks = try values.decode([Check].self, forKey: "checks")
+        self.contextsURL = try values.decode(URL.self, forKey: "contexts_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(isStrict, forKey: "strict")
+        try values.encode(contexts, forKey: "contexts")
+        try values.encode(checks, forKey: "checks")
+        try values.encode(contextsURL, forKey: "contexts_url")
     }
 }

@@ -18,8 +18,15 @@ public struct User: Codable {
         self.imageURL = imageURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case imageURL = "image_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decode(String.self, forKey: "name")
+        self.imageURL = try values.decodeIfPresent(URL.self, forKey: "image_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(imageURL, forKey: "image_url")
     }
 }

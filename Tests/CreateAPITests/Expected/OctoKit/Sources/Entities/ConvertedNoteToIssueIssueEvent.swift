@@ -37,13 +37,24 @@ public struct ConvertedNoteToIssueIssueEvent: Codable {
             self.previousColumnName = previousColumnName
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case url
-            case projectID = "project_id"
-            case projectURL = "project_url"
-            case columnName = "column_name"
-            case previousColumnName = "previous_column_name"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decode(Int.self, forKey: "id")
+            self.url = try values.decode(URL.self, forKey: "url")
+            self.projectID = try values.decode(Int.self, forKey: "project_id")
+            self.projectURL = try values.decode(URL.self, forKey: "project_url")
+            self.columnName = try values.decode(String.self, forKey: "column_name")
+            self.previousColumnName = try values.decodeIfPresent(String.self, forKey: "previous_column_name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(id, forKey: "id")
+            try values.encode(url, forKey: "url")
+            try values.encode(projectID, forKey: "project_id")
+            try values.encode(projectURL, forKey: "project_url")
+            try values.encode(columnName, forKey: "column_name")
+            try values.encodeIfPresent(previousColumnName, forKey: "previous_column_name")
         }
     }
 
@@ -60,16 +71,31 @@ public struct ConvertedNoteToIssueIssueEvent: Codable {
         self.projectCard = projectCard
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case actor
-        case event
-        case commitID = "commit_id"
-        case commitURL = "commit_url"
-        case createdAt = "created_at"
-        case performedViaGithubApp = "performed_via_github_app"
-        case projectCard = "project_card"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.actor = try values.decode(SimpleUser.self, forKey: "actor")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.commitID = try values.decodeIfPresent(String.self, forKey: "commit_id")
+        self.commitURL = try values.decodeIfPresent(String.self, forKey: "commit_url")
+        self.createdAt = try values.decode(String.self, forKey: "created_at")
+        self.performedViaGithubApp = try values.decode(Integration.self, forKey: "performed_via_github_app")
+        self.projectCard = try values.decodeIfPresent(ProjectCard.self, forKey: "project_card")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(actor, forKey: "actor")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(commitID, forKey: "commit_id")
+        try values.encodeIfPresent(commitURL, forKey: "commit_url")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(performedViaGithubApp, forKey: "performed_via_github_app")
+        try values.encodeIfPresent(projectCard, forKey: "project_card")
     }
 }

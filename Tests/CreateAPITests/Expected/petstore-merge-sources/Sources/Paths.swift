@@ -6,6 +6,8 @@ import Get
 import HTTPHeaders
 import URLQueryEncoder
 
+public enum Paths {}
+
 extension Paths {
     public static var pets: Pets {
         Pets(path: "/pets")

@@ -38,20 +38,45 @@ public struct RateLimitOverview: Codable {
             self.scim = scim
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case core
-            case graphql
-            case search
-            case sourceImport = "source_import"
-            case integrationManifest = "integration_manifest"
-            case codeScanningUpload = "code_scanning_upload"
-            case actionsRunnerRegistration = "actions_runner_registration"
-            case scim
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.core = try values.decode(RateLimit.self, forKey: "core")
+            self.graphql = try values.decodeIfPresent(RateLimit.self, forKey: "graphql")
+            self.search = try values.decode(RateLimit.self, forKey: "search")
+            self.sourceImport = try values.decodeIfPresent(RateLimit.self, forKey: "source_import")
+            self.integrationManifest = try values.decodeIfPresent(RateLimit.self, forKey: "integration_manifest")
+            self.codeScanningUpload = try values.decodeIfPresent(RateLimit.self, forKey: "code_scanning_upload")
+            self.actionsRunnerRegistration = try values.decodeIfPresent(RateLimit.self, forKey: "actions_runner_registration")
+            self.scim = try values.decodeIfPresent(RateLimit.self, forKey: "scim")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(core, forKey: "core")
+            try values.encodeIfPresent(graphql, forKey: "graphql")
+            try values.encode(search, forKey: "search")
+            try values.encodeIfPresent(sourceImport, forKey: "source_import")
+            try values.encodeIfPresent(integrationManifest, forKey: "integration_manifest")
+            try values.encodeIfPresent(codeScanningUpload, forKey: "code_scanning_upload")
+            try values.encodeIfPresent(actionsRunnerRegistration, forKey: "actions_runner_registration")
+            try values.encodeIfPresent(scim, forKey: "scim")
         }
     }
 
     public init(resources: Resources, rate: RateLimit) {
         self.resources = resources
         self.rate = rate
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.resources = try values.decode(Resources.self, forKey: "resources")
+        self.rate = try values.decode(RateLimit.self, forKey: "rate")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(resources, forKey: "resources")
+        try values.encode(rate, forKey: "rate")
     }
 }

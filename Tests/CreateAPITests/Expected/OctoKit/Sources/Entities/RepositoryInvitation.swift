@@ -56,16 +56,31 @@ public struct RepositoryInvitation: Codable {
         self.nodeID = nodeID
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case repository
-        case invitee
-        case inviter
-        case permissions
-        case createdAt = "created_at"
-        case isExpired = "expired"
-        case url
-        case htmlURL = "html_url"
-        case nodeID = "node_id"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.invitee = try values.decodeIfPresent(SimpleUser.self, forKey: "invitee")
+        self.inviter = try values.decodeIfPresent(SimpleUser.self, forKey: "inviter")
+        self.permissions = try values.decode(Permissions.self, forKey: "permissions")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.isExpired = try values.decodeIfPresent(Bool.self, forKey: "expired")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decode(String.self, forKey: "html_url")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(repository, forKey: "repository")
+        try values.encodeIfPresent(invitee, forKey: "invitee")
+        try values.encodeIfPresent(inviter, forKey: "inviter")
+        try values.encode(permissions, forKey: "permissions")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(isExpired, forKey: "expired")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(nodeID, forKey: "node_id")
     }
 }

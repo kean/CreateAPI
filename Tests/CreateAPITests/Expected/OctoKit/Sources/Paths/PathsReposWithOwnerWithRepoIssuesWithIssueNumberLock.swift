@@ -50,8 +50,9 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.WithIssueNumber {
                 self.lockReason = lockReason
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case lockReason = "lock_reason"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(lockReason, forKey: "lock_reason")
             }
         }
 

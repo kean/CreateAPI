@@ -17,4 +17,18 @@ public struct CodeScanningAnalysisTool: Codable {
         self.version = version
         self.guid = guid
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.name = try values.decodeIfPresent(String.self, forKey: "name")
+        self.version = try values.decodeIfPresent(String.self, forKey: "version")
+        self.guid = try values.decodeIfPresent(String.self, forKey: "guid")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(name, forKey: "name")
+        try values.encodeIfPresent(version, forKey: "version")
+        try values.encodeIfPresent(guid, forKey: "guid")
+    }
 }

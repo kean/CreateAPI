@@ -112,12 +112,22 @@ public struct Codespace: Codable {
             self.ref = ref
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case ahead
-            case behind
-            case hasUnpushedChanges = "has_unpushed_changes"
-            case hasUncommittedChanges = "has_uncommitted_changes"
-            case ref
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.ahead = try values.decodeIfPresent(Int.self, forKey: "ahead")
+            self.behind = try values.decodeIfPresent(Int.self, forKey: "behind")
+            self.hasUnpushedChanges = try values.decodeIfPresent(Bool.self, forKey: "has_unpushed_changes")
+            self.hasUncommittedChanges = try values.decodeIfPresent(Bool.self, forKey: "has_uncommitted_changes")
+            self.ref = try values.decodeIfPresent(String.self, forKey: "ref")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(ahead, forKey: "ahead")
+            try values.encodeIfPresent(behind, forKey: "behind")
+            try values.encodeIfPresent(hasUnpushedChanges, forKey: "has_unpushed_changes")
+            try values.encodeIfPresent(hasUncommittedChanges, forKey: "has_uncommitted_changes")
+            try values.encodeIfPresent(ref, forKey: "ref")
         }
     }
 
@@ -139,8 +149,14 @@ public struct Codespace: Codable {
             self.allowedPortPrivacySettings = allowedPortPrivacySettings
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case allowedPortPrivacySettings = "allowed_port_privacy_settings"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.allowedPortPrivacySettings = try values.decodeIfPresent([String].self, forKey: "allowed_port_privacy_settings")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(allowedPortPrivacySettings, forKey: "allowed_port_privacy_settings")
         }
     }
 
@@ -170,29 +186,57 @@ public struct Codespace: Codable {
         self.runtimeConstraints = runtimeConstraints
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case environmentID = "environment_id"
-        case owner
-        case billableOwner = "billable_owner"
-        case repository
-        case machine
-        case isPrebuild = "prebuild"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case lastUsedAt = "last_used_at"
-        case state
-        case url
-        case gitStatus = "git_status"
-        case location
-        case idleTimeoutMinutes = "idle_timeout_minutes"
-        case webURL = "web_url"
-        case machinesURL = "machines_url"
-        case startURL = "start_url"
-        case stopURL = "stop_url"
-        case pullsURL = "pulls_url"
-        case recentFolders = "recent_folders"
-        case runtimeConstraints = "runtime_constraints"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.environmentID = try values.decodeIfPresent(String.self, forKey: "environment_id")
+        self.owner = try values.decode(SimpleUser.self, forKey: "owner")
+        self.billableOwner = try values.decode(SimpleUser.self, forKey: "billable_owner")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.machine = try values.decodeIfPresent(CodespaceMachine.self, forKey: "machine")
+        self.isPrebuild = try values.decodeIfPresent(Bool.self, forKey: "prebuild")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.lastUsedAt = try values.decode(Date.self, forKey: "last_used_at")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.gitStatus = try values.decode(GitStatus.self, forKey: "git_status")
+        self.location = try values.decode(Location.self, forKey: "location")
+        self.idleTimeoutMinutes = try values.decodeIfPresent(Int.self, forKey: "idle_timeout_minutes")
+        self.webURL = try values.decode(URL.self, forKey: "web_url")
+        self.machinesURL = try values.decode(URL.self, forKey: "machines_url")
+        self.startURL = try values.decode(URL.self, forKey: "start_url")
+        self.stopURL = try values.decode(URL.self, forKey: "stop_url")
+        self.pullsURL = try values.decodeIfPresent(URL.self, forKey: "pulls_url")
+        self.recentFolders = try values.decode([String].self, forKey: "recent_folders")
+        self.runtimeConstraints = try values.decodeIfPresent(RuntimeConstraints.self, forKey: "runtime_constraints")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(environmentID, forKey: "environment_id")
+        try values.encode(owner, forKey: "owner")
+        try values.encode(billableOwner, forKey: "billable_owner")
+        try values.encode(repository, forKey: "repository")
+        try values.encodeIfPresent(machine, forKey: "machine")
+        try values.encodeIfPresent(isPrebuild, forKey: "prebuild")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(lastUsedAt, forKey: "last_used_at")
+        try values.encode(state, forKey: "state")
+        try values.encode(url, forKey: "url")
+        try values.encode(gitStatus, forKey: "git_status")
+        try values.encode(location, forKey: "location")
+        try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
+        try values.encode(webURL, forKey: "web_url")
+        try values.encode(machinesURL, forKey: "machines_url")
+        try values.encode(startURL, forKey: "start_url")
+        try values.encode(stopURL, forKey: "stop_url")
+        try values.encodeIfPresent(pullsURL, forKey: "pulls_url")
+        try values.encode(recentFolders, forKey: "recent_folders")
+        try values.encodeIfPresent(runtimeConstraints, forKey: "runtime_constraints")
     }
 }

@@ -36,6 +36,12 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
                 self.content = content
                 self.encoding = encoding
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+                try values.encodeIfPresent(encoding, forKey: "encoding")
+            }
         }
     }
 }

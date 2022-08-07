@@ -41,6 +41,11 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
             public init(content: Content) {
                 self.content = content
             }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(content, forKey: "content")
+            }
         }
     }
 }

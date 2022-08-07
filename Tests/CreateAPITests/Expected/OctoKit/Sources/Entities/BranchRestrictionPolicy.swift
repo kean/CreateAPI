@@ -54,25 +54,48 @@ public struct BranchRestrictionPolicy: Codable {
             self.isSiteAdmin = isSiteAdmin
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case login
-            case id
-            case nodeID = "node_id"
-            case avatarURL = "avatar_url"
-            case gravatarID = "gravatar_id"
-            case url
-            case htmlURL = "html_url"
-            case followersURL = "followers_url"
-            case followingURL = "following_url"
-            case gistsURL = "gists_url"
-            case starredURL = "starred_url"
-            case subscriptionsURL = "subscriptions_url"
-            case organizationsURL = "organizations_url"
-            case reposURL = "repos_url"
-            case eventsURL = "events_url"
-            case receivedEventsURL = "received_events_url"
-            case type
-            case isSiteAdmin = "site_admin"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.login = try values.decodeIfPresent(String.self, forKey: "login")
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
+            self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.followersURL = try values.decodeIfPresent(String.self, forKey: "followers_url")
+            self.followingURL = try values.decodeIfPresent(String.self, forKey: "following_url")
+            self.gistsURL = try values.decodeIfPresent(String.self, forKey: "gists_url")
+            self.starredURL = try values.decodeIfPresent(String.self, forKey: "starred_url")
+            self.subscriptionsURL = try values.decodeIfPresent(String.self, forKey: "subscriptions_url")
+            self.organizationsURL = try values.decodeIfPresent(String.self, forKey: "organizations_url")
+            self.reposURL = try values.decodeIfPresent(String.self, forKey: "repos_url")
+            self.eventsURL = try values.decodeIfPresent(String.self, forKey: "events_url")
+            self.receivedEventsURL = try values.decodeIfPresent(String.self, forKey: "received_events_url")
+            self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            self.isSiteAdmin = try values.decodeIfPresent(Bool.self, forKey: "site_admin")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(login, forKey: "login")
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+            try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(followersURL, forKey: "followers_url")
+            try values.encodeIfPresent(followingURL, forKey: "following_url")
+            try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+            try values.encodeIfPresent(starredURL, forKey: "starred_url")
+            try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+            try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+            try values.encodeIfPresent(reposURL, forKey: "repos_url")
+            try values.encodeIfPresent(eventsURL, forKey: "events_url")
+            try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
         }
     }
 
@@ -105,19 +128,36 @@ public struct BranchRestrictionPolicy: Codable {
             self.parent = parent
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case nodeID = "node_id"
-            case url
-            case htmlURL = "html_url"
-            case name
-            case slug
-            case description
-            case privacy
-            case permission
-            case membersURL = "members_url"
-            case repositoriesURL = "repositories_url"
-            case parent
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.url = try values.decodeIfPresent(String.self, forKey: "url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.slug = try values.decodeIfPresent(String.self, forKey: "slug")
+            self.description = try values.decodeIfPresent(String.self, forKey: "description")
+            self.privacy = try values.decodeIfPresent(String.self, forKey: "privacy")
+            self.permission = try values.decodeIfPresent(String.self, forKey: "permission")
+            self.membersURL = try values.decodeIfPresent(String.self, forKey: "members_url")
+            self.repositoriesURL = try values.decodeIfPresent(String.self, forKey: "repositories_url")
+            self.parent = try values.decodeIfPresent(String.self, forKey: "parent")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(url, forKey: "url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(slug, forKey: "slug")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(privacy, forKey: "privacy")
+            try values.encodeIfPresent(permission, forKey: "permission")
+            try values.encodeIfPresent(membersURL, forKey: "members_url")
+            try values.encodeIfPresent(repositoriesURL, forKey: "repositories_url")
+            try values.encodeIfPresent(parent, forKey: "parent")
         }
     }
 
@@ -197,30 +237,58 @@ public struct BranchRestrictionPolicy: Codable {
                 self.isSiteAdmin = isSiteAdmin
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case login
-                case id
-                case nodeID = "node_id"
-                case url
-                case reposURL = "repos_url"
-                case eventsURL = "events_url"
-                case hooksURL = "hooks_url"
-                case issuesURL = "issues_url"
-                case membersURL = "members_url"
-                case publicMembersURL = "public_members_url"
-                case avatarURL = "avatar_url"
-                case description
-                case gravatarID = "gravatar_id"
-                case htmlURL = "html_url"
-                case followersURL = "followers_url"
-                case followingURL = "following_url"
-                case gistsURL = "gists_url"
-                case starredURL = "starred_url"
-                case subscriptionsURL = "subscriptions_url"
-                case organizationsURL = "organizations_url"
-                case receivedEventsURL = "received_events_url"
-                case type
-                case isSiteAdmin = "site_admin"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.login = try values.decodeIfPresent(String.self, forKey: "login")
+                self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+                self.url = try values.decodeIfPresent(String.self, forKey: "url")
+                self.reposURL = try values.decodeIfPresent(String.self, forKey: "repos_url")
+                self.eventsURL = try values.decodeIfPresent(String.self, forKey: "events_url")
+                self.hooksURL = try values.decodeIfPresent(String.self, forKey: "hooks_url")
+                self.issuesURL = try values.decodeIfPresent(String.self, forKey: "issues_url")
+                self.membersURL = try values.decodeIfPresent(String.self, forKey: "members_url")
+                self.publicMembersURL = try values.decodeIfPresent(String.self, forKey: "public_members_url")
+                self.avatarURL = try values.decodeIfPresent(String.self, forKey: "avatar_url")
+                self.description = try values.decodeIfPresent(String.self, forKey: "description")
+                self.gravatarID = try values.decodeIfPresent(String.self, forKey: "gravatar_id")
+                self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+                self.followersURL = try values.decodeIfPresent(String.self, forKey: "followers_url")
+                self.followingURL = try values.decodeIfPresent(String.self, forKey: "following_url")
+                self.gistsURL = try values.decodeIfPresent(String.self, forKey: "gists_url")
+                self.starredURL = try values.decodeIfPresent(String.self, forKey: "starred_url")
+                self.subscriptionsURL = try values.decodeIfPresent(String.self, forKey: "subscriptions_url")
+                self.organizationsURL = try values.decodeIfPresent(String.self, forKey: "organizations_url")
+                self.receivedEventsURL = try values.decodeIfPresent(String.self, forKey: "received_events_url")
+                self.type = try values.decodeIfPresent(String.self, forKey: "type")
+                self.isSiteAdmin = try values.decodeIfPresent(Bool.self, forKey: "site_admin")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(login, forKey: "login")
+                try values.encodeIfPresent(id, forKey: "id")
+                try values.encodeIfPresent(nodeID, forKey: "node_id")
+                try values.encodeIfPresent(url, forKey: "url")
+                try values.encodeIfPresent(reposURL, forKey: "repos_url")
+                try values.encodeIfPresent(eventsURL, forKey: "events_url")
+                try values.encodeIfPresent(hooksURL, forKey: "hooks_url")
+                try values.encodeIfPresent(issuesURL, forKey: "issues_url")
+                try values.encodeIfPresent(membersURL, forKey: "members_url")
+                try values.encodeIfPresent(publicMembersURL, forKey: "public_members_url")
+                try values.encodeIfPresent(avatarURL, forKey: "avatar_url")
+                try values.encodeIfPresent(description, forKey: "description")
+                try values.encodeIfPresent(gravatarID, forKey: "gravatar_id")
+                try values.encodeIfPresent(htmlURL, forKey: "html_url")
+                try values.encodeIfPresent(followersURL, forKey: "followers_url")
+                try values.encodeIfPresent(followingURL, forKey: "following_url")
+                try values.encodeIfPresent(gistsURL, forKey: "gists_url")
+                try values.encodeIfPresent(starredURL, forKey: "starred_url")
+                try values.encodeIfPresent(subscriptionsURL, forKey: "subscriptions_url")
+                try values.encodeIfPresent(organizationsURL, forKey: "organizations_url")
+                try values.encodeIfPresent(receivedEventsURL, forKey: "received_events_url")
+                try values.encodeIfPresent(type, forKey: "type")
+                try values.encodeIfPresent(isSiteAdmin, forKey: "site_admin")
             }
         }
 
@@ -237,11 +305,20 @@ public struct BranchRestrictionPolicy: Codable {
                 self.singleFile = singleFile
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case metadata
-                case contents
-                case issues
-                case singleFile = "single_file"
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.metadata = try values.decodeIfPresent(String.self, forKey: "metadata")
+                self.contents = try values.decodeIfPresent(String.self, forKey: "contents")
+                self.issues = try values.decodeIfPresent(String.self, forKey: "issues")
+                self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(metadata, forKey: "metadata")
+                try values.encodeIfPresent(contents, forKey: "contents")
+                try values.encodeIfPresent(issues, forKey: "issues")
+                try values.encodeIfPresent(singleFile, forKey: "single_file")
             }
         }
 
@@ -260,19 +337,36 @@ public struct BranchRestrictionPolicy: Codable {
             self.events = events
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case id
-            case slug
-            case nodeID = "node_id"
-            case owner
-            case name
-            case description
-            case externalURL = "external_url"
-            case htmlURL = "html_url"
-            case createdAt = "created_at"
-            case updatedAt = "updated_at"
-            case permissions
-            case events
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.slug = try values.decodeIfPresent(String.self, forKey: "slug")
+            self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
+            self.owner = try values.decodeIfPresent(Owner.self, forKey: "owner")
+            self.name = try values.decodeIfPresent(String.self, forKey: "name")
+            self.description = try values.decodeIfPresent(String.self, forKey: "description")
+            self.externalURL = try values.decodeIfPresent(String.self, forKey: "external_url")
+            self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+            self.createdAt = try values.decodeIfPresent(String.self, forKey: "created_at")
+            self.updatedAt = try values.decodeIfPresent(String.self, forKey: "updated_at")
+            self.permissions = try values.decodeIfPresent(Permissions.self, forKey: "permissions")
+            self.events = try values.decodeIfPresent([String].self, forKey: "events")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(id, forKey: "id")
+            try values.encodeIfPresent(slug, forKey: "slug")
+            try values.encodeIfPresent(nodeID, forKey: "node_id")
+            try values.encodeIfPresent(owner, forKey: "owner")
+            try values.encodeIfPresent(name, forKey: "name")
+            try values.encodeIfPresent(description, forKey: "description")
+            try values.encodeIfPresent(externalURL, forKey: "external_url")
+            try values.encodeIfPresent(htmlURL, forKey: "html_url")
+            try values.encodeIfPresent(createdAt, forKey: "created_at")
+            try values.encodeIfPresent(updatedAt, forKey: "updated_at")
+            try values.encodeIfPresent(permissions, forKey: "permissions")
+            try values.encodeIfPresent(events, forKey: "events")
         }
     }
 
@@ -286,13 +380,25 @@ public struct BranchRestrictionPolicy: Codable {
         self.apps = apps
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case usersURL = "users_url"
-        case teamsURL = "teams_url"
-        case appsURL = "apps_url"
-        case users
-        case teams
-        case apps
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.usersURL = try values.decode(URL.self, forKey: "users_url")
+        self.teamsURL = try values.decode(URL.self, forKey: "teams_url")
+        self.appsURL = try values.decode(URL.self, forKey: "apps_url")
+        self.users = try values.decode([User].self, forKey: "users")
+        self.teams = try values.decode([Team].self, forKey: "teams")
+        self.apps = try values.decode([App].self, forKey: "apps")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(usersURL, forKey: "users_url")
+        try values.encode(teamsURL, forKey: "teams_url")
+        try values.encode(appsURL, forKey: "apps_url")
+        try values.encode(users, forKey: "users")
+        try values.encode(teams, forKey: "teams")
+        try values.encode(apps, forKey: "apps")
     }
 }

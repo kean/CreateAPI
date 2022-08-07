@@ -30,11 +30,20 @@ public struct Thread: Codable {
             self.type = type
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case title
-            case url
-            case latestCommentURL = "latest_comment_url"
-            case type
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.title = try values.decode(String.self, forKey: "title")
+            self.url = try values.decode(String.self, forKey: "url")
+            self.latestCommentURL = try values.decode(String.self, forKey: "latest_comment_url")
+            self.type = try values.decode(String.self, forKey: "type")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(title, forKey: "title")
+            try values.encode(url, forKey: "url")
+            try values.encode(latestCommentURL, forKey: "latest_comment_url")
+            try values.encode(type, forKey: "type")
         }
     }
 
@@ -50,15 +59,29 @@ public struct Thread: Codable {
         self.subscriptionURL = subscriptionURL
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case repository
-        case subject
-        case reason
-        case isUnread = "unread"
-        case updatedAt = "updated_at"
-        case lastReadAt = "last_read_at"
-        case url
-        case subscriptionURL = "subscription_url"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(String.self, forKey: "id")
+        self.repository = try values.decode(MinimalRepository.self, forKey: "repository")
+        self.subject = try values.decode(Subject.self, forKey: "subject")
+        self.reason = try values.decode(String.self, forKey: "reason")
+        self.isUnread = try values.decode(Bool.self, forKey: "unread")
+        self.updatedAt = try values.decode(String.self, forKey: "updated_at")
+        self.lastReadAt = try values.decodeIfPresent(String.self, forKey: "last_read_at")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.subscriptionURL = try values.decode(String.self, forKey: "subscription_url")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(repository, forKey: "repository")
+        try values.encode(subject, forKey: "subject")
+        try values.encode(reason, forKey: "reason")
+        try values.encode(isUnread, forKey: "unread")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(lastReadAt, forKey: "last_read_at")
+        try values.encode(url, forKey: "url")
+        try values.encode(subscriptionURL, forKey: "subscription_url")
     }
 }

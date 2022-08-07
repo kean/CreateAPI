@@ -61,10 +61,18 @@ public struct Import: Codable {
             self.humanName = humanName
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case vcs
-            case tfvcProject = "tfvc_project"
-            case humanName = "human_name"
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
+            self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
+            self.humanName = try values.decodeIfPresent(String.self, forKey: "human_name")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(vcs, forKey: "vcs")
+            try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+            try values.encodeIfPresent(humanName, forKey: "human_name")
         }
     }
 
@@ -94,29 +102,57 @@ public struct Import: Codable {
         self.svnRoot = svnRoot
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case vcs
-        case useLfs = "use_lfs"
-        case vcsURL = "vcs_url"
-        case svcRoot = "svc_root"
-        case tfvcProject = "tfvc_project"
-        case status
-        case statusText = "status_text"
-        case failedStep = "failed_step"
-        case errorMessage = "error_message"
-        case importPercent = "import_percent"
-        case commitCount = "commit_count"
-        case pushPercent = "push_percent"
-        case hasLargeFiles = "has_large_files"
-        case largeFilesSize = "large_files_size"
-        case largeFilesCount = "large_files_count"
-        case projectChoices = "project_choices"
-        case message
-        case authorsCount = "authors_count"
-        case url
-        case htmlURL = "html_url"
-        case authorsURL = "authors_url"
-        case repositoryURL = "repository_url"
-        case svnRoot = "svn_root"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.vcs = try values.decodeIfPresent(String.self, forKey: "vcs")
+        self.useLfs = try values.decodeIfPresent(Bool.self, forKey: "use_lfs")
+        self.vcsURL = try values.decode(String.self, forKey: "vcs_url")
+        self.svcRoot = try values.decodeIfPresent(String.self, forKey: "svc_root")
+        self.tfvcProject = try values.decodeIfPresent(String.self, forKey: "tfvc_project")
+        self.status = try values.decode(Status.self, forKey: "status")
+        self.statusText = try values.decodeIfPresent(String.self, forKey: "status_text")
+        self.failedStep = try values.decodeIfPresent(String.self, forKey: "failed_step")
+        self.errorMessage = try values.decodeIfPresent(String.self, forKey: "error_message")
+        self.importPercent = try values.decodeIfPresent(Int.self, forKey: "import_percent")
+        self.commitCount = try values.decodeIfPresent(Int.self, forKey: "commit_count")
+        self.pushPercent = try values.decodeIfPresent(Int.self, forKey: "push_percent")
+        self.hasLargeFiles = try values.decodeIfPresent(Bool.self, forKey: "has_large_files")
+        self.largeFilesSize = try values.decodeIfPresent(Int.self, forKey: "large_files_size")
+        self.largeFilesCount = try values.decodeIfPresent(Int.self, forKey: "large_files_count")
+        self.projectChoices = try values.decodeIfPresent([ProjectChoice].self, forKey: "project_choices")
+        self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        self.authorsCount = try values.decodeIfPresent(Int.self, forKey: "authors_count")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.authorsURL = try values.decode(URL.self, forKey: "authors_url")
+        self.repositoryURL = try values.decode(URL.self, forKey: "repository_url")
+        self.svnRoot = try values.decodeIfPresent(String.self, forKey: "svn_root")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(vcs, forKey: "vcs")
+        try values.encodeIfPresent(useLfs, forKey: "use_lfs")
+        try values.encode(vcsURL, forKey: "vcs_url")
+        try values.encodeIfPresent(svcRoot, forKey: "svc_root")
+        try values.encodeIfPresent(tfvcProject, forKey: "tfvc_project")
+        try values.encode(status, forKey: "status")
+        try values.encodeIfPresent(statusText, forKey: "status_text")
+        try values.encodeIfPresent(failedStep, forKey: "failed_step")
+        try values.encodeIfPresent(errorMessage, forKey: "error_message")
+        try values.encodeIfPresent(importPercent, forKey: "import_percent")
+        try values.encodeIfPresent(commitCount, forKey: "commit_count")
+        try values.encodeIfPresent(pushPercent, forKey: "push_percent")
+        try values.encodeIfPresent(hasLargeFiles, forKey: "has_large_files")
+        try values.encodeIfPresent(largeFilesSize, forKey: "large_files_size")
+        try values.encodeIfPresent(largeFilesCount, forKey: "large_files_count")
+        try values.encodeIfPresent(projectChoices, forKey: "project_choices")
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(authorsCount, forKey: "authors_count")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(authorsURL, forKey: "authors_url")
+        try values.encode(repositoryURL, forKey: "repository_url")
+        try values.encodeIfPresent(svnRoot, forKey: "svn_root")
     }
 }

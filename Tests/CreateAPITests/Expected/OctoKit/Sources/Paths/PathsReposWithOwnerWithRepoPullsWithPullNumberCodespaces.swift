@@ -43,11 +43,12 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
                 self.idleTimeoutMinutes = idleTimeoutMinutes
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case location
-                case machine
-                case workingDirectory = "working_directory"
-                case idleTimeoutMinutes = "idle_timeout_minutes"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(location, forKey: "location")
+                try values.encodeIfPresent(machine, forKey: "machine")
+                try values.encodeIfPresent(workingDirectory, forKey: "working_directory")
+                try values.encodeIfPresent(idleTimeoutMinutes, forKey: "idle_timeout_minutes")
             }
         }
     }

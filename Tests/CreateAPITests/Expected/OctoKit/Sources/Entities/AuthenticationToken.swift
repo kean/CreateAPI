@@ -42,12 +42,23 @@ public struct AuthenticationToken: Codable {
         self.repositorySelection = repositorySelection
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case token
-        case expiresAt = "expires_at"
-        case permissions
-        case repositories
-        case singleFile = "single_file"
-        case repositorySelection = "repository_selection"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.token = try values.decode(String.self, forKey: "token")
+        self.expiresAt = try values.decode(Date.self, forKey: "expires_at")
+        self.permissions = try values.decodeIfPresent([String: AnyJSON].self, forKey: "permissions")
+        self.repositories = try values.decodeIfPresent([Repository].self, forKey: "repositories")
+        self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
+        self.repositorySelection = try values.decodeIfPresent(RepositorySelection.self, forKey: "repository_selection")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(token, forKey: "token")
+        try values.encode(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encodeIfPresent(repositories, forKey: "repositories")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
     }
 }

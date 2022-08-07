@@ -11,4 +11,14 @@ public struct Topic: Codable {
     public init(names: [String]) {
         self.names = names
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.names = try values.decode([String].self, forKey: "names")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(names, forKey: "names")
+    }
 }

@@ -53,10 +53,11 @@ extension Paths.App.Installations.WithInstallationID {
                 self.permissions = permissions
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case repositories
-                case repositoryIDs = "repository_ids"
-                case permissions
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(repositories, forKey: "repositories")
+                try values.encodeIfPresent(repositoryIDs, forKey: "repository_ids")
+                try values.encodeIfPresent(permissions, forKey: "permissions")
             }
         }
     }

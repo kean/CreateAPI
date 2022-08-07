@@ -17,4 +17,11 @@ public struct Pet: Codable {
         self.name = name
         self.tag = tag
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encodeIfPresent(tag, forKey: "tag")
+    }
 }

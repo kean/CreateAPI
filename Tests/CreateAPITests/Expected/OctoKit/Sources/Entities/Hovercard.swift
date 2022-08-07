@@ -15,9 +15,31 @@ public struct Hovercard: Codable {
             self.message = message
             self.octicon = octicon
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.message = try values.decode(String.self, forKey: "message")
+            self.octicon = try values.decode(String.self, forKey: "octicon")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(message, forKey: "message")
+            try values.encode(octicon, forKey: "octicon")
+        }
     }
 
     public init(contexts: [Context]) {
         self.contexts = contexts
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.contexts = try values.decode([Context].self, forKey: "contexts")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(contexts, forKey: "contexts")
     }
 }

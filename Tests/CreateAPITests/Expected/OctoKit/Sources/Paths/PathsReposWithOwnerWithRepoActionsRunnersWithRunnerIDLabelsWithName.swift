@@ -40,9 +40,10 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID.Labels {
                 self.labels = labels
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case totalCount = "total_count"
-                case labels
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.totalCount = try values.decode(Int.self, forKey: "total_count")
+                self.labels = try values.decode([OctoKit.RunnerLabel].self, forKey: "labels")
             }
         }
     }

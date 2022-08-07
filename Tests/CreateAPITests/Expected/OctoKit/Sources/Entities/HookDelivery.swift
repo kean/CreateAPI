@@ -69,6 +69,18 @@ public struct HookDelivery: Codable {
             self.headers = headers
             self.payload = payload
         }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
+            self.payload = try values.decodeIfPresent([String: AnyJSON].self, forKey: "payload")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(headers, forKey: "headers")
+            try values.encodeIfPresent(payload, forKey: "payload")
+        }
     }
 
     public struct Response: Codable {
@@ -80,6 +92,18 @@ public struct HookDelivery: Codable {
         public init(headers: [String: AnyJSON]? = nil, payload: String? = nil) {
             self.headers = headers
             self.payload = payload
+        }
+
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.headers = try values.decodeIfPresent([String: AnyJSON].self, forKey: "headers")
+            self.payload = try values.decodeIfPresent(String.self, forKey: "payload")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(headers, forKey: "headers")
+            try values.encodeIfPresent(payload, forKey: "payload")
         }
     }
 
@@ -100,20 +124,39 @@ public struct HookDelivery: Codable {
         self.response = response
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case guid
-        case deliveredAt = "delivered_at"
-        case isRedelivery = "redelivery"
-        case duration
-        case status
-        case statusCode = "status_code"
-        case event
-        case action
-        case installationID = "installation_id"
-        case repositoryID = "repository_id"
-        case url
-        case request
-        case response
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.guid = try values.decode(String.self, forKey: "guid")
+        self.deliveredAt = try values.decode(Date.self, forKey: "delivered_at")
+        self.isRedelivery = try values.decode(Bool.self, forKey: "redelivery")
+        self.duration = try values.decode(Double.self, forKey: "duration")
+        self.status = try values.decode(String.self, forKey: "status")
+        self.statusCode = try values.decode(Int.self, forKey: "status_code")
+        self.event = try values.decode(String.self, forKey: "event")
+        self.action = try values.decodeIfPresent(String.self, forKey: "action")
+        self.installationID = try values.decodeIfPresent(Int.self, forKey: "installation_id")
+        self.repositoryID = try values.decodeIfPresent(Int.self, forKey: "repository_id")
+        self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        self.request = try values.decode(Request.self, forKey: "request")
+        self.response = try values.decode(Response.self, forKey: "response")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(guid, forKey: "guid")
+        try values.encode(deliveredAt, forKey: "delivered_at")
+        try values.encode(isRedelivery, forKey: "redelivery")
+        try values.encode(duration, forKey: "duration")
+        try values.encode(status, forKey: "status")
+        try values.encode(statusCode, forKey: "status_code")
+        try values.encode(event, forKey: "event")
+        try values.encodeIfPresent(action, forKey: "action")
+        try values.encodeIfPresent(installationID, forKey: "installation_id")
+        try values.encodeIfPresent(repositoryID, forKey: "repository_id")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encode(request, forKey: "request")
+        try values.encode(response, forKey: "response")
     }
 }

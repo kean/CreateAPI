@@ -38,10 +38,19 @@ public struct PagesHTTPSCertificate: Codable {
         self.expiresAt = expiresAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case state
-        case description
-        case domains
-        case expiresAt = "expires_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.state = try values.decode(State.self, forKey: "state")
+        self.description = try values.decode(String.self, forKey: "description")
+        self.domains = try values.decode([String].self, forKey: "domains")
+        self.expiresAt = try values.decodeIfPresent(NaiveDate.self, forKey: "expires_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(state, forKey: "state")
+        try values.encode(description, forKey: "description")
+        try values.encode(domains, forKey: "domains")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
     }
 }

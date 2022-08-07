@@ -40,16 +40,31 @@ public struct Artifact: Codable {
         self.updatedAt = updatedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case name
-        case sizeInBytes = "size_in_bytes"
-        case url
-        case archiveDownloadURL = "archive_download_url"
-        case isExpired = "expired"
-        case createdAt = "created_at"
-        case expiresAt = "expires_at"
-        case updatedAt = "updated_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.sizeInBytes = try values.decode(Int.self, forKey: "size_in_bytes")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.archiveDownloadURL = try values.decode(String.self, forKey: "archive_download_url")
+        self.isExpired = try values.decode(Bool.self, forKey: "expired")
+        self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
+        self.expiresAt = try values.decodeIfPresent(Date.self, forKey: "expires_at")
+        self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(name, forKey: "name")
+        try values.encode(sizeInBytes, forKey: "size_in_bytes")
+        try values.encode(url, forKey: "url")
+        try values.encode(archiveDownloadURL, forKey: "archive_download_url")
+        try values.encode(isExpired, forKey: "expired")
+        try values.encodeIfPresent(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(updatedAt, forKey: "updated_at")
     }
 }

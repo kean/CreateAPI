@@ -87,24 +87,47 @@ public struct TeamFull: Codable {
         self.ldapDn = ldapDn
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case nodeID = "node_id"
-        case url
-        case htmlURL = "html_url"
-        case name
-        case slug
-        case description
-        case privacy
-        case permission
-        case membersURL = "members_url"
-        case repositoriesURL = "repositories_url"
-        case parent
-        case membersCount = "members_count"
-        case reposCount = "repos_count"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case organization
-        case ldapDn = "ldap_dn"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.slug = try values.decode(String.self, forKey: "slug")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.privacy = try values.decodeIfPresent(Privacy.self, forKey: "privacy")
+        self.permission = try values.decode(String.self, forKey: "permission")
+        self.membersURL = try values.decode(String.self, forKey: "members_url")
+        self.repositoriesURL = try values.decode(URL.self, forKey: "repositories_url")
+        self.parent = try values.decodeIfPresent(TeamSimple.self, forKey: "parent")
+        self.membersCount = try values.decode(Int.self, forKey: "members_count")
+        self.reposCount = try values.decode(Int.self, forKey: "repos_count")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.organization = try values.decode(OrganizationFull.self, forKey: "organization")
+        self.ldapDn = try values.decodeIfPresent(String.self, forKey: "ldap_dn")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(name, forKey: "name")
+        try values.encode(slug, forKey: "slug")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(privacy, forKey: "privacy")
+        try values.encode(permission, forKey: "permission")
+        try values.encode(membersURL, forKey: "members_url")
+        try values.encode(repositoriesURL, forKey: "repositories_url")
+        try values.encodeIfPresent(parent, forKey: "parent")
+        try values.encode(membersCount, forKey: "members_count")
+        try values.encode(reposCount, forKey: "repos_count")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(organization, forKey: "organization")
+        try values.encodeIfPresent(ldapDn, forKey: "ldap_dn")
     }
 }

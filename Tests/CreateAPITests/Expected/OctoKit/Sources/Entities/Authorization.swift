@@ -36,10 +36,18 @@ public struct Authorization: Codable {
             self.url = url
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case clientID = "client_id"
-            case name
-            case url
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.clientID = try values.decode(String.self, forKey: "client_id")
+            self.name = try values.decode(String.self, forKey: "name")
+            self.url = try values.decode(URL.self, forKey: "url")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(clientID, forKey: "client_id")
+            try values.encode(name, forKey: "name")
+            try values.encode(url, forKey: "url")
         }
     }
 
@@ -61,21 +69,41 @@ public struct Authorization: Codable {
         self.expiresAt = expiresAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case url
-        case scopes
-        case token
-        case tokenLastEight = "token_last_eight"
-        case hashedToken = "hashed_token"
-        case app
-        case note
-        case noteURL = "note_url"
-        case updatedAt = "updated_at"
-        case createdAt = "created_at"
-        case fingerprint
-        case user
-        case installation
-        case expiresAt = "expires_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.scopes = try values.decodeIfPresent([String].self, forKey: "scopes")
+        self.token = try values.decode(String.self, forKey: "token")
+        self.tokenLastEight = try values.decodeIfPresent(String.self, forKey: "token_last_eight")
+        self.hashedToken = try values.decodeIfPresent(String.self, forKey: "hashed_token")
+        self.app = try values.decode(App.self, forKey: "app")
+        self.note = try values.decodeIfPresent(String.self, forKey: "note")
+        self.noteURL = try values.decodeIfPresent(URL.self, forKey: "note_url")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.fingerprint = try values.decodeIfPresent(String.self, forKey: "fingerprint")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.installation = try values.decodeIfPresent(ScopedInstallation.self, forKey: "installation")
+        self.expiresAt = try values.decodeIfPresent(Date.self, forKey: "expires_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(url, forKey: "url")
+        try values.encodeIfPresent(scopes, forKey: "scopes")
+        try values.encode(token, forKey: "token")
+        try values.encodeIfPresent(tokenLastEight, forKey: "token_last_eight")
+        try values.encodeIfPresent(hashedToken, forKey: "hashed_token")
+        try values.encode(app, forKey: "app")
+        try values.encodeIfPresent(note, forKey: "note")
+        try values.encodeIfPresent(noteURL, forKey: "note_url")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encodeIfPresent(fingerprint, forKey: "fingerprint")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encodeIfPresent(installation, forKey: "installation")
+        try values.encodeIfPresent(expiresAt, forKey: "expires_at")
     }
 }

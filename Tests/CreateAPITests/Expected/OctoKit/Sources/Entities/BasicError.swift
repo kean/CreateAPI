@@ -17,10 +17,19 @@ public struct BasicError: Codable {
         self.status = status
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case message
-        case documentationURL = "documentation_url"
-        case url
-        case status
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.message = try values.decodeIfPresent(String.self, forKey: "message")
+        self.documentationURL = try values.decodeIfPresent(String.self, forKey: "documentation_url")
+        self.url = try values.decodeIfPresent(String.self, forKey: "url")
+        self.status = try values.decodeIfPresent(String.self, forKey: "status")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(message, forKey: "message")
+        try values.encodeIfPresent(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(url, forKey: "url")
+        try values.encodeIfPresent(status, forKey: "status")
     }
 }

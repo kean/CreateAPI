@@ -59,17 +59,33 @@ public struct Package: Codable {
         self.updatedAt = updatedAt
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case packageType = "package_type"
-        case url
-        case htmlURL = "html_url"
-        case versionCount = "version_count"
-        case visibility
-        case owner
-        case repository
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.packageType = try values.decode(PackageType.self, forKey: "package_type")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.htmlURL = try values.decode(String.self, forKey: "html_url")
+        self.versionCount = try values.decode(Int.self, forKey: "version_count")
+        self.visibility = try values.decode(Visibility.self, forKey: "visibility")
+        self.owner = try values.decodeIfPresent(SimpleUser.self, forKey: "owner")
+        self.repository = try values.decodeIfPresent(MinimalRepository.self, forKey: "repository")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(packageType, forKey: "package_type")
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(versionCount, forKey: "version_count")
+        try values.encode(visibility, forKey: "visibility")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(repository, forKey: "repository")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
     }
 }

@@ -43,12 +43,22 @@ public struct BaseGist: Codable {
             self.size = size
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case filename
-            case type
-            case language
-            case rawURL = "raw_url"
-            case size
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.filename = try values.decodeIfPresent(String.self, forKey: "filename")
+            self.type = try values.decodeIfPresent(String.self, forKey: "type")
+            self.language = try values.decodeIfPresent(String.self, forKey: "language")
+            self.rawURL = try values.decodeIfPresent(String.self, forKey: "raw_url")
+            self.size = try values.decodeIfPresent(Int.self, forKey: "size")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encodeIfPresent(filename, forKey: "filename")
+            try values.encodeIfPresent(type, forKey: "type")
+            try values.encodeIfPresent(language, forKey: "language")
+            try values.encodeIfPresent(rawURL, forKey: "raw_url")
+            try values.encodeIfPresent(size, forKey: "size")
         }
     }
 
@@ -75,26 +85,51 @@ public struct BaseGist: Codable {
         self.history = history
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case forksURL = "forks_url"
-        case commitsURL = "commits_url"
-        case id
-        case nodeID = "node_id"
-        case gitPullURL = "git_pull_url"
-        case gitPushURL = "git_push_url"
-        case htmlURL = "html_url"
-        case files
-        case isPublic = "public"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case description
-        case comments
-        case user
-        case commentsURL = "comments_url"
-        case owner
-        case isTruncated = "truncated"
-        case forks
-        case history
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.forksURL = try values.decode(URL.self, forKey: "forks_url")
+        self.commitsURL = try values.decode(URL.self, forKey: "commits_url")
+        self.id = try values.decode(String.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.gitPullURL = try values.decode(URL.self, forKey: "git_pull_url")
+        self.gitPushURL = try values.decode(URL.self, forKey: "git_push_url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.files = try values.decode([String: File].self, forKey: "files")
+        self.isPublic = try values.decode(Bool.self, forKey: "public")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.comments = try values.decode(Int.self, forKey: "comments")
+        self.user = try values.decodeIfPresent(SimpleUser.self, forKey: "user")
+        self.commentsURL = try values.decode(URL.self, forKey: "comments_url")
+        self.owner = try values.decodeIfPresent(SimpleUser.self, forKey: "owner")
+        self.isTruncated = try values.decodeIfPresent(Bool.self, forKey: "truncated")
+        self.forks = try values.decodeIfPresent([AnyJSON].self, forKey: "forks")
+        self.history = try values.decodeIfPresent([AnyJSON].self, forKey: "history")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(forksURL, forKey: "forks_url")
+        try values.encode(commitsURL, forKey: "commits_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(gitPullURL, forKey: "git_pull_url")
+        try values.encode(gitPushURL, forKey: "git_push_url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(files, forKey: "files")
+        try values.encode(isPublic, forKey: "public")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(comments, forKey: "comments")
+        try values.encodeIfPresent(user, forKey: "user")
+        try values.encode(commentsURL, forKey: "comments_url")
+        try values.encodeIfPresent(owner, forKey: "owner")
+        try values.encodeIfPresent(isTruncated, forKey: "truncated")
+        try values.encodeIfPresent(forks, forKey: "forks")
+        try values.encodeIfPresent(history, forKey: "history")
     }
 }

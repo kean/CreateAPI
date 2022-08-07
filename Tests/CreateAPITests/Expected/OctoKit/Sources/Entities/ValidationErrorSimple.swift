@@ -15,9 +15,17 @@ public struct ValidationErrorSimple: Codable {
         self.errors = errors
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case message
-        case documentationURL = "documentation_url"
-        case errors
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.message = try values.decode(String.self, forKey: "message")
+        self.documentationURL = try values.decode(String.self, forKey: "documentation_url")
+        self.errors = try values.decodeIfPresent([String].self, forKey: "errors")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(message, forKey: "message")
+        try values.encode(documentationURL, forKey: "documentation_url")
+        try values.encodeIfPresent(errors, forKey: "errors")
     }
 }

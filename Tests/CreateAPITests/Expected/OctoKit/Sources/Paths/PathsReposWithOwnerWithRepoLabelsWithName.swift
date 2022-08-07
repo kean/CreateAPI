@@ -43,10 +43,11 @@ extension Paths.Repos.WithOwner.WithRepo.Labels {
                 self.description = description
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case newName = "new_name"
-                case color
-                case description
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(newName, forKey: "new_name")
+                try values.encodeIfPresent(color, forKey: "color")
+                try values.encodeIfPresent(description, forKey: "description")
             }
         }
 

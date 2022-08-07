@@ -46,14 +46,27 @@ public struct InstallationToken: Codable {
         self.singleFilePaths = singleFilePaths
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case token
-        case expiresAt = "expires_at"
-        case permissions
-        case repositorySelection = "repository_selection"
-        case repositories
-        case singleFile = "single_file"
-        case hasMultipleSingleFiles = "has_multiple_single_files"
-        case singleFilePaths = "single_file_paths"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.token = try values.decode(String.self, forKey: "token")
+        self.expiresAt = try values.decode(String.self, forKey: "expires_at")
+        self.permissions = try values.decodeIfPresent(AppPermissions.self, forKey: "permissions")
+        self.repositorySelection = try values.decodeIfPresent(RepositorySelection.self, forKey: "repository_selection")
+        self.repositories = try values.decodeIfPresent([Repository].self, forKey: "repositories")
+        self.singleFile = try values.decodeIfPresent(String.self, forKey: "single_file")
+        self.hasMultipleSingleFiles = try values.decodeIfPresent(Bool.self, forKey: "has_multiple_single_files")
+        self.singleFilePaths = try values.decodeIfPresent([String].self, forKey: "single_file_paths")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(token, forKey: "token")
+        try values.encode(expiresAt, forKey: "expires_at")
+        try values.encodeIfPresent(permissions, forKey: "permissions")
+        try values.encodeIfPresent(repositorySelection, forKey: "repository_selection")
+        try values.encodeIfPresent(repositories, forKey: "repositories")
+        try values.encodeIfPresent(singleFile, forKey: "single_file")
+        try values.encodeIfPresent(hasMultipleSingleFiles, forKey: "has_multiple_single_files")
+        try values.encodeIfPresent(singleFilePaths, forKey: "single_file_paths")
     }
 }

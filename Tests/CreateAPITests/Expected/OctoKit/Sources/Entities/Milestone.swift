@@ -70,22 +70,43 @@ public struct Milestone: Codable {
         self.dueOn = dueOn
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case url
-        case htmlURL = "html_url"
-        case labelsURL = "labels_url"
-        case id
-        case nodeID = "node_id"
-        case number
-        case state
-        case title
-        case description
-        case creator
-        case openIssues = "open_issues"
-        case closedIssues = "closed_issues"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case closedAt = "closed_at"
-        case dueOn = "due_on"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.url = try values.decode(URL.self, forKey: "url")
+        self.htmlURL = try values.decode(URL.self, forKey: "html_url")
+        self.labelsURL = try values.decode(URL.self, forKey: "labels_url")
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.nodeID = try values.decode(String.self, forKey: "node_id")
+        self.number = try values.decode(Int.self, forKey: "number")
+        self.state = try values.decode(State.self, forKey: "state")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
+        self.openIssues = try values.decode(Int.self, forKey: "open_issues")
+        self.closedIssues = try values.decode(Int.self, forKey: "closed_issues")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.closedAt = try values.decodeIfPresent(Date.self, forKey: "closed_at")
+        self.dueOn = try values.decodeIfPresent(Date.self, forKey: "due_on")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(url, forKey: "url")
+        try values.encode(htmlURL, forKey: "html_url")
+        try values.encode(labelsURL, forKey: "labels_url")
+        try values.encode(id, forKey: "id")
+        try values.encode(nodeID, forKey: "node_id")
+        try values.encode(number, forKey: "number")
+        try values.encode(state, forKey: "state")
+        try values.encode(title, forKey: "title")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encodeIfPresent(creator, forKey: "creator")
+        try values.encode(openIssues, forKey: "open_issues")
+        try values.encode(closedIssues, forKey: "closed_issues")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(closedAt, forKey: "closed_at")
+        try values.encodeIfPresent(dueOn, forKey: "due_on")
     }
 }

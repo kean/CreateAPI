@@ -59,14 +59,15 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
                 self.discussionCategoryName = discussionCategoryName
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case tagName = "tag_name"
-                case targetCommitish = "target_commitish"
-                case name
-                case body
-                case isDraft = "draft"
-                case isPrerelease = "prerelease"
-                case discussionCategoryName = "discussion_category_name"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tagName, forKey: "tag_name")
+                try values.encodeIfPresent(targetCommitish, forKey: "target_commitish")
+                try values.encodeIfPresent(name, forKey: "name")
+                try values.encodeIfPresent(body, forKey: "body")
+                try values.encodeIfPresent(isDraft, forKey: "draft")
+                try values.encodeIfPresent(isPrerelease, forKey: "prerelease")
+                try values.encodeIfPresent(discussionCategoryName, forKey: "discussion_category_name")
             }
         }
 

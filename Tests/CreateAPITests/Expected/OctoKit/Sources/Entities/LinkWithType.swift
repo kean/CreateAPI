@@ -13,4 +13,16 @@ public struct LinkWithType: Codable {
         self.href = href
         self.type = type
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.href = try values.decode(String.self, forKey: "href")
+        self.type = try values.decode(String.self, forKey: "type")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(href, forKey: "href")
+        try values.encode(type, forKey: "type")
+    }
 }

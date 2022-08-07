@@ -9,4 +9,9 @@ public struct Store: Codable {
     public init(pets: [Pet]) {
         self.pets = pets
     }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(pets, forKey: "pets")
+    }
 }

@@ -56,6 +56,16 @@ public struct PackageVersion: Codable {
             public init(tags: [String]) {
                 self.tags = tags
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.tags = try values.decode([String].self, forKey: "tags")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(tags, forKey: "tags")
+            }
         }
 
         /// Docker Metadata
@@ -67,6 +77,18 @@ public struct PackageVersion: Codable {
                 self.tag = tag
                 self.tags = tags
             }
+
+            public init(from decoder: Decoder) throws {
+                let values = try decoder.container(keyedBy: StringCodingKey.self)
+                self.tag = try values.decodeIfPresent([String].self, forKey: "tag")
+                self.tags = try values.decode(AnyJSON.self, forKey: "tags")
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(tag, forKey: "tag")
+                try values.encode(tags, forKey: "tags")
+            }
         }
 
         public init(packageType: PackageType, container: Container? = nil, docker: Docker? = nil) {
@@ -75,10 +97,18 @@ public struct PackageVersion: Codable {
             self.docker = docker
         }
 
-        private enum CodingKeys: String, CodingKey {
-            case packageType = "package_type"
-            case container
-            case docker
+        public init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: StringCodingKey.self)
+            self.packageType = try values.decode(PackageType.self, forKey: "package_type")
+            self.container = try values.decodeIfPresent(Container.self, forKey: "container")
+            self.docker = try values.decodeIfPresent(Docker.self, forKey: "docker")
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var values = encoder.container(keyedBy: StringCodingKey.self)
+            try values.encode(packageType, forKey: "package_type")
+            try values.encodeIfPresent(container, forKey: "container")
+            try values.encodeIfPresent(docker, forKey: "docker")
         }
     }
 
@@ -96,17 +126,33 @@ public struct PackageVersion: Codable {
         self.metadata = metadata
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case url
-        case packageHTMLURL = "package_html_url"
-        case htmlURL = "html_url"
-        case license
-        case description
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-        case deletedAt = "deleted_at"
-        case metadata
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.id = try values.decode(Int.self, forKey: "id")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.url = try values.decode(String.self, forKey: "url")
+        self.packageHTMLURL = try values.decode(String.self, forKey: "package_html_url")
+        self.htmlURL = try values.decodeIfPresent(String.self, forKey: "html_url")
+        self.license = try values.decodeIfPresent(String.self, forKey: "license")
+        self.description = try values.decodeIfPresent(String.self, forKey: "description")
+        self.createdAt = try values.decode(Date.self, forKey: "created_at")
+        self.updatedAt = try values.decode(Date.self, forKey: "updated_at")
+        self.deletedAt = try values.decodeIfPresent(Date.self, forKey: "deleted_at")
+        self.metadata = try values.decodeIfPresent(Metadata.self, forKey: "metadata")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(id, forKey: "id")
+        try values.encode(name, forKey: "name")
+        try values.encode(url, forKey: "url")
+        try values.encode(packageHTMLURL, forKey: "package_html_url")
+        try values.encodeIfPresent(htmlURL, forKey: "html_url")
+        try values.encodeIfPresent(license, forKey: "license")
+        try values.encodeIfPresent(description, forKey: "description")
+        try values.encode(createdAt, forKey: "created_at")
+        try values.encode(updatedAt, forKey: "updated_at")
+        try values.encodeIfPresent(deletedAt, forKey: "deleted_at")
+        try values.encodeIfPresent(metadata, forKey: "metadata")
     }
 }

@@ -79,9 +79,10 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                         self.appID = appID
                     }
 
-                    private enum CodingKeys: String, CodingKey {
-                        case context
-                        case appID = "app_id"
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encode(context, forKey: "context")
+                        try values.encodeIfPresent(appID, forKey: "app_id")
                     }
                 }
 
@@ -91,10 +92,11 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.checks = checks
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case isStrict = "strict"
-                    case contexts
-                    case checks
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(isStrict, forKey: "strict")
+                    try values.encode(contexts, forKey: "contexts")
+                    try values.encodeIfPresent(checks, forKey: "checks")
                 }
             }
 
@@ -120,6 +122,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                         self.users = users
                         self.teams = teams
                     }
+
+                    public func encode(to encoder: Encoder) throws {
+                        var values = encoder.container(keyedBy: StringCodingKey.self)
+                        try values.encodeIfPresent(users, forKey: "users")
+                        try values.encodeIfPresent(teams, forKey: "teams")
+                    }
                 }
 
                 public init(dismissalRestrictions: DismissalRestrictions? = nil, dismissStaleReviews: Bool? = nil, requireCodeOwnerReviews: Bool? = nil, requiredApprovingReviewCount: Int? = nil) {
@@ -129,11 +137,12 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.requiredApprovingReviewCount = requiredApprovingReviewCount
                 }
 
-                private enum CodingKeys: String, CodingKey {
-                    case dismissalRestrictions = "dismissal_restrictions"
-                    case dismissStaleReviews = "dismiss_stale_reviews"
-                    case requireCodeOwnerReviews = "require_code_owner_reviews"
-                    case requiredApprovingReviewCount = "required_approving_review_count"
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(dismissalRestrictions, forKey: "dismissal_restrictions")
+                    try values.encodeIfPresent(dismissStaleReviews, forKey: "dismiss_stale_reviews")
+                    try values.encodeIfPresent(requireCodeOwnerReviews, forKey: "require_code_owner_reviews")
+                    try values.encodeIfPresent(requiredApprovingReviewCount, forKey: "required_approving_review_count")
                 }
             }
 
@@ -151,6 +160,13 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                     self.teams = teams
                     self.apps = apps
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(users, forKey: "users")
+                    try values.encode(teams, forKey: "teams")
+                    try values.encodeIfPresent(apps, forKey: "apps")
+                }
             }
 
             public init(requiredStatusChecks: RequiredStatusChecks? = nil, enforceAdmins: Bool? = nil, requiredPullRequestReviews: RequiredPullRequestReviews? = nil, restrictions: Restrictions? = nil, isRequiredLinearHistory: Bool? = nil, allowForcePushes: Bool? = nil, allowDeletions: Bool? = nil, isRequiredConversationResolution: Bool? = nil) {
@@ -164,15 +180,16 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
                 self.isRequiredConversationResolution = isRequiredConversationResolution
             }
 
-            private enum CodingKeys: String, CodingKey {
-                case requiredStatusChecks = "required_status_checks"
-                case enforceAdmins = "enforce_admins"
-                case requiredPullRequestReviews = "required_pull_request_reviews"
-                case restrictions
-                case isRequiredLinearHistory = "required_linear_history"
-                case allowForcePushes = "allow_force_pushes"
-                case allowDeletions = "allow_deletions"
-                case isRequiredConversationResolution = "required_conversation_resolution"
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encodeIfPresent(requiredStatusChecks, forKey: "required_status_checks")
+                try values.encodeIfPresent(enforceAdmins, forKey: "enforce_admins")
+                try values.encodeIfPresent(requiredPullRequestReviews, forKey: "required_pull_request_reviews")
+                try values.encodeIfPresent(restrictions, forKey: "restrictions")
+                try values.encodeIfPresent(isRequiredLinearHistory, forKey: "required_linear_history")
+                try values.encodeIfPresent(allowForcePushes, forKey: "allow_force_pushes")
+                try values.encodeIfPresent(allowDeletions, forKey: "allow_deletions")
+                try values.encodeIfPresent(isRequiredConversationResolution, forKey: "required_conversation_resolution")
             }
         }
 

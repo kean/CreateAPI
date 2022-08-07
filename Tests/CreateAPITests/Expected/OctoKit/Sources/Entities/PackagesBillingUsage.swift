@@ -18,9 +18,17 @@ public struct PackagesBillingUsage: Codable {
         self.includedGigabytesBandwidth = includedGigabytesBandwidth
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case totalGigabytesBandwidthUsed = "total_gigabytes_bandwidth_used"
-        case totalPaidGigabytesBandwidthUsed = "total_paid_gigabytes_bandwidth_used"
-        case includedGigabytesBandwidth = "included_gigabytes_bandwidth"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.totalGigabytesBandwidthUsed = try values.decode(Int.self, forKey: "total_gigabytes_bandwidth_used")
+        self.totalPaidGigabytesBandwidthUsed = try values.decode(Int.self, forKey: "total_paid_gigabytes_bandwidth_used")
+        self.includedGigabytesBandwidth = try values.decode(Int.self, forKey: "included_gigabytes_bandwidth")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(totalGigabytesBandwidthUsed, forKey: "total_gigabytes_bandwidth_used")
+        try values.encode(totalPaidGigabytesBandwidthUsed, forKey: "total_paid_gigabytes_bandwidth_used")
+        try values.encode(includedGigabytesBandwidth, forKey: "included_gigabytes_bandwidth")
     }
 }

@@ -30,12 +30,23 @@ public struct Pet: Codable {
         self.state = state
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case category
-        case name
-        case photoURLs = "photoUrls"
-        case tags
-        case state = "status"
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.category = try values.decodeIfPresent(Category.self, forKey: "category")
+        self.name = try values.decode(String.self, forKey: "name")
+        self.photoURLs = try values.decode([String].self, forKey: "photoUrls")
+        self.tags = try values.decodeIfPresent([Tag].self, forKey: "tags")
+        self.state = try values.decodeIfPresent(Status.self, forKey: "status")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encodeIfPresent(identifier, forKey: "id")
+        try values.encodeIfPresent(category, forKey: "category")
+        try values.encode(name, forKey: "name")
+        try values.encode(photoURLs, forKey: "photoUrls")
+        try values.encodeIfPresent(tags, forKey: "tags")
+        try values.encodeIfPresent(state, forKey: "status")
     }
 }

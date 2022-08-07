@@ -20,4 +20,20 @@ public struct ContentTraffic: Codable {
         self.count = count
         self.uniques = uniques
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.path = try values.decode(String.self, forKey: "path")
+        self.title = try values.decode(String.self, forKey: "title")
+        self.count = try values.decode(Int.self, forKey: "count")
+        self.uniques = try values.decode(Int.self, forKey: "uniques")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(path, forKey: "path")
+        try values.encode(title, forKey: "title")
+        try values.encode(count, forKey: "count")
+        try values.encode(uniques, forKey: "uniques")
+    }
 }

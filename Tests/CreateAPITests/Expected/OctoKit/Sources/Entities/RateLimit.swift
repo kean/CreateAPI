@@ -16,4 +16,20 @@ public struct RateLimit: Codable {
         self.reset = reset
         self.used = used
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: StringCodingKey.self)
+        self.limit = try values.decode(Int.self, forKey: "limit")
+        self.remaining = try values.decode(Int.self, forKey: "remaining")
+        self.reset = try values.decode(Int.self, forKey: "reset")
+        self.used = try values.decode(Int.self, forKey: "used")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: StringCodingKey.self)
+        try values.encode(limit, forKey: "limit")
+        try values.encode(remaining, forKey: "remaining")
+        try values.encode(reset, forKey: "reset")
+        try values.encode(used, forKey: "used")
+    }
 }

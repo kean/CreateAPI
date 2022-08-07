@@ -120,6 +120,13 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             /// The author of the file. Default: The `committer` or the authenticated user if you omit `committer`.
@@ -136,6 +143,13 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.email = email
                     self.date = date
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encode(name, forKey: "name")
+                    try values.encode(email, forKey: "email")
+                    try values.encodeIfPresent(date, forKey: "date")
+                }
             }
 
             public init(message: String, content: String, sha: String? = nil, branch: String? = nil, committer: Committer? = nil, author: Author? = nil) {
@@ -145,6 +159,16 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.branch = branch
                 self.committer = committer
                 self.author = author
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(content, forKey: "content")
+                try values.encodeIfPresent(sha, forKey: "sha")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(author, forKey: "author")
             }
         }
 
@@ -186,6 +210,12 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.name = name
                     self.email = email
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                }
             }
 
             /// Object containing information about the author.
@@ -199,6 +229,12 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                     self.name = name
                     self.email = email
                 }
+
+                public func encode(to encoder: Encoder) throws {
+                    var values = encoder.container(keyedBy: StringCodingKey.self)
+                    try values.encodeIfPresent(name, forKey: "name")
+                    try values.encodeIfPresent(email, forKey: "email")
+                }
             }
 
             public init(message: String, sha: String, branch: String? = nil, committer: Committer? = nil, author: Author? = nil) {
@@ -207,6 +243,15 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 self.branch = branch
                 self.committer = committer
                 self.author = author
+            }
+
+            public func encode(to encoder: Encoder) throws {
+                var values = encoder.container(keyedBy: StringCodingKey.self)
+                try values.encode(message, forKey: "message")
+                try values.encode(sha, forKey: "sha")
+                try values.encodeIfPresent(branch, forKey: "branch")
+                try values.encodeIfPresent(committer, forKey: "committer")
+                try values.encodeIfPresent(author, forKey: "author")
             }
         }
     }
