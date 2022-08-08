@@ -30,14 +30,16 @@ public final class GenerateOptions {
 public extension GenerateOptions {
     convenience init(
         fileURL: URL?,
+        overrides: [OptionOverride] = [],
         process: (inout ConfigOptions) -> Void = { _ in }
     ) throws {
         let data = try fileURL.flatMap { try Data(contentsOf: $0) }
-        try self.init(data: data, process: process)
+        try self.init(data: data, overrides: overrides, process: process)
     }
 
     convenience init(
         data: Data?,
+        overrides: [OptionOverride] = [],
         process: (inout ConfigOptions) -> Void = { _ in }
     ) throws {
         // Configure the decoder and issue reporting
@@ -48,9 +50,9 @@ public extension GenerateOptions {
         // Parse the options being sure to record any issues
         var configOptions: ConfigOptions
         if let data = data {
-            configOptions = try .parse(data, decoder: decoder, issueHandler: issueHandler)
+            configOptions = try .parse(data, overrides: overrides, decoder: decoder, issueHandler: issueHandler)
         } else {
-            configOptions = .default
+            configOptions = try .parse(overrides: overrides, decoder: decoder, issueHandler: issueHandler)
         }
 
         // Provide an opportunity to make any required mutations
