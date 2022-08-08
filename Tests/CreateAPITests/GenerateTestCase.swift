@@ -21,6 +21,7 @@ class GenerateTestCase: XCTestCase {
     }
     
     var temp: TemporaryDirectory!
+    let snapshotter: Snapshotter = .shared
     
     override func setUp() {
         super.setUp()
@@ -40,13 +41,12 @@ class GenerateTestCase: XCTestCase {
         arguments: [String] = [],
         configuration: String? = nil
     ) throws {
-        let output = temp.url
+        let outputURL = temp.url
             .appendingPathComponent("Output")
-            .path
 
         // Append the output, config and spec to the arguments passed
         var arguments = arguments
-        arguments.append(contentsOf: ["--output", output])
+        arguments.append(contentsOf: ["--output", outputURL.path])
         if let configuration = configuration {
             arguments.append(contentsOf: ["--config", self.config(configuration, ext: "yml")])
         }
@@ -56,7 +56,7 @@ class GenerateTestCase: XCTestCase {
         try generate(arguments)
 
         // Then the output should match what was generated
-        try compare(expected: name, actual: output)
+        try snapshotter.processSnapshot(at: outputURL, against: name)
     }
 
     func generate(_ arguments: [String]) throws {
