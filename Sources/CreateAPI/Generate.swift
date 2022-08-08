@@ -17,8 +17,11 @@ struct Generate: ParsableCommand {
     @Option(help: "The output folder")
     var output = "./.create-api/"
 
-    @Option(help: "The path to generator configuration. If not present, the command will look for .create-api.yaml in the current directory.")
-    var config = "./.create-api.yaml"
+    @Option(help: ArgumentHelp("The path to generator configuration.", discussion: """
+        If not provided, the command will automatically try using .create-api.yaml \
+        in the current directory if it exists.
+        """))
+    var config = ConfigFileLocation()
 
     @Flag(help: ArgumentHelp("Merge Entities and Paths into single output files", discussion: """
         Merging the source files offers a compact output, but prevents the compiler \
@@ -68,7 +71,8 @@ struct Generate: ParsableCommand {
         Benchmark.isEnabled = measure
         #if os(macOS)
         if watch {
-            _ = try Watcher(paths: [config, input], run: _run)
+            let paths = [try config.fileURL?.path, input].compactMap { $0 }
+            _ = try Watcher(paths: paths, run: _run)
             RunLoop.main.run()
             return
         }
@@ -121,20 +125,10 @@ struct Generate: ParsableCommand {
     }
 
     private func readOptions() throws -> GenerateOptions {
-        let url = URL(filePath: config)
-
-        guard Self.supportedFileFormats.contains(url.pathExtension) else {
-            let extensions = Self.supportedFileFormats.map({ "`\($0)`" }).joined(separator: ", ")
-            throw GeneratorError("The file must have one of the following extensions: \(extensions).")
-        }
-
-        // TODO: Make it clearer that the file failed to load
-        guard let data = try? Data(contentsOf: url), !data.isEmpty else {
-            return .default
-        }
+        let url = try config.fileURL
 
         do {
-            let options = try GenerateOptions(data: data) { options in
+            let options = try GenerateOptions(fileURL: url) { options in
                 options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
                 options.entities.exclude = Set(options.entities.exclude.map {
                     EntityExclude(name: Template(arguments.entityNameTemplate).substitute($0.name), property: $0.property)
@@ -147,7 +141,7 @@ struct Generate: ParsableCommand {
             }
 
             if strict && !options.warnings.isEmpty {
-                throw GeneratorError("Issues were detected in \(url.path)")
+                throw GeneratorError("Issues were detected in \(url?.path ?? "nil")")
             }
 
             return options
