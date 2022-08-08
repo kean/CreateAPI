@@ -1,4 +1,4 @@
-import XCTest
+import Foundation
 
 struct TemporaryDirectory {
     let url: URL
