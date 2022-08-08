@@ -1,4 +1,5 @@
 import ArgumentParser
+import struct ConfigurationParser.OptionOverride
 import CreateOptions
 import OpenAPIKit30
 import Foundation
@@ -22,6 +23,19 @@ struct Generate: ParsableCommand {
         in the current directory if it exists.
         """))
     var config = ConfigFileLocation()
+
+    @Option(help: ArgumentHelp("Options to be applied when generating.", discussion: """
+        In scenarios where you need to customize behaviour when invoking the \
+        generator, use this option to specify individual overrides. For example:
+
+        --option "entities.filenameTemplate: '%0DTO.swift'"
+
+        You can specify multiple --option arguments and the value of each one \
+        must match the 'keyPath:value' format above where keyPath is a dot \
+        separated path to the option and value is the yaml/json representation \
+        of the option.
+        """))
+    var option: [OptionOverride] = []
 
     @Flag(help: ArgumentHelp("Merge Entities and Paths into single output files", discussion: """
         Merging the source files offers a compact output, but prevents the compiler \
@@ -135,7 +149,7 @@ struct Generate: ParsableCommand {
         let url = try config.fileURL
 
         do {
-            let options = try GenerateOptions(fileURL: url) { options in
+            let options = try GenerateOptions(fileURL: url, overrides: option) { options in
                 options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
                 options.entities.exclude = Set(options.entities.exclude.map {
                     EntityExclude(name: Template(arguments.entityNameTemplate).substitute($0.name), property: $0.property)
