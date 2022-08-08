@@ -2,7 +2,6 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 // A test helper that allows us to compile all generated packages quickly and easily
-// TODO: We should probably generate this file on-demand for the tests rather than having to edit it each time.
 
 import PackageDescription
 
@@ -45,11 +44,11 @@ let package = Package(
         .package(path: "../Snapshots/petstore-filename-template"),
         .package(path: "../Snapshots/petstore-generate-classes"),
         .package(path: "../Snapshots/petstore-identifiable"),
+        .package(path: "../Snapshots/petstore-merge-sources"),
         .package(path: "../Snapshots/petstore-only-schemas"),
         .package(path: "../Snapshots/petstore-single-threaded"),
         .package(path: "../Snapshots/petstore-some-entities-as-classes"),
         .package(path: "../Snapshots/petstore-some-entities-as-structs"),
-        .package(path: "../Snapshots/petstore-merge-sources"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-default"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-enabled"),
         .package(path: "../Snapshots/test-query-parameters")
@@ -77,7 +76,7 @@ let package = Package(
                 "petstore-change-entityname",
                 "petstore-change-namespace-when-operations-style",
                 "petstore-change-namespace-when-rest-style",
-                .byName(name: "petstore-custom-imports", condition: .when(platforms: [.iOS, .macOS])),
+                .byName(name: "petstore-custom-imports", condition: .when(platforms: [.macOS])),
                 "petstore-default",
                 "petstore-disable-comments",
                 "petstore-disable-init-with-coder",
@@ -88,11 +87,11 @@ let package = Package(
                 "petstore-filename-template",
                 "petstore-generate-classes",
                 "petstore-identifiable",
+                "petstore-merge-sources",
                 "petstore-only-schemas",
                 "petstore-single-threaded",
                 "petstore-some-entities-as-classes",
                 "petstore-some-entities-as-structs",
-                "petstore-merge-sources",
                 "strip-parent-name-nested-objects-default",
                 "strip-parent-name-nested-objects-enabled",
                 "test-query-parameters"

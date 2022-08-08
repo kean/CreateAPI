@@ -21,6 +21,7 @@ class GenerateTestCase: XCTestCase {
     func snapshot(
         spec: SpecFixture,
         name: String, // TODO: Default to #function
+        testCompilationOnLinux: Bool = true,
         arguments: [String] = [],
         configuration: String? = nil
     ) throws {
@@ -44,7 +45,7 @@ class GenerateTestCase: XCTestCase {
 
         // If we snapshotted a package in record mode then include in compiler tests
         if let package = command.package, case .record = snapshotter.behavior {
-            compiler.addPackage(at: snapshotURL, name: package, supportsLinux: true)
+            compiler.addPackage(at: snapshotURL, name: package, supportsLinux: testCompilationOnLinux)
         }
     }
 

@@ -60,6 +60,7 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-custom-imports",
+            testCompilationOnLinux: false, // custom imports aren't available there.
             arguments: [
                 "--package", "petstore-custom-imports"
             ],
