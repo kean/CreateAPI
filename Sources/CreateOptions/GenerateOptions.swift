@@ -28,16 +28,29 @@ public final class GenerateOptions {
 
 // MARK: - Loading
 public extension GenerateOptions {
-    convenience init(fileURL: URL, process: (inout ConfigOptions) -> Void = { _ in }) throws {
-        let data = try Data(contentsOf: fileURL)
+    convenience init(
+        fileURL: URL?,
+        process: (inout ConfigOptions) -> Void = { _ in }
+    ) throws {
+        let data = try fileURL.flatMap { try Data(contentsOf: $0) }
         try self.init(data: data, process: process)
     }
 
-    convenience init(data: Data, process: (inout ConfigOptions) -> Void = { _ in }) throws {
-        // Parse the options being sure to record any issues
+    convenience init(
+        data: Data?,
+        process: (inout ConfigOptions) -> Void = { _ in }
+    ) throws {
+        // Configure the decoder and issue reporting
+        let decoder = YAMLDecoder()
         var issues: [Issue] = []
-        var configOptions = try ConfigOptions.parse(data, decoder: YAMLDecoder()) { issue in
-            issues.append(issue)
+        let issueHandler: IssueHandler = { issue in issues.append(issue) }
+
+        // Parse the options being sure to record any issues
+        var configOptions: ConfigOptions
+        if let data = data {
+            configOptions = try .parse(data, decoder: decoder, issueHandler: issueHandler)
+        } else {
+            configOptions = .default
         }
 
         // Provide an opportunity to make any required mutations
