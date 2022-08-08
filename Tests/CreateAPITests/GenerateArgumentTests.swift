@@ -89,7 +89,7 @@ final class GenerateArgumentTests: GenerateTestCase {
 
         // Then the generator will throw an error to protect the config
         XCTAssertThrowsError(try generate(arguments)) { error in
-            XCTAssertEqual(error.localizedDescription, "Trying to use --clean with an --output that will delete the config file")
+            XCTAssertEqual(error.localizedDescription, "Unable to clean because your config file is in the output directory")
         }
         XCTAssertTrue(FileManager.default.fileExists(atPath: configURL.path))
     }
@@ -109,7 +109,7 @@ final class GenerateArgumentTests: GenerateTestCase {
 
         // Then the generator will throw an error because the spec cannot be deleted
         XCTAssertThrowsError(try generate(arguments)) { error in
-            XCTAssertEqual(error.localizedDescription, "Trying to use --clean with an --output that will delete the input spec")
+            XCTAssertEqual(error.localizedDescription, "Unable to clean because your input spec is in the output directory")
         }
         XCTAssertTrue(FileManager.default.fileExists(atPath: specURL.path))
     }
