@@ -1,10 +1,13 @@
+# Default ignores (run `swift package init` to compare)
 .DS_Store
-/.build
+.build
 /Packages
-/Tests/CreateAPITests/Expected/*/Package.resolved
 /*.xcodeproj
 xcuserdata/
 DerivedData/
-.swiftpm/
+.swiftpm/config/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
-.build/
+.netrc
+
+# Custom ignores
+/Tests/Support/Snapshots/**/Package.resolved

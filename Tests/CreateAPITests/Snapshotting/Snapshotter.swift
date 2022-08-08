@@ -1,13 +1,15 @@
 import Foundation
 
-private let generateSnapshots = false
-
 class Snapshotter {
     enum Behavior {
         case assert, record
     }
 
-    static let shared = Snapshotter(behavior: generateSnapshots ? .record : .assert)
+    // When working with Xcode, use the "Record Snapshot" scheme to
+    // automatically enable the `.record` behavior
+    static let shared = Snapshotter(
+        behavior: ProcessInfo.processInfo.environment.keys.contains("RECORD_SNAPSHOTS")  ? .record : .assert
+    )
 
     let behavior: Behavior
     private(set) var recordedSnapshots: [URL]
