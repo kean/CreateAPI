@@ -2,6 +2,22 @@ import XCTest
 @testable import create_api
 
 final class GenerateOptionsTests: GenerateTestCase {
+    func testPetstoreReadsOverridesFromArguments() throws {
+        try snapshot(
+            spec: .petstore,
+            name: "petstore-reads-overrides-from-arguments",
+            arguments: [
+                "--module", "PetstoreKit",
+                "--generate", "entities",
+                "--merge-sources",
+                "--option", "entities.include: [Pet]",
+                "--option", "entities.mutableProperties: false",
+                "--option", "entities.filenameTemplate: 'Models.swift'",
+                "--option", "access: internal"
+            ]
+        )
+    }
+
     func testPestoreOnlySchemas() throws {
         try snapshot(
             spec: .petstore,
