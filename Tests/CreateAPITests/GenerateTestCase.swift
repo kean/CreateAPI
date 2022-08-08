@@ -40,11 +40,9 @@ class GenerateTestCase: XCTestCase {
         arguments: [String] = [],
         configuration: String? = nil
     ) throws {
-        // TODO: Remove this after https://github.com/CreateAPI/CreateAPI/issues/88
-        var output = temp.url.path
-        if !arguments.contains("--package") {
-            output.append("/" + name)
-        }
+        let output = temp.url
+            .appendingPathComponent("Output")
+            .path
 
         // Append the output, config and spec to the arguments passed
         var arguments = arguments
@@ -58,7 +56,7 @@ class GenerateTestCase: XCTestCase {
         try generate(arguments)
 
         // Then the output should match what was generated
-        try compare(expected: name, actual: temp.path(for: name))
+        try compare(expected: name, actual: output)
     }
 
     func generate(_ arguments: [String]) throws {
