@@ -54,14 +54,15 @@ class GenerateTestCase: XCTestCase {
         }
         arguments.append(spec.path)
 
-        // Given the command is parsed
-        let command = try Generate.parse(arguments)
-
-        // When the command is run
-        try command.run()
+        // Run the generator with the given arguments
+        try generate(arguments)
 
         // Then the output should match what was generated
         try compare(expected: name, actual: temp.path(for: name))
+    }
+
+    func generate(_ arguments: [String]) throws {
+        try Generate.parse(arguments).run()
     }
     
     private func config(_ contents: String, ext: String = "json") -> String {
