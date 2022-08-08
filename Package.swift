@@ -41,9 +41,7 @@ let package = Package(
         .testTarget(
             name: "create-api-tests",
             dependencies: ["create-api"],
-            path: "Tests/CreateAPITests",
-            exclude: ["AllPackages"],
-            resources: [.copy("Expected"), .copy("Specs")]
+            path: "Tests/CreateAPITests"
         ),
         .testTarget(
             name: "CreateOptionsTests",

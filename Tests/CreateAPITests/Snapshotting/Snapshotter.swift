@@ -56,7 +56,9 @@ class Snapshotter {
         URL(fileURLWithPath: #filePath)
             .appendingPathComponent("..")
             .appendingPathComponent("..")
-            .appendingPathComponent("Expected")
+            .appendingPathComponent("..")
+            .appendingPathComponent("Support")
+            .appendingPathComponent("Snapshots")
             .resolvingSymlinksInPath()
     }
 

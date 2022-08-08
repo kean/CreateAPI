@@ -16,7 +16,15 @@ class GenerateTestCase: XCTestCase {
         static let testQueryParameters = SpecFixture(name: "test-query-parameters", ext: "yaml")
 
         var path: String {
-            pathForSpec(named: name, ext: ext)
+            URL(fileURLWithPath: #filePath)
+                .appendingPathComponent("..")
+                .appendingPathComponent("..")
+                .appendingPathComponent("Support")
+                .appendingPathComponent("Specs")
+                .appendingPathComponent(name)
+                .appendingPathExtension(ext)
+                .resolvingSymlinksInPath()
+                .path
         }
     }
     
