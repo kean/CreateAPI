@@ -2,5 +2,5 @@
 
 set -e
 
-cd ./Tests/CreateAPITests/AllPackages
+cd ./Tests/Support/AllPackages
 swift build
