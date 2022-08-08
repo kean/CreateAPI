@@ -110,6 +110,13 @@ struct Generate: ParsableCommand {
     }
 
     private func validateOptions(options: GenerateOptions) throws {
+        let outputPath = URL(fileURLWithPath: output).resolvingSymlinksInPath().path
+        if clean, let configPath = try config.fileURL?.resolvingSymlinksInPath().path, configPath.hasPrefix(outputPath) {
+            throw GeneratorError("Trying to use --clean with an --output that will delete the config file")
+        }
+        if clean, URL(fileURLWithPath: input).resolvingSymlinksInPath().path.hasPrefix(outputPath) {
+            throw GeneratorError("Trying to use --clean with an --output that will delete the input spec")
+        }
         if module != nil && package != nil {
             throw GeneratorError("`module` and `package` parameters are mutually exclusive")
         }
