@@ -29,7 +29,6 @@ class OutputWriter {
             try directoryURL.createDirectoryIfNeeded()
 
             // Write the source to file
-            print("Writing to", subpath)
             try contents.write(to: fileURL)
             writtenPaths.insert(subpath)
         }
