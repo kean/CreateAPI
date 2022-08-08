@@ -4,6 +4,7 @@ import XCTest
 class GenerateTestCase: XCTestCase {   
     var temp: TemporaryDirectory!
     let snapshotter: Snapshotter = .shared
+    let compiler: PackageCompiler = .shared
     
     override func setUp() {
         super.setUp()
@@ -35,10 +36,16 @@ class GenerateTestCase: XCTestCase {
         arguments.append(spec.path)
 
         // Run the generator with the given arguments
-        try generate(arguments)
+        let command = try Generate.parse(arguments)
+        try command.run()
 
         // Then the output should match what was generated
-        try snapshotter.processSnapshot(at: outputURL, against: name)
+        let snapshotURL = try snapshotter.processSnapshot(at: outputURL, against: name)
+
+        // If we snapshotted a package in record mode then include in compiler tests
+        if let package = command.package, case .record = snapshotter.behavior {
+            compiler.addPackage(at: snapshotURL, name: package, supportsLinux: true)
+        }
     }
 
     func generate(_ arguments: [String]) throws {

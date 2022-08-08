@@ -20,7 +20,7 @@ class Snapshotter {
     }
 
     /// Processes a snapshot at the given path by either asserting a match against a stored snapshot, or rewriting it.
-    func processSnapshot(at generatedURL: URL, against name: String) throws {
+    func processSnapshot(at generatedURL: URL, against name: String) throws -> URL {
         let snapshotURL = snapshotLocation(for: name)
 
         switch behavior {
@@ -33,6 +33,8 @@ class Snapshotter {
             try fileManager.copyItem(at: generatedURL, to: snapshotURL)
             recordedSnapshots.append(snapshotURL)
         }
+
+        return snapshotURL
     }
 
     /// The location of a generated snapshot stored on disk
