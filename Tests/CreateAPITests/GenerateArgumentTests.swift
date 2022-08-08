@@ -54,4 +54,63 @@ final class GenerateArgumentTests: GenerateTestCase {
             XCTAssertTrue(error.localizedDescription.hasSuffix("options.json does not exist."))
         }
     }
+
+    func testClean() throws {
+        // Given old source files exist in the output directory
+        let oldFileURL = temp.url.appendingPathComponent("Old.swift")
+        try "".write(to: oldFileURL)
+
+        // When the arguments result in cleaning the output
+        let arguments: [String] = [
+            "--clean",
+            "--package", "Package",
+            "--output", temp.url.path,
+            SpecFixture.edgecases.path
+        ]
+
+        // Then the generator will succeed and the old source file will have been removed
+        XCTAssertNoThrow(try generate(arguments))
+        XCTAssertFalse(FileManager.default.fileExists(atPath: oldFileURL.path))
+    }
+
+    func testClean_notAllowedWhenConfigIsInTheOutput() throws {
+        // Given `--config` file exists in the output directory
+        let configURL = temp.url.appendingPathComponent(".create-api.yml")
+        try "{}".write(to: configURL)
+
+        // When the arguments result in trying to clean the config file
+        let arguments: [String] = [
+            "--clean",
+            "--config", configURL.path,
+            "--package", "Package",
+            "--output", temp.url.path,
+            SpecFixture.edgecases.path
+        ]
+
+        // Then the generator will throw an error to protect the config
+        XCTAssertThrowsError(try generate(arguments)) { error in
+            XCTAssertEqual(error.localizedDescription, "Trying to use --clean with an --output that will delete the config file")
+        }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: configURL.path))
+    }
+
+    func testClean_notAllowedWhenSpecIsInTheOutput() throws {
+        // Given the input spec file exists in the output directory
+        let specURL = temp.url.appendingPathComponent("schema.json")
+        try FileManager.default.copyItem(atPath: SpecFixture.edgecases.path, toPath: specURL.path)
+
+        // When the arguments result in trying to clean the spec file
+        let arguments: [String] = [
+            "--clean",
+            "--package", "Package",
+            "--output", temp.url.path,
+            specURL.path
+        ]
+
+        // Then the generator will throw an error because the spec cannot be deleted
+        XCTAssertThrowsError(try generate(arguments)) { error in
+            XCTAssertEqual(error.localizedDescription, "Trying to use --clean with an --output that will delete the input spec")
+        }
+        XCTAssertTrue(FileManager.default.fileExists(atPath: specURL.path))
+    }
 }
