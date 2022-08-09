@@ -15,8 +15,8 @@ struct Generate: ParsableCommand {
     @Argument(help: "The OpenAPI spec input file in either JSON or YAML format")
     var input: String
 
-    @Option(help: "The output folder")
-    var output = "./.create-api/"
+    @Option(help: "The directory where generated outputs are written")
+    var output = "CreateAPI"
 
     @Option(help: ArgumentHelp("The path to generator configuration.", discussion: """
         If not provided, the command will automatically try using .create-api.yaml \
