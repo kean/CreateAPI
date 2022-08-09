@@ -10,10 +10,10 @@ final class GenerateOptionsTests: GenerateTestCase {
                 "--module", "PetstoreKit",
                 "--generate", "entities",
                 "--merge-sources",
-                "--option", "entities.include: [Pet]",
-                "--option", "entities.mutableProperties: false",
-                "--option", "entities.filenameTemplate: 'Models.swift'",
-                "--option", "access: internal"
+                "--config-option", "entities.include=[Pet]",
+                "--config-option", "entities.mutableProperties=false",
+                "--config-option", "entities.filenameTemplate=Models.swift",
+                "--config-option", "access=internal"
             ]
         )
     }
