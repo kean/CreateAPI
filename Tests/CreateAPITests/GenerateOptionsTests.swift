@@ -532,7 +532,7 @@ final class GenerateOptionsTests: GenerateTestCase {
                 - Store.pets
             rename:
                 properties:
-                    Pet.id: notID
+                    Pet.id: not_id
                     Pet.name: id
             """
         )
