@@ -490,14 +490,20 @@ public struct ConfigOptions: ParsableConfiguration {
     public struct Rename: ParsableConfiguration {
         public init() { }
 
-        /// Rename rules for properties specific to a given type, or all properties with a matching name.
+        /// Rename schema properties prior to processing. Rules can apply to all properties or to
+        /// properties of a specific entity.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
         ///
         /// ```yaml
         /// rename:
         ///   properties:
-        ///     name: firstName # renames any property called 'name' to 'firstName'
-        ///     SimpleUser.name: firstName # renames only the 'name' property on the 'SimpleUser' entity
+        ///     favorite_food: food # renames any schema property called 'favorite_food` to food
+        ///     User.first_name: name # renames only the 'first_name` schema property on the `User` entity
         /// ```
+        ///
+        /// </details>
         @Option public var properties: [String: String] = [:]
 
         /// Rename query parameters
