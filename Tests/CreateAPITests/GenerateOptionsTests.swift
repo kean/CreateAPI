@@ -387,7 +387,7 @@ final class GenerateOptionsTests: GenerateTestCase {
             {
                 "rename": {
                     "properties": {
-                        "ContainerA.Child.Child.renameMe": "onlyItRenamed"
+                        "ContainerA.Child.Child.rename-me": "onlyItRenamed"
                     },
                     "entities": {
                         "ApiResponse": "APIResponse",

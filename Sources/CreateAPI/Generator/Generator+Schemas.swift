@@ -670,7 +670,18 @@ extension Generator {
     // MARK: - Property
 
     func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool? = nil) throws -> Property {
-        let propertyName: PropertyName
+        func rename(key: String) -> String {
+            if !options.rename.properties.isEmpty {
+                let names = context.parents.map { $0.name.rawValue } + [key]
+                for i in names.indices {
+                    if let name = options.rename.properties[names[i...].joined(separator: ".")] {
+                        return name
+                    }
+                }
+            }
+            
+            return key
+        }
 
         /**
         Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of 
@@ -703,35 +714,22 @@ extension Generator {
         ``` 
 
         */
+        
+        var propertyIdentifier = key
+        
         if options.entities.stripParentNameInNestedObjects,
             case .reference(let ref, _) = schema.value,
             let parentName = context.parents.first?.name.rawValue,
             let ownName = ref.name {
             let prefix = ownName.commonPrefix(with: parentName)
 
-            propertyName = makePropertyName(String(ownName.dropFirst(prefix.count)))
-        } else {
-            propertyName = makePropertyName(key)
+            propertyIdentifier = String(ownName.dropFirst(prefix.count))
         }
-
-        func makeName(for name: PropertyName, type: TypeIdentifier? = nil) -> PropertyName {
-            if !options.rename.properties.isEmpty {
-                let names = context.parents.map { $0.name.rawValue } + [name.rawValue]
-                for i in names.indices {
-                    if let name = options.rename.properties[names[i...].joined(separator: ".")] {
-                        return PropertyName(name)
-                    }
-                }
-            }
-            if let type = type, options.useSwiftyPropertyNames && type.isBool {
-                return name.asBoolean(options)
-            }
-            return name
-        }
+        
+        let propertyName = makePropertyName(rename(key: propertyIdentifier))
 
         func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             let nullable = info?.nullable ?? false
-            let name = makeName(for: propertyName, type: type)
             let isOptional = !isRequired || nullable
             var type = type
             if context.isPatch && isOptional && options.paths.makeOptionalPatchParametersDoubleOptional {
@@ -743,7 +741,21 @@ extension Generator {
                     defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
                 }
             }
-            return Property(name: name, type: type, isOptional: isOptional, key: key, defaultValue: defaultValue, metadata: .init(info), nested: nested, isInlined: isInlined)
+            
+            var propertyName = propertyName
+            
+            if type.isBool && options.useSwiftyPropertyNames {
+                propertyName = propertyName.asBoolean(options)
+            }
+            
+            return Property(name: propertyName,
+                            type: type,
+                            isOptional: isOptional,
+                            key: key,
+                            defaultValue: defaultValue,
+                            metadata: .init(info),
+                            nested: nested,
+                            isInlined: isInlined)
         }
 
         // TOOD: This can be done faster for primitive types (no makeTypeName)
