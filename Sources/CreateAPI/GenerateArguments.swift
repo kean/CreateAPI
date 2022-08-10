@@ -5,7 +5,4 @@ struct GenerateArguments {
     let isParallel: Bool
     let isStrict: Bool
     let isIgnoringErrors: Bool
-    let vendor: String?
-    let module: ModuleName
-    let entityNameTemplate: String
 }

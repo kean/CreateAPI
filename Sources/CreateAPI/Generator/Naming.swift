@@ -79,18 +79,6 @@ struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
     }
 }
 
-struct ModuleName: CustomStringConvertible {
-    let rawValue: String
-
-    init(processing rawValue: String) {
-        self.rawValue = rawValue.replacingOccurrences(of: "-", with: "_")
-    }
-
-    var description: String {
-        rawValue
-    }
-}
-
 extension String {
     // Returns separate words in a camelCase strings
     var words: [String] {

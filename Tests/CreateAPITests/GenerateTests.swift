@@ -5,20 +5,14 @@ final class GenerateTests: GenerateTestCase {
     func testPestore() throws {
         try snapshot(
             spec: .petstore,
-            name: "petstore-default",
-            arguments: [
-                "--package", "petstore-default"
-            ]
+            name: "petstore-default"
         )
     }
     
     func testEdgecases() throws {
         try snapshot(
             spec: .edgecases,
-            name: "edgecases-default",
-            arguments: [
-                "--package", "edgecases-default"
-            ]
+            name: "edgecases-default"
         )
     }
 
@@ -26,9 +20,6 @@ final class GenerateTests: GenerateTestCase {
         try snapshot(
             spec: .inlining,
             name: "inlining-default",
-            arguments: [
-                "--package", "inlining-default"
-            ],
             configuration: """
             entities:
               inlineReferencedSchemas: true
@@ -41,10 +32,7 @@ final class GenerateTests: GenerateTestCase {
     func testDiscriminator() throws {
         try snapshot(
             spec: .discriminator,
-            name: "discriminator",
-            arguments: [
-                "--package", "discriminator"
-            ]
+            name: "discriminator"
         )
     }    
     
@@ -53,11 +41,10 @@ final class GenerateTests: GenerateTestCase {
             spec: .github,
             name: "OctoKit",
             arguments: [
-                "--strict",
-                "--package", "OctoKit",
-                "--vendor", "github"
+                "--strict"
             ],
             configuration: """
+            vendor: github
             paths:
               overriddenResponses:
                 accepted: "Void"
@@ -74,10 +61,7 @@ final class GenerateTests: GenerateTestCase {
     func testCookpad() throws {
         try snapshot(
             spec: .cookpad,
-            name: "cookpad",
-            arguments: [
-                "--package", "cookpad"
-            ]
+            name: "cookpad"
         )
     }
 }

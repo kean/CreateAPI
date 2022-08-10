@@ -236,7 +236,7 @@ extension Generator {
         let parents = Array(job.components.dropLast().map(makePathName))
         let extensionOf = ([options.paths.namespace] + parents.map(\.rawValue)).joined(separator: ".")
 
-        let context = Context(namespace: arguments.module.rawValue)
+        let context = Context(namespace: options.module.name)
         let operations = job.isSubpath ? [] : try makeOperations(for: job.path, item: job.item, context: context)
         let generatedType = templates.pathEntity(name: job.type.rawValue, subpath: job.path.rawValue, operations: operations)
 
@@ -308,7 +308,7 @@ extension Generator {
     // MARK: - Paths (Operation)
 
     private func makePath(job: JobGenerateOperation) throws -> String {
-        let context = Context(namespace: arguments.module.rawValue)
+        let context = Context(namespace: options.module.name)
         var nestedTypeNames = Set<TypeName>()
         let task = GenerateOperationTask(path: job.path, item: job.item, method: job.method, operation: job.operation, operationId: getOperationId(for: job.operation), options: options)
         guard let entry = try makeOperation(task: task, context, &nestedTypeNames) else {
