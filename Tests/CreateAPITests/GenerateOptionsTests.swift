@@ -341,7 +341,7 @@ final class GenerateOptionsTests: GenerateTestCase {
                     id: identifier
                     Category.name: title
                     Pet.status: state
-                    complete: isDone
+                    complete: done
             """
         )
     }
