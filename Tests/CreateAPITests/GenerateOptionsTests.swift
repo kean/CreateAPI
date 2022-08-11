@@ -585,6 +585,11 @@ final class GenerateOptionsTests: GenerateTestCase {
               rule:
                 commit:
                   hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
+            - url: https://github.com/apple/swift-system
+              module: SystemPackage
+              rule:
+                from:
+                  version: 1.2.1
             """
         )
     }
