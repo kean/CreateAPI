@@ -208,6 +208,8 @@ public struct ConfigOptions: ParsableConfiguration {
     public var commentsEnabled: Bool {
         !commentOptions.isEmpty
     }
+    
+    @Option public var dataTypeOverrides: [String: String] = [:]
 
     @Option public var entities: Entities
 
@@ -357,7 +359,7 @@ public struct ConfigOptions: ParsableConfiguration {
         /// ```
         ///
         /// </details>
-        @Option public var exclude: Set<EntityExclude> = []
+        @Option public var exclude: Set<DottedDeclaration> = []
 
         /// When set to a non-empty value, only entities matching the given names will be generated.
         /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).

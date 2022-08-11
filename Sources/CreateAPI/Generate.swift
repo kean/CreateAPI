@@ -152,7 +152,7 @@ struct Generate: ParsableCommand {
             let options = try GenerateOptions(fileURL: url, overrides: configOption) { options in
                 options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
                 options.entities.exclude = Set(options.entities.exclude.map {
-                    EntityExclude(name: Template(arguments.entityNameTemplate).substitute($0.name), property: $0.property)
+                    DottedDeclaration(first: Template(arguments.entityNameTemplate).substitute($0.first), second: $0.second)
                 })
             }
 

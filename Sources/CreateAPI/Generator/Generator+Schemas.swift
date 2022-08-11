@@ -1,6 +1,7 @@
 import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
+import CreateOptions
 
 // TODO: Add Read-Only and Write-Only Properties support
 // TODO: stirng with format "binary"?
@@ -99,7 +100,7 @@ extension Generator {
             return options.entities.include.contains(name)
         }
         if !options.entities.exclude.isEmpty {
-            return !options.entities.exclude.contains { $0.name == name && $0.property == nil }
+            return !options.entities.exclude.contains { $0.first == name && $0.second == nil }
         }
         return true
     }
@@ -170,18 +171,24 @@ extension Generator {
 
     /// Recursively a type declaration: struct, class, enum, typealias, etc.
     func _makeDeclaration(name: TypeName, schema: JSONSchema, context: Context) throws -> Declaration {
+        let dataTypeOverrides = options.dataTypeOverrides
+            .compactMapKeys({ DottedDeclaration(rawValue: $0) }, uniquingKeysWith: { a, _ in a })
+        
         switch schema.value {
         case .boolean:
             return TypealiasDeclaration(name: name, type: .builtin("Bool"))
-        case .number:
-            return TypealiasDeclaration(name: name, type: .builtin("Double"))
+        case .number(let info, _):
+            let type = getNumberType(for: info, overrides: dataTypeOverrides.filter { $0.key.first == "number" })
+            return TypealiasDeclaration(name: name, type: type)
         case .integer(let info, _):
-            return TypealiasDeclaration(name: name, type: getIntegerType(for: info))
+            let type = getIntegerType(for: info, overrides: dataTypeOverrides.filter { $0.key.first == "integer" })
+            return TypealiasDeclaration(name: name, type: type)
         case .string(let info, _):
             if isEnum(info) {
                 return try makeStringEnum(name: name, info: info)
             } else {
-                return TypealiasDeclaration(name: name, type: getStringType(for: info))
+                let type = getStringType(for: info, overrides: dataTypeOverrides.filter { $0.key.first == "string" })
+                return TypealiasDeclaration(name: name, type: type)
             }
         case .object(let info, let details):
             return try makeObject(name: name, info: info, details: details, context: context)
@@ -218,33 +225,78 @@ extension Generator {
         return (decl as? TypealiasDeclaration)?.type
     }
 
-    private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
+    private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>, overrides: [DottedDeclaration: String]) -> TypeIdentifier {
+        
+        // useFixWidthIntegers takes precedence
         guard options.useFixWidthIntegers else {
             return .builtin("Int")
         }
+        
+        
+        
         switch info.format {
         case .generic, .other: return .builtin("Int")
         case .int32: return .builtin("Int32")
         case .int64: return .builtin("Int64")
         }
     }
-
-    private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> TypeIdentifier {
+    
+    private func getNumberType(for info: JSONSchema.CoreContext<JSONTypeFormat.NumberFormat>, overrides: [DottedDeclaration: String]) -> TypeIdentifier {
+        
+        if let globalOverride = getOverrideValue(overrides: overrides, for: "number") {
+            return .builtin(globalOverride)
+        }
+        
         switch info.format {
-        case .dateTime: return .builtin("Date")
-        case .date: if options.useNaiveDate {
-            setNaiveDateNeeded()
-            return .builtin("NaiveDate")
+        case .double:
+            return builtInType("Double", formatKey: "number.double", overrides: overrides)
+        case .float:
+            return builtInType("Float", formatKey: "number.float", overrides: overrides)
+        case .other(let format):
+            return builtInType("Double", formatKey: "number.\(format)", overrides: overrides)
+        default:
+            return .builtin("Double")
         }
+    }
+
+    private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>, overrides: [DottedDeclaration: String]) -> TypeIdentifier {
+        
+        if let globalOverride = getOverrideValue(overrides: overrides, for: "string") {
+            return .builtin(globalOverride)
+        }
+        
+        switch info.format {
+        case .dateTime:
+            return builtInType("Date", formatKey: "string.date-time", overrides: overrides)
+        case .date:
+            return builtInType("Date", formatKey: "string.date", overrides: overrides)
+            
+            // TODO: REMOVE useNaiveDate
+//            if options.useNaiveDate {
+//            setNaiveDateNeeded()
+//            return .builtin("NaiveDate")
         case .other(let other) where other == "uri":
-            return .builtin("URL")
+            return builtInType("URL", formatKey: "string.uri", overrides: overrides)
         case .other(let other) where other == "uuid":
-            return .builtin("UUID")
+            return builtInType("UUID", formatKey: "string.uuid", overrides: overrides)
         case .byte:
-          return .builtin("Data")
-        default: break
+            return builtInType("Data", formatKey: "string.binary", overrides: overrides)
+        default:
+            return .builtin("String")
         }
-        return .builtin("String")
+    }
+    
+    private func getOverrideValue(overrides: [DottedDeclaration: String], for dataType: String) -> String? {
+        guard let key = overrides.keys.first(where: { $0.rawValue == dataType }) else { return nil }
+        return overrides[key]
+    }
+    
+    private func builtInType(_ original: String, formatKey: String, overrides: [DottedDeclaration: String]) -> TypeIdentifier {
+        if let override = getOverrideValue(overrides: overrides, for: formatKey) {
+            return .builtin(override)
+        } else {
+            return .builtin(original)
+        }
     }
 
     private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
@@ -338,8 +390,8 @@ extension Generator {
 
     private func makeInlineProperties(for type: TypeName, object: JSONSchema.ObjectContext, context: Context) throws -> [Property] {
         let excludedProperties = options.entities.exclude
-            .filter { $0.name == type.rawValue }
-            .compactMap { $0.property }
+            .filter { $0.first == type.rawValue }
+            .compactMap { $0.second }
         let unknownProperties = Set(excludedProperties).subtracting(object.properties.keys)
         
         for diff in unknownProperties {

@@ -169,3 +169,9 @@ final class ThreadSafeDictionary<Key: Hashable, Value> {
         }
     }
 }
+
+extension Dictionary {
+    func compactMapKeys<T>(_ transform: (Key) throws -> T?, uniquingKeysWith combine: (Value, Value) throws -> Value) rethrows -> [T: Value] {
+        try .init(compactMap { (try transform($0.key), $0.value) as? (T, Value) }, uniquingKeysWith: combine)
+    }
+}
