@@ -232,12 +232,15 @@ extension Generator {
             return .builtin("Int")
         }
         
-        
-        
         switch info.format {
-        case .generic, .other: return .builtin("Int")
-        case .int32: return .builtin("Int32")
-        case .int64: return .builtin("Int64")
+        case .int32:
+            return builtInType("Int32", formatKey: "integer.int32", overrides: overrides)
+        case .int64:
+            return builtInType("Int64", formatKey: "integer.int64", overrides: overrides)
+        case .other(let format):
+            return builtInType("Int", formatKey: "integer.\(format)", overrides: overrides)
+        case .generic:
+            return .builtin("Int")
         }
     }
     
@@ -254,7 +257,7 @@ extension Generator {
             return builtInType("Float", formatKey: "number.float", overrides: overrides)
         case .other(let format):
             return builtInType("Double", formatKey: "number.\(format)", overrides: overrides)
-        default:
+        case .generic
             return .builtin("Double")
         }
     }
