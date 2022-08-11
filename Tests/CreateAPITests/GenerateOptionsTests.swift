@@ -547,49 +547,50 @@ final class GenerateOptionsTests: GenerateTestCase {
                 "--package", "petstore-SPM-imports"
             ],
             configuration: """
-            dependencies:
-            - url: https://github.com/apple/swift-argument-parser
-              module: ArgumentParser
-              rule:
-                exact:
-                  version: 1.1.1
-            - url: https://github.com/apple/swift-atomics
-              module: Atomics
-              rule:
-                upToNextMajor:
-                  from: 1.0.0
-            - url: https://github.com/apple/swift-syntax.git
-              module: SwiftSyntax
-              rule:
-                upToNextMinor:
-                  from: 0.50600.1
-            - url: https://github.com/apple/swift-algorithms
-              module: Algorithms
-              rule:
-                range:
-                  from: 1.0.0
-                  to: 2.1.0
-            - url: https://github.com/apple/swift-metrics.git
-              module: Metrics
-              rule:
-                closedRange:
-                  from: 2.0.0
-                  to: 3.1.0
-            - url: https://github.com/apple/swift-log
-              module: Logging
-              rule:
-                branch:
-                  name: main
-            - url: https://github.com/apple/swift-numerics
-              module: Numerics
-              rule:
-                commit:
-                  hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
-            - url: https://github.com/apple/swift-system
-              module: SystemPackage
-              rule:
-                from:
-                  version: 1.2.1
+            package:
+                dependencies:
+                - url: https://github.com/apple/swift-argument-parser
+                  module: ArgumentParser
+                  rule:
+                      exact:
+                          version: 1.1.1
+                - url: https://github.com/apple/swift-atomics
+                  module: Atomics
+                  rule:
+                      upToNextMajor:
+                          from: 1.0.0
+                - url: https://github.com/apple/swift-syntax.git
+                  module: SwiftSyntax
+                  rule:
+                      upToNextMinor:
+                          from: 0.50600.1
+                - url: https://github.com/apple/swift-algorithms
+                  module: Algorithms
+                  rule:
+                      range:
+                          from: 1.0.0
+                          to: 2.1.0
+                - url: https://github.com/apple/swift-metrics.git
+                  module: Metrics
+                  rule:
+                      closedRange:
+                          from: 2.0.0
+                          to: 3.1.0
+                - url: https://github.com/apple/swift-log
+                  module: Logging
+                  rule:
+                      branch:
+                          name: main
+                - url: https://github.com/apple/swift-numerics
+                  module: Numerics
+                  rule:
+                      commit:
+                          hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
+                - url: https://github.com/apple/swift-system
+                  module: SystemPackage
+                  rule:
+                      from:
+                          version: 1.2.1
             """
         )
     }
