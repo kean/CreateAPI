@@ -56,7 +56,7 @@ Below you can find the complete documentation for all available options.
 - [useFixWidthIntegers](#usefixwidthintegers)
 - [fileHeaderComment](#fileheadercomment)
 - [commentOptions](#commentoptions)
-- [dependencies](#dependencies)
+- [packages](#packages)
 - [entities](#entities)
   - [defaultType](#entitiesdefaulttype)
   - [typeOverrides](#entitiestypeoverrides)
@@ -309,7 +309,7 @@ commentOptions:
 
 <br/>
 
-## dependencies
+## packages
 
 **Type:** [PackageDeclaration]<br />
 **Default:** `[]`
@@ -320,7 +320,7 @@ Additional remote Swift Package imports.
 <summary>Examples</summary>
 
 ```yaml
-dependencies:
+packages:
 - url: https://github.com/apple/swift-argument-parser
   module: ArgumentParser
   rule:
@@ -331,7 +331,7 @@ dependencies:
   rule:
     upToNextMajor:
       from: 1.0.0
-- url: https://github.com/apple/swift-syntax
+- url: https://github.com/apple/swift-syntax.git
   module: SwiftSyntax
   rule:
     upToNextMinor:
@@ -342,7 +342,7 @@ dependencies:
     range:
       from: 1.0.0
       to: 2.1.0
-- url: https://github.com/apple/swift-metrics
+- url: https://github.com/apple/swift-metrics.git
   module: Metrics
   rule:
     closedRange:
@@ -351,13 +351,18 @@ dependencies:
 - url: https://github.com/apple/swift-log
   module: Logging
   rule:
-   branch:
-     name: main
+    branch:
+      name: main
 - url: https://github.com/apple/swift-numerics
   module: Numerics
   rule:
-   commit:
-     hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
+    commit:
+      hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
+- url: https://github.com/apple/swift-system
+  module: SystemPackage
+  rule:
+    from:
+      version: 1.2.1
 ```
 </details>
 
