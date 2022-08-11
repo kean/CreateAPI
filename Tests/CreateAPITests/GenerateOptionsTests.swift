@@ -542,6 +542,7 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-SPM-imports",
+            testCompilationOnLinux: false, // custom imports aren't available there.
             arguments: [
                 "--package", "petstore-SPM-imports"
             ],

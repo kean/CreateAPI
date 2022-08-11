@@ -93,7 +93,7 @@ let package = Package(
                 "petstore-single-threaded",
                 "petstore-some-entities-as-classes",
                 "petstore-some-entities-as-structs",
-                "petstore-SPM-imports",
+                .byName(name: "petstore-SPM-imports", condition: .when(platforms: [.macOS])),
                 "strip-parent-name-nested-objects-default",
                 "strip-parent-name-nested-objects-enabled",
                 "test-query-parameters"
