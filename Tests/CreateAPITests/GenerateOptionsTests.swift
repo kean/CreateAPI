@@ -537,4 +537,54 @@ final class GenerateOptionsTests: GenerateTestCase {
             """
         )
     }
+    
+    func testPetstoreSPMImports() throws {
+        try snapshot(
+            spec: .petstore,
+            name: "petstore-SPM-imports",
+            arguments: [
+                "--package", "petstore-SPM-imports"
+            ],
+            configuration: """
+            dependencies:
+            - url: https://github.com/apple/swift-argument-parser
+              module: ArgumentParser
+              rule:
+                exact:
+                  version: 1.1.1
+            - url: https://github.com/apple/swift-atomics
+              module: Atomics
+              rule:
+                upToNextMajor:
+                  from: 1.0.0
+            - url: https://github.com/apple/swift-syntax
+              module: SwiftSyntax
+              rule:
+                upToNextMinor:
+                  from: 0.50600.1
+            - url: https://github.com/apple/swift-algorithms
+              module: Algorithms
+              rule:
+                range:
+                  from: 1.0.0
+                  to: 2.1.0
+            - url: https://github.com/apple/swift-nio
+              module: NIOCore
+              rule:
+                closedRange:
+                  from: 2.41.1
+                  to: 3.1.0
+            - url: https://github.com/apple/swift-experimental-string-processing
+              module: _StringProcessing
+              rule:
+               branch:
+                 name: main
+            - url: https://github.com/apple/swift-distributed-actors
+              module: DistributedActors
+              rule:
+               commit:
+                 hash: 9da657e933f7c302277eef373c4a0d74e90f2bfa
+            """
+        )
+    }
 }

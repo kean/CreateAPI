@@ -49,6 +49,7 @@ let package = Package(
         .package(path: "../Snapshots/petstore-single-threaded"),
         .package(path: "../Snapshots/petstore-some-entities-as-classes"),
         .package(path: "../Snapshots/petstore-some-entities-as-structs"),
+        .package(path: "../Snapshots/petstore-SPM-imports"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-default"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-enabled"),
         .package(path: "../Snapshots/test-query-parameters")
@@ -92,6 +93,7 @@ let package = Package(
                 "petstore-single-threaded",
                 "petstore-some-entities-as-classes",
                 "petstore-some-entities-as-structs",
+                "petstore-SPM-imports",
                 "strip-parent-name-nested-objects-default",
                 "strip-parent-name-nested-objects-enabled",
                 "test-query-parameters"
