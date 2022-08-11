@@ -342,22 +342,22 @@ dependencies:
     range:
       from: 1.0.0
       to: 2.1.0
-- url: https://github.com/apple/swift-nio
-  module: NIOCore
+- url: https://github.com/apple/swift-metrics
+  module: Metrics
   rule:
     closedRange:
-      from: 2.41.1
+      from: 2.0.0
       to: 3.1.0
 - url: https://github.com/apple/swift-log
   module: Logging
   rule:
    branch:
      name: main
-- url: https://github.com/apple/swift-distributed-actors
-  module: DistributedActors
+- url: https://github.com/apple/swift-numerics
+  module: Numerics
   rule:
    commit:
-     hash: 9da657e933f7c302277eef373c4a0d74e90f2bfa
+     hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
 ```
 </details>
 
