@@ -221,8 +221,8 @@ public struct ConfigOptions: ParsableConfiguration {
     ///   rule:
     ///     exact:
     ///       version: 1.1.1
-    /// - url: https://github.com/apple/swift-docc
-    ///   module: SwiftDocC
+    /// - url: https://github.com/apple/swift-atomics
+    ///   module: Atomics
     ///   rule:
     ///     upToNextMajor:
     ///       from: 1.0.0
