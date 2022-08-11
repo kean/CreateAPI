@@ -1,4 +1,5 @@
 import Foundation
+import CreateOptions
 
 extension Generator {
     func package(named name: String?) -> (name: String, manifest: GeneratedFile)? {
@@ -8,19 +9,19 @@ extension Generator {
     }
 
     func makePackageFile(name: String) -> String {
-        let packages: String = [
-            #".package(url: "https://github.com/kean/Get", from: "1.0.2")"#,
-            isHTTPHeadersDependencyNeeded ? #".package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0")"# : nil,
-            isNaiveDateNeeded ? #".package(url: "https://github.com/CreateAPI/NaiveDate", from: "1.0.0")"# : nil,
-            isQueryEncoderNeeded ? #".package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")"# : nil
-        ].compactMap { $0 }.joined(separator: ", \n")
+        let allPackages = options.dependencies
+            .appending(GeneratorPackages.Get)
+            .appending(if: isHTTPHeadersDependencyNeeded, GeneratorPackages.HTTPHeaders)
+            .appending(if: isNaiveDateNeeded, GeneratorPackages.NaiveDate)
+            .appending(if: isQueryEncoderNeeded, GeneratorPackages.URLQueryEncoder)
+        
+        let packagesDeclaration: String = allPackages
+            .map(\.packageDeclaration)
+            .joined(separator: ",\n")
 
-        let dependencies: String = [
-            #".product(name: "Get", package: "Get")"#,
-            isHTTPHeadersDependencyNeeded ? #".product(name: "HTTPHeaders", package: "HTTPHeaders")"# : nil,
-            isNaiveDateNeeded ? #".product(name: "NaiveDate", package: "NaiveDate")"# : nil,
-            isQueryEncoderNeeded ? #".product(name: "URLQueryEncoder", package: "URLQueryEncoder")"# : nil
-        ].compactMap { $0 }.joined(separator: ", \n")
+        let dependenciesDeclaration: String = allPackages
+            .map(\.productDeclaration)
+            .joined(separator: ",\n")
 
         return """
         // swift-tools-version:5.5
@@ -35,14 +36,33 @@ extension Generator {
                 .library(name: "\(name)", targets: ["\(name)"]),
             ],
             dependencies: [
-        \(packages.indented(count: 2))
+        \(packagesDeclaration.indented(count: 2))
             ],
             targets: [
                 .target(name: "\(name)", dependencies: [
-        \(dependencies.indented(count: 3))
+        \(dependenciesDeclaration.indented(count: 3))
                 ], path: "Sources")
             ]
         )
         """
     }
+}
+
+private enum GeneratorPackages {
+    
+    static let Get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
+                                        module: "Get",
+                                        rule: .exact(version: "1.0.2"))
+    
+    static let HTTPHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
+                                                module: "HTTPHeaders",
+                                                rule: .exact(version: "0.1.0"))
+    
+    static let NaiveDate = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/NaiveDate")!,
+                                              module: "NaiveDate",
+                                              rule: .exact(version: "1.0.0"))
+    
+    static let URLQueryEncoder = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/URLQueryEncoder")!,
+                                                    module: "URLQueryEncoder",
+                                                    rule: .exact(version: "0.2.0"))
 }

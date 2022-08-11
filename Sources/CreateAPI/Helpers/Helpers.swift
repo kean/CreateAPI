@@ -116,6 +116,18 @@ extension Array {
         }
         return buffer
     }
+    
+    func appending(if condition: Bool, _ element: Element) -> [Element] {
+        if condition {
+            return self + [element]
+        } else {
+            return self
+        }
+    }
+    
+    func appending(_ element: Element) -> [Element] {
+        self + [element]
+    }
 }
 
 extension Array where Element == String {

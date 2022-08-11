@@ -56,6 +56,7 @@ Below you can find the complete documentation for all available options.
 - [useFixWidthIntegers](#usefixwidthintegers)
 - [fileHeaderComment](#fileheadercomment)
 - [commentOptions](#commentoptions)
+- [dependencies](#dependencies)
 - [entities](#entities)
   - [defaultType](#entitiesdefaulttype)
   - [typeOverrides](#entitiestypeoverrides)
@@ -304,6 +305,60 @@ commentOptions:
 - capitalized
 ```
 
+</details>
+
+<br/>
+
+## dependencies
+
+**Type:** [PackageDeclaration]<br />
+**Default:** `[]`
+
+Additional remote Swift Package imports.
+
+<details>
+<summary>Examples</summary>
+
+```yaml
+dependencies:
+- url: https://github.com/apple/swift-argument-parser
+  module: ArgumentParser
+  rule:
+    exact:
+      version: 1.1.1
+- url: https://github.com/apple/swift-docc
+  module: SwiftDocC
+  rule:
+    upToNextMajor:
+      from: 1.0.0
+- url: https://github.com/apple/swift-syntax
+  module: SwiftSyntax
+  rule:
+    upToNextMinor:
+      from: 0.50600.1
+- url: https://github.com/apple/swift-algorithms
+  module: Algorithms
+  rule:
+    range:
+      from: 1.0.0
+      to: 2.1.0
+- url: https://github.com/apple/swift-nio
+  module: NIOCore
+  rule:
+    closedRange:
+      from: 2.41.1
+      to: 3.1.0
+- url: https://github.com/apple/swift-experimental-string-processing
+  module: _StringProcessing
+  rule:
+   branch:
+     name: main
+- url: https://github.com/apple/swift-distributed-actors
+  module: DistributedActors
+  rule:
+   commit:
+     hash: 9da657e933f7c302277eef373c4a0d74e90f2bfa
+```
 </details>
 
 <br/>
