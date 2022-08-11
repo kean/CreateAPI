@@ -243,8 +243,8 @@ public struct ConfigOptions: ParsableConfiguration {
     ///     closedRange:
     ///       from: 2.41.1
     ///       to: 3.1.0
-    /// - url: https://github.com/apple/swift-experimental-string-processing
-    ///   module: _StringProcessing
+    /// - url: https://github.com/apple/swift-log
+    ///   module: Logging
     ///   rule:
     ///    branch:
     ///      name: main
