@@ -59,16 +59,15 @@ import Foundation
 public struct ConfigOptions: ParsableConfiguration {
     public init() { }
 
-    /// Different output formats available when generating
-    public enum Format: String, Codable {
-        case source, package
+    public enum Generate: String, Codable {
+        case entities, paths, package
     }
 
-    /// The format used when generating output. This can be either `sources` or `package` (default).
+    /// Different components that CreateAPI should generate.
     ///
-    /// - `source`: Generate just the source files to be embedded within an existing module/target.
-    /// - `package`: Wrap the generated sources as a Swift Package and include the **Package.swift** manifest with all dependencies defined.
-    @Option public var format: Format = .package
+    /// Available options are `.entities`, `.paths` and `.package`.
+    /// Defaults to `[entities, paths, package]`.
+    @Option public var generate: Set<Generate> = [.entities, .paths, .package]
 
     /// The name of the module that the generated sources will be part of.
     ///
@@ -439,9 +438,6 @@ public struct ConfigOptions: ParsableConfiguration {
     /// Options specifically related to generating paths
     public struct Paths: ParsableConfiguration {
         public init() { }
-
-        /// Disables the generation of paths when set to `false`.
-        @Option public var enabled: Bool = true
 
         /// The style used when generating path definitions
         ///

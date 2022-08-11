@@ -14,11 +14,9 @@ final class GenerateOptionsTests: GenerateTestCase {
                 "--config-option", "module=PetstoreKit"
             ],
             configuration: """
-            format: source
+            generate: [entities]
             module: NotPetstoreKit
             mergeSources: true
-            paths:
-              enabled: false
             """
         )
     }
@@ -28,8 +26,7 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-only-schemas",
             configuration: """
-            paths:
-              enabled: false
+            generate: [entities, package]
             """
         )
     }
@@ -61,7 +58,7 @@ final class GenerateOptionsTests: GenerateTestCase {
             name: "petstore-no-package",
             arguments: [
                 "--config-option", "module=Petstore",
-                "--config-option", "format=source"
+                "--config-option", "generate=[entities, paths]"
             ]
         )
     }
@@ -200,14 +197,12 @@ final class GenerateOptionsTests: GenerateTestCase {
             name: "petstore-disable-mutable-properties",
             configuration: """
             {
+                "generate": ["entities", "package"],
                 "entities": {
                     "typeOverrides": {
                         "Store": "finalClass"
                     },
                     "mutableProperties": false
-                },
-                "paths": {
-                    "enabled": false
                 }
             }
             """
@@ -220,14 +215,12 @@ final class GenerateOptionsTests: GenerateTestCase {
             name: "petstore-enable-mutable-properties",
             configuration: """
             {
+                "generate": ["entities", "package"],
                 "entities": {
                     "typeOverrides": {
                         "Store": "finalClass"
                     },
                     "mutableProperties": ["classes", "structs"],
-                },
-                "paths": {
-                    "enabled": false
                 }
             }
             """
@@ -423,10 +416,11 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-identifiable",
             configuration: """
+            generate:
+            - entities
+            - package
             entities:
                 includeIdentifiableConformance: true
-            paths:
-                enabled: false
             rename:
                 properties:
                     Error.code: id
@@ -452,13 +446,12 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-entity-exclude",
             configuration: """
+            generate: [entities, package]
             entities:
                 exclude:
                 - Error
                 - Pet.id
                 - Store.pets
-            paths:
-                enabled: false
             rename:
                 properties:
                     Pet.id: not_id
