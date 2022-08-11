@@ -8,6 +8,7 @@ public enum DependencyRule: Decodable {
     case closedRange(from: String, to: String)
     case branch(name: String)
     case commit(hash: String)
+    case from(version: String)
 
     var declaration: String {
         switch self {
@@ -25,6 +26,8 @@ public enum DependencyRule: Decodable {
             return ".branch(\"\(name)\")"
         case .commit(hash: let hash):
             return ".revision(\"\(hash)\")"
+        case .from(let version):
+            return "from: \"\(version)\""
         }
     }
 }

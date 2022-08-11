@@ -52,17 +52,17 @@ private enum GeneratorPackages {
     
     static let Get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
                                         module: "Get",
-                                        rule: .exact(version: "1.0.2"))
+                                        rule: .from(version: "1.0.2"))
     
     static let HTTPHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
                                                 module: "HTTPHeaders",
-                                                rule: .exact(version: "0.1.0"))
+                                                rule: .from(version: "0.1.0"))
     
     static let NaiveDate = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/NaiveDate")!,
                                               module: "NaiveDate",
-                                              rule: .exact(version: "1.0.0"))
+                                              rule: .from(version: "1.0.0"))
     
     static let URLQueryEncoder = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/URLQueryEncoder")!,
                                                     module: "URLQueryEncoder",
-                                                    rule: .exact(version: "0.2.0"))
+                                                    rule: .from(version: "0.2.0"))
 }
