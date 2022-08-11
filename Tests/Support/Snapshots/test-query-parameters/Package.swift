@@ -10,12 +10,12 @@ let package = Package(
         .library(name: "test-query-parameters", targets: ["test-query-parameters"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.2"), 
+        .package(url: "https://github.com/kean/Get", from: "1.0.2"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
         .target(name: "test-query-parameters", dependencies: [
-            .product(name: "Get", package: "Get"), 
+            .product(name: "Get", package: "Get"),
             .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
         ], path: "Sources")
     ]
