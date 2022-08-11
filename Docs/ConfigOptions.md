@@ -43,6 +43,10 @@ Below you can find the complete documentation for all available options.
 
 # Available Options
 
+- [generate](#generate)
+- [module](#module)
+- [mergeSources](#mergesources)
+- [vendor](#vendor)
 - [access](#access)
 - [annotateDeprecations](#annotatedeprecations)
 - [generateEnums](#generateenums)
@@ -57,6 +61,7 @@ Below you can find the complete documentation for all available options.
 - [fileHeaderComment](#fileheadercomment)
 - [commentOptions](#commentoptions)
 - [entities](#entities)
+  - [enabled](#entitiesenabled)
   - [defaultType](#entitiesdefaulttype)
   - [typeOverrides](#entitiestypeoverrides)
   - [imports](#entitiesimports)
@@ -75,6 +80,7 @@ Below you can find the complete documentation for all available options.
   - [stripParentNameInNestedObjects](#entitiesstripparentnameinnestedobjects)
   - [exclude](#entitiesexclude)
   - [include](#entitiesinclude)
+  - [nameTemplate](#entitiesnametemplate)
   - [filenameTemplate](#entitiesfilenametemplate)
 - [paths](#paths)
   - [style](#pathsstyle)
@@ -99,6 +105,49 @@ Below you can find the complete documentation for all available options.
   - [collectionElements](#renamecollectionelements)
 
 ---
+
+## generate
+
+**Type:** Set<Generate><br />
+**Default:** `[.entities, .paths, .package]`
+
+Different components that CreateAPI should generate.
+
+Available options are `.entities`, `.paths` and `.package`.
+Defaults to `[entities, paths, package]`.
+
+<br/>
+
+## module
+
+**Type:** ModuleName<br />
+**Default:** `""`
+
+The name of the module that the generated sources will be part of.
+
+You must specify a value for this option otherwise an error will be thrown when running the generator.
+
+<br/>
+
+## mergeSources
+
+**Type:** Bool<br />
+**Default:** `false`
+
+Merge generated Entities and Paths into single output files.
+
+Merging the source files offers a compact output, but prevents the compiler from parallelizing build tasks resulting in slower builds for larger schemas.
+
+<br/>
+
+## vendor
+
+**Type:** Vendor<br />
+**Default:** `nil`
+
+Enable vendor-specific logic (supported values: `github`)
+
+<br/>
 
 ## access
 
@@ -313,6 +362,15 @@ commentOptions:
 
 Options specifically related to generating entities
 
+
+## entities.enabled
+
+**Type:** Bool<br />
+**Default:** `true`
+
+Disables the generation of entities when set to `false`.
+
+<br/>
 
 ## entities.defaultType
 
@@ -553,6 +611,30 @@ entities:
 
 When set to a non-empty value, only entities matching the given names will be generated.
 This cannot be used in conjunction with [`exclude`](#entitiesexclude).
+
+<br/>
+
+## entities.nameTemplate
+
+**Type:** String<br />
+**Default:** `"%0"`
+
+A template used when generating entity names to allow for prefixing or suffixing.
+
+<details>
+<summary>Examples</summary>
+
+```yaml
+entities:
+  nameTemplate: "%0DTO" # PetDTO, StoreDTO, ErrorDTO
+```
+
+```yaml
+entities:
+  nameTemplate: "_%0" # _Pet, _Store, _Error
+```
+
+</details>
 
 <br/>
 
