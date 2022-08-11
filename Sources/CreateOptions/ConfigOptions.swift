@@ -215,7 +215,7 @@ public struct ConfigOptions: ParsableConfiguration {
     /// <summary>Examples</summary>
     ///
     /// ```yaml
-    /// packages:
+    /// dependencies:
     /// - url: https://github.com/apple/swift-argument-parser
     ///   module: ArgumentParser
     ///   rule:
@@ -260,7 +260,7 @@ public struct ConfigOptions: ParsableConfiguration {
     ///       version: 1.2.1
     /// ```
     /// </details>
-    @Option public var packages: [PackageDeclaration] = []
+    @Option public var dependencies: [PackageDeclaration] = []
 
     @Option public var entities: Entities
 

@@ -547,7 +547,7 @@ final class GenerateOptionsTests: GenerateTestCase {
                 "--package", "petstore-SPM-imports"
             ],
             configuration: """
-            packages:
+            dependencies:
             - url: https://github.com/apple/swift-argument-parser
               module: ArgumentParser
               rule:

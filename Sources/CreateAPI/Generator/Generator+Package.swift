@@ -9,7 +9,7 @@ extension Generator {
     }
 
     func makePackageFile(name: String) -> String {
-        let allPackages = options.packages
+        let allPackages = options.dependencies
             .appending(GeneratorPackages.Get)
             .appending(if: isHTTPHeadersDependencyNeeded, GeneratorPackages.HTTPHeaders)
             .appending(if: isNaiveDateNeeded, GeneratorPackages.NaiveDate)
