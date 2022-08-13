@@ -50,6 +50,8 @@ final class GenerateTests: GenerateTestCase {
                 accepted: "Void"
               overriddenBodyTypes:
                 application/octocat-stream: String
+            entities:
+              inlineReferencedSchemas: false
             rename:
               enumCases:
                 reactions-+1: "reactionsPlusOne"
