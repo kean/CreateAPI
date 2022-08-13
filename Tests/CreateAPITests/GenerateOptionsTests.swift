@@ -320,7 +320,7 @@ final class GenerateOptionsTests: GenerateTestCase {
             name: "edgecases-disable-enums",
             configuration: """
             {
-                "generateEnums": false
+                "generate": ["entities", "paths", "package"]
             }
             """
         )

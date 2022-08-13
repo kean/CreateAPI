@@ -29,7 +29,7 @@ extension Issue {
     // create-api if their configuration contains one of the options still.
     static let removedOptions: [[Name]: String] = [
         ["isAddingDeprecations"]: "Replaced by ‘annotateDeprecations‘.",
-        ["isGeneratingEnums"]: "Replaced by ‘generateEnums‘.",
+        ["isGeneratingEnums"]: "Replaced by ‘generate‘.",
         ["isGeneratingSwiftyBooleanPropertyNames"]: "Replaced by ‘useSwiftyPropertyNames‘.",
         ["isInliningTypealiases"]: "Replaced by ‘inlineTypealiases‘.",
         ["isPluralizationEnabled"]: "Replaced by ‘pluralizeProperties‘.",

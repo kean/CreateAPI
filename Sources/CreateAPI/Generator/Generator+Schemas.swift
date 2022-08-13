@@ -664,7 +664,7 @@ extension Generator {
     }
 
     private func isEnum(_ info: JSONSchemaContext) -> Bool {
-        options.generateEnums && info.allowedValues != nil
+        options.generate.contains(.enums) && info.allowedValues != nil
     }
 
     // MARK: - Property

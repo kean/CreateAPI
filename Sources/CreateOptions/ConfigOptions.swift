@@ -60,14 +60,14 @@ public struct ConfigOptions: ParsableConfiguration {
     public init() { }
 
     public enum Generate: String, Codable {
-        case entities, paths, package
+        case entities, paths, enums, package
     }
 
     /// Different components that CreateAPI should generate.
     ///
-    /// Available options are `.entities`, `.paths` and `.package`.
-    /// Defaults to `[entities, paths, package]`.
-    @Option public var generate: Set<Generate> = [.entities, .paths, .package]
+    /// Available options are `.entities`, `.paths`, `.enums` and `.package`.
+    /// Defaults to `[entities, paths, enums, package]`.
+    @Option public var generate: Set<Generate> = [.entities, .paths, .enums, .package]
 
     /// The name of the module that the generated sources will be part of.
     ///
@@ -98,9 +98,6 @@ public struct ConfigOptions: ParsableConfiguration {
 
     /// Add `@available(*, deprecated)` attribute to deprecated types and properties
     @Option public var annotateDeprecations: Bool = true
-
-    /// Generate enums for strings
-    @Option public var generateEnums: Bool = true
 
     /// Prefixes booleans with `is` ("enabled" -> "isEnabled")
     @Option public var useSwiftyPropertyNames: Bool = true

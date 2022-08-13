@@ -49,7 +49,6 @@ Below you can find the complete documentation for all available options.
 - [vendor](#vendor)
 - [access](#access)
 - [annotateDeprecations](#annotatedeprecations)
-- [generateEnums](#generateenums)
 - [useSwiftyPropertyNames](#useswiftypropertynames)
 - [inlineTypealiases](#inlinetypealiases)
 - [acronyms](#acronyms)
@@ -109,12 +108,12 @@ Below you can find the complete documentation for all available options.
 ## generate
 
 **Type:** Set<Generate><br />
-**Default:** `[.entities, .paths, .package]`
+**Default:** `[.entities, .paths, .enums, .package]`
 
 Different components that CreateAPI should generate.
 
-Available options are `.entities`, `.paths` and `.package`.
-Defaults to `[entities, paths, package]`.
+Available options are `.entities`, `.paths`, `.enums` and `.package`.
+Defaults to `[entities, paths, enums, package]`.
 
 <br/>
 
@@ -166,15 +165,6 @@ Access level modifier for all generated declarations
 **Default:** `true`
 
 Add `@available(*, deprecated)` attribute to deprecated types and properties
-
-<br/>
-
-## generateEnums
-
-**Type:** Bool<br />
-**Default:** `true`
-
-Generate enums for strings
 
 <br/>
 
