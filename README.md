@@ -54,36 +54,36 @@ To generate code, use the `create-api generate` command:
 <summary><b><code>$ create-api generate --help</code></b></summary>
 
 ```
-USAGE: create-api generate [<options>] <input>
+USAGE: create-api generate <input> [--output <output>] [--config <config>] [--config-option <config-option> ...] [--verbose] [--strict] [--clean] [--allow-errors] [--watch] [--single-threaded] [--measure]
 
 ARGUMENTS:
   <input>                 The OpenAPI spec input file in either JSON or YAML format
 
 OPTIONS:
-  --output <output>       The output folder (default: ./.create-api/)
-  --config <config>       The path to generator configuration. If not present, the command
-                          will look for .create-api.yaml in the current directory.
-                          (default: ./.create-api.yaml)
-  -s, --split             Split output into separate files
+  --output <output>       The directory where generated outputs are written (default: CreateAPI)
+  --config <config>       The path to generator configuration. (default: .create-api.yaml)
+        If not provided, the command will automatically try using .create-api.yaml in the current
+        directory if it exists.
+  --config-option <config-option>
+                          Options to be applied when generating.
+        In scenarios where you need to customize behaviour when invoking the generator, use this option to
+        specify individual overrides. For example:
+
+        --config-option "entities.filenameTemplate=%0DTO.swift"
+
+        You can specify multiple --config-option arguments and the value of each one must match the
+        'keyPath=value' format above where keyPath is a dot separated path to the option and value is the
+        yaml/json representation of the option.
   -v, --verbose           Print additional logging information
   --strict                Turns all warnings into errors
   -c, --clean             Removes the output folder before continuing
   --allow-errors          Ignore any errors that happen during code generation
-  --watch                 Monitor changes to both the spec and the configuration file and
-                          automatically re-generated input
-  --package <package>     Generates a complete package with a given name
-  --module <module>       Use the following name as a module name
-  --vendor <vendor>       Enabled vendor-specific logic (supported values: "github")
-  --generate <generate>   Specifies what to generate (default: paths, entities)
-  --filename-template <filename-template>
-                          Example: "%0.generated.swift" will produce files with the
-                          following names: "Paths.generated.swift". (default: %0.swift)
-  --entityname-template <entityname-template>
-                          Example: "%0Generated" will produce entities with the following
-                          names: "EntityGenerated". (default: %0)
-  --single-threaded       By default, saturates all available threads. Pass this option to
-                          turn all parallelization off.
+  --watch                 Monitor changes to both the spec and the configuration file and automatically
+                          re-generated input
+  --single-threaded       By default, saturates all available threads. Pass this option to turn all
+                          parallelization off.
   --measure               Measure performance of individual operations
+  --version               Show the version.
   -h, --help              Show help information.
 ```
 
