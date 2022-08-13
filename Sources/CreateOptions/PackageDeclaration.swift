@@ -41,28 +41,28 @@ public struct PackageDeclaration: Decodable {
             .deletingPathExtension()
             .lastPathComponent
         
-        return ".product(name: \"\(module)\", package: \"\(cleanedPackage)\")"
+        return ".product(name: \"\(product)\", package: \"\(cleanedPackage)\")"
     }
     
-    public init(url: URL, module: String, rule: SourceControlRequirement) {
+    public init(url: URL, product: String, rule: SourceControlRequirement) {
         self.url = url
-        self.module = module
+        self.product = product
         self.rule = rule
     }
     
     public static let get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
-                                               module: "Get",
+                                               product: "Get",
                                                rule: .from(version: "1.0.2"))
     
     public static let httpHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
-                                                       module: "HTTPHeaders",
+                                                       product: "HTTPHeaders",
                                                        rule: .from(version: "0.1.0"))
     
     public static let naiveDate = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/NaiveDate")!,
-                                                     module: "NaiveDate",
+                                                     product: "NaiveDate",
                                                      rule: .from(version: "1.0.0"))
     
     public static let urlQueryEncoder = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/URLQueryEncoder")!,
-                                                           module: "URLQueryEncoder",
+                                                           product: "URLQueryEncoder",
                                                            rule: .from(version: "0.2.0"))
 }
