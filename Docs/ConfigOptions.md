@@ -557,7 +557,7 @@ If set to `true`, uses the `default` value from the schema for the generated pro
 ## entities.inlineReferencedSchemas
 
 **Type:** Bool<br />
-**Default:** `false`
+**Default:** `true`
 
 For `allOf` inline properties from references
 

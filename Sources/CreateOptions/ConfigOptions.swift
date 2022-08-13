@@ -364,7 +364,7 @@ public struct ConfigOptions: ParsableConfiguration {
 
         // TODO: Improve this documentation
         /// For `allOf` inline properties from references
-        @Option public var inlineReferencedSchemas: Bool = false
+        @Option public var inlineReferencedSchemas: Bool = true
 
         /// Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
         @Option public var stripParentNameInNestedObjects: Bool = false
