@@ -11,8 +11,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", .exact("1.1.1")),
-        .package(url: "https://github.com/apple/swift-atomics", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/apple/swift-syntax.git", .upToNextMinor(from: "0.50600.1")),
         .package(url: "https://github.com/apple/swift-algorithms", "1.0.0"..<"2.1.0"),
         .package(url: "https://github.com/apple/swift-metrics.git", "2.0.0"..."3.1.0"),
         .package(url: "https://github.com/apple/swift-log", .branch("main")),
@@ -25,8 +23,6 @@ let package = Package(
     targets: [
         .target(name: "petstore-SPM-imports", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            .product(name: "Atomics", package: "swift-atomics"),
-            .product(name: "SwiftSyntax", package: "swift-syntax"),
             .product(name: "Algorithms", package: "swift-algorithms"),
             .product(name: "Metrics", package: "swift-metrics"),
             .product(name: "Logging", package: "swift-log"),
