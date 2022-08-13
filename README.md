@@ -43,12 +43,7 @@ You'll need an [OpenAPI schema](https://swagger.io/specification/) (using 3.0.x)
 
 If you have never used CreateAPI before, be sure to check out our tutorial: [Generating an API with CreateAPI](./Docs/Tutorial.md)
 
-CreateAPI has two main options when it comes to generating source code:
-
-- **`--module`**: Generates Paths and Entities to be incorporated into an existing target/module within your existing codebase.
-- **`--package`**: Wraps the generated Paths and Entities in a complete Swift Package definition with any dependencies defined automatically.
-
-To generate code, use the `create-api generate` command:
+CreateAPI can generate complete Swift Package bundles but can also generate individual components to integrate into an existing project. Either way, you'll want to use the `generate` command:
 
 <details>
 <summary><b><code>$ create-api generate --help</code></b></summary>
@@ -89,7 +84,16 @@ OPTIONS:
 
 </details>
 
-In addition to the options passed to the command, you can also define a configuration file to customize the output in various different ways. For a complete list of options, check out the [Configuration Options](./Docs/ConfigOptions.md) documentation.
+To try CreateAPI out, run the following commands:
+
+```bash
+$ curl "https://petstore3.swagger.io/api/v3/openapi.json" > schema.json
+$ create-api generate schema.json --config-option module=PetstoreKit --output PetstoreKit
+$ cd PetstoreKit
+$ swift build
+```
+
+There you have it, a comping Swift Package ready to be integrated with your other Swift projects!
 
 For more information about using CreateAPI, check out the [Documentation](./Docs/).
 
