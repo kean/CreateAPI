@@ -250,34 +250,34 @@ public struct ConfigOptions: ParsableConfiguration {
         ///   dependencies:
         ///   - url: https://github.com/apple/swift-argument-parser
         ///     product: ArgumentParser
-        ///     rule:
+        ///     requirement:
         ///       exact:
         ///         version: 1.1.1
         ///   - url: https://github.com/apple/swift-algorithms
         ///     product: Algorithms
-        ///     rule:
+        ///     requirement:
         ///       range:
         ///         from: 1.0.0
         ///         to: 2.1.0
         ///   - url: https://github.com/apple/swift-metrics.git
         ///     product: Metrics
-        ///     rule:
+        ///     requirement:
         ///       closedRange:
         ///         from: 2.0.0
         ///         to: 3.1.0
         ///   - url: https://github.com/apple/swift-log
         ///     product: Logging
-        ///     rule:
+        ///     requirement:
         ///       branch:
         ///         name: main
         ///   - url: https://github.com/apple/swift-numerics
         ///     product: Numerics
-        ///     rule:
+        ///     requirement:
         ///       commit:
         ///         hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
         ///   - url: https://github.com/apple/swift-system
         ///     product: SystemPackage
-        ///     rule:
+        ///     requirement:
         ///       from:
         ///         version: 1.2.1
         /// ```

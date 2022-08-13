@@ -50,6 +50,7 @@ let package = Package(
         .package(path: "../Snapshots/petstore-some-entities-as-classes"),
         .package(path: "../Snapshots/petstore-some-entities-as-structs"),
         .package(path: "../Snapshots/petstore-SPM-imports"),
+        .package(path: "../Snapshots/petstore-SPM-imports-linux"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-default"),
         .package(path: "../Snapshots/strip-parent-name-nested-objects-enabled"),
         .package(path: "../Snapshots/test-query-parameters")
@@ -94,6 +95,7 @@ let package = Package(
                 "petstore-some-entities-as-classes",
                 "petstore-some-entities-as-structs",
                 .byName(name: "petstore-SPM-imports", condition: .when(platforms: [.macOS])),
+                "petstore-SPM-imports-linux",
                 "strip-parent-name-nested-objects-default",
                 "strip-parent-name-nested-objects-enabled",
                 "test-query-parameters"

@@ -4,30 +4,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "petstore-SPM-imports",
+    name: "petstore-SPM-imports-linux",
     platforms: [.iOS(.v13), .macCatalyst(.v13), .macOS(.v10_15), .watchOS(.v6), .tvOS(.v13)],
     products: [
-        .library(name: "petstore-SPM-imports", targets: ["petstore-SPM-imports"]),
+        .library(name: "petstore-SPM-imports-linux", targets: ["petstore-SPM-imports-linux"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-argument-parser", .exact("1.1.1")),
-        .package(url: "https://github.com/apple/swift-algorithms", "1.0.0"..<"2.0.0"),
-        .package(url: "https://github.com/apple/swift-metrics.git", "2.0.0"..."2.9.1"),
         .package(url: "https://github.com/apple/swift-log", .branch("main")),
         .package(url: "https://github.com/apple/swift-numerics", .revision("7f2d022d3d9b55bf812814f5d01896cbfa0fd4da")),
-        .package(url: "https://github.com/apple/swift-system", from: "1.2.1"),
         .package(url: "https://github.com/kean/Get", from: "1.0.2"),
         .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],
     targets: [
-        .target(name: "petstore-SPM-imports", dependencies: [
-            .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            .product(name: "Algorithms", package: "swift-algorithms"),
-            .product(name: "Metrics", package: "swift-metrics"),
+        .target(name: "petstore-SPM-imports-linux", dependencies: [
             .product(name: "Logging", package: "swift-log"),
             .product(name: "Numerics", package: "swift-numerics"),
-            .product(name: "SystemPackage", package: "swift-system"),
             .product(name: "Get", package: "Get"),
             .product(name: "HTTPHeaders", package: "HTTPHeaders"),
             .product(name: "URLQueryEncoder", package: "URLQueryEncoder")
