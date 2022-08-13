@@ -559,7 +559,58 @@ If set to `true`, uses the `default` value from the schema for the generated pro
 **Type:** Bool<br />
 **Default:** `true`
 
-For `allOf` inline properties from references
+Controls the behaviour when generating entities from nested `allOf` schemas.
+
+<details>
+<summary>Examples</summary>
+
+With the following schema:
+
+```yaml
+components:
+  schemas:
+    Animal:
+      properties:
+        numberOfLegs:
+          type: integer
+    Dog:
+      allOf:
+      - $ref: '#/components/schemas/Animal'
+      - type: object
+        properties:
+          goodBoy:
+            type: boolean
+```
+
+When this property is set to `true` (the default):
+
+```swift
+struct Animal: Codable {
+    var numberOfLegs: Int
+}
+
+struct Dog: Codable {
+    var numberOfLegs: Int
+    var isGoodBoy: Bool
+}
+```
+
+However setting this property to `false` results results in the following:
+
+```swift
+struct Animal: Codable {
+    var numberOfLegs: Int
+}
+
+struct Dog: Codable {
+    var animal: Animal
+    var isGoodBoy: Bool
+
+    // ...
+}
+```
+
+</details>
 
 <br/>
 

@@ -362,8 +362,58 @@ public struct ConfigOptions: ParsableConfiguration {
         /// If set to `true`, uses the `default` value from the schema for the generated property for booleans
         @Option public var includeDefaultValues: Bool = true
 
-        // TODO: Improve this documentation
-        /// For `allOf` inline properties from references
+        /// Controls the behaviour when generating entities from nested `allOf` schemas.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// With the following schema:
+        ///
+        /// ```yaml
+        /// components:
+        ///   schemas:
+        ///     Animal:
+        ///       properties:
+        ///         numberOfLegs:
+        ///           type: integer
+        ///     Dog:
+        ///       allOf:
+        ///       - $ref: '#/components/schemas/Animal'
+        ///       - type: object
+        ///         properties:
+        ///           goodBoy:
+        ///             type: boolean
+        /// ```
+        ///
+        /// When this property is set to `true` (the default):
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var numberOfLegs: Int
+        /// }
+        ///
+        /// struct Dog: Codable {
+        ///     var numberOfLegs: Int
+        ///     var isGoodBoy: Bool
+        /// }
+        /// ```
+        ///
+        /// However setting this property to `false` results results in the following:
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var numberOfLegs: Int
+        /// }
+        ///
+        /// struct Dog: Codable {
+        ///     var animal: Animal
+        ///     var isGoodBoy: Bool
+        ///
+        ///     // ...
+        /// }
+        /// ```
+        ///
+        /// </details>
         @Option public var inlineReferencedSchemas: Bool = true
 
         /// Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
