@@ -70,10 +70,8 @@ struct Plugin: CommandPlugin {
         process.arguments = [
             "generate",
             "schema.json",
-            "--module", "MyAPI",
-            "--output", ".",
             "--config", ".create-api.yml",
-            "--split"
+            "--output", "Generated"
         ]
 
         try process.run()
@@ -155,11 +153,11 @@ struct Plugin: BuildToolPlugin {
                 executable: try context.tool(named: "create-api").path,
                 arguments: [
                     "generate",
-                    "--module", target.name,
-                    "--config", config,
+                    schema,
                     "--output", output,
-                    "--no-split",
-                    schema
+                    "--config", config,
+                    "--config-option", "module=\(target.name)",
+                    "--config-option", "mergeSources=true"
                 ],
                 inputFiles: [
                     schema,
