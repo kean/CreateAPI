@@ -724,16 +724,6 @@ package:
     rule:
       exact:
         version: 1.1.1
-  - url: https://github.com/apple/swift-atomics
-    module: Atomics
-    rule:
-      upToNextMajor:
-        from: 1.0.0
-  - url: https://github.com/apple/swift-syntax.git
-    module: SwiftSyntax
-    rule:
-      upToNextMinor:
-        from: 0.50600.1
   - url: https://github.com/apple/swift-algorithms
     module: Algorithms
     rule:

@@ -1,9 +1,7 @@
 import Foundation
 
-public enum DependencyRule: Decodable {
+public enum SourceControlRequirement: Decodable {
     case exact(version: String)
-    case upToNextMajor(from: String)
-    case upToNextMinor(from: String)
     case range(from: String, to: String)
     case closedRange(from: String, to: String)
     case branch(name: String)
@@ -14,10 +12,6 @@ public enum DependencyRule: Decodable {
         switch self {
         case .exact(version: let version):
             return ".exact(\"\(version)\")"
-        case .upToNextMajor(from: let version):
-            return ".upToNextMajor(from: \"\(version)\")"
-        case .upToNextMinor(from: let version):
-            return ".upToNextMinor(from: \"\(version)\")"
         case .range(from: let min, to: let max):
             return "\"\(min)\"..<\"\(max)\""
         case .closedRange(from: let min, to: let max):
@@ -35,8 +29,8 @@ public enum DependencyRule: Decodable {
 public struct PackageDeclaration: Decodable {
     
     let url: URL
-    let module: String
-    var rule: DependencyRule
+    let product: String
+    var rule: SourceControlRequirement
     
     public var packageDeclaration: String {
         ".package(url: \"\(url)\", \(rule.declaration))"
@@ -50,9 +44,25 @@ public struct PackageDeclaration: Decodable {
         return ".product(name: \"\(module)\", package: \"\(cleanedPackage)\")"
     }
     
-    public init(url: URL, module: String, rule: DependencyRule) {
+    public init(url: URL, module: String, rule: SourceControlRequirement) {
         self.url = url
         self.module = module
         self.rule = rule
     }
+    
+    public static let get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
+                                               module: "Get",
+                                               rule: .from(version: "1.0.2"))
+    
+    public static let httpHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
+                                                       module: "HTTPHeaders",
+                                                       rule: .from(version: "0.1.0"))
+    
+    public static let naiveDate = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/NaiveDate")!,
+                                                     module: "NaiveDate",
+                                                     rule: .from(version: "1.0.0"))
+    
+    public static let urlQueryEncoder = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/URLQueryEncoder")!,
+                                                           module: "URLQueryEncoder",
+                                                           rule: .from(version: "0.2.0"))
 }
