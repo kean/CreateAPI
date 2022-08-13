@@ -720,35 +720,35 @@ Additional remote Swift Package imports.
 package:
   dependencies:
   - url: https://github.com/apple/swift-argument-parser
-    module: ArgumentParser
-    rule:
+    product: ArgumentParser
+    requirement:
       exact:
         version: 1.1.1
   - url: https://github.com/apple/swift-algorithms
-    module: Algorithms
-    rule:
+    product: Algorithms
+    requirement:
       range:
         from: 1.0.0
         to: 2.1.0
   - url: https://github.com/apple/swift-metrics.git
-    module: Metrics
-    rule:
+    product: Metrics
+    requirement:
       closedRange:
         from: 2.0.0
         to: 3.1.0
   - url: https://github.com/apple/swift-log
-    module: Logging
-    rule:
+    product: Logging
+    requirement:
       branch:
         name: main
   - url: https://github.com/apple/swift-numerics
-    module: Numerics
-    rule:
+    product: Numerics
+    requirement:
       commit:
         hash: 7f2d022d3d9b55bf812814f5d01896cbfa0fd4da
   - url: https://github.com/apple/swift-system
-    module: SystemPackage
-    rule:
+    product: SystemPackage
+    requirement:
       from:
         version: 1.2.1
 ```
