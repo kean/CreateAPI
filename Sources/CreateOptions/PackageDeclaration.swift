@@ -44,8 +44,8 @@ public struct PackageDeclaration: Decodable {
     
     public var productDeclaration: String {
         let cleanedPackage = url
+            .deletingPathExtension()
             .lastPathComponent
-            .split(separator: ".")[0]
         
         return ".product(name: \"\(module)\", package: \"\(cleanedPackage)\")"
     }
