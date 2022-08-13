@@ -7,14 +7,17 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-reads-overrides-from-arguments",
             arguments: [
-                "--module", "PetstoreKit",
-                "--generate", "entities",
-                "--merge-sources",
                 "--config-option", "entities.include=[Pet]",
                 "--config-option", "entities.mutableProperties=false",
                 "--config-option", "entities.filenameTemplate=Models.swift",
-                "--config-option", "access=internal"
-            ]
+                "--config-option", "access=internal",
+                "--config-option", "module=PetstoreKit"
+            ],
+            configuration: """
+            generate: [entities]
+            module: NotPetstoreKit
+            mergeSources: true
+            """
         )
     }
 
@@ -22,10 +25,9 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-only-schemas",
-            arguments: [
-                "--package", "petstore-only-schemas",
-                "--generate", "entities"
-            ]
+            configuration: """
+            generate: [entities, package]
+            """
         )
     }
     
@@ -33,10 +35,10 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-change-entityname",
-            arguments: [
-                "--package", "petstore-change-entityname",
-                "--entityname-template", "%0Generated"
-            ]
+            configuration: """
+            entities:
+              nameTemplate: "%0Generated"
+            """
         )
     }
     
@@ -45,7 +47,6 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-single-threaded",
             arguments: [
-                "--package", "petstore-single-threaded",
                 "--single-threaded"
             ]
         )
@@ -56,7 +57,8 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-no-package",
             arguments: [
-                "--module", "Petstore"
+                "--config-option", "module=Petstore",
+                "--config-option", "generate=[entities, paths]"
             ]
         )
     }
@@ -65,10 +67,9 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-merge-sources",
-            arguments: [
-                "--package", "petstore-merge-sources",
-                "--merge-sources"
-            ]
+            configuration: """
+            mergeSources: true
+            """
         )
     }
     
@@ -77,9 +78,6 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-custom-imports",
             testCompilationOnLinux: false, // custom imports aren't available there.
-            arguments: [
-                "--package", "petstore-custom-imports"
-            ],
             configuration: """
             {
                 "paths": {
@@ -97,9 +95,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-generate-classes",
-            arguments: [
-                "--package", "petstore-generate-classes"
-            ],
             configuration: """
             {
                 "entities": {
@@ -114,9 +109,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-some-entities-as-classes",
-            arguments: [
-                "--package", "petstore-some-entities-as-classes"
-            ],
             configuration: """
             {
                 "entities": {
@@ -133,9 +125,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-some-entities-as-structs",
-            arguments: [
-                "--package", "petstore-some-entities-as-structs",
-            ],
             configuration: """
             {
                 "entities": {
@@ -153,9 +142,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-base-class",
-            arguments: [
-                "--package", "petstore-base-class"
-            ],
             configuration: """
             {
                 "entities": {
@@ -171,9 +157,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-disable-comments",
-            arguments: [
-                "--package", "petstore-disable-comments"
-            ],
             configuration: """
             {
                 "commentOptions": false
@@ -186,9 +169,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-disable-init-with-coder",
-            arguments: [
-                "--package", "petstore-disable-init-with-coder"
-            ],
             configuration: """
             {
                 "entities": {
@@ -203,9 +183,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-disable-inlining",
-            arguments: [
-                "--package", "petstore-disable-inlining"
-            ],
             configuration: """
             {
                 "inlineTypealiases": false
@@ -218,12 +195,9 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-disable-mutable-properties",
-            arguments: [
-                "--package", "petstore-disable-mutable-properties",
-                "--generate", "entities",
-            ],
             configuration: """
             {
+                "generate": ["entities", "package"],
                 "entities": {
                     "typeOverrides": {
                         "Store": "finalClass"
@@ -239,12 +213,9 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-enable-mutable-properties",
-            arguments: [
-                "--package", "petstore-enable-mutable-properties",
-                "--generate", "entities",
-            ],
             configuration: """
             {
+                "generate": ["entities", "package"],
                 "entities": {
                     "typeOverrides": {
                         "Store": "finalClass"
@@ -260,9 +231,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-change-namespace-when-rest-style",
-            arguments: [
-                "--package", "petstore-change-namespace-when-rest-style"
-            ],
             configuration: """
             {
                 "paths": {
@@ -278,9 +246,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-change-namespace-when-operations-style",
-            arguments: [
-                "--package", "petstore-change-namespace-when-operations-style"
-            ],
             configuration: """
             {
                 "paths": {
@@ -296,9 +261,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-change-access-control",
-            arguments: [
-                "--package", "edgecases-change-access-control"
-            ],
             configuration: """
             access: internal
             """
@@ -309,9 +271,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-rename-properties",
-            arguments: [
-                "--package", "edgecases-rename-properties"
-            ],
             configuration: """
             {
                 "rename": {
@@ -332,9 +291,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-yaml-config",
-            arguments: [
-                "--package", "edgecases-yaml-config"
-            ],
             configuration: """
             rename:
                 properties:
@@ -350,9 +306,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-disable-acronyms",
-            arguments: [
-                "--package", "edgecases-disable-acronyms"
-            ],
             configuration: """
             {
                 "acronyms": []
@@ -365,12 +318,9 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-disable-enums",
-            arguments: [
-                "--package", "edgecases-disable-enums"
-            ],
             configuration: """
             {
-                "generateEnums": false
+                "generate": ["entities", "paths", "package"]
             }
             """
         )
@@ -380,9 +330,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-rename",
-            arguments: [
-                "--package", "edgecases-rename"
-            ],
             configuration: """
             {
                 "rename": {
@@ -403,9 +350,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-tabs",
-            arguments: [
-                "--package", "edgecases-tabs"
-            ],
             configuration: """
             {
                 "indentation": "tabs"
@@ -418,9 +362,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-indent-with-two-width-spaces",
-            arguments: [
-                "--package", "edgecases-indent-with-two-width-spaces"
-            ],
             configuration: """
             {
                 "spaceWidth": 2
@@ -433,9 +374,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-int32-int64",
-            arguments: [
-                "--package", "edgecases-int32-int64"
-            ],
             configuration: """
             {
                 "useFixWidthIntegers": true
@@ -448,9 +386,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-coding-keys",
-            arguments: [
-                "--package", "edgecases-coding-keys"
-            ],
             configuration: """
             entities:
                 optimizeCodingKeys: false
@@ -462,9 +397,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .stripParentNameNestedObjects,
             name: "strip-parent-name-nested-objects-enabled",
-            arguments: [
-                "--package", "strip-parent-name-nested-objects-enabled"
-            ],
             configuration: """
             entities:
                 stripParentNameInNestedObjects: true
@@ -475,10 +407,7 @@ final class GenerateOptionsTests: GenerateTestCase {
     func testStripNamePrefixNestedObjects() throws {
         try snapshot(
             spec: .stripParentNameNestedObjects,
-            name: "strip-parent-name-nested-objects-default",
-            arguments: [
-                "--package", "strip-parent-name-nested-objects-default"
-            ]
+            name: "strip-parent-name-nested-objects-default"
         )
     }
     
@@ -486,11 +415,10 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-identifiable",
-            arguments: [
-                "--package", "petstore-identifiable",
-                "--generate", "entities"
-            ],
             configuration: """
+            generate:
+            - entities
+            - package
             entities:
                 includeIdentifiableConformance: true
             rename:
@@ -504,9 +432,6 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-filename-template",
-            arguments: [
-                "--package", "petstore-filename-template"
-            ],
             configuration: """
             entities:
                 filenameTemplate: "%0Model.swift"
@@ -520,11 +445,8 @@ final class GenerateOptionsTests: GenerateTestCase {
         try snapshot(
             spec: .petstore,
             name: "petstore-entity-exclude",
-            arguments: [
-                "--package", "petstore-entity-exclude",
-                "--generate", "entities",
-            ],
             configuration: """
+            generate: [entities, package]
             entities:
                 exclude:
                 - Error
@@ -591,6 +513,24 @@ final class GenerateOptionsTests: GenerateTestCase {
                   rule:
                       from:
                           version: 1.2.1
+            """
+        )
+
+    func testFileHeaderComment() throws {
+        try snapshot(
+            spec: .petstore,
+            name: "file-header-comment",
+            configuration: """
+            fileHeaderComment: |
+              // Generated by Create API
+              // https://github.com/CreateAPI/CreateAPI
+              //
+              // swiftformat:disable all
+            generate: [entities]
+            mergeSources: true
+            entities:
+              include:
+              - Pet
             """
         )
     }

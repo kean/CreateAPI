@@ -212,7 +212,7 @@ extension Generator {
         for index in properties.indices {
             let property = properties[index]
             if property.type.name == decl.name && property.nested == nil, decl.parent != nil {
-                properties[index].type = .builtin(name: property.type.identifier(namespace: arguments.module.rawValue)) // TODO: Refactor
+                properties[index].type = .builtin(name: property.type.identifier(namespace: options.module.name)) // TODO: Refactor
             }
         }
     }

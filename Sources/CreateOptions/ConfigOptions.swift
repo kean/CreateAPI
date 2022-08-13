@@ -59,6 +59,33 @@ import Foundation
 public struct ConfigOptions: ParsableConfiguration {
     public init() { }
 
+    public enum Generate: String, Codable {
+        case entities, paths, enums, package
+    }
+
+    /// Different components that CreateAPI should generate.
+    ///
+    /// Available options are `.entities`, `.paths`, `.enums` and `.package`.
+    /// Defaults to `[entities, paths, enums, package]`.
+    @Option public var generate: Set<Generate> = [.entities, .paths, .enums, .package]
+
+    /// The name of the module that the generated sources will be part of.
+    ///
+    /// You must specify a value for this option otherwise an error will be thrown when running the generator.
+    @Option public var module: ModuleName = ""
+
+    /// Merge generated Entities and Paths into single output files.
+    ///
+    /// Merging the source files offers a compact output, but prevents the compiler from parallelizing build tasks resulting in slower builds for larger schemas.
+    @Option public var mergeSources = false
+
+    public enum Vendor: String, Codable {
+        case github
+    }
+
+    /// Enable vendor-specific logic (supported values: `github`)
+    @Option public var vendor: Vendor? = nil
+
     /// Available access controls
     public enum Access: String, Codable {
         case `internal`, `public`
@@ -71,9 +98,6 @@ public struct ConfigOptions: ParsableConfiguration {
 
     /// Add `@available(*, deprecated)` attribute to deprecated types and properties
     @Option public var annotateDeprecations: Bool = true
-
-    /// Generate enums for strings
-    @Option public var generateEnums: Bool = true
 
     /// Prefixes booleans with `is` ("enabled" -> "isEnabled")
     @Option public var useSwiftyPropertyNames: Bool = true
@@ -282,13 +306,15 @@ public struct ConfigOptions: ParsableConfiguration {
             case `struct`, `class`, finalClass
         }
 
-        @Option
+        /// Disables the generation of entities when set to `false`.
+        @Option public var enabled: Bool = true
+
         /// The default type used when generating entities. Available options are `struct`, `class` or `finalClass`
         ///
         /// To override the default value for individual entities, use the [`typeOverrides`](#entitiestypeoverrides) option.
         ///
         /// > **Note**: If this value is set to `struct` but the entity cannot be represented as a struct (i.e when it contains a property that recursively contains itself), a warning will be logged and the type will generate as `finalClass` instead. You should explicitly handle this by using options such as [`typeOverrides`](#entitiestypeoverrides) or [`ignore`](#entitiesignore) instead.
-        public var defaultType: EntityType = .struct
+        @Option public var defaultType: EntityType = .struct
 
         /// A dictionary map that describes entities that should generate as a specific type that wasn't the [`defaultType`](#entitiesdefaulttype)
         ///
@@ -398,9 +424,59 @@ public struct ConfigOptions: ParsableConfiguration {
         /// If set to `true`, uses the `default` value from the schema for the generated property for booleans
         @Option public var includeDefaultValues: Bool = true
 
-        // TODO: Improve this documentation
-        /// For `allOf` inline properties from references
-        @Option public var inlineReferencedSchemas: Bool = false
+        /// Controls the behaviour when generating entities from nested `allOf` schemas.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// With the following schema:
+        ///
+        /// ```yaml
+        /// components:
+        ///   schemas:
+        ///     Animal:
+        ///       properties:
+        ///         numberOfLegs:
+        ///           type: integer
+        ///     Dog:
+        ///       allOf:
+        ///       - $ref: '#/components/schemas/Animal'
+        ///       - type: object
+        ///         properties:
+        ///           goodBoy:
+        ///             type: boolean
+        /// ```
+        ///
+        /// When this property is set to `true` (the default):
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var numberOfLegs: Int
+        /// }
+        ///
+        /// struct Dog: Codable {
+        ///     var numberOfLegs: Int
+        ///     var isGoodBoy: Bool
+        /// }
+        /// ```
+        ///
+        /// However setting this property to `false` results results in the following:
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var numberOfLegs: Int
+        /// }
+        ///
+        /// struct Dog: Codable {
+        ///     var animal: Animal
+        ///     var isGoodBoy: Bool
+        ///
+        ///     // ...
+        /// }
+        /// ```
+        ///
+        /// </details>
+        @Option public var inlineReferencedSchemas: Bool = true
 
         /// Strips the parent name of enum cases within objects that are `oneOf` / `allOf` / `anyOf` of nested references
         @Option public var stripParentNameInNestedObjects: Bool = false
@@ -424,6 +500,24 @@ public struct ConfigOptions: ParsableConfiguration {
         /// When set to a non-empty value, only entities matching the given names will be generated.
         /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).
         @Option public var include: Set<String> = []
+
+        /// A template used when generating entity names to allow for prefixing or suffixing.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// ```yaml
+        /// entities:
+        ///   nameTemplate: "%0DTO" # PetDTO, StoreDTO, ErrorDTO
+        /// ```
+        ///
+        /// ```yaml
+        /// entities:
+        ///   nameTemplate: "_%0" # _Pet, _Store, _Error
+        /// ```
+        ///
+        /// </details>
+        @Option public var nameTemplate: String = "%0"
 
         /// Template to use for Entity file generation
         ///

@@ -6,7 +6,6 @@ struct Output {
     let entities: GeneratorOutput?
     let package: (name: String, manifest: GeneratedFile)?
     let options: GenerateOptions
-    let mergeSources: Bool // Will soon be internal to GenerateOptions
 
     /// Writes the output into the given directory.
     func write(to outputURL: URL) throws {
@@ -36,7 +35,7 @@ struct Output {
 
     private func write(_ output: GeneratorOutput, to sourcesWriter: OutputWriter, group: String, template: String) throws {
         let template = Template(template)
-        if mergeSources {
+        if options.mergeSources {
             let merged = GeneratedFile(name: group, merging: output.extensions + output.files)
             try sourcesWriter.write(file: merged, header: output.header, template: template, options: options)
         } else {

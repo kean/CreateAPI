@@ -79,7 +79,7 @@ final class Generator {
     }
 
     var fileHeader: String {
-        var output = options.fileHeaderComment
+        var output = options.fileHeaderComment.trimmingCharacters(in: .whitespacesAndNewlines)
 
         let imports = [
             "Foundation",

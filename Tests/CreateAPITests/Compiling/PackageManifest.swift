@@ -45,6 +45,26 @@ struct PackageManifest {
             return ".byName(name: \(dependency.name.inDoubleQuotes), condition: .when(platforms: [.macOS]))"
         }
     }
+
+    static func productName(in packageURL: URL) throws -> String? {
+        let manifestURL = packageURL.appendingPathComponent("Package.swift")
+        guard FileManager.default.fileExists(atPath: manifestURL.path) else { return nil }
+
+        let contents = try String(contentsOf: manifestURL)
+        let range = NSRange(contents.startIndex ..< contents.endIndex, in: contents)
+        let regex = try NSRegularExpression(pattern: #"library\(name: "(.*)", targets"#)
+
+        guard let match = regex.firstMatch(in: contents, range: range) else {
+            return nil
+        }
+
+        let groupRange = match.range(at: 1)
+        guard let range = Range(groupRange, in: contents) else {
+            return nil
+        }
+
+        return String(contents[range])
+    }
 }
 
 extension PackageManifest.Dependency: Comparable {

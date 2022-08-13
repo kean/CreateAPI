@@ -37,12 +37,6 @@ struct Generate: ParsableCommand {
         """))
     var configOption: [OptionOverride] = []
 
-    @Flag(help: ArgumentHelp("Merge Entities and Paths into single output files", discussion: """
-        Merging the source files offers a compact output, but prevents the compiler \
-        from parallelizing build tasks resulting in slower builds for larger schemas.
-        """))
-    var mergeSources = false
-
     @Flag(name: .shortAndLong, help: "Print additional logging information")
     var verbose = false
 
@@ -59,21 +53,6 @@ struct Generate: ParsableCommand {
     @Flag(help: "Monitor changes to both the spec and the configuration file and automatically re-generated input")
     var watch = false
     #endif
-
-    @Option(help: "Generates a complete package with a given name")
-    var package: String?
-
-    @Option(help: "Use the following name as a module name")
-    var module: String?
-
-    @Option(help: "Enabled vendor-specific logic (supported values: \"github\")")
-    var vendor: String?
-
-    @Option(help: "Specifies what to generate", completion: .list(["paths", "entities"]))
-    var generate = ["paths", "entities"]
-
-    @Option(help: "Example: \"%0Generated\" will produce entities with the following names: \"EntityGenerated\".")
-    var entitynameTemplate: String = "%0"
 
     @Flag(help: "By default, saturates all available threads. Pass this option to turn all parallelization off.")
     var singleThreaded = false
@@ -109,12 +88,12 @@ struct Generate: ParsableCommand {
 
         let generator = Generator(spec: spec, options: options, arguments: arguments)
         // IMPORTANT: Paths needs to be generated before schemes.
-        let paths = generate.contains("paths") ? try generator.paths() : nil
-        let schemas = generate.contains("entities") ? try generator.schemas() : nil
-        let package = generator.package(named: package)
+        let paths = options.generate.contains(.paths) ? try generator.paths() : nil
+        let schemas = options.generate.contains(.entities) ? try generator.schemas() : nil
+        let package = generator.package(named: options.generate.contains(.package) ? options.module.rawValue : nil)
 
         let outputURL = URL(filePath: output)
-        let output = Output(paths: paths, entities: schemas, package: package, options: options, mergeSources: mergeSources)
+        let output = Output(paths: paths, entities: schemas, package: package, options: options)
 
         if clean { try? FileManager.default.removeItem(at: outputURL) }
 
@@ -131,11 +110,8 @@ struct Generate: ParsableCommand {
         if clean, URL(fileURLWithPath: input).resolvingSymlinksInPath().path.hasPrefix(outputPath) {
             throw GeneratorError("Unable to clean because your input spec is in the output directory")
         }
-        if module != nil && package != nil {
-            throw GeneratorError("`module` and `package` parameters are mutually exclusive")
-        }
-        if package == nil && module == nil {
-            throw GeneratorError("You must provide either `module` or `package`")
+        if options.module.rawValue.isEmpty {
+            throw GeneratorError("You must specify non-empty value for `module`")
         }
         if !options.entities.exclude.isEmpty && !options.entities.include.isEmpty {
             throw GeneratorError("`exclude` and `include` can't be used together")
@@ -150,9 +126,10 @@ struct Generate: ParsableCommand {
 
         do {
             let options = try GenerateOptions(fileURL: url, overrides: configOption) { options in
-                options.entities.include = Set(options.entities.include.map { Template(arguments.entityNameTemplate).substitute($0) })
+                let template = Template(options.entities.nameTemplate)
+                options.entities.include = Set(options.entities.include.map { template.substitute($0) })
                 options.entities.exclude = Set(options.entities.exclude.map {
-                    EntityExclude(name: Template(arguments.entityNameTemplate).substitute($0.name), property: $0.property)
+                    EntityExclude(name: template.substitute($0.name), property: $0.property)
                 })
             }
 
@@ -201,9 +178,6 @@ struct Generate: ParsableCommand {
     }
 
     private var arguments: GenerateArguments {
-        guard let module = (package ?? module).map(ModuleName.init(processing:)) else {
-            fatalError("You must provide either `module` or `package`")
-        }
-        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, isIgnoringErrors: allowErrors, vendor: vendor, module: module, entityNameTemplate: entitynameTemplate)
+        return GenerateArguments(isVerbose: verbose, isParallel: !singleThreaded, isStrict: strict, isIgnoringErrors: allowErrors)
     }
 }

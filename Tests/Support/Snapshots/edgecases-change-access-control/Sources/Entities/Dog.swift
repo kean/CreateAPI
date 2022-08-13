@@ -5,7 +5,8 @@ import Foundation
 import NaiveDate
 
 struct Dog: Codable {
-    var animal: Animal
+    var className: String
+    var color: String?
     var breed: Breed?
     var image: Image?
 
@@ -15,22 +16,25 @@ struct Dog: Codable {
         case small = "Small"
     }
 
-    init(animal: Animal, breed: Breed? = nil, image: Image? = nil) {
-        self.animal = animal
+    init(className: String, color: String? = nil, breed: Breed? = nil, image: Image? = nil) {
+        self.className = className
+        self.color = color
         self.breed = breed
         self.image = image
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.animal = try Animal(from: decoder)
+        self.className = try values.decode(String.self, forKey: "className")
+        self.color = try values.decodeIfPresent(String.self, forKey: "color")
         self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }
 
     func encode(to encoder: Encoder) throws {
         var values = encoder.container(keyedBy: StringCodingKey.self)
-        try values.encode(animal, forKey: "animal")
+        try values.encode(className, forKey: "className")
+        try values.encodeIfPresent(color, forKey: "color")
         try values.encodeIfPresent(breed, forKey: "breed")
         try values.encodeIfPresent(image, forKey: "image")
     }

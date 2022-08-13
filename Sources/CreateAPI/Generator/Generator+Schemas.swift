@@ -123,7 +123,7 @@ extension Generator {
     /// Return `nil` to skip generation.
     private func getTypeName(for key: OpenAPI.ComponentKey) -> TypeName? {
         var name: String? {
-            if arguments.vendor == "github" {
+            if options.vendor == .github {
                 // This makes sense only for the GitHub API spec where types like
                 // `simple-user` and `nullable-simple-user` exist which are duplicate
                 // and the only different is that the latter is nullable.
@@ -147,7 +147,7 @@ extension Generator {
             return key.rawValue
         }
         if let name = name {
-            return makeTypeName(Template(arguments.entityNameTemplate).substitute(name))
+            return makeTypeName(Template(options.entities.nameTemplate).substitute(name))
         } else {
             return nil
         }
@@ -257,7 +257,7 @@ extension Generator {
     }
 
     private func getReferenceType(_ ref: JSONReference<JSONSchema>.InternalReference, context: Context) throws -> TypeIdentifier {
-        if arguments.vendor == "github", let name = ref.name, name.hasPrefix("nullable-") {
+        if options.vendor == .github, let name = ref.name, name.hasPrefix("nullable-") {
             let replacement = makeTypeName(name.replacingOccurrences(of: "nullable-", with: ""))
             return .userDefined(name: replacement.namespace(context.namespace))
         }
@@ -299,7 +299,7 @@ extension Generator {
                 name = mapped
             }
         }
-        name = Template(arguments.entityNameTemplate).substitute(name)
+        name = Template(options.entities.nameTemplate).substitute(name)
         return .userDefined(name: makeTypeName(name).namespace(context.namespace))
     }
 
@@ -664,7 +664,7 @@ extension Generator {
     }
 
     private func isEnum(_ info: JSONSchemaContext) -> Bool {
-        options.generateEnums && info.allowedValues != nil
+        options.generate.contains(.enums) && info.allowedValues != nil
     }
 
     // MARK: - Property

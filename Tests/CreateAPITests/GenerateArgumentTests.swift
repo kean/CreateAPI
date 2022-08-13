@@ -8,7 +8,7 @@ final class GenerateArgumentTests: GenerateTestCase {
 
         // When `--config` is not specified in the options
         let arguments: [String] = [
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             SpecFixture.edgecases.path
         ]
@@ -24,7 +24,7 @@ final class GenerateArgumentTests: GenerateTestCase {
         // When `--config` is not specified as the same location that is the default
         let arguments: [String] = [
             "--config", ".create-api.yaml",
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             SpecFixture.edgecases.path
         ]
@@ -43,7 +43,7 @@ final class GenerateArgumentTests: GenerateTestCase {
         // When `--config` is defined as a custom location
         let arguments: [String] = [
             "--config", "options.json",
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             SpecFixture.edgecases.path
         ]
@@ -63,7 +63,7 @@ final class GenerateArgumentTests: GenerateTestCase {
         // When the arguments result in cleaning the output
         let arguments: [String] = [
             "--clean",
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             SpecFixture.edgecases.path
         ]
@@ -82,7 +82,7 @@ final class GenerateArgumentTests: GenerateTestCase {
         let arguments: [String] = [
             "--clean",
             "--config", configURL.path,
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             SpecFixture.edgecases.path
         ]
@@ -102,7 +102,7 @@ final class GenerateArgumentTests: GenerateTestCase {
         // When the arguments result in trying to clean the spec file
         let arguments: [String] = [
             "--clean",
-            "--package", "Package",
+            "--config-option", "module=Package",
             "--output", temp.url.path,
             specURL.path
         ]
