@@ -465,9 +465,7 @@ final class GenerateOptionsTests: GenerateTestCase {
             spec: .petstore,
             name: "petstore-SPM-imports",
             testCompilationOnLinux: false, // custom imports aren't available there.
-            arguments: [
-                "--package", "petstore-SPM-imports"
-            ],
+            arguments: [],
             configuration: """
             package:
                 dependencies:
@@ -515,6 +513,7 @@ final class GenerateOptionsTests: GenerateTestCase {
                           version: 1.2.1
             """
         )
+    }
 
     func testFileHeaderComment() throws {
         try snapshot(
