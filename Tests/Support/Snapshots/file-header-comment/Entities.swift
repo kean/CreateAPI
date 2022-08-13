@@ -3,7 +3,6 @@
 //
 // swiftformat:disable all
 
-
 import Foundation
 
 struct StringCodingKey: CodingKey, ExpressibleByStringLiteral {
