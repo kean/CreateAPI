@@ -3,41 +3,41 @@ import Foundation
 public struct PackageDeclaration: Decodable {
     
     let url: URL
-    let product: String
+    let products: [String]
     var requirement: SourceControlRequirement
     
     public var packageDeclaration: String {
         ".package(url: \"\(url)\", \(requirement.declaration))"
     }
     
-    public var productDeclaration: String {
+    public var productDeclarations: [String] {
         let cleanedPackage = url
             .deletingPathExtension()
             .lastPathComponent
         
-        return ".product(name: \"\(product)\", package: \"\(cleanedPackage)\")"
+        return products.map { ".product(name: \"\($0)\", package: \"\(cleanedPackage)\")" }
     }
     
-    public init(url: URL, product: String, requirement: SourceControlRequirement) {
+    public init(url: URL, products: [String], requirement: SourceControlRequirement) {
         self.url = url
-        self.product = product
+        self.products = products
         self.requirement = requirement
     }
     
     public static let get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
-                                               product: "Get",
+                                               products: ["Get"],
                                                requirement: .from(version: "1.0.2"))
     
     public static let httpHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
-                                                       product: "HTTPHeaders",
+                                                       products: ["HTTPHeaders"],
                                                        requirement: .from(version: "0.1.0"))
     
     public static let naiveDate = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/NaiveDate")!,
-                                                     product: "NaiveDate",
+                                                     products: ["NaiveDate"],
                                                      requirement: .from(version: "1.0.0"))
     
     public static let urlQueryEncoder = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/URLQueryEncoder")!,
-                                                           product: "URLQueryEncoder",
+                                                           products: ["URLQueryEncoder"],
                                                            requirement: .from(version: "0.2.0"))
     
     public enum SourceControlRequirement: Decodable {

@@ -128,6 +128,10 @@ extension Array {
     func appending(_ element: Element) -> [Element] {
         self + [element]
     }
+    
+    func appending(contentsOf contents: [Element]) -> [Element] {
+        self + contents
+    }
 }
 
 extension Array where Element == String {

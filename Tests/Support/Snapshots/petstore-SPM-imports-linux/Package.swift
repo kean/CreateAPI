@@ -19,7 +19,8 @@ let package = Package(
     targets: [
         .target(name: "petstore-SPM-imports-linux", dependencies: [
             .product(name: "Logging", package: "swift-log"),
-            .product(name: "Numerics", package: "swift-numerics"),
+            .product(name: "RealModule", package: "swift-numerics"),
+            .product(name: "ComplexModule", package: "swift-numerics"),
             .product(name: "Get", package: "Get"),
             .product(name: "HTTPHeaders", package: "HTTPHeaders"),
             .product(name: "URLQueryEncoder", package: "URLQueryEncoder")

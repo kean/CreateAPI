@@ -19,8 +19,11 @@ extension Generator {
             .map(\.packageDeclaration)
             .joined(separator: ",\n")
 
-        let dependenciesDeclaration: String = allPackages
-            .map(\.productDeclaration)
+        let dependenciesDeclaration = allPackages
+            .map(\.productDeclarations)
+            .reduce(Array<String>()) { partialResult, currentImports in
+                return partialResult.appending(contentsOf: currentImports)
+            }
             .joined(separator: ",\n")
 
         return """
