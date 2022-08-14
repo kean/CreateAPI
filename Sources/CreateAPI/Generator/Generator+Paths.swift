@@ -20,7 +20,7 @@ extension Generator {
         let jobs = makeJobs()
         var generated = [Result<GeneratedFile, Error>?](repeating: nil, count: jobs.count)
         let lock = NSLock()
-        concurrentPerform(on: jobs, parallel: arguments.isVerbose) { index, job in
+        concurrentPerform(on: jobs, parallel: arguments.isParallel) { index, job in
             do {
                 let entry = try makeEntry(for: job)
                 let file = GeneratedFile(name: makeTypeName(job.filename).rawValue, contents: entry)
