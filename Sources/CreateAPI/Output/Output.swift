@@ -44,8 +44,9 @@ struct Output {
                 try groupWriter.write(file: file, header: output.header, template: template, options: options)
             }
 
+            let extensionWriter = sourcesWriter.writer(in: "Extensions")
             for file in output.extensions {
-                try sourcesWriter.write(file: file, header: output.header, options: options)
+                try extensionWriter.write(file: file, header: output.header, options: options)
             }
         }
     }
