@@ -729,13 +729,13 @@ package:
     requirement:
       range:
         from: 1.0.0
-        to: 2.1.0
+        to: 2.0.0
   - url: https://github.com/apple/swift-metrics.git
     product: Metrics
     requirement:
       closedRange:
         from: 2.0.0
-        to: 3.1.0
+        to: 2.9.1
   - url: https://github.com/apple/swift-log
     product: Logging
     requirement:
