@@ -34,6 +34,7 @@ extension Issue {
         ["isInliningTypealiases"]: "Replaced by ‘inlineTypealiases‘.",
         ["isPluralizationEnabled"]: "Replaced by ‘pluralizeProperties‘.",
         ["isNaiveDateEnabled"]: "Replaced by ‘useNaiveDate‘.",
+        ["useFixWidthIntegers"]: "Use `dataTypes` instead",
         ["isUsingIntegersWithPredefinedCapacity"]: "Replaced by ‘useFixWidthIntegers‘.",
         ["comments"]: "Replaced by ‘commentOptions‘.",
         ["isSwiftLintDisabled"]: "Add to ‘fileHeaderComment‘ instead.",
