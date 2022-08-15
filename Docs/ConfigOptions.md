@@ -56,9 +56,9 @@ Below you can find the complete documentation for all available options.
 - [spaceWidth](#spacewidth)
 - [pluralizeProperties](#pluralizeproperties)
 - [useNaiveDate](#usenaivedate)
-- [useFixWidthIntegers](#usefixwidthintegers)
 - [fileHeaderComment](#fileheadercomment)
 - [commentOptions](#commentoptions)
+- [dataTypes](#datatypes)
 - [package](#package)
   - [dependencies](#packagedependencies)
 - [entities](#entities)
@@ -282,15 +282,6 @@ Parses dates (e.g. `"2021-09-29"`) using [NaiveDate](https://github.com/CreateAP
 
 <br/>
 
-## useFixWidthIntegers
-
-**Type:** Bool<br />
-**Default:** `false`
-
-If enabled, uses `Int64` or `Int32` when specified.
-
-<br/>
-
 ## fileHeaderComment
 
 **Type:** String<br />
@@ -346,6 +337,14 @@ commentOptions:
 ```
 
 </details>
+
+<br/>
+
+## dataTypes
+
+**Type:** DataTypes<br />
+**Default:** `DataTypes()`
+
 
 <br/>
 
