@@ -24,7 +24,7 @@ extension Paths {
         public struct GetParameters {
             public var enumQueryStringArray: [EnumQueryStringArray]?
             public var enumQueryString: EnumQueryString?
-            public var enumQueryInteger: Int32?
+            public var enumQueryInteger: Int?
 
             public enum EnumQueryStringArray: String, Codable, CaseIterable {
                 case greaterThan = ">"
@@ -37,7 +37,7 @@ extension Paths {
                 case xyz = "(xyz)"
             }
 
-            public init(enumQueryStringArray: [EnumQueryStringArray]? = nil, enumQueryString: EnumQueryString? = nil, enumQueryInteger: Int32? = nil) {
+            public init(enumQueryStringArray: [EnumQueryStringArray]? = nil, enumQueryString: EnumQueryString? = nil, enumQueryInteger: Int? = nil) {
                 self.enumQueryStringArray = enumQueryStringArray
                 self.enumQueryString = enumQueryString
                 self.enumQueryInteger = enumQueryInteger
@@ -61,9 +61,9 @@ extension Paths {
             /// None
             public var integer: Int?
             /// None
-            public var int32: Int32?
+            public var int32: Int?
             /// None
-            public var int64: Int64?
+            public var int64: Int?
             /// None
             public var number: Double
             /// None
@@ -87,7 +87,7 @@ extension Paths {
             /// None
             public var callback: String?
 
-            public init(integer: Int? = nil, int32: Int32? = nil, int64: Int64? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: Data, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
+            public init(integer: Int? = nil, int32: Int? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: Data, binary: String? = nil, date: NaiveDate? = nil, dateTime: Date? = nil, password: String? = nil, callback: String? = nil) {
                 self.integer = integer
                 self.int32 = int32
                 self.int64 = int64
