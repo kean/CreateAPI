@@ -233,6 +233,14 @@ public struct ConfigOptions: ParsableConfiguration {
         !commentOptions.isEmpty
     }
     
+    public struct DataTypes: Codable {
+        public var string: [String: String]?
+        public var number: [String: String]?
+        public var integer: [String: String]?
+    }
+    
+    @Option public var dataTypes = DataTypes()
+    
     @Option public var package: Package
     
     // sourcery: document,

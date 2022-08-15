@@ -530,32 +530,18 @@ extension Generator {
         func getQueryItemType(for schema: JSONSchema, isTopLevel: Bool) throws -> QueryItemType? {
             switch schema.value {
             case .boolean: return QueryItemType("Bool")
-            case .number: return QueryItemType("Double")
+            case .number(let info, _):
+                return QueryItemType(type: numberType(for: info.format))
             case .integer(let info, _):
-                guard options.useFixWidthIntegers else {
-                    return QueryItemType("Int")
-                }
-                switch info.format {
-                case .generic, .other: return QueryItemType("Int")
-                case .int32: return QueryItemType("Int32")
-                case .int64: return QueryItemType("Int64")
-                }
+                return QueryItemType(type: integerType(for: info.format))
             case .string(let info, _):
-                switch info.format {
-                case .dateTime: return QueryItemType("Date")
-                case .date: if options.useNaiveDate {
-                    setNaiveDateNeeded()
-                    return QueryItemType("NaiveDate")
-                }
-                case .other(let other): if other == "uri" { return QueryItemType("URL") }
-                default: break
-                }
                 if info.allowedValues != nil {
                     let enumTypeName = makeTypeName(parameter.name)
                     let nested = try makeStringEnum(name: enumTypeName, info: info)
                     return QueryItemType(type: .userDefined(name: enumTypeName), nested: nested)
                 }
-                return QueryItemType("String")
+                
+                return QueryItemType(type: stringType(for: info.format))
             case .object, .all, .one, .any:
                 let type = makeTypeName(parameter.name)
                 let nested = try _makeDeclaration(name: type, schema: schema, context: context)

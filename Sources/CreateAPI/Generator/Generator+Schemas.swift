@@ -173,15 +173,15 @@ extension Generator {
         switch schema.value {
         case .boolean:
             return TypealiasDeclaration(name: name, type: .builtin("Bool"))
-        case .number:
-            return TypealiasDeclaration(name: name, type: .builtin("Double"))
+        case .number(let info, _):
+            return TypealiasDeclaration(name: name, type: numberType(for: info.format))
         case .integer(let info, _):
-            return TypealiasDeclaration(name: name, type: getIntegerType(for: info))
+            return TypealiasDeclaration(name: name, type: integerType(for: info.format))
         case .string(let info, _):
             if isEnum(info) {
                 return try makeStringEnum(name: name, info: info)
             } else {
-                return TypealiasDeclaration(name: name, type: getStringType(for: info))
+                return TypealiasDeclaration(name: name, type: stringType(for: info.format))
             }
         case .object(let info, let details):
             return try makeObject(name: name, info: info, details: details, context: context)
@@ -216,35 +216,6 @@ extension Generator {
         context.isInlinableTypeCheck = true
         let decl = try _makeDeclaration(name: name, schema: schema, context: context)
         return (decl as? TypealiasDeclaration)?.type
-    }
-
-    private func getIntegerType(for info: JSONSchema.CoreContext<JSONTypeFormat.IntegerFormat>) -> TypeIdentifier {
-        guard options.useFixWidthIntegers else {
-            return .builtin("Int")
-        }
-        switch info.format {
-        case .generic, .other: return .builtin("Int")
-        case .int32: return .builtin("Int32")
-        case .int64: return .builtin("Int64")
-        }
-    }
-
-    private func getStringType(for info: JSONSchema.CoreContext<JSONTypeFormat.StringFormat>) -> TypeIdentifier {
-        switch info.format {
-        case .dateTime: return .builtin("Date")
-        case .date: if options.useNaiveDate {
-            setNaiveDateNeeded()
-            return .builtin("NaiveDate")
-        }
-        case .other(let other) where other == "uri":
-            return .builtin("URL")
-        case .other(let other) where other == "uuid":
-            return .builtin("UUID")
-        case .byte:
-          return .builtin("Data")
-        default: break
-        }
-        return .builtin("String")
     }
 
     private func getReferenceType(_ reference: JSONReference<JSONSchema>, context: Context) throws -> TypeIdentifier {
