@@ -370,14 +370,16 @@ final class GenerateOptionsTests: GenerateTestCase {
         )
     }
     
+    // TODO: To be removed/replaced
     func testEdgecasesEnableIntegerCapacity() throws {
         try snapshot(
             spec: .edgecases,
             name: "edgecases-int32-int64",
             configuration: """
-            {
-                "useFixWidthIntegers": true
-            }
+            dataTypes:
+              integer:
+                int32: Int32
+                int64: Int64
             """
         )
     }

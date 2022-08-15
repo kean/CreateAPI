@@ -44,10 +44,10 @@ extension Generator {
     func integerType(for format: JSONTypeFormat.IntegerFormat) -> TypeIdentifier {
         switch format {
         case .int32:
-            return .builtin("Int")
+            return builtInType("Int", format: "int32", overrides: options.dataTypes.integer)
 //            return builtInType("Int32", format: "int32", overrides: options.dataTypes.integer)
         case .int64:
-            return .builtin("Int")
+            return builtInType("Int", format: "int64", overrides: options.dataTypes.integer)
 //            return builtInType("Int64", format: "int64", overrides: options.dataTypes.integer)
         case .other(let format):
             return builtInType("Int", format: format, overrides: options.dataTypes.integer)
