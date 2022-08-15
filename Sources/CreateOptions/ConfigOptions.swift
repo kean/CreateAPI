@@ -236,26 +236,41 @@ public struct ConfigOptions: ParsableConfiguration {
         public var integer: [String: String]?
     }
     
-    /// Change datatype format mapping to Swift types than what CreateAPI provides. Use in combination with [`entity imports`](#entitiesimports), [`paths imports`](#pathsimports), and [`dependencies`](#packagedependencies) for mapping to types that the default library does not provide.
+    /// Change the data type format mapping to Swift types than what CreateAPI provides.
     ///
-    /// > **Note** `useNaiveDate` takes precedence for overriding the `date` string format. Set `useNaiveDate: false` to properly override this format.
+    /// You can use this option in combination with [`entities.imports`](#entitiesimports), [`paths.imports`](#pathsimports), and [`package.dependencies`](#packagedependencies) for mapping to types that the default library does not provide.
     ///
-    /// > **Note** Swift types must conform to `Codable`. Incorrect decoding may cause crashes on API calls and incorrect encoding may cause API issues.
+    /// It is your responsibility to ensure that the replacement type conforms to `Codable` and can properly decode and encode to the original primative type.
     ///
     /// <details>
     /// <summary>Examples</summary>
     ///
+    /// Supporting custom formats:
     /// ```yaml
-    /// datatypes:
+    /// dataTypes:
     ///   string:
     ///     uuid: String
     ///     phone-number: PhoneNumber # imported type
     ///   number:
     ///     float: Double
+    /// ```
+    ///
+    /// Disable fixed-width integer types:
+    /// ```yaml
+    /// dataTypes:
     ///   integer:
     ///     int32: Int
     ///     int64: Int
     /// ```
+    ///
+    /// Disable usage of `NaiveDate`:
+    /// ```yaml
+    /// useNaiveDate: false # must be set otherwise `date` overrides are ignored
+    /// dataTypes:
+    ///   string:
+    ///     date: String
+    /// ```
+    ///
     /// </details>
     @Option public var dataTypes = DataTypes()
     
