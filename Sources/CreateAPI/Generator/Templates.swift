@@ -102,6 +102,25 @@ final class Templates {
         """
     }
 
+    func rawRepresentableConstant(name: String, value: String) -> String {
+        let value = value.isEscapingNeeded ? "#\"\(value)\"#" : "\"\(value)\""
+        return "\(access)static let \(name) = Self(rawValue: \(value))"
+    }
+
+    func rawRepresentable(name: TypeName, type: String = "String", contents: String) -> String {
+        return """
+        \(access)struct \(name): RawRepresentable, Codable {
+            \(access)let rawValue: \(type)
+
+            \(access)init(rawValue: \(type)) {
+                self.rawValue = rawValue
+            }
+
+        \(contents.indented)
+        }
+        """
+    }
+
     // MARK: Query Parameters
 
     func asQuery(properties: [Property]) -> String {
