@@ -370,16 +370,21 @@ final class GenerateOptionsTests: GenerateTestCase {
         )
     }
     
-    // TODO: To be removed/replaced
-    func testEdgecasesEnableIntegerCapacity() throws {
+    func testEdgecasesDataTypes() throws {
         try snapshot(
             spec: .edgecases,
-            name: "edgecases-int32-int64",
+            name: "edgecases-data-types",
             configuration: """
+            useNativeDate: false
             dataTypes:
+              string:
+                date-time: AnyJSON
+                byte: String
               integer:
-                int32: Int32
-                int64: Int64
+                int32: Double
+                int64: Int
+            paths:
+              includeResponseHeaders: false
             """
         )
     }
