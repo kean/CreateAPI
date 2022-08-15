@@ -19,7 +19,7 @@ extension Paths.Store {
         /// Returns pet inventories by status
         ///
         /// Returns a map of status codes to quantities
-        var get: Request<[String: Int]> {
+        var get: Request<[String: Int32]> {
             Request(method: "GET", url: path, id: "getInventory")
         }
     }

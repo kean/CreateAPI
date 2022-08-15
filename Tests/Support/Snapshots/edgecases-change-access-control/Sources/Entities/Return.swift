@@ -6,15 +6,15 @@ import NaiveDate
 
 /// Model for testing reserved words
 struct Return: Codable {
-    var `return`: Int?
+    var `return`: Int32?
 
-    init(`return`: Int? = nil) {
+    init(`return`: Int32? = nil) {
         self.return = `return`
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.return = try values.decodeIfPresent(Int.self, forKey: "return")
+        self.return = try values.decodeIfPresent(Int32.self, forKey: "return")
     }
 
     func encode(to encoder: Encoder) throws {

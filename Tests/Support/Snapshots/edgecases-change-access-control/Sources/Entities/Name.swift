@@ -6,12 +6,12 @@ import NaiveDate
 
 /// Model for testing model name same as property name
 struct Name: Codable {
-    var name: Int
-    var snakeCase: Int?
+    var name: Int32
+    var snakeCase: Int32?
     var property: String?
     var _123Number: Int?
 
-    init(name: Int, snakeCase: Int? = nil, property: String? = nil, _123Number: Int? = nil) {
+    init(name: Int32, snakeCase: Int32? = nil, property: String? = nil, _123Number: Int? = nil) {
         self.name = name
         self.snakeCase = snakeCase
         self.property = property
@@ -20,8 +20,8 @@ struct Name: Codable {
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.name = try values.decode(Int.self, forKey: "name")
-        self.snakeCase = try values.decodeIfPresent(Int.self, forKey: "snake_case")
+        self.name = try values.decode(Int32.self, forKey: "name")
+        self.snakeCase = try values.decodeIfPresent(Int32.self, forKey: "snake_case")
         self.property = try values.decodeIfPresent(String.self, forKey: "property")
         self._123Number = try values.decodeIfPresent(Int.self, forKey: "123Number")
     }

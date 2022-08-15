@@ -5,11 +5,11 @@ import Foundation
 import NaiveDate
 
 struct APIResponse: Codable {
-    var code: Int?
+    var code: Int32?
     var type: String?
     var message: String?
 
-    init(code: Int? = nil, type: String? = nil, message: String? = nil) {
+    init(code: Int32? = nil, type: String? = nil, message: String? = nil) {
         self.code = code
         self.type = type
         self.message = message
@@ -17,7 +17,7 @@ struct APIResponse: Codable {
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.code = try values.decodeIfPresent(Int.self, forKey: "code")
+        self.code = try values.decodeIfPresent(Int32.self, forKey: "code")
         self.type = try values.decodeIfPresent(String.self, forKey: "type")
         self.message = try values.decodeIfPresent(String.self, forKey: "message")
     }

@@ -5,10 +5,10 @@ import Foundation
 import NaiveDate
 
 public struct Tag: Codable {
-    public var id: Int?
+    public var id: Int64?
     public var name: String?
 
-    public init(id: Int? = nil, name: String? = nil) {
+    public init(id: Int64? = nil, name: String? = nil) {
         self.id = id
         self.name = name
     }

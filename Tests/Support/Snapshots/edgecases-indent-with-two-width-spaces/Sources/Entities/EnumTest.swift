@@ -6,7 +6,7 @@ import NaiveDate
 
 public struct EnumTest: Codable {
   public var enumString: EnumString?
-  public var enumInteger: Int?
+  public var enumInteger: Int32?
   public var enumNumber: Double?
   public var outerEnum: OuterEnum?
 
@@ -16,7 +16,7 @@ public struct EnumTest: Codable {
     case empty = ""
   }
 
-  public init(enumString: EnumString? = nil, enumInteger: Int? = nil, enumNumber: Double? = nil, outerEnum: OuterEnum? = nil) {
+  public init(enumString: EnumString? = nil, enumInteger: Int32? = nil, enumNumber: Double? = nil, outerEnum: OuterEnum? = nil) {
     self.enumString = enumString
     self.enumInteger = enumInteger
     self.enumNumber = enumNumber
@@ -26,7 +26,7 @@ public struct EnumTest: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: StringCodingKey.self)
     self.enumString = try values.decodeIfPresent(EnumString.self, forKey: "enum_string")
-    self.enumInteger = try values.decodeIfPresent(Int.self, forKey: "enum_integer")
+    self.enumInteger = try values.decodeIfPresent(Int32.self, forKey: "enum_integer")
     self.enumNumber = try values.decodeIfPresent(Double.self, forKey: "enum_number")
     self.outerEnum = try values.decodeIfPresent(OuterEnum.self, forKey: "outerEnum")
   }

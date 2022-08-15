@@ -4,10 +4,10 @@
 import Foundation
 
 public struct Error: Codable {
-    public var code: Int
+    public var code: Int32
     public var message: String
 
-    public init(code: Int, message: String) {
+    public init(code: Int32, message: String) {
         self.code = code
         self.message = message
     }

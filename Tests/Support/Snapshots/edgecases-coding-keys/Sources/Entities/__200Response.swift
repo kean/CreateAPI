@@ -6,10 +6,10 @@ import NaiveDate
 
 /// Model for testing model name starting with number
 public struct __200Response: Codable {
-    public var name: Int?
+    public var name: Int32?
     public var `class`: String?
 
-    public init(name: Int? = nil, `class`: String? = nil) {
+    public init(name: Int32? = nil, `class`: String? = nil) {
         self.name = name
         self.class = `class`
     }

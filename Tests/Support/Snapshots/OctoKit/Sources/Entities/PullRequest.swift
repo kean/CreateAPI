@@ -113,7 +113,7 @@ public struct PullRequest: Codable {
     }
 
     public struct Label: Codable {
-        public var id: Int
+        public var id: Int64
         public var nodeID: String
         public var url: String
         public var name: String
@@ -121,7 +121,7 @@ public struct PullRequest: Codable {
         public var color: String
         public var isDefault: Bool
 
-        public init(id: Int, nodeID: String, url: String, name: String, description: String? = nil, color: String, isDefault: Bool) {
+        public init(id: Int64, nodeID: String, url: String, name: String, description: String? = nil, color: String, isDefault: Bool) {
             self.id = id
             self.nodeID = nodeID
             self.url = url
@@ -133,7 +133,7 @@ public struct PullRequest: Codable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.id = try values.decode(Int.self, forKey: "id")
+            self.id = try values.decode(Int64.self, forKey: "id")
             self.nodeID = try values.decode(String.self, forKey: "node_id")
             self.url = try values.decode(String.self, forKey: "url")
             self.name = try values.decode(String.self, forKey: "name")

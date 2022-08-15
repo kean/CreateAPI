@@ -5,17 +5,17 @@ import Foundation
 import CoreLocation
 
 public struct Error: Codable {
-    public var code: Int
+    public var code: Int32
     public var message: String
 
-    public init(code: Int, message: String) {
+    public init(code: Int32, message: String) {
         self.code = code
         self.message = message
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.code = try values.decode(Int.self, forKey: "code")
+        self.code = try values.decode(Int32.self, forKey: "code")
         self.message = try values.decode(String.self, forKey: "message")
     }
 

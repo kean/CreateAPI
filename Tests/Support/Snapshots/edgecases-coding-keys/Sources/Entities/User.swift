@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 public struct User: Codable {
-    public var id: Int?
+    public var id: Int64?
     public var username: String?
     public var firstName: String?
     public var lastName: String?
@@ -13,9 +13,9 @@ public struct User: Codable {
     public var password: String?
     public var phone: String?
     /// User Status
-    public var userStatus: Int?
+    public var userStatus: Int32?
 
-    public init(id: Int? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil) {
+    public init(id: Int64? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int32? = nil) {
         self.id = id
         self.username = username
         self.firstName = firstName

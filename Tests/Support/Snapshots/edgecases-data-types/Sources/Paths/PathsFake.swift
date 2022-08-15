@@ -66,7 +66,7 @@ extension Paths {
             /// None
             public var number: Double
             /// None
-            public var float: Double?
+            public var float: Float?
             /// None
             public var double: Double
             /// None
@@ -86,7 +86,7 @@ extension Paths {
             /// None
             public var callback: String?
 
-            public init(integer: Int? = nil, int32: Double? = nil, int64: Int? = nil, number: Double, float: Double? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: AnyJSON? = nil, password: String? = nil, callback: String? = nil) {
+            public init(integer: Int? = nil, int32: Double? = nil, int64: Int? = nil, number: Double, float: Float? = nil, double: Double, string: String? = nil, patternWithoutDelimiter: String, byte: String, binary: String? = nil, date: NaiveDate? = nil, dateTime: AnyJSON? = nil, password: String? = nil, callback: String? = nil) {
                 self.integer = integer
                 self.int32 = int32
                 self.int64 = int64

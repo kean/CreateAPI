@@ -77,7 +77,7 @@ public struct Issue: Codable {
         case object(Object)
 
         public struct Object: Codable {
-            public var id: Int?
+            public var id: Int64?
             public var nodeID: String?
             public var url: URL?
             public var name: String?
@@ -85,7 +85,7 @@ public struct Issue: Codable {
             public var color: String?
             public var isDefault: Bool?
 
-            public init(id: Int? = nil, nodeID: String? = nil, url: URL? = nil, name: String? = nil, description: String? = nil, color: String? = nil, isDefault: Bool? = nil) {
+            public init(id: Int64? = nil, nodeID: String? = nil, url: URL? = nil, name: String? = nil, description: String? = nil, color: String? = nil, isDefault: Bool? = nil) {
                 self.id = id
                 self.nodeID = nodeID
                 self.url = url
@@ -97,7 +97,7 @@ public struct Issue: Codable {
 
             public init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: StringCodingKey.self)
-                self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+                self.id = try values.decodeIfPresent(Int64.self, forKey: "id")
                 self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
                 self.url = try values.decodeIfPresent(URL.self, forKey: "url")
                 self.name = try values.decodeIfPresent(String.self, forKey: "name")

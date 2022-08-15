@@ -8,7 +8,7 @@ import URLQueryEncoder
 
 extension Namespace {
     /// List all pets
-    static public func listPets(limit: Int? = nil) -> Request<[petstore_change_namespace_when_operations_style.Pet]> {
+    static public func listPets(limit: Int32? = nil) -> Request<[petstore_change_namespace_when_operations_style.Pet]> {
         Request(method: "GET", url: "/pets", query: makeListPetsQuery(limit), id: "listPets")
     }
 
@@ -17,7 +17,7 @@ extension Namespace {
         public static let next = HTTPHeader<String>(field: "x-next")
     }
 
-    private static func makeListPetsQuery(_ limit: Int?) -> [(String, String?)] {
+    private static func makeListPetsQuery(_ limit: Int32?) -> [(String, String?)] {
         let encoder = URLQueryEncoder()
         encoder.encode(limit, forKey: "limit")
         return encoder.items

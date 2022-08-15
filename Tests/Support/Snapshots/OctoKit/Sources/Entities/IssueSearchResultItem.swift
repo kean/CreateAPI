@@ -55,7 +55,7 @@ public struct IssueSearchResultItem: Codable {
     public var reactions: ReactionRollup?
 
     public struct Label: Codable {
-        public var id: Int?
+        public var id: Int64?
         public var nodeID: String?
         public var url: String?
         public var name: String?
@@ -63,7 +63,7 @@ public struct IssueSearchResultItem: Codable {
         public var isDefault: Bool?
         public var description: String?
 
-        public init(id: Int? = nil, nodeID: String? = nil, url: String? = nil, name: String? = nil, color: String? = nil, isDefault: Bool? = nil, description: String? = nil) {
+        public init(id: Int64? = nil, nodeID: String? = nil, url: String? = nil, name: String? = nil, color: String? = nil, isDefault: Bool? = nil, description: String? = nil) {
             self.id = id
             self.nodeID = nodeID
             self.url = url
@@ -75,7 +75,7 @@ public struct IssueSearchResultItem: Codable {
 
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: StringCodingKey.self)
-            self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+            self.id = try values.decodeIfPresent(Int64.self, forKey: "id")
             self.nodeID = try values.decodeIfPresent(String.self, forKey: "node_id")
             self.url = try values.decodeIfPresent(String.self, forKey: "url")
             self.name = try values.decodeIfPresent(String.self, forKey: "name")

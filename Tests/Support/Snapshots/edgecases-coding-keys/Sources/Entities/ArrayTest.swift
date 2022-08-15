@@ -6,10 +6,10 @@ import NaiveDate
 
 public struct ArrayTest: Codable {
     public var arrayOfString: [String]?
-    public var arrayArrayOfInteger: [[Int]]?
+    public var arrayArrayOfInteger: [[Int64]]?
     public var arrayArrayOfModel: [[ReadOnlyFirst]]?
 
-    public init(arrayOfString: [String]? = nil, arrayArrayOfInteger: [[Int]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil) {
+    public init(arrayOfString: [String]? = nil, arrayArrayOfInteger: [[Int64]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil) {
         self.arrayOfString = arrayOfString
         self.arrayArrayOfInteger = arrayArrayOfInteger
         self.arrayArrayOfModel = arrayArrayOfModel

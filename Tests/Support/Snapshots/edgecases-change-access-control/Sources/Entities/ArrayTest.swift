@@ -6,10 +6,10 @@ import NaiveDate
 
 struct ArrayTest: Codable {
     var arrayOfString: [String]?
-    var arrayArrayOfInteger: [[Int]]?
+    var arrayArrayOfInteger: [[Int64]]?
     var arrayArrayOfModel: [[ReadOnlyFirst]]?
 
-    init(arrayOfString: [String]? = nil, arrayArrayOfInteger: [[Int]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil) {
+    init(arrayOfString: [String]? = nil, arrayArrayOfInteger: [[Int64]]? = nil, arrayArrayOfModel: [[ReadOnlyFirst]]? = nil) {
         self.arrayOfString = arrayOfString
         self.arrayArrayOfInteger = arrayArrayOfInteger
         self.arrayArrayOfModel = arrayArrayOfModel
@@ -18,7 +18,7 @@ struct ArrayTest: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.arrayOfString = try values.decodeIfPresent([String].self, forKey: "array_of_string")
-        self.arrayArrayOfInteger = try values.decodeIfPresent([[Int]].self, forKey: "array_array_of_integer")
+        self.arrayArrayOfInteger = try values.decodeIfPresent([[Int64]].self, forKey: "array_array_of_integer")
         self.arrayArrayOfModel = try values.decodeIfPresent([[ReadOnlyFirst]].self, forKey: "array_array_of_model")
     }
 

@@ -7,12 +7,12 @@ import Foundation
 ///
 /// A pet description
 public struct Pet: Codable {
-    public var id: Int
+    public var id: Int64
     /// Example: "Buddy"
     public var name: String
     public var tag: String?
 
-    public init(id: Int, name: String, tag: String? = nil) {
+    public init(id: Int64, name: String, tag: String? = nil) {
         self.id = id
         self.name = name
         self.tag = tag

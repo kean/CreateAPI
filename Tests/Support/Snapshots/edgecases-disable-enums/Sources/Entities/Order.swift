@@ -5,15 +5,15 @@ import Foundation
 import NaiveDate
 
 public struct Order: Codable {
-    public var id: Int?
-    public var petID: Int?
-    public var quantity: Int?
+    public var id: Int64?
+    public var petID: Int64?
+    public var quantity: Int32?
     public var shipDate: Date?
     /// Order Status
     public var status: String?
     public var isComplete: Bool
 
-    public init(id: Int? = nil, petID: Int? = nil, quantity: Int? = nil, shipDate: Date? = nil, status: String? = nil, isComplete: Bool? = nil) {
+    public init(id: Int64? = nil, petID: Int64? = nil, quantity: Int32? = nil, shipDate: Date? = nil, status: String? = nil, isComplete: Bool? = nil) {
         self.id = id
         self.petID = petID
         self.quantity = quantity
@@ -24,9 +24,9 @@ public struct Order: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
-        self.petID = try values.decodeIfPresent(Int.self, forKey: "petId")
-        self.quantity = try values.decodeIfPresent(Int.self, forKey: "quantity")
+        self.id = try values.decodeIfPresent(Int64.self, forKey: "id")
+        self.petID = try values.decodeIfPresent(Int64.self, forKey: "petId")
+        self.quantity = try values.decodeIfPresent(Int32.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(String.self, forKey: "status")
         self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete") ?? false

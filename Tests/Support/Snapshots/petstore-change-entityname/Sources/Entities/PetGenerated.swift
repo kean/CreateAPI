@@ -7,12 +7,12 @@ import Foundation
 ///
 /// A pet description
 public struct PetGenerated: Codable {
-    public var id: Int
+    public var id: Int64
     /// Example: "Buddy"
     public var name: String
     public var tag: String?
 
-    public init(id: Int, name: String, tag: String? = nil) {
+    public init(id: Int64, name: String, tag: String? = nil) {
         self.id = id
         self.name = name
         self.tag = tag
@@ -20,7 +20,7 @@ public struct PetGenerated: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decode(Int.self, forKey: "id")
+        self.id = try values.decode(Int64.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
         self.tag = try values.decodeIfPresent(String.self, forKey: "tag")
     }

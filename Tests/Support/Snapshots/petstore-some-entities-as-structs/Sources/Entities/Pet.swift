@@ -7,12 +7,12 @@ import Foundation
 ///
 /// A pet description
 public final class Pet: Codable {
-    public let id: Int
+    public let id: Int64
     /// Example: "Buddy"
     public let name: String
     public let tag: String?
 
-    public init(id: Int, name: String, tag: String? = nil) {
+    public init(id: Int64, name: String, tag: String? = nil) {
         self.id = id
         self.name = name
         self.tag = tag
@@ -20,7 +20,7 @@ public final class Pet: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decode(Int.self, forKey: "id")
+        self.id = try values.decode(Int64.self, forKey: "id")
         self.name = try values.decode(String.self, forKey: "name")
         self.tag = try values.decodeIfPresent(String.self, forKey: "tag")
     }

@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 public struct User: Codable {
-	public var id: Int?
+	public var id: Int64?
 	public var username: String?
 	public var firstName: String?
 	public var lastName: String?
@@ -13,9 +13,9 @@ public struct User: Codable {
 	public var password: String?
 	public var phone: String?
 	/// User Status
-	public var userStatus: Int?
+	public var userStatus: Int32?
 
-	public init(id: Int? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int? = nil) {
+	public init(id: Int64? = nil, username: String? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, password: String? = nil, phone: String? = nil, userStatus: Int32? = nil) {
 		self.id = id
 		self.username = username
 		self.firstName = firstName
@@ -28,14 +28,14 @@ public struct User: Codable {
 
 	public init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: StringCodingKey.self)
-		self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+		self.id = try values.decodeIfPresent(Int64.self, forKey: "id")
 		self.username = try values.decodeIfPresent(String.self, forKey: "username")
 		self.firstName = try values.decodeIfPresent(String.self, forKey: "firstName")
 		self.lastName = try values.decodeIfPresent(String.self, forKey: "lastName")
 		self.email = try values.decodeIfPresent(String.self, forKey: "email")
 		self.password = try values.decodeIfPresent(String.self, forKey: "password")
 		self.phone = try values.decodeIfPresent(String.self, forKey: "phone")
-		self.userStatus = try values.decodeIfPresent(Int.self, forKey: "userStatus")
+		self.userStatus = try values.decodeIfPresent(Int32.self, forKey: "userStatus")
 	}
 
 	public func encode(to encoder: Encoder) throws {

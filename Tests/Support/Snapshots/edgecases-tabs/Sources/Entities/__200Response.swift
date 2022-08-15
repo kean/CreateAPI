@@ -6,17 +6,17 @@ import NaiveDate
 
 /// Model for testing model name starting with number
 public struct __200Response: Codable {
-	public var name: Int?
+	public var name: Int32?
 	public var `class`: String?
 
-	public init(name: Int? = nil, `class`: String? = nil) {
+	public init(name: Int32? = nil, `class`: String? = nil) {
 		self.name = name
 		self.class = `class`
 	}
 
 	public init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: StringCodingKey.self)
-		self.name = try values.decodeIfPresent(Int.self, forKey: "name")
+		self.name = try values.decodeIfPresent(Int32.self, forKey: "name")
 		self.class = try values.decodeIfPresent(String.self, forKey: "class")
 	}
 

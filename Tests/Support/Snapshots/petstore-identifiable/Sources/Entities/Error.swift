@@ -4,17 +4,17 @@
 import Foundation
 
 public struct Error: Codable, Identifiable {
-    public var id: Int
+    public var id: Int32
     public var message: String
 
-    public init(id: Int, message: String) {
+    public init(id: Int32, message: String) {
         self.id = id
         self.message = message
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decode(Int.self, forKey: "code")
+        self.id = try values.decode(Int32.self, forKey: "code")
         self.message = try values.decode(String.self, forKey: "message")
     }
 

@@ -17,7 +17,7 @@ extension Paths {
         public let path: String
 
         /// List all pets
-        public func get(limit: Int? = nil) -> Request<[petstore_custom_imports.Pet]> {
+        public func get(limit: Int32? = nil) -> Request<[petstore_custom_imports.Pet]> {
             Request(method: "GET", url: path, query: makeGetQuery(limit), id: "listPets")
         }
 
@@ -26,7 +26,7 @@ extension Paths {
             public static let next = HTTPHeader<String>(field: "x-next")
         }
 
-        private func makeGetQuery(_ limit: Int?) -> [(String, String?)] {
+        private func makeGetQuery(_ limit: Int32?) -> [(String, String?)] {
             let encoder = URLQueryEncoder()
             encoder.encode(limit, forKey: "limit")
             return encoder.items

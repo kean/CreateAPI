@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 public struct Pet: Codable {
-    public var id: Int?
+    public var id: Int64?
     public var category: Category?
     /// Example: "doggie"
     public var name: String
@@ -21,7 +21,7 @@ public struct Pet: Codable {
         case sold
     }
 
-    public init(id: Int? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, status: Status? = nil) {
+    public init(id: Int64? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, status: Status? = nil) {
         self.id = id
         self.category = category
         self.name = name

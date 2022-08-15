@@ -5,7 +5,7 @@ import Foundation
 import NaiveDate
 
 public struct Pet: Codable {
-    public var id: Int?
+    public var id: Int64?
     public var category: Category?
     /// Example: "doggie"
     public var name: String
@@ -14,7 +14,7 @@ public struct Pet: Codable {
     /// Pet status in the store
     public var status: String?
 
-    public init(id: Int? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, status: String? = nil) {
+    public init(id: Int64? = nil, category: Category? = nil, name: String, photoURLs: [String], tags: [Tag]? = nil, status: String? = nil) {
         self.id = id
         self.category = category
         self.name = name
@@ -25,7 +25,7 @@ public struct Pet: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.id = try values.decodeIfPresent(Int64.self, forKey: "id")
         self.category = try values.decodeIfPresent(Category.self, forKey: "category")
         self.name = try values.decode(String.self, forKey: "name")
         self.photoURLs = try values.decode([String].self, forKey: "photoUrls")

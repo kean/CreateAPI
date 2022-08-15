@@ -7,7 +7,7 @@ import NaiveDate
 /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
 public struct Label: Codable {
     /// Example: 208045946
-    public var id: Int
+    public var id: Int64
     /// Example: "MDU6TGFiZWwyMDgwNDU5NDY="
     public var nodeID: String
     /// URL for the label
@@ -27,7 +27,7 @@ public struct Label: Codable {
     /// Example: true
     public var isDefault: Bool
 
-    public init(id: Int, nodeID: String, url: URL, name: String, description: String? = nil, color: String, isDefault: Bool) {
+    public init(id: Int64, nodeID: String, url: URL, name: String, description: String? = nil, color: String, isDefault: Bool) {
         self.id = id
         self.nodeID = nodeID
         self.url = url
@@ -39,7 +39,7 @@ public struct Label: Codable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.id = try values.decode(Int.self, forKey: "id")
+        self.id = try values.decode(Int64.self, forKey: "id")
         self.nodeID = try values.decode(String.self, forKey: "node_id")
         self.url = try values.decode(URL.self, forKey: "url")
         self.name = try values.decode(String.self, forKey: "name")

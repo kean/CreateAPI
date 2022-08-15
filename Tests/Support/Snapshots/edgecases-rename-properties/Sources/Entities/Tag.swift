@@ -5,17 +5,17 @@ import Foundation
 import NaiveDate
 
 public struct Tag: Codable {
-    public var identifier: Int?
+    public var identifier: Int64?
     public var name: String?
 
-    public init(identifier: Int? = nil, name: String? = nil) {
+    public init(identifier: Int64? = nil, name: String? = nil) {
         self.identifier = identifier
         self.name = name
     }
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
-        self.identifier = try values.decodeIfPresent(Int.self, forKey: "id")
+        self.identifier = try values.decodeIfPresent(Int64.self, forKey: "id")
         self.name = try values.decodeIfPresent(String.self, forKey: "name")
     }
 

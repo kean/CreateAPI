@@ -24,7 +24,7 @@ extension Paths.User {
         public enum GetResponseHeaders {
             /// Calls per hour allowed by the user
             @available(*, deprecated, message: "Deprecated")
-            public static let rateLimit = HTTPHeader<Int>(field: "X-Rate-Limit")
+            public static let rateLimit = HTTPHeader<Int32>(field: "X-Rate-Limit")
             /// Date in UTC when toekn expires
             public static let expiresAfter = HTTPHeader<Date>(field: "X-Expires-After")
         }

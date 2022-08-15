@@ -5,11 +5,11 @@ import Foundation
 import NaiveDate
 
 public struct APIResponse: Codable {
-    public var code: Int?
+    public var code: Int32?
     public var type: String?
     public var message: String?
 
-    public init(code: Int? = nil, type: String? = nil, message: String? = nil) {
+    public init(code: Int32? = nil, type: String? = nil, message: String? = nil) {
         self.code = code
         self.type = type
         self.message = message
