@@ -236,9 +236,9 @@ public struct ConfigOptions: ParsableConfiguration {
         public var integer: [String: String]?
     }
     
-    /// Change datatype format mapping to Swift types than what CreateAPI provides. Use in combination with [`entity imports`](#entitiesimports), [`paths imports`](#pathsimports), and ['dependencies'](#packagedependencies) for mapping to types that the default library does not provide.
+    /// Change datatype format mapping to Swift types than what CreateAPI provides. Use in combination with [`entity imports`](#entitiesimports), [`paths imports`](#pathsimports), and [`dependencies`](#packagedependencies) for mapping to types that the default library does not provide.
     ///
-    /// > **Note** `useNaiveDate` takes precedence for overriding the `date` string format. Set `useNaiveDate: false` to properly override this type.
+    /// > **Note** `useNaiveDate` takes precedence for overriding the `date` string format. Set `useNaiveDate: false` to properly override this format.
     ///
     /// > **Note** Swift types must conform to `Codable`. Incorrect decoding may cause crashes on API calls and incorrect encoding may cause API issues.
     ///
