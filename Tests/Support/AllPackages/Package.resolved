@@ -29,6 +29,60 @@
         }
       },
       {
+        "package": "swift-algorithms",
+        "repositoryURL": "https://github.com/apple/swift-algorithms",
+        "state": {
+          "branch": null,
+          "revision": "b14b7f4c528c942f121c8b860b9410b2bf57825e",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "82905286cc3f0fa8adc4674bf49437cab65a8373",
+          "version": "1.1.1"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log",
+        "state": {
+          "branch": "main",
+          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-metrics",
+        "repositoryURL": "https://github.com/apple/swift-metrics.git",
+        "state": {
+          "branch": null,
+          "revision": "53be78637ecd165d1ddedc4e20de69b8f43ec3b7",
+          "version": "2.3.2"
+        }
+      },
+      {
+        "package": "swift-numerics",
+        "repositoryURL": "https://github.com/apple/swift-numerics",
+        "state": {
+          "branch": null,
+          "revision": "7f2d022d3d9b55bf812814f5d01896cbfa0fd4da",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-system",
+        "repositoryURL": "https://github.com/apple/swift-system",
+        "state": {
+          "branch": null,
+          "revision": "025bcb1165deab2e20d4eaba79967ce73013f496",
+          "version": "1.2.1"
+        }
+      },
+      {
         "package": "URLQueryEncoder",
         "repositoryURL": "https://github.com/CreateAPI/URLQueryEncoder",
         "state": {
