@@ -102,6 +102,7 @@ For more information about using CreateAPI, check out the [Documentation](./Docs
 Need some inspiration? Check out the list of projects below that are already using CreateAPI:
 
 - [appstoreconnect-swift-sdk](https://github.com/AvdLee/appstoreconnect-swift-sdk)
+- [jellyfin-sdk-swift](https://github.com/jellyfin/jellyfin-sdk-swift)
 
 Are you using CreateAPI in your own open-source project? Let us know by [adding it](https://github.com/CreateAPI/CreateAPI/edit/main/README.md) to the list above!
 
