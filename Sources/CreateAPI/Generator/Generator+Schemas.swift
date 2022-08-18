@@ -271,7 +271,7 @@ extension Generator {
             }
         }
         name = Template(options.entities.nameTemplate).substitute(name)
-        return .userDefined(name: makeTypeName(name).namespace(context.namespace))
+        return .userDefined(name: makeTypeName(name))
     }
 
     // MARK: - Object
