@@ -39,6 +39,23 @@ components:
       properties:
         kind:
           type: string
+    One:
+      allOf:
+        - $ref: "#/components/schemas/A"
+    Two:
+      allOf:
+        - $ref: "#/components/schemas/A"
+    Three:
+      type: object
+      required:
+        - kind
+        - foo
+      properties:
+        kind:
+          type: string
+        foo:
+          type: string
+
 
     Container:
       type: object
@@ -57,3 +74,20 @@ components:
               b: "#/components/schemas/B"
               c: "#/components/schemas/C"
               d: "#/components/schemas/A"
+
+    AnotherContainer:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          oneOf:
+            - $ref: "#/components/schemas/One"
+            - $ref: "#/components/schemas/Two"
+            - $ref: "#/components/schemas/Three"
+          discriminator:
+            propertyName: kind
+            mapping:
+              one: "#/components/schemas/One"
+              two: "#/components/schemas/Two"
+              three: "#/components/schemas/Three"
