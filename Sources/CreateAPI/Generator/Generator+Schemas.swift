@@ -400,31 +400,12 @@ extension Generator {
     }
 
     private func makeDiscriminator(info: JSONSchemaContext, context: Context) throws -> Discriminator? {
-        if let discriminator = info.discriminator {
-            var mapping: [String: TypeIdentifier] = [:]
-
-            if let innerMapping = discriminator.mapping {
-                for (key, value) in innerMapping {
-                    let stripped = String(value.dropFirst("#/components/schemas/".count))
-                    guard let componentKey = OpenAPI.ComponentKey(rawValue: stripped) else {
-                        throw GeneratorError("Encountered invalid type name \"\(value)\" while constructing discriminator")
-                    }
-
-                    if let name = getTypeName(for: componentKey) {
-                        mapping[key] = .userDefined(name: name)
-                    } else {
-                        try handle(warning: "Mapping \"\(key)\" has no matching type")
-                    }
-                }
-            }
-
-            return .init(
+        try info.discriminator.flatMap { discriminator in
+            Discriminator(
                 propertyName: discriminator.propertyName,
-                mapping: mapping
+                mapping: try discriminator.schemaMapping?.mapValues({ try getReferenceType($0, context: context) }) ?? [:]
             )
         }
-
-        return .none
     }
 
     // MARK: - oneOf/anyOf/allOf
@@ -760,5 +741,21 @@ extension Generator {
         }
         // We don't need to dereference the whole thing (including all properties).
         return spec.components.schemas[key]
+    }
+}
+
+private extension OpenAPI.Discriminator {
+    var schemaMapping: [String: JSONReference<JSONSchema>]? {
+        get throws {
+            try mapping?.mapValues { value in
+                if value.hasPrefix("#") {
+                    return .internal(.path(.init(rawValue: value)))
+                } else if let url = URL(string: value) {
+                    return .external(url)
+                } else {
+                    throw GeneratorError("Expected mapping value '\(value)' to be a valid reference")
+                }
+            }
+        }
     }
 }

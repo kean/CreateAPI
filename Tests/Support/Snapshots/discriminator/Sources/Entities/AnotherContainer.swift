@@ -19,6 +19,8 @@ public struct AnotherContainer: Codable {
             let container = try decoder.singleValueContainer()
 
             switch (try container.decode(Discriminator.self)).kind {
+            case "one": self = .a(try container.decode(A.self))
+            case "two": self = .a(try container.decode(A.self))
             case "three": self = .three(try container.decode(Three.self))
 
             default:
