@@ -301,9 +301,13 @@ final class Templates {
             statements += " "
         }
 
+        let typesList = properties.map(\.type.name.rawValue).joined(separator: ", ")
         statements += """
         {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Data could not be decoded as any of the expected types (\(typesList))."
+            )
         }
         """
 
@@ -316,10 +320,12 @@ final class Templates {
     }
 
     func initFromDecoderOneOfWithDiscriminator(properties: [Property], discriminator: Discriminator) -> String {
+        var expectedValues: [String] = []
         var statements = ""
         for property in properties {
             let correspondingMappings = discriminator.correspondingMappings(for: property)
             for mapping in correspondingMappings {
+                expectedValues.append(mapping.key)
                 statements += """
                 case \"\(mapping.key)\": self = .\(property.name)(try container.decode(\(property.type).self))
 
@@ -327,12 +333,16 @@ final class Templates {
             }
         }
 
-        statements += """
+        let valuesList = expectedValues.joined(separator: ", ")
+        statements += #"""
 
         default:
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to initialize `oneOf`")
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (\#(valuesList))."
+            )
         }
-        """
+        """#
 
         return """
         \(access)init(from decoder: Decoder) throws {
@@ -342,8 +352,9 @@ final class Templates {
             }
 
             let container = try decoder.singleValueContainer()
+            let discriminatorValue = try container.decode(Discriminator.self).\(discriminator.propertyName)
 
-            switch (try container.decode(Discriminator.self)).\(discriminator.propertyName) {
+            switch discriminatorValue {
         \(statements.indented)
         }
         """
