@@ -72,7 +72,10 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
                 } else if let value = try? container.decode(OctoKit.ContentSubmodule.self) {
                     self = .contentSubmodule(value)
                 } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    throw DecodingError.dataCorruptedError(
+                        in: container,
+                        debugDescription: "Data could not be decoded as any of the expected types ([ContentDirectoryItem], OctoKit.ContentFile, OctoKit.ContentSymlink, OctoKit.ContentSubmodule)."
+                    )
                 }
             }
         }

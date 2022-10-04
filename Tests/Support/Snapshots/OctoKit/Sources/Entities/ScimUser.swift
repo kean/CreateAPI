@@ -184,7 +184,10 @@ public struct ScimUser: Codable {
                 } else if let value = try? container.decode([AnyJSON].self) {
                     self = .anyJSONs(value)
                 } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    throw DecodingError.dataCorruptedError(
+                        in: container,
+                        debugDescription: "Data could not be decoded as any of the expected types (String, [String: AnyJSON], [AnyJSON])."
+                    )
                 }
             }
 

@@ -18,15 +18,19 @@ public struct Container: Codable {
             }
 
             let container = try decoder.singleValueContainer()
+            let discriminatorValue = try container.decode(Discriminator.self).kind
 
-            switch (try container.decode(Discriminator.self)).kind {
+            switch discriminatorValue {
             case "a": self = .a(try container.decode(A.self))
             case "d": self = .a(try container.decode(A.self))
             case "b": self = .b(try container.decode(B.self))
             case "c": self = .c(try container.decode(C.self))
 
             default:
-                throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to initialize `oneOf`")
+                throw DecodingError.dataCorruptedError(
+                    in: container,
+                    debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (a, d, b, c)."
+                )
             }
         }
 

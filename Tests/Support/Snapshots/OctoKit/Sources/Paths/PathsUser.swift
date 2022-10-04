@@ -37,7 +37,10 @@ extension Paths {
                 } else if let value = try? container.decode(OctoKit.PublicUser.self) {
                     self = .publicUser(value)
                 } else {
-                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Failed to intialize `oneOf`")
+                    throw DecodingError.dataCorruptedError(
+                        in: container,
+                        debugDescription: "Data could not be decoded as any of the expected types (OctoKit.PrivateUser, OctoKit.PublicUser)."
+                    )
                 }
             }
         }
