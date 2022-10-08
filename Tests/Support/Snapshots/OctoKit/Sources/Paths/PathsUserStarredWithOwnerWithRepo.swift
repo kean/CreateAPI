@@ -19,7 +19,7 @@ extension Paths.User.Starred.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#check-if-a-repository-is-starred-by-the-authenticated-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "activity/check-repo-is-starred-by-authenticated-user")
+            Request(path: path, method: "GET", id: "activity/check-repo-is-starred-by-authenticated-user")
         }
 
         /// Star a repository for the authenticated user
@@ -28,14 +28,14 @@ extension Paths.User.Starred.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#star-a-repository-for-the-authenticated-user)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "activity/star-repo-for-authenticated-user")
+            Request(path: path, method: "PUT", id: "activity/star-repo-for-authenticated-user")
         }
 
         /// Unstar a repository for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#unstar-a-repository-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "activity/unstar-repo-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "activity/unstar-repo-for-authenticated-user")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Migrations.WithMigrationID.Repos.WithRepoName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-an-organization-repository)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "migrations/unlock-repo-for-org")
+            Request(path: path, method: "DELETE", id: "migrations/unlock-repo-for-org")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-workflow-runs-for-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "actions/list-workflow-runs-for-repo")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "actions/list-workflow-runs-for-repo")
         }
 
         public struct GetResponse: Decodable {

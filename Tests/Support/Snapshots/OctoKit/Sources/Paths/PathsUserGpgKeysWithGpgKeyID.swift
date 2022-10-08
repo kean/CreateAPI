@@ -21,7 +21,7 @@ extension Paths.User.GpgKeys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-gpg-key-for-the-authenticated-user)
         public var get: Request<OctoKit.GpgKey> {
-            Request(method: "GET", url: path, id: "users/get-gpg-key-for-authenticated-user")
+            Request(path: path, method: "GET", id: "users/get-gpg-key-for-authenticated-user")
         }
 
         /// Delete a GPG key for the authenticated user
@@ -30,7 +30,7 @@ extension Paths.User.GpgKeys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#delete-a-gpg-key-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "users/delete-gpg-key-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "users/delete-gpg-key-for-authenticated-user")
         }
     }
 }

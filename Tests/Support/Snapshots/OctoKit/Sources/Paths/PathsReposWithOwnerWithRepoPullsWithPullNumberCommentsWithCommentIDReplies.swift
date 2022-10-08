@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Comments.WithComme
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-reply-for-a-review-comment)
         public func post(body: String) -> Request<OctoKit.PullRequestReviewComment> {
-            Request(method: "POST", url: path, body: ["body": body], id: "pulls/create-reply-for-review-comment")
+            Request(path: path, method: "POST", body: ["body": body], id: "pulls/create-reply-for-review-comment")
         }
 
         public enum PostResponseHeaders {

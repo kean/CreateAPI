@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#get-interaction-restrictions-for-a-repository)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path, id: "interactions/get-restrictions-for-repo")
+            Request(path: path, method: "GET", id: "interactions/get-restrictions-for-repo")
         }
 
         public struct GetResponse: Decodable {
@@ -46,7 +46,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#set-interaction-restrictions-for-a-repository)
         public func put(_ body: OctoKit.InteractionLimit) -> Request<OctoKit.InteractionLimitResponse> {
-            Request(method: "PUT", url: path, body: body, id: "interactions/set-restrictions-for-repo")
+            Request(path: path, method: "PUT", body: body, id: "interactions/set-restrictions-for-repo")
         }
 
         /// Remove interaction restrictions for a repository
@@ -55,7 +55,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/interactions#remove-interaction-restrictions-for-a-repository)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "interactions/remove-restrictions-for-repo")
+            Request(path: path, method: "DELETE", id: "interactions/remove-restrictions-for-repo")
         }
     }
 }

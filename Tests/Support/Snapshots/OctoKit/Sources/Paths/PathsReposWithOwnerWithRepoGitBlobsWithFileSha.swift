@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Blobs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-blob)
         public var get: Request<OctoKit.Blob> {
-            Request(method: "GET", url: path, id: "git/get-blob")
+            Request(path: path, method: "GET", id: "git/get-blob")
         }
     }
 }

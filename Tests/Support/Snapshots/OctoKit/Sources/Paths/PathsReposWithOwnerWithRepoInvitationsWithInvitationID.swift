@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-invitation)
         public func patch(permissions: PatchRequest.Permissions? = nil) -> Request<OctoKit.RepositoryInvitation> {
-            Request(method: "PATCH", url: path, body: PatchRequest(permissions: permissions), id: "repos/update-invitation")
+            Request(path: path, method: "PATCH", body: PatchRequest(permissions: permissions), id: "repos/update-invitation")
         }
 
         public struct PatchRequest: Encodable {
@@ -49,7 +49,7 @@ extension Paths.Repos.WithOwner.WithRepo.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-invitation)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-invitation")
+            Request(path: path, method: "DELETE", id: "repos/delete-invitation")
         }
     }
 }

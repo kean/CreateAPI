@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-commit-comments-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CommitComment]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-commit-comments-for-repo")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "repos/list-commit-comments-for-repo")
         }
 
         public enum GetResponseHeaders {

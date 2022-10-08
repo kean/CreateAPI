@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "petstore-entity-exclude", targets: ["petstore-entity-exclude"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.2")
+        .package(url: "https://github.com/kean/Get", from: "2.1.0")
     ],
     targets: [
         .target(name: "petstore-entity-exclude", dependencies: [

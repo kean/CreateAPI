@@ -21,7 +21,7 @@ extension Paths.Repositories.WithRepositoryID.Environments.WithEnvironmentName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-environment-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-environment-secrets")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "actions/list-environment-secrets")
         }
 
         public struct GetResponse: Decodable {

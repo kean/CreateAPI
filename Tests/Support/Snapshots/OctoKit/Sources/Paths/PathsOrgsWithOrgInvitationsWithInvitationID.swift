@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Invitations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#cancel-an-organization-invitation)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/cancel-invitation")
+            Request(path: path, method: "DELETE", id: "orgs/cancel-invitation")
         }
     }
 }

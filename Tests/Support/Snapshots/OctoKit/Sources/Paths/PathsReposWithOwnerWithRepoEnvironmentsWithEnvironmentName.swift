@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-an-environment)
         public var get: Request<OctoKit.Environment> {
-            Request(method: "GET", url: path, id: "repos/get-environment")
+            Request(path: path, method: "GET", id: "repos/get-environment")
         }
 
         /// Create or update an environment
@@ -36,7 +36,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-an-environment)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.Environment> {
-            Request(method: "PUT", url: path, body: body, id: "repos/create-or-update-environment")
+            Request(path: path, method: "PUT", body: body, id: "repos/create-or-update-environment")
         }
 
         public struct PutRequest: Encodable {
@@ -91,7 +91,7 @@ extension Paths.Repos.WithOwner.WithRepo.Environments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-an-environment)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-an-environment")
+            Request(path: path, method: "DELETE", id: "repos/delete-an-environment")
         }
     }
 }

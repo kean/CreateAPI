@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-github-pages-site)
         public var get: Request<OctoKit.Page> {
-            Request(method: "GET", url: path, id: "repos/get-pages")
+            Request(path: path, method: "GET", id: "repos/get-pages")
         }
 
         /// Create a GitHub Pages site
@@ -28,7 +28,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-github-pages-site)
         public func post(source: PostRequest.Source) -> Request<OctoKit.Page> {
-            Request(method: "POST", url: path, body: PostRequest(source: source), id: "repos/create-pages-site")
+            Request(path: path, method: "POST", body: PostRequest(source: source), id: "repos/create-pages-site")
         }
 
         /// The source branch and directory used to publish your Pages site.
@@ -77,7 +77,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-information-about-a-github-pages-site)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "repos/update-information-about-pages-site")
+            Request(path: path, method: "PUT", body: body, id: "repos/update-information-about-pages-site")
         }
 
         public struct PutRequest: Encodable {
@@ -159,7 +159,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-github-pages-site)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-pages-site")
+            Request(path: path, method: "DELETE", id: "repos/delete-pages-site")
         }
     }
 }

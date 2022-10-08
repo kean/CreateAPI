@@ -19,7 +19,7 @@ extension Paths.Store {
         ///
         /// Returns a map of status codes to quantities
         public var get: Request<[String: Double]> {
-            Request(method: "GET", url: path, id: "getInventory")
+            Request(path: path, method: "GET", id: "getInventory")
         }
     }
 }

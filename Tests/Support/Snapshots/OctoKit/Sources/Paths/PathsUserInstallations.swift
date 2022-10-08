@@ -27,7 +27,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-app-installations-accessible-to-the-user-access-token)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "apps/list-installations-for-authenticated-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "apps/list-installations-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {

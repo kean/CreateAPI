@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-child-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list-child-in-org")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "teams/list-child-in-org")
         }
 
         public enum GetResponseHeaders {

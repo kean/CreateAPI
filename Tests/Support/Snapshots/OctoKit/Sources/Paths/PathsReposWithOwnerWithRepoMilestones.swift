@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-milestones)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Milestone]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-milestones")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "issues/list-milestones")
         }
 
         public enum GetResponseHeaders {
@@ -72,7 +72,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-milestone)
         public func post(_ body: PostRequest) -> Request<OctoKit.Milestone> {
-            Request(method: "POST", url: path, body: body, id: "issues/create-milestone")
+            Request(path: path, method: "POST", body: body, id: "issues/create-milestone")
         }
 
         public enum PostResponseHeaders {

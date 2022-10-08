@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-github-meta-information)
         public var get: Request<OctoKit.APIOverview> {
-            Request(method: "GET", url: path, id: "meta/get")
+            Request(path: path, method: "GET", id: "meta/get")
         }
     }
 }

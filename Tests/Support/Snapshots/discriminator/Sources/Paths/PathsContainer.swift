@@ -14,7 +14,7 @@ extension Paths {
         public let path: String
 
         public var get: Request<discriminator.Container> {
-            Request(method: "GET", url: path)
+            Request(path: path, method: "GET")
         }
     }
 }

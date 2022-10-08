@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Community {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-community-profile-metrics)
         public var get: Request<OctoKit.CommunityProfile> {
-            Request(method: "GET", url: path, id: "repos/get-community-profile-metrics")
+            Request(path: path, method: "GET", id: "repos/get-community-profile-metrics")
         }
     }
 }

@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-github-pages-builds)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.PageBuild]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-pages-builds")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "repos/list-pages-builds")
         }
 
         public enum GetResponseHeaders {
@@ -41,7 +41,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pages {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#request-a-github-pages-build)
         public var post: Request<OctoKit.PageBuildStatus> {
-            Request(method: "POST", url: path, id: "repos/request-pages-build")
+            Request(path: path, method: "POST", id: "repos/request-pages-build")
         }
     }
 }

@@ -19,14 +19,14 @@ extension Paths.User.Memberships.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-membership-for-the-authenticated-user)
         public var get: Request<OctoKit.OrgMembership> {
-            Request(method: "GET", url: path, id: "orgs/get-membership-for-authenticated-user")
+            Request(path: path, method: "GET", id: "orgs/get-membership-for-authenticated-user")
         }
 
         /// Update an organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-membership-for-the-authenticated-user)
         public func patch(state: PatchRequest.State) -> Request<OctoKit.OrgMembership> {
-            Request(method: "PATCH", url: path, body: PatchRequest(state: state), id: "orgs/update-membership-for-authenticated-user")
+            Request(path: path, method: "PATCH", body: PatchRequest(state: state), id: "orgs/update-membership-for-authenticated-user")
         }
 
         public struct PatchRequest: Encodable {

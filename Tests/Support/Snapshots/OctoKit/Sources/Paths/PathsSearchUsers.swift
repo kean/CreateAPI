@@ -29,7 +29,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-users)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters.asQuery, id: "search/users")
+            Request(path: path, method: "GET", query: parameters.asQuery, id: "search/users")
         }
 
         public struct GetResponse: Decodable {

@@ -24,7 +24,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PackageVersion]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "packages/get-all-package-versions-for-package-owned-by-authenticated-user")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "packages/get-all-package-versions-for-package-owned-by-authenticated-user")
         }
 
         public struct GetParameters {

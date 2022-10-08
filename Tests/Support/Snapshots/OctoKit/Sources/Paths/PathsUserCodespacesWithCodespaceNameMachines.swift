@@ -23,7 +23,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-machine-types-for-a-codespace)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path, id: "codespaces/codespace-machines-for-authenticated-user")
+            Request(path: path, method: "GET", id: "codespaces/codespace-machines-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {

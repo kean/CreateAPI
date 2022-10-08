@@ -21,7 +21,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-the-people-a-user-follows)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "users/list-following-for-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "users/list-following-for-user")
         }
 
         public enum GetResponseHeaders {

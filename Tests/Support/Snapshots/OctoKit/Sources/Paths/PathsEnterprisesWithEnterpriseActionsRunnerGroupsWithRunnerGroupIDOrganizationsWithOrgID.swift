@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#add-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "enterprise-admin/add-org-access-to-self-hosted-runner-group-in-enterprise")
+            Request(path: path, method: "PUT", id: "enterprise-admin/add-org-access-to-self-hosted-runner-group-in-enterprise")
         }
 
         /// Remove organization access to a self-hosted runner group in an enterprise
@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#remove-organization-access-to-a-self-hosted-runner-group-in-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "enterprise-admin/remove-org-access-to-self-hosted-runner-group-in-enterprise")
+            Request(path: path, method: "DELETE", id: "enterprise-admin/remove-org-access-to-self-hosted-runner-group-in-enterprise")
         }
     }
 }

@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-self-hosted-runner-group-for-an-organization)
         public var get: Request<OctoKit.RunnerGroupsOrg> {
-            Request(method: "GET", url: path, id: "actions/get-self-hosted-runner-group-for-org")
+            Request(path: path, method: "GET", id: "actions/get-self-hosted-runner-group-for-org")
         }
 
         /// Update a self-hosted runner group for an organization
@@ -38,7 +38,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#update-a-self-hosted-runner-group-for-an-organization)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.RunnerGroupsOrg> {
-            Request(method: "PATCH", url: path, body: body, id: "actions/update-self-hosted-runner-group-for-org")
+            Request(path: path, method: "PATCH", body: body, id: "actions/update-self-hosted-runner-group-for-org")
         }
 
         public struct PatchRequest: Encodable {
@@ -80,7 +80,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-self-hosted-runner-group-from-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/delete-self-hosted-runner-group-from-org")
+            Request(path: path, method: "DELETE", id: "actions/delete-self-hosted-runner-group-from-org")
         }
     }
 }

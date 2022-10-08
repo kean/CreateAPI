@@ -25,7 +25,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-github-packages-billing-for-an-enterprise)
         public var get: Request<OctoKit.PackagesBillingUsage> {
-            Request(method: "GET", url: path, id: "billing/get-github-packages-billing-ghe")
+            Request(path: path, method: "GET", id: "billing/get-github-packages-billing-ghe")
         }
     }
 }

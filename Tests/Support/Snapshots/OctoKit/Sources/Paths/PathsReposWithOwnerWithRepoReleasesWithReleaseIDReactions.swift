@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases.WithReleaseID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-release)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            Request(method: "POST", url: path, body: PostRequest(content: content), id: "reactions/create-for-release")
+            Request(path: path, method: "POST", body: PostRequest(content: content), id: "reactions/create-for-release")
         }
 
         public struct PostRequest: Encodable {

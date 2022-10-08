@@ -20,14 +20,14 @@ extension Paths.Store.Order {
         ///
         /// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
         public var get: Request<edgecases_rename.Order> {
-            Request(method: "GET", url: path, id: "getOrderById")
+            Request(path: path, method: "GET", id: "getOrderById")
         }
 
         /// Delete purchase order by ID
         ///
         /// For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "deleteOrder")
+            Request(path: path, method: "DELETE", id: "deleteOrder")
         }
     }
 }

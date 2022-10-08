@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-commit-authors)
         public func get(since: Int? = nil) -> Request<[OctoKit.PorterAuthor]> {
-            Request(method: "GET", url: path, query: makeGetQuery(since), id: "migrations/get-commit-authors")
+            Request(path: path, method: "GET", query: makeGetQuery(since), id: "migrations/get-commit-authors")
         }
 
         private func makeGetQuery(_ since: Int?) -> [(String, String?)] {

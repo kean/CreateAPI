@@ -19,21 +19,21 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-comment)
         public var get: Request<OctoKit.IssueComment> {
-            Request(method: "GET", url: path, id: "issues/get-comment")
+            Request(path: path, method: "GET", id: "issues/get-comment")
         }
 
         /// Update an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#update-an-issue-comment)
         public func patch(body: String) -> Request<OctoKit.IssueComment> {
-            Request(method: "PATCH", url: path, body: ["body": body], id: "issues/update-comment")
+            Request(path: path, method: "PATCH", body: ["body": body], id: "issues/update-comment")
         }
 
         /// Delete an issue comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#delete-an-issue-comment)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "issues/delete-comment")
+            Request(path: path, method: "DELETE", id: "issues/delete-comment")
         }
     }
 }

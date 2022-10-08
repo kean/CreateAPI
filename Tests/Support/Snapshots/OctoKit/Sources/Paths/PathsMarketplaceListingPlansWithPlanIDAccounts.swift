@@ -23,7 +23,7 @@ extension Paths.MarketplaceListing.Plans.WithPlanID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-accounts-for-a-plan)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MarketplacePurchase]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "apps/list-accounts-for-plan")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "apps/list-accounts-for-plan")
         }
 
         public enum GetResponseHeaders {

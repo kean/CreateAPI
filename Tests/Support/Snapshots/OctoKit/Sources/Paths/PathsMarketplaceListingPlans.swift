@@ -23,7 +23,7 @@ extension Paths.MarketplaceListing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-plans)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MarketplaceListingPlan]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "apps/list-plans")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "apps/list-plans")
         }
 
         public enum GetResponseHeaders {

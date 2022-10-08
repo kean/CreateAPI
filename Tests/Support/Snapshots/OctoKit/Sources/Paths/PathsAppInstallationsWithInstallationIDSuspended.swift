@@ -23,7 +23,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#suspend-an-app-installation)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "apps/suspend-installation")
+            Request(path: path, method: "PUT", id: "apps/suspend-installation")
         }
 
         /// Unsuspend an app installation
@@ -34,7 +34,7 @@ extension Paths.App.Installations.WithInstallationID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#unsuspend-an-app-installation)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "apps/unsuspend-installation")
+            Request(path: path, method: "DELETE", id: "apps/unsuspend-installation")
         }
     }
 }

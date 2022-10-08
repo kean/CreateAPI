@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-languages)
         public var get: Request<[String: Int]> {
-            Request(method: "GET", url: path, id: "repos/list-languages")
+            Request(path: path, method: "GET", id: "repos/list-languages")
         }
     }
 }

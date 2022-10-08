@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID.Statuses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment-status)
         public var get: Request<OctoKit.DeploymentStatus> {
-            Request(method: "GET", url: path, id: "repos/get-deployment-status")
+            Request(path: path, method: "GET", id: "repos/get-deployment-status")
         }
     }
 }

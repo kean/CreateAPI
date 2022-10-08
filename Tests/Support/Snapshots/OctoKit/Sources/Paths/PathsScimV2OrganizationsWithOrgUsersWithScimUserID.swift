@@ -19,7 +19,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#get-scim-provisioning-information-for-a-user)
         public var get: Request<OctoKit.ScimUser> {
-            Request(method: "GET", url: path, id: "scim/get-provisioning-information-for-user")
+            Request(path: path, method: "GET", id: "scim/get-provisioning-information-for-user")
         }
 
         /// Update a provisioned organization membership
@@ -32,7 +32,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#set-scim-information-for-a-provisioned-user)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimUser> {
-            Request(method: "PUT", url: path, body: body, id: "scim/set-information-for-provisioned-user")
+            Request(path: path, method: "PUT", body: body, id: "scim/set-information-for-provisioned-user")
         }
 
         public struct PutRequest: Encodable {
@@ -160,7 +160,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#update-an-attribute-for-a-scim-user)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimUser> {
-            Request(method: "PATCH", url: path, body: body, id: "scim/update-attribute-for-user")
+            Request(path: path, method: "PATCH", body: body, id: "scim/update-attribute-for-user")
         }
 
         public struct PatchRequest: Encodable {
@@ -276,7 +276,7 @@ extension Paths.Scim.V2.Organizations.WithOrg.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#delete-a-scim-user-from-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "scim/delete-user-from-org")
+            Request(path: path, method: "DELETE", id: "scim/delete-user-from-org")
         }
     }
 }

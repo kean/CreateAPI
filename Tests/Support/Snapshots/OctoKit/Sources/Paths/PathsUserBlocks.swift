@@ -21,7 +21,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-users-blocked-by-the-authenticated-user)
         public var get: Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, id: "users/list-blocked-by-authenticated-user")
+            Request(path: path, method: "GET", id: "users/list-blocked-by-authenticated-user")
         }
     }
 }

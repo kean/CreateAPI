@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-github-actions-permissions-for-an-organization)
         public var get: Request<OctoKit.ActionsOrganizationPermissions> {
-            Request(method: "GET", url: path, id: "actions/get-github-actions-permissions-organization")
+            Request(path: path, method: "GET", id: "actions/get-github-actions-permissions-organization")
         }
 
         /// Set GitHub Actions permissions for an organization
@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-github-actions-permissions-for-an-organization)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "actions/set-github-actions-permissions-organization")
+            Request(path: path, method: "PUT", body: body, id: "actions/set-github-actions-permissions-organization")
         }
 
         public struct PutRequest: Encodable {

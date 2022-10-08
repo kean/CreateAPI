@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-users-with-access-to-the-protected-branch)
         public var get: Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, id: "repos/get-users-with-access-to-protected-branch")
+            Request(path: path, method: "GET", id: "repos/get-users-with-access-to-protected-branch")
         }
 
         /// Add user access restrictions
@@ -38,7 +38,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-user-access-restrictions)
         public func post(_ body: PostRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "POST", url: path, body: body, id: "repos/add-user-access-restrictions")
+            Request(path: path, method: "POST", body: body, id: "repos/add-user-access-restrictions")
         }
 
         public enum PostRequest: Encodable {
@@ -87,7 +87,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-user-access-restrictions)
         public func put(_ body: PutRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "PUT", url: path, body: body, id: "repos/set-user-access-restrictions")
+            Request(path: path, method: "PUT", body: body, id: "repos/set-user-access-restrictions")
         }
 
         public enum PutRequest: Encodable {
@@ -136,7 +136,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Restrict
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-user-access-restrictions)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "DELETE", url: path, body: body, id: "repos/remove-user-access-restrictions")
+            Request(path: path, method: "DELETE", body: body, id: "repos/remove-user-access-restrictions")
         }
 
         public enum DeleteRequest: Encodable {

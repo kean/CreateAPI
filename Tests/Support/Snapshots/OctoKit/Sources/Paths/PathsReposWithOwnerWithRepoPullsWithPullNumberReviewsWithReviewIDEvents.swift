@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews.WithReview
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#submit-a-review-for-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequestReview> {
-            Request(method: "POST", url: path, body: body, id: "pulls/submit-review")
+            Request(path: path, method: "POST", body: body, id: "pulls/submit-review")
         }
 
         public struct PostRequest: Encodable {

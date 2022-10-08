@@ -24,7 +24,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-all-package-versions-for-a-package-owned-by-a-user)
         public var get: Request<[OctoKit.PackageVersion]> {
-            Request(method: "GET", url: path, id: "packages/get-all-package-versions-for-package-owned-by-user")
+            Request(path: path, method: "GET", id: "packages/get-all-package-versions-for-package-owned-by-user")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow)
         public var get: Request<OctoKit.Workflow> {
-            Request(method: "GET", url: path, id: "actions/get-workflow")
+            Request(path: path, method: "GET", id: "actions/get-workflow")
         }
     }
 }

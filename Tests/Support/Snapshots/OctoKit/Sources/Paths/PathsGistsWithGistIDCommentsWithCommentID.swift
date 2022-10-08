@@ -19,21 +19,21 @@ extension Paths.Gists.WithGistID.Comments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#get-a-gist-comment)
         public var get: Request<OctoKit.GistComment> {
-            Request(method: "GET", url: path, id: "gists/get-comment")
+            Request(path: path, method: "GET", id: "gists/get-comment")
         }
 
         /// Update a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#update-a-gist-comment)
         public func patch(body: String) -> Request<OctoKit.GistComment> {
-            Request(method: "PATCH", url: path, body: ["body": body], id: "gists/update-comment")
+            Request(path: path, method: "PATCH", body: ["body": body], id: "gists/update-comment")
         }
 
         /// Delete a gist comment
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#delete-a-gist-comment)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "gists/delete-comment")
+            Request(path: path, method: "DELETE", id: "gists/delete-comment")
         }
     }
 }

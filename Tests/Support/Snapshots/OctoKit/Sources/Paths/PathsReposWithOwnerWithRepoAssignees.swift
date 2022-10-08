@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-assignees)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-assignees")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "issues/list-assignees")
         }
 
         public enum GetResponseHeaders {

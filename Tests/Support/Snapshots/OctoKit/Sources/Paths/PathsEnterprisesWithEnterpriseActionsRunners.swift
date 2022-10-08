@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runners-for-enterprise")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runners-for-enterprise")
         }
 
         public struct GetResponse: Decodable {

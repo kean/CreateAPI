@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/meta#get-octocat)
         public func get(s: String? = nil) -> Request<String> {
-            Request(method: "GET", url: path, query: makeGetQuery(s), id: "meta/get-octocat")
+            Request(path: path, method: "GET", query: makeGetQuery(s), id: "meta/get-octocat")
         }
 
         private func makeGetQuery(_ s: String?) -> [(String, String?)] {

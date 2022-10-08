@@ -16,7 +16,7 @@ extension Paths {
 
         /// Form Object Explode False
         public func get(type: `Type`) -> Request<Void> {
-            Request(method: "GET", url: path, query: makeGetQuery(type))
+            Request(path: path, method: "GET", query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {

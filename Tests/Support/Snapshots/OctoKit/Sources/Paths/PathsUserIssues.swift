@@ -26,7 +26,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-user-account-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-for-authenticated-user")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "issues/list-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

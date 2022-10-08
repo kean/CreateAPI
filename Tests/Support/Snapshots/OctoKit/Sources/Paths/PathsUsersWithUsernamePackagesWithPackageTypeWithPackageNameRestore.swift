@@ -29,7 +29,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-a-user)
         public func post(token: String? = nil) -> Request<Void> {
-            Request(method: "POST", url: path, query: makePostQuery(token), id: "packages/restore-package-for-user")
+            Request(path: path, method: "POST", query: makePostQuery(token), id: "packages/restore-package-for-user")
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {

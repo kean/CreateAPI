@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-organization-public-key)
         public var get: Request<OctoKit.ActionsPublicKey> {
-            Request(method: "GET", url: path, id: "actions/get-org-public-key")
+            Request(path: path, method: "GET", id: "actions/get-org-public-key")
         }
     }
 }

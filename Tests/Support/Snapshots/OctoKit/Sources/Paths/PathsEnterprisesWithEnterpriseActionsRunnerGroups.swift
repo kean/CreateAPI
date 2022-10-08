@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runner-groups-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runner-groups-for-enterprise")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runner-groups-for-enterprise")
         }
 
         public struct GetResponse: Decodable {
@@ -57,7 +57,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-self-hosted-runner-group-for-an-enterprise)
         public func post(_ body: PostRequest) -> Request<OctoKit.RunnerGroupsEnterprise> {
-            Request(method: "POST", url: path, body: body, id: "enterprise-admin/create-self-hosted-runner-group-for-enterprise")
+            Request(path: path, method: "POST", body: body, id: "enterprise-admin/create-self-hosted-runner-group-for-enterprise")
         }
 
         public struct PostRequest: Encodable {

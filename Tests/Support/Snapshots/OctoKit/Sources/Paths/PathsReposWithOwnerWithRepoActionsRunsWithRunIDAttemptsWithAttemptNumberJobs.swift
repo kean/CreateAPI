@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts.WithAtt
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-jobs-for-a-workflow-run-attempt)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-jobs-for-workflow-run-attempt")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "actions/list-jobs-for-workflow-run-attempt")
         }
 
         public struct GetResponse: Decodable {

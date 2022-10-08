@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests-files)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.DiffEntry]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "pulls/list-files")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "pulls/list-files")
         }
 
         public enum GetResponseHeaders {

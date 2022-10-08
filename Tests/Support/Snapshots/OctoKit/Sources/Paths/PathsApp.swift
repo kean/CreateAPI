@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-the-authenticated-app)
         public var get: Request<OctoKit.Integration> {
-            Request(method: "GET", url: path, id: "apps/get-authenticated")
+            Request(path: path, method: "GET", id: "apps/get-authenticated")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Members {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-organization-membership-for-a-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "orgs/check-membership-for-user")
+            Request(path: path, method: "GET", id: "orgs/check-membership-for-user")
         }
 
         /// Remove an organization member
@@ -30,7 +30,7 @@ extension Paths.Orgs.WithOrg.Members {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-an-organization-member)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/remove-member")
+            Request(path: path, method: "DELETE", id: "orgs/remove-member")
         }
     }
 }

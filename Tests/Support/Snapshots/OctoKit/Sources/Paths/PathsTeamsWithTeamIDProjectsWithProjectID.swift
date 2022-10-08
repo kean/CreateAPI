@@ -24,7 +24,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-project-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamProject> {
-            Request(method: "GET", url: path, id: "teams/check-permissions-for-project-legacy")
+            Request(path: path, method: "GET", id: "teams/check-permissions-for-project-legacy")
         }
 
         /// Add or update team project permissions (Legacy)
@@ -36,7 +36,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-project-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(permission: permission), id: "teams/add-or-update-project-permissions-legacy")
+            Request(path: path, method: "PUT", body: PutRequest(permission: permission), id: "teams/add-or-update-project-permissions-legacy")
         }
 
         public struct PutRequest: Encodable {
@@ -77,7 +77,7 @@ extension Paths.Teams.WithTeamID.Projects {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-project-from-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/remove-project-legacy")
+            Request(path: path, method: "DELETE", id: "teams/remove-project-legacy")
         }
     }
 }

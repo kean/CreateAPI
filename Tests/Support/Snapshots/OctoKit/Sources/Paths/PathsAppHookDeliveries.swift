@@ -23,7 +23,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-deliveries-for-an-app-webhook)
         public func get(perPage: Int? = nil, cursor: String? = nil) -> Request<[OctoKit.HookDeliveryItem]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, cursor), id: "apps/list-webhook-deliveries")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, cursor), id: "apps/list-webhook-deliveries")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ cursor: String?) -> [(String, String?)] {

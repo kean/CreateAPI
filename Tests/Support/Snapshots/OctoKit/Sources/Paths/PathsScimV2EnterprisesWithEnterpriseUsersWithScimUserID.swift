@@ -21,7 +21,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-scim-provisioning-information-for-an-enterprise-user)
         public var get: Request<OctoKit.ScimEnterpriseUser> {
-            Request(method: "GET", url: path, id: "enterprise-admin/get-provisioning-information-for-enterprise-user")
+            Request(path: path, method: "GET", id: "enterprise-admin/get-provisioning-information-for-enterprise-user")
         }
 
         /// Set SCIM information for a provisioned enterprise user
@@ -36,7 +36,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-scim-information-for-a-provisioned-enterprise-user)
         public func put(_ body: PutRequest) -> Request<OctoKit.ScimEnterpriseUser> {
-            Request(method: "PUT", url: path, body: body, id: "enterprise-admin/set-information-for-provisioned-enterprise-user")
+            Request(path: path, method: "PUT", body: body, id: "enterprise-admin/set-information-for-provisioned-enterprise-user")
         }
 
         public struct PutRequest: Encodable {
@@ -144,7 +144,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-an-attribute-for-a-scim-enterprise-user)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.ScimEnterpriseUser> {
-            Request(method: "PATCH", url: path, body: body, id: "enterprise-admin/update-attribute-for-enterprise-user")
+            Request(path: path, method: "PATCH", body: body, id: "enterprise-admin/update-attribute-for-enterprise-user")
         }
 
         public struct PatchRequest: Encodable {
@@ -171,7 +171,7 @@ extension Paths.Scim.V2.Enterprises.WithEnterprise.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-scim-user-from-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "enterprise-admin/delete-user-from-enterprise")
+            Request(path: path, method: "DELETE", id: "enterprise-admin/delete-user-from-enterprise")
         }
     }
 }

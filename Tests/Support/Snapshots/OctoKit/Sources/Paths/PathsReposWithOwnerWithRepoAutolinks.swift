@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#list-autolinks)
         public func get(page: Int? = nil) -> Request<[OctoKit.Autolink]> {
-            Request(method: "GET", url: path, query: makeGetQuery(page), id: "repos/list-autolinks")
+            Request(path: path, method: "GET", query: makeGetQuery(page), id: "repos/list-autolinks")
         }
 
         private func makeGetQuery(_ page: Int?) -> [(String, String?)] {
@@ -38,7 +38,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/v3/repos#create-an-autolink)
         public func post(_ body: PostRequest) -> Request<OctoKit.Autolink> {
-            Request(method: "POST", url: path, body: body, id: "repos/create-autolink")
+            Request(path: path, method: "POST", body: body, id: "repos/create-autolink")
         }
 
         public enum PostResponseHeaders {

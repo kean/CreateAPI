@@ -18,12 +18,12 @@ extension Paths {
 
         /// Add a new pet to the store
         public func post(_ body: edgecases_coding_keys.Pet) -> Request<Void> {
-            Request(method: "POST", url: path, body: body, id: "addPet")
+            Request(path: path, method: "POST", body: body, id: "addPet")
         }
 
         /// Update an existing pet
         public func put(_ body: edgecases_coding_keys.Pet) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "updatePet")
+            Request(path: path, method: "PUT", body: body, id: "updatePet")
         }
     }
 }

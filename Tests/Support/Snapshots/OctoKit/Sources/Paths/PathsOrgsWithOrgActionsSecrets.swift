@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-organization-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-org-secrets")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "actions/list-org-secrets")
         }
 
         public struct GetResponse: Decodable {

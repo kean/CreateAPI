@@ -21,7 +21,7 @@ extension Paths.Gists {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-starred-gists)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "gists/list-starred")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "gists/list-starred")
         }
 
         public enum GetResponseHeaders {

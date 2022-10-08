@@ -372,9 +372,6 @@ extension Generator {
         var call: [String] = []
         var nested: [Declaration] = []
 
-        // Add the `method` parameter to the call
-        call.append("method: \"\(task.method.uppercased())\"")
-
         // Add `path` parameter to the call
         switch style {
         case .operations:
@@ -388,10 +385,13 @@ extension Generator {
             if path.contains("{") {
                 throw GeneratorError("One or more path parameters for \(task.operationId) is missing")
             }
-            call.append("url: \"\(path)\"")
+            call.append("path: \"\(path)\"")
         case .rest:
-            call.append("url: path") // Already provided by the wrapping type
+            call.append("path: path") // Already provided by the wrapping type
         }
+
+        // Add the `method` parameter to the call
+        call.append("method: \"\(task.method.uppercased())\"")
 
         // Response type
         let response = try makeResponse(for: task, context: context)

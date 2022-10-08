@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-deployments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Deployment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "repos/list-deployments")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "repos/list-deployments")
         }
 
         public enum GetResponseHeaders {
@@ -107,7 +107,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-deployment)
         public func post(_ body: PostRequest) -> Request<OctoKit.Deployment> {
-            Request(method: "POST", url: path, body: body, id: "repos/create-deployment")
+            Request(path: path, method: "POST", body: body, id: "repos/create-deployment")
         }
 
         public struct PostRequest: Encodable {

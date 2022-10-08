@@ -19,7 +19,7 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#check-public-organization-membership-for-a-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "orgs/check-public-membership-for-user")
+            Request(path: path, method: "GET", id: "orgs/check-public-membership-for-user")
         }
 
         /// Set public organization membership for the authenticated user
@@ -30,14 +30,14 @@ extension Paths.Orgs.WithOrg.PublicMembers {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-public-organization-membership-for-the-authenticated-user)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "orgs/set-public-membership-for-authenticated-user")
+            Request(path: path, method: "PUT", id: "orgs/set-public-membership-for-authenticated-user")
         }
 
         /// Remove public organization membership for the authenticated user
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-public-organization-membership-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/remove-public-membership-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "orgs/remove-public-membership-for-authenticated-user")
         }
     }
 }

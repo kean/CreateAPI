@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#convert-an-organization-member-to-outside-collaborator)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "orgs/convert-member-to-outside-collaborator")
+            Request(path: path, method: "PUT", id: "orgs/convert-member-to-outside-collaborator")
         }
 
         /// Remove outside collaborator from an organization
@@ -30,7 +30,7 @@ extension Paths.Orgs.WithOrg.OutsideCollaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-outside-collaborator-from-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/remove-outside-collaborator")
+            Request(path: path, method: "DELETE", id: "orgs/remove-outside-collaborator")
         }
     }
 }

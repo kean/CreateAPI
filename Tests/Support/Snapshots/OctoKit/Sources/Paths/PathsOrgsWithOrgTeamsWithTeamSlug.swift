@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-team-by-name)
         public var get: Request<OctoKit.TeamFull> {
-            Request(method: "GET", url: path, id: "teams/get-by-name")
+            Request(path: path, method: "GET", id: "teams/get-by-name")
         }
 
         /// Update a team
@@ -34,7 +34,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-team)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamFull> {
-            Request(method: "PATCH", url: path, body: body, id: "teams/update-in-org")
+            Request(path: path, method: "PATCH", body: body, id: "teams/update-in-org")
         }
 
         public struct PatchRequest: Encodable {
@@ -106,7 +106,7 @@ extension Paths.Orgs.WithOrg.Teams {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-team)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/delete-in-org")
+            Request(path: path, method: "DELETE", id: "teams/delete-in-org")
         }
     }
 }

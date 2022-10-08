@@ -26,7 +26,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.TeamRepository> {
-            Request(method: "GET", url: path, id: "teams/check-permissions-for-repo-legacy")
+            Request(path: path, method: "GET", id: "teams/check-permissions-for-repo-legacy")
         }
 
         /// Add or update team repository permissions (Legacy)
@@ -40,7 +40,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(permission: permission), id: "teams/add-or-update-repo-permissions-legacy")
+            Request(path: path, method: "PUT", body: PutRequest(permission: permission), id: "teams/add-or-update-repo-permissions-legacy")
         }
 
         public struct PutRequest: Encodable {
@@ -83,7 +83,7 @@ extension Paths.Teams.WithTeamID.Repos.WithOwner {
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/remove-repo-legacy")
+            Request(path: path, method: "DELETE", id: "teams/remove-repo-legacy")
         }
     }
 }

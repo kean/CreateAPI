@@ -21,7 +21,7 @@ extension Paths.Gitignore {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gitignore#get-all-gitignore-templates)
         public var get: Request<[String]> {
-            Request(method: "GET", url: path, id: "gitignore/get-all-templates")
+            Request(path: path, method: "GET", id: "gitignore/get-all-templates")
         }
     }
 }

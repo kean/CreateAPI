@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-runner-applications-for-an-organization)
         public var get: Request<[OctoKit.RunnerApplication]> {
-            Request(method: "GET", url: path, id: "actions/list-runner-applications-for-org")
+            Request(path: path, method: "GET", id: "actions/list-runner-applications-for-org")
         }
     }
 }

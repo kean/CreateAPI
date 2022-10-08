@@ -23,7 +23,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations-for-a-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationSimple]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "orgs/list-for-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "orgs/list-for-user")
         }
 
         public enum GetResponseHeaders {

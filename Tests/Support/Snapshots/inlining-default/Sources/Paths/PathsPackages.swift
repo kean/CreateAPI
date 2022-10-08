@@ -14,7 +14,7 @@ extension Paths {
         public let path: String
 
         public var get: Request<[inlining_default.Package]> {
-            Request(method: "GET", url: path)
+            Request(path: path, method: "GET")
         }
     }
 }

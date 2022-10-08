@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-organization-repositories)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "repos/list-for-org")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "repos/list-for-org")
         }
 
         public enum GetResponseHeaders {
@@ -89,7 +89,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-an-organization-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.Repository> {
-            Request(method: "POST", url: path, body: body, id: "repos/create-in-org")
+            Request(path: path, method: "POST", body: body, id: "repos/create-in-org")
         }
 
         public enum PostResponseHeaders {

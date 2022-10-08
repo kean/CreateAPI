@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-team-members)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-members-in-org")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "teams/list-members-in-org")
         }
 
         public enum GetResponseHeaders {

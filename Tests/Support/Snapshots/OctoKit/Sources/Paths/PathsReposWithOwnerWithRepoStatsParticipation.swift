@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-weekly-commit-count)
         public var get: Request<OctoKit.ParticipationStats> {
-            Request(method: "GET", url: path, id: "repos/get-participation-stats")
+            Request(path: path, method: "GET", id: "repos/get-participation-stats")
         }
     }
 }

@@ -24,7 +24,7 @@ extension Paths.Applications {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-grants)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ApplicationGrant]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "oauth-authorizations/list-grants")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "oauth-authorizations/list-grants")
         }
 
         public enum GetResponseHeaders {

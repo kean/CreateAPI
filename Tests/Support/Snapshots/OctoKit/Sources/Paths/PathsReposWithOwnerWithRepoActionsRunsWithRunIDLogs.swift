@@ -24,7 +24,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-workflow-run-logs)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "actions/download-workflow-run-logs")
+            Request(path: path, method: "GET", id: "actions/download-workflow-run-logs")
         }
 
         /// Delete workflow run logs
@@ -33,7 +33,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-workflow-run-logs)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/delete-workflow-run-logs")
+            Request(path: path, method: "DELETE", id: "actions/delete-workflow-run-logs")
         }
     }
 }

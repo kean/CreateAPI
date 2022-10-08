@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-labels-for-a-repository)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Label]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "issues/list-labels-for-repo")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "issues/list-labels-for-repo")
         }
 
         public enum GetResponseHeaders {
@@ -37,7 +37,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#create-a-label)
         public func post(_ body: PostRequest) -> Request<OctoKit.Label> {
-            Request(method: "POST", url: path, body: body, id: "issues/create-label")
+            Request(path: path, method: "POST", body: body, id: "issues/create-label")
         }
 
         public enum PostResponseHeaders {

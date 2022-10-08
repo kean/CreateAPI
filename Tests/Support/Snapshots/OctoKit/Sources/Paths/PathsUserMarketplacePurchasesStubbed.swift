@@ -21,7 +21,7 @@ extension Paths.User.MarketplacePurchases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-subscriptions-for-the-authenticated-user-stubbed)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.UserMarketplacePurchase]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "apps/list-subscriptions-for-authenticated-user-stubbed")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "apps/list-subscriptions-for-authenticated-user-stubbed")
         }
 
         public enum GetResponseHeaders {

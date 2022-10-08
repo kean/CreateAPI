@@ -19,7 +19,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#check-if-a-person-is-followed-by-the-authenticated-user)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "users/check-person-is-followed-by-authenticated")
+            Request(path: path, method: "GET", id: "users/check-person-is-followed-by-authenticated")
         }
 
         /// Follow a user
@@ -30,7 +30,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#follow-a-user)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "users/follow")
+            Request(path: path, method: "PUT", id: "users/follow")
         }
 
         /// Unfollow a user
@@ -39,7 +39,7 @@ extension Paths.User.Following {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#unfollow-a-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "users/unfollow")
+            Request(path: path, method: "DELETE", id: "users/unfollow")
         }
     }
 }

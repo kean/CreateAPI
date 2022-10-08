@@ -19,7 +19,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-user-project)
         public func post(_ body: PostRequest) -> Request<OctoKit.Project> {
-            Request(method: "POST", url: path, body: body, id: "projects/create-for-authenticated-user")
+            Request(path: path, method: "POST", body: body, id: "projects/create-for-authenticated-user")
         }
 
         public struct PostRequest: Encodable {

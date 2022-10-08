@@ -31,7 +31,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-feeds)
         public var get: Request<OctoKit.Feed> {
-            Request(method: "GET", url: path, id: "activity/get-feeds")
+            Request(path: path, method: "GET", id: "activity/get-feeds")
         }
     }
 }

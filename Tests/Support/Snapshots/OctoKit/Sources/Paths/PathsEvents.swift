@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "activity/list-public-events")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "activity/list-public-events")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {

@@ -21,7 +21,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-repositories-watched-by-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.MinimalRepository]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "activity/list-watched-repos-for-authenticated-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "activity/list-watched-repos-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

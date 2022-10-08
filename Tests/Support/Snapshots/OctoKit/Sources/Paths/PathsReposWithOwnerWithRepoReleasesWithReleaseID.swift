@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-release)
         public var get: Request<OctoKit.Release> {
-            Request(method: "GET", url: path, id: "repos/get-release")
+            Request(path: path, method: "GET", id: "repos/get-release")
         }
 
         /// Update a release
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-release)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Release> {
-            Request(method: "PATCH", url: path, body: body, id: "repos/update-release")
+            Request(path: path, method: "PATCH", body: body, id: "repos/update-release")
         }
 
         public struct PatchRequest: Encodable {
@@ -77,7 +77,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-release)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-release")
+            Request(path: path, method: "DELETE", id: "repos/delete-release")
         }
     }
 }

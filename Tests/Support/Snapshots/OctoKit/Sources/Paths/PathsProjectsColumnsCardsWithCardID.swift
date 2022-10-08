@@ -19,14 +19,14 @@ extension Paths.Projects.Columns.Cards {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-a-project-card)
         public var get: Request<OctoKit.ProjectCard> {
-            Request(method: "GET", url: path, id: "projects/get-card")
+            Request(path: path, method: "GET", id: "projects/get-card")
         }
 
         /// Update an existing project card
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#update-a-project-card)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.ProjectCard> {
-            Request(method: "PATCH", url: path, body: body, id: "projects/update-card")
+            Request(path: path, method: "PATCH", body: body, id: "projects/update-card")
         }
 
         public struct PatchRequest: Encodable {
@@ -55,7 +55,7 @@ extension Paths.Projects.Columns.Cards {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#delete-a-project-card)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "projects/delete-card")
+            Request(path: path, method: "DELETE", id: "projects/delete-card")
         }
     }
 }

@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#check-team-permissions-for-a-repository)
         public var get: Request<OctoKit.TeamRepository> {
-            Request(method: "GET", url: path, id: "teams/check-permissions-for-repo-in-org")
+            Request(path: path, method: "GET", id: "teams/check-permissions-for-repo-in-org")
         }
 
         /// Add or update team repository permissions
@@ -40,7 +40,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#add-or-update-team-repository-permissions)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(permission: permission), id: "teams/add-or-update-repo-permissions-in-org")
+            Request(path: path, method: "PUT", body: PutRequest(permission: permission), id: "teams/add-or-update-repo-permissions-in-org")
         }
 
         public struct PutRequest: Encodable {
@@ -90,7 +90,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams/#remove-a-repository-from-a-team)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/remove-repo-in-org")
+            Request(path: path, method: "DELETE", id: "teams/remove-repo-in-org")
         }
     }
 }

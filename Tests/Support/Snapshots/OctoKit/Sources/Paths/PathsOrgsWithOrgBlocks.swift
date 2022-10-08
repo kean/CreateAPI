@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-users-blocked-by-an-organization)
         public var get: Request<[OctoKit.SimpleUser]> {
-            Request(method: "GET", url: path, id: "orgs/list-blocked-users")
+            Request(path: path, method: "GET", id: "orgs/list-blocked-users")
         }
     }
 }

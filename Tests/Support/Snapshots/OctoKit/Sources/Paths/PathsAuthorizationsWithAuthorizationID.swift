@@ -22,7 +22,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#get-a-single-authorization)
         @available(*, deprecated, message: "Deprecated")
         public var get: Request<OctoKit.Authorization> {
-            Request(method: "GET", url: path, id: "oauth-authorizations/get-authorization")
+            Request(path: path, method: "GET", id: "oauth-authorizations/get-authorization")
         }
 
         /// Update an existing authorization
@@ -36,7 +36,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#update-an-existing-authorization)
         @available(*, deprecated, message: "Deprecated")
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Authorization> {
-            Request(method: "PATCH", url: path, body: body, id: "oauth-authorizations/update-authorization")
+            Request(path: path, method: "PATCH", body: body, id: "oauth-authorizations/update-authorization")
         }
 
         public struct PatchRequest: Encodable {
@@ -84,7 +84,7 @@ extension Paths.Authorizations {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#delete-an-authorization)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "oauth-authorizations/delete-authorization")
+            Request(path: path, method: "DELETE", id: "oauth-authorizations/delete-authorization")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-webhook-configuration-for-an-app)
         public var get: Request<OctoKit.WebhookConfig> {
-            Request(method: "GET", url: path, id: "apps/get-webhook-config-for-app")
+            Request(path: path, method: "GET", id: "apps/get-webhook-config-for-app")
         }
 
         /// Update a webhook configuration for an app
@@ -34,7 +34,7 @@ extension Paths.App.Hook {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#update-a-webhook-configuration-for-an-app)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.WebhookConfig> {
-            Request(method: "PATCH", url: path, body: body, id: "apps/update-webhook-config-for-app")
+            Request(path: path, method: "PATCH", body: body, id: "apps/update-webhook-config-for-app")
         }
 
         /// Example:

@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites.WithCheckSuiteID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-runs-in-a-check-suite)
         public func get(parameters: GetParameters? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "checks/list-for-suite")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "checks/list-for-suite")
         }
 
         public struct GetResponse: Decodable {

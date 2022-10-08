@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-run)
         public var get: Request<OctoKit.CheckRun> {
-            Request(method: "GET", url: path, id: "checks/get")
+            Request(path: path, method: "GET", id: "checks/get")
         }
 
         /// Update a check run
@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#update-a-check-run)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.CheckRun> {
-            Request(method: "PATCH", url: path, body: body, id: "checks/update")
+            Request(path: path, method: "PATCH", body: body, id: "checks/update")
         }
 
         public struct PatchRequest: Encodable {

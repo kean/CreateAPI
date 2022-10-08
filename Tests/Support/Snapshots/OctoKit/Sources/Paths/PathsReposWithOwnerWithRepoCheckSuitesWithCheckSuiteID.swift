@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#get-a-check-suite)
         public var get: Request<OctoKit.CheckSuite> {
-            Request(method: "GET", url: path, id: "checks/get-suite")
+            Request(path: path, method: "GET", id: "checks/get-suite")
         }
     }
 }

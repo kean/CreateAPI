@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#list-reactions-for-a-pull-request-review-comment)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "reactions/list-for-pull-request-review-comment")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "reactions/list-for-pull-request-review-comment")
         }
 
         public enum GetResponseHeaders {
@@ -65,7 +65,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.Comments.WithCommentID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#create-reaction-for-a-pull-request-review-comment)
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            Request(method: "POST", url: path, body: PostRequest(content: content), id: "reactions/create-for-pull-request-review-comment")
+            Request(path: path, method: "POST", body: PostRequest(content: content), id: "reactions/create-for-pull-request-review-comment")
         }
 
         public struct PostRequest: Encodable {

@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Events {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue-event)
         public var get: Request<OctoKit.IssueEvent> {
-            Request(method: "GET", url: path, id: "issues/get-event")
+            Request(path: path, method: "GET", id: "issues/get-event")
         }
     }
 }

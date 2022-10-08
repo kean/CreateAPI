@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-audit-log)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "orgs/get-audit-log")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "orgs/get-audit-log")
         }
 
         public struct GetParameters {

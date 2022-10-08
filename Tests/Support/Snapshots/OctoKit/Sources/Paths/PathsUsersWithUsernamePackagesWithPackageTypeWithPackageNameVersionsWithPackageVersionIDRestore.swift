@@ -29,7 +29,7 @@ extension Paths.Users.WithUsername.Packages.WithPackageType.WithPackageName.Vers
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-a-user)
         public var post: Request<Void> {
-            Request(method: "POST", url: path, id: "packages/restore-package-version-for-user")
+            Request(path: path, method: "POST", id: "packages/restore-package-version-for-user")
         }
     }
 }

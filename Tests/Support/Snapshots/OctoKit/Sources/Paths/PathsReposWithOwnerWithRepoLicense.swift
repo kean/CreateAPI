@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses/#get-the-license-for-a-repository)
         public var get: Request<OctoKit.LicenseContent> {
-            Request(method: "GET", url: path, id: "licenses/get-for-repo")
+            Request(path: path, method: "GET", id: "licenses/get-for-repo")
         }
     }
 }

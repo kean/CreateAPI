@@ -21,7 +21,7 @@ extension Paths.Projects.WithProjectID.Collaborators.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#get-project-permission-for-a-user)
         public var get: Request<OctoKit.ProjectCollaboratorPermission> {
-            Request(method: "GET", url: path, id: "projects/get-permission-for-user")
+            Request(path: path, method: "GET", id: "projects/get-permission-for-user")
         }
     }
 }

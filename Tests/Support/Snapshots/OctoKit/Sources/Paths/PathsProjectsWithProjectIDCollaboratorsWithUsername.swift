@@ -21,7 +21,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#add-project-collaborator)
         public func put(permission: PutRequest.Permission? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: PutRequest(permission: permission), id: "projects/add-collaborator")
+            Request(path: path, method: "PUT", body: PutRequest(permission: permission), id: "projects/add-collaborator")
         }
 
         public struct PutRequest: Encodable {
@@ -55,7 +55,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#remove-project-collaborator)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "projects/remove-collaborator")
+            Request(path: path, method: "DELETE", id: "projects/remove-collaborator")
         }
     }
 }

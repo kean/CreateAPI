@@ -24,7 +24,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#list-reactions-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Reaction]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "reactions/list-for-team-discussion-comment-legacy")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "reactions/list-for-team-discussion-comment-legacy")
         }
 
         public enum GetResponseHeaders {
@@ -71,7 +71,7 @@ extension Paths.Teams.WithTeamID.Discussions.WithDiscussionNumber.Comments.WithC
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#create-reaction-for-a-team-discussion-comment-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(content: PostRequest.Content) -> Request<OctoKit.Reaction> {
-            Request(method: "POST", url: path, body: PostRequest(content: content), id: "reactions/create-for-team-discussion-comment-legacy")
+            Request(path: path, method: "POST", body: PostRequest(content: content), id: "reactions/create-for-team-discussion-comment-legacy")
         }
 
         public struct PostRequest: Encodable {

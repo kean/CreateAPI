@@ -23,7 +23,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-organizations)
         public func get(since: Int? = nil, perPage: Int? = nil) -> Request<[OctoKit.OrganizationSimple]> {
-            Request(method: "GET", url: path, query: makeGetQuery(since, perPage), id: "orgs/list")
+            Request(path: path, method: "GET", query: makeGetQuery(since, perPage), id: "orgs/list")
         }
 
         public enum GetResponseHeaders {

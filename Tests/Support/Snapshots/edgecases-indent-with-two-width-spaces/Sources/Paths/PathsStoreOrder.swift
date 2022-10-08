@@ -18,7 +18,7 @@ extension Paths.Store {
 
     /// Place an order for a pet
     public func post(_ body: edgecases_indent_with_two_width_spaces.Order) -> Request<edgecases_indent_with_two_width_spaces.Order> {
-      Request(method: "POST", url: path, body: body, id: "placeOrder")
+      Request(path: path, method: "POST", body: body, id: "placeOrder")
     }
   }
 }

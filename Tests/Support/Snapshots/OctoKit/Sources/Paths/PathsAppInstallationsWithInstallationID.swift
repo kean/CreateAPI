@@ -23,7 +23,7 @@ extension Paths.App.Installations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            Request(method: "GET", url: path, id: "apps/get-installation")
+            Request(path: path, method: "GET", id: "apps/get-installation")
         }
 
         /// Delete an installation for the authenticated app
@@ -34,7 +34,7 @@ extension Paths.App.Installations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-installation-for-the-authenticated-app)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "apps/delete-installation")
+            Request(path: path, method: "DELETE", id: "apps/delete-installation")
         }
     }
 }

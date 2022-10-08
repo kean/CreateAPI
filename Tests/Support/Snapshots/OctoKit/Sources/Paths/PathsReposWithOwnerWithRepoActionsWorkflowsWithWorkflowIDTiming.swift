@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-usage)
         public var get: Request<OctoKit.WorkflowUsage> {
-            Request(method: "GET", url: path, id: "actions/get-workflow-usage")
+            Request(path: path, method: "GET", id: "actions/get-workflow-usage")
         }
     }
 }

@@ -17,7 +17,7 @@ extension Paths.User {
 
         /// Logs user into the system
         public func get(username: String, password: String) -> Request<String> {
-            Request(method: "GET", url: path, query: [("username", username), ("password", password)], id: "loginUser")
+            Request(path: path, method: "GET", query: [("username", username), ("password", password)], id: "loginUser")
         }
     }
 }

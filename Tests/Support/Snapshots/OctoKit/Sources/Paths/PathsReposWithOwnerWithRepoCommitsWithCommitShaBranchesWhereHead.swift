@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Commits.WithCommitSha {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-branches-for-head-commit)
         public var get: Request<[OctoKit.BranchShort]> {
-            Request(method: "GET", url: path, id: "repos/list-branches-for-head-commit")
+            Request(path: path, method: "GET", id: "repos/list-branches-for-head-commit")
         }
     }
 }

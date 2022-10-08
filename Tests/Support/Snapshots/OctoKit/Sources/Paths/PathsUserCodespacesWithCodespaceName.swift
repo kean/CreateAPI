@@ -23,7 +23,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#get-a-codespace-for-the-authenticated-user)
         public var get: Request<OctoKit.Codespace> {
-            Request(method: "GET", url: path, id: "codespaces/get-for-authenticated-user")
+            Request(path: path, method: "GET", id: "codespaces/get-for-authenticated-user")
         }
 
         /// Update a codespace for the authenticated user
@@ -36,7 +36,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#update-a-codespace-for-the-authenticated-user)
         public func patch(machine: String? = nil) -> Request<OctoKit.Codespace> {
-            Request(method: "PATCH", url: path, body: ["machine": machine], id: "codespaces/update-for-authenticated-user")
+            Request(path: path, method: "PATCH", body: ["machine": machine], id: "codespaces/update-for-authenticated-user")
         }
 
         /// Delete a codespace for the authenticated user
@@ -47,7 +47,7 @@ extension Paths.User.Codespaces {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#delete-a-codespace-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "codespaces/delete-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "codespaces/delete-for-authenticated-user")
         }
     }
 }

@@ -32,7 +32,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-issues-and-pull-requests)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters.asQuery, id: "search/issues-and-pull-requests")
+            Request(path: path, method: "GET", query: parameters.asQuery, id: "search/issues-and-pull-requests")
         }
 
         public struct GetResponse: Decodable {

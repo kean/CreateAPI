@@ -23,7 +23,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#add-a-repository-to-an-app-installation)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "apps/add-repo-to-installation-for-authenticated-user")
+            Request(path: path, method: "PUT", id: "apps/add-repo-to-installation-for-authenticated-user")
         }
 
         /// Remove a repository from an app installation
@@ -34,7 +34,7 @@ extension Paths.User.Installations.WithInstallationID.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#remove-a-repository-from-an-app-installation)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "apps/remove-repo-from-installation-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "apps/remove-repo-from-installation-for-authenticated-user")
         }
     }
 }

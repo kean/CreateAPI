@@ -26,7 +26,7 @@ public struct PackageDeclaration: Decodable {
     
     public static let get = PackageDeclaration(url: URL(string: "https://github.com/kean/Get")!,
                                                products: ["Get"],
-                                               requirement: .from(version: "1.0.2"))
+                                               requirement: .from(version: "2.1.0"))
     
     public static let httpHeaders = PackageDeclaration(url: URL(string: "https://github.com/CreateAPI/HTTPHeaders")!,
                                                        products: ["HTTPHeaders"],

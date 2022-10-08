@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#get-a-secret-scanning-alert)
         public var get: Request<OctoKit.SecretScanningAlert> {
-            Request(method: "GET", url: path, id: "secret-scanning/get-alert")
+            Request(path: path, method: "GET", id: "secret-scanning/get-alert")
         }
 
         /// Update a secret scanning alert
@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.SecretScanning.Alerts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/secret-scanning#update-a-secret-scanning-alert)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.SecretScanningAlert> {
-            Request(method: "PATCH", url: path, body: body, id: "secret-scanning/update-alert")
+            Request(path: path, method: "PATCH", body: body, id: "secret-scanning/update-alert")
         }
 
         public struct PatchRequest: Encodable {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-repository-secret)
         public var get: Request<OctoKit.ActionsSecret> {
-            Request(method: "GET", url: path, id: "actions/get-repo-secret")
+            Request(path: path, method: "GET", id: "actions/get-repo-secret")
         }
 
         /// Create or update a repository secret
@@ -104,7 +104,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#create-or-update-a-repository-secret)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "actions/create-or-update-repo-secret")
+            Request(path: path, method: "PUT", body: body, id: "actions/create-or-update-repo-secret")
         }
 
         public struct PutRequest: Encodable {
@@ -131,7 +131,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Secrets {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-repository-secret)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/delete-repo-secret")
+            Request(path: path, method: "DELETE", id: "actions/delete-repo-secret")
         }
     }
 }

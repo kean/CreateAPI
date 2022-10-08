@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-review-comments-in-a-repository)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestReviewComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "pulls/list-review-comments-for-repo")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "pulls/list-review-comments-for-repo")
         }
 
         public enum GetResponseHeaders {

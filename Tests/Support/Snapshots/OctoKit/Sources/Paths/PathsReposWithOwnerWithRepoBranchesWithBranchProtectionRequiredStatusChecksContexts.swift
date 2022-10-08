@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-all-status-check-contexts)
         public var get: Request<[String]> {
-            Request(method: "GET", url: path, id: "repos/get-all-status-check-contexts")
+            Request(path: path, method: "GET", id: "repos/get-all-status-check-contexts")
         }
 
         /// Add status check contexts
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-status-check-contexts)
         public func post(_ body: PostRequest? = nil) -> Request<[String]> {
-            Request(method: "POST", url: path, body: body, id: "repos/add-status-check-contexts")
+            Request(path: path, method: "POST", body: body, id: "repos/add-status-check-contexts")
         }
 
         public enum PostRequest: Encodable {
@@ -73,7 +73,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-status-check-contexts)
         public func put(_ body: PutRequest? = nil) -> Request<[String]> {
-            Request(method: "PUT", url: path, body: body, id: "repos/set-status-check-contexts")
+            Request(path: path, method: "PUT", body: body, id: "repos/set-status-check-contexts")
         }
 
         public enum PutRequest: Encodable {
@@ -116,7 +116,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection.Required
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-status-check-contexts)
         public func delete(_ body: DeleteRequest? = nil) -> Request<[String]> {
-            Request(method: "DELETE", url: path, body: body, id: "repos/remove-status-check-contexts")
+            Request(path: path, method: "DELETE", body: body, id: "repos/remove-status-check-contexts")
         }
 
         public enum DeleteRequest: Encodable {

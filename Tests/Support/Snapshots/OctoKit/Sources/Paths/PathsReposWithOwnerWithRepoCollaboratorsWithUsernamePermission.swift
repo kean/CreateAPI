@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-permissions-for-a-user)
         public var get: Request<OctoKit.RepositoryCollaboratorPermission> {
-            Request(method: "GET", url: path, id: "repos/get-collaborator-permission-level")
+            Request(path: path, method: "GET", id: "repos/get-collaborator-permission-level")
         }
     }
 }

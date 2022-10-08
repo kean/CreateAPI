@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#ping-an-organization-webhook)
         public var post: Request<Void> {
-            Request(method: "POST", url: path, id: "orgs/ping-webhook")
+            Request(path: path, method: "POST", id: "orgs/ping-webhook")
         }
     }
 }

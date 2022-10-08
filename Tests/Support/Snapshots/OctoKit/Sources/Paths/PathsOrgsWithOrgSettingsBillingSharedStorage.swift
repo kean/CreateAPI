@@ -25,7 +25,7 @@ extension Paths.Orgs.WithOrg.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#get-shared-storage-billing-for-an-organization)
         public var get: Request<OctoKit.CombinedBillingUsage> {
-            Request(method: "GET", url: path, id: "billing/get-shared-storage-billing-org")
+            Request(path: path, method: "GET", id: "billing/get-shared-storage-billing-org")
         }
     }
 }

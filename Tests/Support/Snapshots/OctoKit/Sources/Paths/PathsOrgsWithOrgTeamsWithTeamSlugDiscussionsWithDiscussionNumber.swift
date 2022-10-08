@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-a-discussion)
         public var get: Request<OctoKit.TeamDiscussion> {
-            Request(method: "GET", url: path, id: "teams/get-discussion-in-org")
+            Request(path: path, method: "GET", id: "teams/get-discussion-in-org")
         }
 
         /// Update a discussion
@@ -34,7 +34,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#update-a-discussion)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.TeamDiscussion> {
-            Request(method: "PATCH", url: path, body: body, id: "teams/update-discussion-in-org")
+            Request(path: path, method: "PATCH", body: body, id: "teams/update-discussion-in-org")
         }
 
         public struct PatchRequest: Encodable {
@@ -63,7 +63,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#delete-a-discussion)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/delete-discussion-in-org")
+            Request(path: path, method: "DELETE", id: "teams/delete-discussion-in-org")
         }
     }
 }

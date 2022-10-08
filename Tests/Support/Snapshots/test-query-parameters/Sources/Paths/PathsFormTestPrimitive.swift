@@ -16,7 +16,7 @@ extension Paths.Form {
 
         /// Test passing primitive query parameters
         public func get(parameters: GetParameters) -> Request<Void> {
-            Request(method: "GET", url: path, query: parameters.asQuery)
+            Request(path: path, method: "GET", query: parameters.asQuery)
         }
 
         public struct GetParameters {
@@ -41,12 +41,12 @@ extension Paths.Form {
 
         /// Inlining simple queries
         public func post(name: String) -> Request<Void> {
-            Request(method: "POST", url: path, query: [("name", name)])
+            Request(path: path, method: "POST", query: [("name", name)])
         }
 
         /// Inlining more complex queries (with an enum)
         public func patch(type: `Type`) -> Request<Void> {
-            Request(method: "PATCH", url: path, query: makePatchQuery(type))
+            Request(path: path, method: "PATCH", query: makePatchQuery(type))
         }
 
         private func makePatchQuery(_ type: `Type`) -> [(String, String?)] {

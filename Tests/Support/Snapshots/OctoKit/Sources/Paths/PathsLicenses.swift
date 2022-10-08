@@ -19,7 +19,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/licenses#get-all-commonly-used-licenses)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.LicenseSimple]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "licenses/get-all-commonly-used")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "licenses/get-all-commonly-used")
         }
 
         public struct GetParameters {

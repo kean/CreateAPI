@@ -21,7 +21,7 @@ extension Paths.Markdown {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/markdown#render-a-markdown-document-in-raw-mode)
         public func post(_ body: String? = nil) -> Request<String> {
-            Request(method: "POST", url: path, body: body, id: "markdown/render-raw")
+            Request(path: path, method: "POST", body: body, id: "markdown/render-raw")
         }
 
         public enum PostResponseHeaders {

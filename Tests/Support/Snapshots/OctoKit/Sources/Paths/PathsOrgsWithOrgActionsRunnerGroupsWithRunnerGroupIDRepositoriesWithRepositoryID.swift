@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-repository-acess-to-a-self-hosted-runner-group-in-an-organization)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "actions/add-repo-access-to-self-hosted-runner-group-in-org")
+            Request(path: path, method: "PUT", id: "actions/add-repo-access-to-self-hosted-runner-group-in-org")
         }
 
         /// Remove repository access to a self-hosted runner group in an organization
@@ -41,7 +41,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Repositories
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-repository-access-to-a-self-hosted-runner-group-in-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/remove-repo-access-to-self-hosted-runner-group-in-org")
+            Request(path: path, method: "DELETE", id: "actions/remove-repo-access-to-self-hosted-runner-group-in-org")
         }
     }
 }

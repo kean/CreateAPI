@@ -21,7 +21,7 @@ extension Paths.User.Migrations.WithMigrationID.Repos.WithRepoName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#unlock-a-user-repository)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "migrations/unlock-repo-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "migrations/unlock-repo-for-authenticated-user")
         }
     }
 }

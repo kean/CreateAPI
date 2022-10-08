@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-tags)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Tag]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-tags")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "repos/list-tags")
         }
 
         public enum GetResponseHeaders {

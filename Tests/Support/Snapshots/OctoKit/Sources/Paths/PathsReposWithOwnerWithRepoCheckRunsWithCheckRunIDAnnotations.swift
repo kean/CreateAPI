@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckRuns.WithCheckRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#list-check-run-annotations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.CheckAnnotation]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "checks/list-annotations")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "checks/list-annotations")
         }
 
         public enum GetResponseHeaders {

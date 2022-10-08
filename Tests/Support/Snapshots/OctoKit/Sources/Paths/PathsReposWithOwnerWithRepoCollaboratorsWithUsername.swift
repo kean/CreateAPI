@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#check-if-a-user-is-a-repository-collaborator)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "repos/check-collaborator")
+            Request(path: path, method: "GET", id: "repos/check-collaborator")
         }
 
         /// Add a repository collaborator
@@ -46,7 +46,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#add-a-repository-collaborator)
         public func put(_ body: PutRequest? = nil) -> Request<OctoKit.RepositoryInvitation> {
-            Request(method: "PUT", url: path, body: body, id: "repos/add-collaborator")
+            Request(path: path, method: "PUT", body: body, id: "repos/add-collaborator")
         }
 
         public struct PutRequest: Encodable {
@@ -92,7 +92,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#remove-a-repository-collaborator)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/remove-collaborator")
+            Request(path: path, method: "DELETE", id: "repos/remove-collaborator")
         }
     }
 }

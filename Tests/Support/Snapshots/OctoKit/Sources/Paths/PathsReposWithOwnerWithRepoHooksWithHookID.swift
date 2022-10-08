@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-repository-webhook)
         public var get: Request<OctoKit.Hook> {
-            Request(method: "GET", url: path, id: "repos/get-webhook")
+            Request(path: path, method: "GET", id: "repos/get-webhook")
         }
 
         /// Update a repository webhook
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-a-repository-webhook)
         public func patch(_ body: PatchRequest) -> Request<OctoKit.Hook> {
-            Request(method: "PATCH", url: path, body: body, id: "repos/update-webhook")
+            Request(path: path, method: "PATCH", body: body, id: "repos/update-webhook")
         }
 
         public struct PatchRequest: Encodable {
@@ -107,7 +107,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-repository-webhook)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-webhook")
+            Request(path: path, method: "DELETE", id: "repos/delete-webhook")
         }
     }
 }

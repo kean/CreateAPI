@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-a-self-hosted-runner-to-a-group-for-an-organization)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "actions/add-self-hosted-runner-to-group-for-org")
+            Request(path: path, method: "PUT", id: "actions/add-self-hosted-runner-to-group-for-org")
         }
 
         /// Remove a self-hosted runner from a group for an organization
@@ -41,7 +41,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups.WithRunnerGroupID.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-self-hosted-runner-from-a-group-for-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/remove-self-hosted-runner-from-group-for-org")
+            Request(path: path, method: "DELETE", id: "actions/remove-self-hosted-runner-from-group-for-org")
         }
     }
 }

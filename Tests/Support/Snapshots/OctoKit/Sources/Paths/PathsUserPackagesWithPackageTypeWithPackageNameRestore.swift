@@ -27,7 +27,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-for-the-authenticated-user)
         public func post(token: String? = nil) -> Request<Void> {
-            Request(method: "POST", url: path, query: makePostQuery(token), id: "packages/restore-package-for-authenticated-user")
+            Request(path: path, method: "POST", query: makePostQuery(token), id: "packages/restore-package-for-authenticated-user")
         }
 
         private func makePostQuery(_ token: String?) -> [(String, String?)] {

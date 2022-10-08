@@ -27,7 +27,7 @@ extension Paths.Orgs.WithOrg.Actions.Runners.WithRunnerID.Labels {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-a-custom-label-from-a-self-hosted-runner-for-an-organization)
         public var delete: Request<DeleteResponse> {
-            Request(method: "DELETE", url: path, id: "actions/remove-custom-label-from-self-hosted-runner-for-org")
+            Request(path: path, method: "DELETE", id: "actions/remove-custom-label-from-self-hosted-runner-for-org")
         }
 
         public struct DeleteResponse: Decodable {

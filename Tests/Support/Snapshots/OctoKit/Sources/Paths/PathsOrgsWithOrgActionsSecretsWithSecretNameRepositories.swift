@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-for-an-organization-secret)
         public func get(page: Int? = nil, perPage: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(page, perPage), id: "actions/list-selected-repos-for-org-secret")
+            Request(path: path, method: "GET", query: makeGetQuery(page, perPage), id: "actions/list-selected-repos-for-org-secret")
         }
 
         public struct GetResponse: Decodable {
@@ -53,7 +53,7 @@ extension Paths.Orgs.WithOrg.Actions.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-for-an-organization-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs], id: "actions/set-selected-repos-for-org-secret")
+            Request(path: path, method: "PUT", body: ["selected_repository_ids": selectedRepositoryIDs], id: "actions/set-selected-repos-for-org-secret")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-organization-membership-for-a-user)
         public var get: Request<OctoKit.OrgMembership> {
-            Request(method: "GET", url: path, id: "orgs/get-membership-for-user")
+            Request(path: path, method: "GET", id: "orgs/get-membership-for-user")
         }
 
         /// Set organization membership for a user
@@ -38,7 +38,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#set-organization-membership-for-a-user)
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.OrgMembership> {
-            Request(method: "PUT", url: path, body: PutRequest(role: role), id: "orgs/set-membership-for-user")
+            Request(path: path, method: "PUT", body: PutRequest(role: role), id: "orgs/set-membership-for-user")
         }
 
         public struct PutRequest: Encodable {
@@ -73,7 +73,7 @@ extension Paths.Orgs.WithOrg.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#remove-organization-membership-for-a-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/remove-membership-for-user")
+            Request(path: path, method: "DELETE", id: "orgs/remove-membership-for-user")
         }
     }
 }

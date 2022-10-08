@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-large-files)
         public var get: Request<[OctoKit.PorterLargeFile]> {
-            Request(method: "GET", url: path, id: "migrations/get-large-files")
+            Request(path: path, method: "GET", id: "migrations/get-large-files")
         }
     }
 }

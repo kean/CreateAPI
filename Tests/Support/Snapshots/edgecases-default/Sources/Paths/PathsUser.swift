@@ -20,7 +20,7 @@ extension Paths {
         ///
         /// This can only be done by the logged in user.
         public func post(_ body: edgecases_default.User) -> Request<Void> {
-            Request(method: "POST", url: path, body: body, id: "createUser")
+            Request(path: path, method: "POST", body: body, id: "createUser")
         }
     }
 }

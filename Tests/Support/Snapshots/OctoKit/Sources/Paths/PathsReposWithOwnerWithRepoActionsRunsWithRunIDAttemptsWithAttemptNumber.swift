@@ -24,7 +24,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID.Attempts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run-attempt)
         public func get(excludePullRequests: Bool? = nil) -> Request<OctoKit.WorkflowRun> {
-            Request(method: "GET", url: path, query: makeGetQuery(excludePullRequests), id: "actions/get-workflow-run-attempt")
+            Request(path: path, method: "GET", query: makeGetQuery(excludePullRequests), id: "actions/get-workflow-run-attempt")
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {

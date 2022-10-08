@@ -27,7 +27,7 @@ extension Paths.Users {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-a-user)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path, id: "users/get-by-username")
+            Request(path: path, method: "GET", id: "users/get-by-username")
         }
 
         public enum GetResponse: Decodable {

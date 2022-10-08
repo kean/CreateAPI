@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.RepositoryInvitation]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "repos/list-invitations")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "repos/list-invitations")
         }
 
         public enum GetResponseHeaders {

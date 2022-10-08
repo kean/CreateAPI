@@ -31,7 +31,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#get-an-issue)
         public var get: Request<OctoKit.Issue> {
-            Request(method: "GET", url: path, id: "issues/get")
+            Request(path: path, method: "GET", id: "issues/get")
         }
 
         /// Update an issue
@@ -40,7 +40,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues/#update-an-issue)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.Issue> {
-            Request(method: "PATCH", url: path, body: body, id: "issues/update")
+            Request(path: path, method: "PATCH", body: body, id: "issues/update")
         }
 
         public struct PatchRequest: Encodable {

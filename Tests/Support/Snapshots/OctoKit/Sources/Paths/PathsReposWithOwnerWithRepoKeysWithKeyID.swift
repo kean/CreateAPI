@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deploy-key)
         public var get: Request<OctoKit.DeployKey> {
-            Request(method: "GET", url: path, id: "repos/get-deploy-key")
+            Request(path: path, method: "GET", id: "repos/get-deploy-key")
         }
 
         /// Delete a deploy key
@@ -28,7 +28,7 @@ extension Paths.Repos.WithOwner.WithRepo.Keys {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deploy-key)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-deploy-key")
+            Request(path: path, method: "DELETE", id: "repos/delete-deploy-key")
         }
     }
 }

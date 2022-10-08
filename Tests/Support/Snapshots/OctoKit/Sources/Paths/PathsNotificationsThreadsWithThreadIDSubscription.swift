@@ -23,7 +23,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#get-a-thread-subscription-for-the-authenticated-user)
         public var get: Request<OctoKit.ThreadSubscription> {
-            Request(method: "GET", url: path, id: "activity/get-thread-subscription-for-authenticated-user")
+            Request(path: path, method: "GET", id: "activity/get-thread-subscription-for-authenticated-user")
         }
 
         /// Set a thread subscription
@@ -36,7 +36,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#set-a-thread-subscription)
         public func put(isIgnored: Bool? = nil) -> Request<OctoKit.ThreadSubscription> {
-            Request(method: "PUT", url: path, body: ["ignored": isIgnored], id: "activity/set-thread-subscription")
+            Request(path: path, method: "PUT", body: ["ignored": isIgnored], id: "activity/set-thread-subscription")
         }
 
         /// Delete a thread subscription
@@ -45,7 +45,7 @@ extension Paths.Notifications.Threads.WithThreadID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#delete-a-thread-subscription)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "activity/delete-thread-subscription")
+            Request(path: path, method: "DELETE", id: "activity/delete-thread-subscription")
         }
     }
 }

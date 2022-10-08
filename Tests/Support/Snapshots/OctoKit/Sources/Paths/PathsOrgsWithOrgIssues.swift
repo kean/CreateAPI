@@ -26,7 +26,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-organization-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list-for-org")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "issues/list-for-org")
         }
 
         public enum GetResponseHeaders {

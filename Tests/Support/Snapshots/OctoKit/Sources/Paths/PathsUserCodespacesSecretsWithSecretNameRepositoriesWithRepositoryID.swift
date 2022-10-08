@@ -22,7 +22,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#add-a-selected-repository-to-a-user-secret)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "codespaces/add-repository-for-secret-for-authenticated-user")
+            Request(path: path, method: "PUT", id: "codespaces/add-repository-for-secret-for-authenticated-user")
         }
 
         /// Remove a selected repository from a user secret
@@ -32,7 +32,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#remove-a-selected-repository-from-a-user-secret)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "codespaces/remove-repository-for-secret-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "codespaces/remove-repository-for-secret-for-authenticated-user")
         }
     }
 }

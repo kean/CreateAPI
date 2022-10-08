@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Trees {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-tree)
         public func get(recursive: String? = nil) -> Request<OctoKit.GitTree> {
-            Request(method: "GET", url: path, query: makeGetQuery(recursive), id: "git/get-tree")
+            Request(path: path, method: "GET", query: makeGetQuery(recursive), id: "git/get-tree")
         }
 
         private func makeGetQuery(_ recursive: String?) -> [(String, String?)] {

@@ -29,7 +29,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-labels)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters.asQuery, id: "search/labels")
+            Request(path: path, method: "GET", query: parameters.asQuery, id: "search/labels")
         }
 
         public struct GetResponse: Decodable {

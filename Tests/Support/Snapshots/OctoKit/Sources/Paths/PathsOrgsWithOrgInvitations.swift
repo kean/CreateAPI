@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#list-pending-organization-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "orgs/list-pending-invitations")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "orgs/list-pending-invitations")
         }
 
         public enum GetResponseHeaders {
@@ -43,7 +43,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#create-an-organization-invitation)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.OrganizationInvitation> {
-            Request(method: "POST", url: path, body: body, id: "orgs/create-invitation")
+            Request(path: path, method: "POST", body: body, id: "orgs/create-invitation")
         }
 
         public struct PostRequest: Encodable {

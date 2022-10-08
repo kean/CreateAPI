@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Import {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#update-git-lfs-preference)
         public func patch(useLfs: PatchRequest.UseLfs) -> Request<OctoKit.Import> {
-            Request(method: "PATCH", url: path, body: PatchRequest(useLfs: useLfs), id: "migrations/set-lfs-preference")
+            Request(path: path, method: "PATCH", body: PatchRequest(useLfs: useLfs), id: "migrations/set-lfs-preference")
         }
 
         public struct PatchRequest: Encodable {

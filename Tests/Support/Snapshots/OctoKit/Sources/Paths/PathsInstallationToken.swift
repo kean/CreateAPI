@@ -25,7 +25,7 @@ extension Paths.Installation {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#revoke-an-installation-access-token)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "apps/revoke-installation-access-token")
+            Request(path: path, method: "DELETE", id: "apps/revoke-installation-access-token")
         }
     }
 }

@@ -17,7 +17,7 @@ extension Paths {
         ///
         /// Returns an array of all Recipe models in order of most recently published.
         public var get: Request<[cookpad.Recipe]> {
-            Request(method: "GET", url: path, id: "getAllRecipes")
+            Request(path: path, method: "GET", id: "getAllRecipes")
         }
     }
 }

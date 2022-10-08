@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#get-a-code-scanning-analysis-for-a-repository)
         public var get: Request<OctoKit.CodeScanningAnalysis> {
-            Request(method: "GET", url: path, id: "code-scanning/get-analysis")
+            Request(path: path, method: "GET", id: "code-scanning/get-analysis")
         }
 
         /// Delete a code scanning analysis from a repository
@@ -113,7 +113,7 @@ extension Paths.Repos.WithOwner.WithRepo.CodeScanning.Analyses {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/code-scanning#delete-a-code-scanning-analysis-from-a-repository)
         public func delete(confirmDelete: String? = nil) -> Request<OctoKit.CodeScanningAnalysisDeletion> {
-            Request(method: "DELETE", url: path, query: makeDeleteQuery(confirmDelete), id: "code-scanning/delete-analysis")
+            Request(path: path, method: "DELETE", query: makeDeleteQuery(confirmDelete), id: "code-scanning/delete-analysis")
         }
 
         private func makeDeleteQuery(_ confirmDelete: String?) -> [(String, String?)] {

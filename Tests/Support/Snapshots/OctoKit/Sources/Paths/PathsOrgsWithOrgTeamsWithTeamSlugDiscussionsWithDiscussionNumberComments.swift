@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussion-comments)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussionComment]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-discussion-comments-in-org")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "teams/list-discussion-comments-in-org")
         }
 
         public enum GetResponseHeaders {
@@ -65,7 +65,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Discussions.WithDiscussionNumber
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-comment)
         public func post(body: String) -> Request<OctoKit.TeamDiscussionComment> {
-            Request(method: "POST", url: path, body: ["body": body], id: "teams/create-discussion-comment-in-org")
+            Request(path: path, method: "POST", body: ["body": body], id: "teams/create-discussion-comment-in-org")
         }
     }
 }

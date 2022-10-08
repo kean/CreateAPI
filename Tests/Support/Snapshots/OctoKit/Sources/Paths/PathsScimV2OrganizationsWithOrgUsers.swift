@@ -36,7 +36,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#list-scim-provisioned-identities)
         public func get(parameters: GetParameters? = nil) -> Request<OctoKit.ScimUserList> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "scim/list-provisioned-identities")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "scim/list-provisioned-identities")
         }
 
         public struct GetParameters {
@@ -65,7 +65,7 @@ extension Paths.Scim.V2.Organizations.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/scim#provision-and-invite-a-scim-user)
         public func post(_ body: PostRequest) -> Request<OctoKit.ScimUser> {
-            Request(method: "POST", url: path, body: body, id: "scim/provision-and-invite-user")
+            Request(path: path, method: "POST", body: body, id: "scim/provision-and-invite-user")
         }
 
         public struct PostRequest: Encodable {

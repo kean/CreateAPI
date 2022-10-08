@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-selected-repositories-enabled-github-actions-organization")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "actions/list-selected-repositories-enabled-github-actions-organization")
         }
 
         public struct GetResponse: Decodable {
@@ -57,7 +57,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-selected-repositories-enabled-for-github-actions-in-an-organization)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs], id: "actions/set-selected-repositories-enabled-github-actions-organization")
+            Request(path: path, method: "PUT", body: ["selected_repository_ids": selectedRepositoryIDs], id: "actions/set-selected-repositories-enabled-github-actions-organization")
         }
     }
 }

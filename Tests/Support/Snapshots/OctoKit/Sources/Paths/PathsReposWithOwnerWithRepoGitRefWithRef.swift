@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Ref {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/git#get-a-reference)
         public var get: Request<OctoKit.GitRef> {
-            Request(method: "GET", url: path, id: "git/get-ref")
+            Request(path: path, method: "GET", id: "git/get-ref")
         }
     }
 }

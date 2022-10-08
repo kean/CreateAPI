@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#transfer-a-repository)
         public func post(_ body: PostRequest) -> Request<OctoKit.MinimalRepository> {
-            Request(method: "POST", url: path, body: body, id: "repos/transfer")
+            Request(path: path, method: "POST", body: body, id: "repos/transfer")
         }
 
         public struct PostRequest: Encodable {

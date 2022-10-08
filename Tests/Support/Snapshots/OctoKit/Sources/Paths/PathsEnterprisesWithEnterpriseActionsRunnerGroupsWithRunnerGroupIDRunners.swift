@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#list-self-hosted-runners-in-a-group-for-an-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runners-in-group-for-enterprise")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "enterprise-admin/list-self-hosted-runners-in-group-for-enterprise")
         }
 
         public struct GetResponse: Decodable {
@@ -61,7 +61,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups.WithRunnerGroupI
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-self-hosted-runners-in-a-group-for-an-enterprise)
         public func put(runners: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["runners": runners], id: "enterprise-admin/set-self-hosted-runners-in-group-for-enterprise")
+            Request(path: path, method: "PUT", body: ["runners": runners], id: "enterprise-admin/set-self-hosted-runners-in-group-for-enterprise")
         }
     }
 }

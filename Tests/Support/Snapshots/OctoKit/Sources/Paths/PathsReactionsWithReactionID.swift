@@ -24,7 +24,7 @@ extension Paths.Reactions {
         /// [API method documentation](https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy)
         @available(*, deprecated, message: "Deprecated")
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "reactions/delete-legacy")
+            Request(path: path, method: "DELETE", id: "reactions/delete-legacy")
         }
     }
 }

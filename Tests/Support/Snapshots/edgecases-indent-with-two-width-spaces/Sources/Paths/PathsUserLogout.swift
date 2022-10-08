@@ -18,7 +18,7 @@ extension Paths.User {
 
     /// Logs out current logged in user session
     public var get: Request<Void> {
-      Request(method: "GET", url: path, id: "logoutUser")
+      Request(path: path, method: "GET", id: "logoutUser")
     }
   }
 }

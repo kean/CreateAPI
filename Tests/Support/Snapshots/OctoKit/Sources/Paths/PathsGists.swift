@@ -21,7 +21,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#list-gists-for-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.BaseGist]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "gists/list")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "gists/list")
         }
 
         public enum GetResponseHeaders {
@@ -56,7 +56,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/gists#create-a-gist)
         public func post(_ body: PostRequest) -> Request<OctoKit.GistSimple> {
-            Request(method: "POST", url: path, body: body, id: "gists/create")
+            Request(path: path, method: "POST", body: body, id: "gists/create")
         }
 
         public enum PostResponseHeaders {

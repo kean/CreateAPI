@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-pending-team-invitations)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.OrganizationInvitation]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list-pending-invitations-in-org")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "teams/list-pending-invitations-in-org")
         }
 
         public enum GetResponseHeaders {

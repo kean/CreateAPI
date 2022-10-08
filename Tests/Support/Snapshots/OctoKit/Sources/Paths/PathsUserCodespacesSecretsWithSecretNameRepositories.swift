@@ -22,7 +22,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#list-selected-repositories-for-a-user-secret)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path, id: "codespaces/list-repositories-for-secret-for-authenticated-user")
+            Request(path: path, method: "GET", id: "codespaces/list-repositories-for-secret-for-authenticated-user")
         }
 
         public struct GetResponse: Decodable {
@@ -48,7 +48,7 @@ extension Paths.User.Codespaces.Secrets.WithSecretName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#set-selected-repositories-for-a-user-secret)
         public func put(selectedRepositoryIDs: [Int]) -> Request<Void> {
-            Request(method: "PUT", url: path, body: ["selected_repository_ids": selectedRepositoryIDs], id: "codespaces/set-repositories-for-secret-for-authenticated-user")
+            Request(path: path, method: "PUT", body: ["selected_repository_ids": selectedRepositoryIDs], id: "codespaces/set-repositories-for-secret-for-authenticated-user")
         }
     }
 }

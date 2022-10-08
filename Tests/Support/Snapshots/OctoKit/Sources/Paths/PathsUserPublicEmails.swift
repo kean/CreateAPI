@@ -21,7 +21,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-public-email-addresses-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Email]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "users/list-public-emails-for-authenticated-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "users/list-public-emails-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {

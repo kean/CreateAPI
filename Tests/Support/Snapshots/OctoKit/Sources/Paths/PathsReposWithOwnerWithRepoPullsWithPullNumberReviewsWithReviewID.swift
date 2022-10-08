@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#get-a-review-for-a-pull-request)
         public var get: Request<OctoKit.PullRequestReview> {
-            Request(method: "GET", url: path, id: "pulls/get-review")
+            Request(path: path, method: "GET", id: "pulls/get-review")
         }
 
         /// Update a review for a pull request
@@ -28,14 +28,14 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber.Reviews {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#update-a-review-for-a-pull-request)
         public func put(body: String) -> Request<OctoKit.PullRequestReview> {
-            Request(method: "PUT", url: path, body: ["body": body], id: "pulls/update-review")
+            Request(path: path, method: "PUT", body: ["body": body], id: "pulls/update-review")
         }
 
         /// Delete a pending review for a pull request
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#delete-a-pending-review-for-a-pull-request)
         public var delete: Request<OctoKit.PullRequestReview> {
-            Request(method: "DELETE", url: path, id: "pulls/delete-pending-review")
+            Request(path: path, method: "DELETE", id: "pulls/delete-pending-review")
         }
     }
 }

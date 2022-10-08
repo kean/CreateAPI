@@ -17,7 +17,7 @@ extension Paths {
         ///
         /// Returns an array of all Collection models in display order.
         public var get: Request<[cookpad.Collection]> {
-            Request(method: "GET", url: path, id: "getAllCollections")
+            Request(path: path, method: "GET", id: "getAllCollections")
         }
     }
 }

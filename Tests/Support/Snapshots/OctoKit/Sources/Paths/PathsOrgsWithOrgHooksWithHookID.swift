@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#get-an-organization-webhook)
         public var get: Request<OctoKit.OrgHook> {
-            Request(method: "GET", url: path, id: "orgs/get-webhook")
+            Request(path: path, method: "GET", id: "orgs/get-webhook")
         }
 
         /// Update an organization webhook
@@ -30,7 +30,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#update-an-organization-webhook)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.OrgHook> {
-            Request(method: "PATCH", url: path, body: body, id: "orgs/update-webhook")
+            Request(path: path, method: "PATCH", body: body, id: "orgs/update-webhook")
         }
 
         public struct PatchRequest: Encodable {
@@ -95,7 +95,7 @@ extension Paths.Orgs.WithOrg.Hooks {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#delete-an-organization-webhook)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "orgs/delete-webhook")
+            Request(path: path, method: "DELETE", id: "orgs/delete-webhook")
         }
     }
 }

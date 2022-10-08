@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-a-self-hosted-runner-group-for-an-enterprise)
         public var get: Request<OctoKit.RunnerGroupsEnterprise> {
-            Request(method: "GET", url: path, id: "enterprise-admin/get-self-hosted-runner-group-for-enterprise")
+            Request(path: path, method: "GET", id: "enterprise-admin/get-self-hosted-runner-group-for-enterprise")
         }
 
         /// Update a self-hosted runner group for an enterprise
@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#update-a-self-hosted-runner-group-for-an-enterprise)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.RunnerGroupsEnterprise> {
-            Request(method: "PATCH", url: path, body: body, id: "enterprise-admin/update-self-hosted-runner-group-for-enterprise")
+            Request(path: path, method: "PATCH", body: body, id: "enterprise-admin/update-self-hosted-runner-group-for-enterprise")
         }
 
         public struct PatchRequest: Encodable {
@@ -73,7 +73,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#delete-a-self-hosted-runner-group-from-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "enterprise-admin/delete-self-hosted-runner-group-from-enterprise")
+            Request(path: path, method: "DELETE", id: "enterprise-admin/delete-self-hosted-runner-group-from-enterprise")
         }
     }
 }

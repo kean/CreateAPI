@@ -28,7 +28,7 @@ extension Paths.Orgs.WithOrg.Migrations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/migrations#get-an-organization-migration-status)
         public func get(exclude: [Exclude]? = nil) -> Request<OctoKit.Migration> {
-            Request(method: "GET", url: path, query: makeGetQuery(exclude), id: "migrations/get-status-for-org")
+            Request(path: path, method: "GET", query: makeGetQuery(exclude), id: "migrations/get-status-for-org")
         }
 
         private func makeGetQuery(_ exclude: [Exclude]?) -> [(String, String?)] {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#sync-a-fork-branch-with-the-upstream-repository)
         public func post(branch: String) -> Request<OctoKit.MergedUpstream> {
-            Request(method: "POST", url: path, body: ["branch": branch], id: "repos/merge-upstream")
+            Request(path: path, method: "POST", body: ["branch": branch], id: "repos/merge-upstream")
         }
     }
 }

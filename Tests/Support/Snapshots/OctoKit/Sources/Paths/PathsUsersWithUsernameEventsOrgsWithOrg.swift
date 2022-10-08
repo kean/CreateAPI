@@ -21,7 +21,7 @@ extension Paths.Users.WithUsername.Events.Orgs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-organization-events-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "activity/list-org-events-for-authenticated-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "activity/list-org-events-for-authenticated-user")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {

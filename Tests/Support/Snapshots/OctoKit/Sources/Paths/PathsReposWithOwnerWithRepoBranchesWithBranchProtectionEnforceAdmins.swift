@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-admin-branch-protection)
         public var get: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            Request(method: "GET", url: path, id: "repos/get-admin-branch-protection")
+            Request(path: path, method: "GET", id: "repos/get-admin-branch-protection")
         }
 
         /// Set admin branch protection
@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#set-admin-branch-protection)
         public var post: Request<OctoKit.ProtectedBranchAdminEnforced> {
-            Request(method: "POST", url: path, id: "repos/set-admin-branch-protection")
+            Request(path: path, method: "POST", id: "repos/set-admin-branch-protection")
         }
 
         /// Delete admin branch protection
@@ -43,7 +43,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-admin-branch-protection)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-admin-branch-protection")
+            Request(path: path, method: "DELETE", id: "repos/delete-admin-branch-protection")
         }
     }
 }

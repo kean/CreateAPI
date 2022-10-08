@@ -52,7 +52,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-repository-content)
         public func get(ref: String? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(ref), id: "repos/get-content")
+            Request(path: path, method: "GET", query: makeGetQuery(ref), id: "repos/get-content")
         }
 
         public enum GetResponse: Decodable {
@@ -92,7 +92,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-or-update-file-contents)
         public func put(_ body: PutRequest) -> Request<OctoKit.FileCommit> {
-            Request(method: "PUT", url: path, body: body, id: "repos/create-or-update-file-contents")
+            Request(path: path, method: "PUT", body: body, id: "repos/create-or-update-file-contents")
         }
 
         public struct PutRequest: Encodable {
@@ -187,7 +187,7 @@ extension Paths.Repos.WithOwner.WithRepo.Contents {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-file)
         public func delete(_ body: DeleteRequest) -> Request<OctoKit.FileCommit> {
-            Request(method: "DELETE", url: path, body: body, id: "repos/delete-file")
+            Request(path: path, method: "DELETE", body: body, id: "repos/delete-file")
         }
 
         public struct DeleteRequest: Encodable {

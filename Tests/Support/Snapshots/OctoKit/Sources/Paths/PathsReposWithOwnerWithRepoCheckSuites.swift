@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/checks#create-a-check-suite)
         public func post(headSha: String) -> Request<OctoKit.CheckSuite> {
-            Request(method: "POST", url: path, body: ["head_sha": headSha], id: "checks/create-suite")
+            Request(path: path, method: "POST", body: ["head_sha": headSha], id: "checks/create-suite")
         }
     }
 }

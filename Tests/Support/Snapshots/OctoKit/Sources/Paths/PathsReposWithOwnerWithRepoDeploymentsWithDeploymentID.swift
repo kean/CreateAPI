@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-deployment)
         public var get: Request<OctoKit.Deployment> {
-            Request(method: "GET", url: path, id: "repos/get-deployment")
+            Request(path: path, method: "GET", id: "repos/get-deployment")
         }
 
         /// Delete a deployment
@@ -35,7 +35,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-a-deployment)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-deployment")
+            Request(path: path, method: "DELETE", id: "repos/delete-deployment")
         }
     }
 }

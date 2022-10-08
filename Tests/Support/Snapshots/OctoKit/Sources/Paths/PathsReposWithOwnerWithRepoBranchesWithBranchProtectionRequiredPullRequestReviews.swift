@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-pull-request-review-protection)
         public var get: Request<OctoKit.ProtectedBranchPullRequestReview> {
-            Request(method: "GET", url: path, id: "repos/get-pull-request-review-protection")
+            Request(path: path, method: "GET", id: "repos/get-pull-request-review-protection")
         }
 
         /// Update pull request review protection
@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-pull-request-review-protection)
         public func patch(_ body: PatchRequest? = nil) -> Request<OctoKit.ProtectedBranchPullRequestReview> {
-            Request(method: "PATCH", url: path, body: body, id: "repos/update-pull-request-review-protection")
+            Request(path: path, method: "PATCH", body: body, id: "repos/update-pull-request-review-protection")
         }
 
         public struct PatchRequest: Encodable {
@@ -88,7 +88,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch.Protection {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-pull-request-review-protection)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-pull-request-review-protection")
+            Request(path: path, method: "DELETE", id: "repos/delete-pull-request-review-protection")
         }
     }
 }

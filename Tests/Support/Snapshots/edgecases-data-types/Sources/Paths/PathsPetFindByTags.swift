@@ -19,7 +19,7 @@ extension Paths.Pet {
         ///
         /// Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
         public func get(tags: [String]) -> Request<[edgecases_data_types.Pet]> {
-            Request(method: "GET", url: path, query: makeGetQuery(tags), id: "findPetsByTags")
+            Request(path: path, method: "GET", query: makeGetQuery(tags), id: "findPetsByTags")
         }
 
         private func makeGetQuery(_ tags: [String]) -> [(String, String?)] {

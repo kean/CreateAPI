@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-an-organization)
         public var get: Request<OctoKit.SelectedActions> {
-            Request(method: "GET", url: path, id: "actions/get-allowed-actions-organization")
+            Request(path: path, method: "GET", id: "actions/get-allowed-actions-organization")
         }
 
         /// Set allowed actions for an organization
@@ -38,7 +38,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-an-organization)
         public func put(_ body: OctoKit.SelectedActions? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "actions/set-allowed-actions-organization")
+            Request(path: path, method: "PUT", body: body, id: "actions/set-allowed-actions-organization")
         }
     }
 }

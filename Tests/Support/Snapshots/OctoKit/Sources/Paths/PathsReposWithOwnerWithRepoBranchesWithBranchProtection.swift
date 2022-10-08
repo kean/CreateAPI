@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-branch-protection)
         public var get: Request<OctoKit.BranchProtection> {
-            Request(method: "GET", url: path, id: "repos/get-branch-protection")
+            Request(path: path, method: "GET", id: "repos/get-branch-protection")
         }
 
         /// Update branch protection
@@ -36,7 +36,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#update-branch-protection)
         public func put(_ body: PutRequest) -> Request<OctoKit.ProtectedBranch> {
-            Request(method: "PUT", url: path, body: body, id: "repos/update-branch-protection")
+            Request(path: path, method: "PUT", body: body, id: "repos/update-branch-protection")
         }
 
         public struct PutRequest: Encodable {
@@ -199,7 +199,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches.WithBranch {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#delete-branch-protection)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "repos/delete-branch-protection")
+            Request(path: path, method: "DELETE", id: "repos/delete-branch-protection")
         }
     }
 }

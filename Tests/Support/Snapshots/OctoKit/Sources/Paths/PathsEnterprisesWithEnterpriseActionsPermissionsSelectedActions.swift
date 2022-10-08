@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-allowed-actions-for-an-enterprise)
         public var get: Request<OctoKit.SelectedActions> {
-            Request(method: "GET", url: path, id: "enterprise-admin/get-allowed-actions-enterprise")
+            Request(path: path, method: "GET", id: "enterprise-admin/get-allowed-actions-enterprise")
         }
 
         /// Set allowed actions for an enterprise
@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-allowed-actions-for-an-enterprise)
         public func put(_ body: OctoKit.SelectedActions) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "enterprise-admin/set-allowed-actions-enterprise")
+            Request(path: path, method: "PUT", body: body, id: "enterprise-admin/set-allowed-actions-enterprise")
         }
     }
 }

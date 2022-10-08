@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-workflow-run-usage)
         public var get: Request<OctoKit.WorkflowRunUsage> {
-            Request(method: "GET", url: path, id: "actions/get-workflow-run-usage")
+            Request(path: path, method: "GET", id: "actions/get-workflow-run-usage")
         }
     }
 }

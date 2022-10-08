@@ -19,7 +19,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#move-a-project-column)
         public func post(position: String) -> Request<Void> {
-            Request(method: "POST", url: path, body: ["position": position], id: "projects/move-column")
+            Request(path: path, method: "POST", body: ["position": position], id: "projects/move-column")
         }
     }
 }

@@ -9,7 +9,7 @@ import URLQueryEncoder
 extension Namespace {
     /// List all pets
     static public func listPets(limit: Int32? = nil) -> Request<[petstore_change_namespace_when_operations_style.Pet]> {
-        Request(method: "GET", url: "/pets", query: makeListPetsQuery(limit), id: "listPets")
+        Request(path: "/pets", method: "GET", query: makeListPetsQuery(limit), id: "listPets")
     }
 
     public enum ListPetsResponseHeaders {

@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg.Hooks.WithHookID.Deliveries.WithDeliveryID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/orgs#redeliver-a-delivery-for-an-organization-webhook)
         public var post: Request<Void> {
-            Request(method: "POST", url: path, id: "orgs/redeliver-webhook-delivery")
+            Request(path: path, method: "POST", id: "orgs/redeliver-webhook-delivery")
         }
     }
 }

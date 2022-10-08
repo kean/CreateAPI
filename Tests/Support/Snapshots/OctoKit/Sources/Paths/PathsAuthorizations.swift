@@ -22,7 +22,7 @@ extension Paths {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#list-your-authorizations)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Authorization]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "oauth-authorizations/list-authorizations")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "oauth-authorizations/list-authorizations")
         }
 
         public enum GetResponseHeaders {
@@ -66,7 +66,7 @@ extension Paths {
         /// [API method documentation](https://docs.github.com/rest/reference/oauth-authorizations#create-a-new-authorization)
         @available(*, deprecated, message: "Deprecated")
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.Authorization> {
-            Request(method: "POST", url: path, body: body, id: "oauth-authorizations/create-authorization")
+            Request(path: path, method: "POST", body: body, id: "oauth-authorizations/create-authorization")
         }
 
         public enum PostResponseHeaders {

@@ -18,7 +18,7 @@ extension Paths.User {
 
 		/// Creates list of users with given input array
 		public func post(_ body: [edgecases_tabs.User]) -> Request<Void> {
-			Request(method: "POST", url: path, body: body, id: "createUsersWithListInput")
+			Request(path: path, method: "POST", body: body, id: "createUsersWithListInput")
 		}
 	}
 }

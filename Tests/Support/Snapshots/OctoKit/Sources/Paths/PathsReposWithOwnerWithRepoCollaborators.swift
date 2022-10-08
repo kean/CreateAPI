@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#list-repository-collaborators)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Collaborator]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "repos/list-collaborators")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "repos/list-collaborators")
         }
 
         public enum GetResponseHeaders {

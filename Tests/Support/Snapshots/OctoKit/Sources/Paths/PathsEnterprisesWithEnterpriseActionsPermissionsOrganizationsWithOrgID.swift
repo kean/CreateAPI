@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#enable-a-selected-organization-for-github-actions-in-an-enterprise)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "enterprise-admin/enable-selected-organization-github-actions-enterprise")
+            Request(path: path, method: "PUT", id: "enterprise-admin/enable-selected-organization-github-actions-enterprise")
         }
 
         /// Disable a selected organization for GitHub Actions in an enterprise
@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Permissions.Organizations {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#disable-a-selected-organization-for-github-actions-in-an-enterprise)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "enterprise-admin/disable-selected-organization-github-actions-enterprise")
+            Request(path: path, method: "DELETE", id: "enterprise-admin/disable-selected-organization-github-actions-enterprise")
         }
     }
 }

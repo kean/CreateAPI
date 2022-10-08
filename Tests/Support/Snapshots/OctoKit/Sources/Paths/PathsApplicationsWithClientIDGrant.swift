@@ -22,7 +22,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-authorization)
         public func delete(accessToken: String) -> Request<Void> {
-            Request(method: "DELETE", url: path, body: ["access_token": accessToken], id: "apps/delete-authorization")
+            Request(path: path, method: "DELETE", body: ["access_token": accessToken], id: "apps/delete-authorization")
         }
     }
 }

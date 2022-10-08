@@ -27,7 +27,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions.WithPacka
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#restore-a-package-version-for-the-authenticated-user)
         public var post: Request<Void> {
-            Request(method: "POST", url: path, id: "packages/restore-package-version-for-authenticated-user")
+            Request(path: path, method: "POST", id: "packages/restore-package-version-for-authenticated-user")
         }
     }
 }

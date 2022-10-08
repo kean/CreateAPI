@@ -16,7 +16,7 @@ extension Paths.Delimeters {
 
         /// Space Delimited Explode False
         public func get(type: [String]) -> Request<Void> {
-            Request(method: "GET", url: path, query: makeGetQuery(type))
+            Request(path: path, method: "GET", query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: [String]) -> [(String, String?)] {
@@ -27,7 +27,7 @@ extension Paths.Delimeters {
 
         /// Pipe Delimited Explode False
         public func post(type: [String]? = nil) -> Request<Void> {
-            Request(method: "POST", url: path, query: makePostQuery(type))
+            Request(path: path, method: "POST", query: makePostQuery(type))
         }
 
         private func makePostQuery(_ type: [String]?) -> [(String, String?)] {
@@ -38,7 +38,7 @@ extension Paths.Delimeters {
 
         /// Space Delimited Explode True
         public func put(type: [String]) -> Request<Void> {
-            Request(method: "PUT", url: path, query: makePutQuery(type))
+            Request(path: path, method: "PUT", query: makePutQuery(type))
         }
 
         private func makePutQuery(_ type: [String]) -> [(String, String?)] {
@@ -49,7 +49,7 @@ extension Paths.Delimeters {
 
         /// Pipe Delimited Explode True
         public func patch(type: [String]? = nil) -> Request<Void> {
-            Request(method: "PATCH", url: path, query: makePatchQuery(type))
+            Request(path: path, method: "PATCH", query: makePatchQuery(type))
         }
 
         private func makePatchQuery(_ type: [String]?) -> [(String, String?)] {

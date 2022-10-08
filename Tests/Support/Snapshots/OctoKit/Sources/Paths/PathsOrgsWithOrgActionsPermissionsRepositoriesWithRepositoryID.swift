@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-selected-repository-for-github-actions-in-an-organization)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "actions/enable-selected-repository-github-actions-organization")
+            Request(path: path, method: "PUT", id: "actions/enable-selected-repository-github-actions-organization")
         }
 
         /// Disable a selected repository for GitHub Actions in an organization
@@ -34,7 +34,7 @@ extension Paths.Orgs.WithOrg.Actions.Permissions.Repositories {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#disable-a-selected-repository-for-github-actions-in-an-organization)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/disable-selected-repository-github-actions-organization")
+            Request(path: path, method: "DELETE", id: "actions/disable-selected-repository-github-actions-organization")
         }
     }
 }

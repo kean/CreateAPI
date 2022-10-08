@@ -22,7 +22,7 @@ extension Paths.Enterprises.WithEnterprise.Settings.Billing {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/billing#export-advanced-security-active-committers-data-for-enterprise)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.AdvancedSecurityActiveCommitters> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "billing/get-github-advanced-security-billing-ghe")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "billing/get-github-advanced-security-billing-ghe")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {

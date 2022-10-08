@@ -18,7 +18,7 @@ extension Paths.Store {
 
         /// Place an order for a pet
         public func post(_ body: edgecases_yaml_config.Order) -> Request<edgecases_yaml_config.Order> {
-            Request(method: "POST", url: path, body: body, id: "placeOrder")
+            Request(path: path, method: "POST", body: body, id: "placeOrder")
         }
     }
 }

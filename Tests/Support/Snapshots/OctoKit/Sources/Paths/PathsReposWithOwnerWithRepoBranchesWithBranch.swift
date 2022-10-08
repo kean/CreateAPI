@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Branches {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-a-branch)
         public var get: Request<OctoKit.BranchWithProtection> {
-            Request(method: "GET", url: path, id: "repos/get-branch")
+            Request(path: path, method: "GET", id: "repos/get-branch")
         }
     }
 }

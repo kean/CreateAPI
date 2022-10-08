@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks.WithHookID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#ping-a-repository-webhook)
         public var post: Request<Void> {
-            Request(method: "POST", url: path, id: "repos/ping-webhook")
+            Request(path: path, method: "POST", id: "repos/ping-webhook")
         }
     }
 }

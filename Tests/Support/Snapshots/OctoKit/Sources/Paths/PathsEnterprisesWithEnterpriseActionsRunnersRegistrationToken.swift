@@ -31,7 +31,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.Runners {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#create-a-registration-token-for-an-enterprise)
         public var post: Request<OctoKit.AuthenticationToken> {
-            Request(method: "POST", url: path, id: "enterprise-admin/create-registration-token-for-enterprise")
+            Request(path: path, method: "POST", id: "enterprise-admin/create-registration-token-for-enterprise")
         }
     }
 }

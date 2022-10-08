@@ -19,7 +19,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-requested-reviewers-for-a-pull-request)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<OctoKit.PullRequestReviewRequest> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "pulls/list-requested-reviewers")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "pulls/list-requested-reviewers")
         }
 
         public enum GetResponseHeaders {
@@ -39,7 +39,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#request-reviewers-for-a-pull-request)
         public func post(_ body: PostRequest? = nil) -> Request<OctoKit.PullRequestSimple> {
-            Request(method: "POST", url: path, body: body, id: "pulls/request-reviewers")
+            Request(path: path, method: "POST", body: body, id: "pulls/request-reviewers")
         }
 
         public struct PostRequest: Encodable {
@@ -64,7 +64,7 @@ extension Paths.Repos.WithOwner.WithRepo.Pulls.WithPullNumber {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#remove-requested-reviewers-from-a-pull-request)
         public func delete(_ body: DeleteRequest) -> Request<OctoKit.PullRequestSimple> {
-            Request(method: "DELETE", url: path, body: body, id: "pulls/remove-requested-reviewers")
+            Request(path: path, method: "DELETE", body: body, id: "pulls/remove-requested-reviewers")
         }
 
         public struct DeleteRequest: Encodable {

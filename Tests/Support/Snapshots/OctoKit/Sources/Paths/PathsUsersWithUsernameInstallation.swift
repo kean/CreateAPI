@@ -23,7 +23,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-user-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            Request(method: "GET", url: path, id: "apps/get-user-installation")
+            Request(path: path, method: "GET", id: "apps/get-user-installation")
         }
     }
 }

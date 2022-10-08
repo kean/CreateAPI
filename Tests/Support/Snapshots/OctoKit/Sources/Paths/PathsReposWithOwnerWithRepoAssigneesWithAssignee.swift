@@ -25,7 +25,7 @@ extension Paths.Repos.WithOwner.WithRepo.Assignees {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#check-if-a-user-can-be-assigned)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "issues/check-user-can-be-assigned")
+            Request(path: path, method: "GET", id: "issues/check-user-can-be-assigned")
         }
     }
 }

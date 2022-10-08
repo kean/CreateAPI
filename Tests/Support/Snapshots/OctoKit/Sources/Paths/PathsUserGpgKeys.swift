@@ -21,7 +21,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#list-gpg-keys-for-the-authenticated-user)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.GpgKey]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "users/list-gpg-keys-for-authenticated-user")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "users/list-gpg-keys-for-authenticated-user")
         }
 
         public enum GetResponseHeaders {
@@ -41,7 +41,7 @@ extension Paths.User {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#create-a-gpg-key-for-the-authenticated-user)
         public func post(armoredPublicKey: String) -> Request<OctoKit.GpgKey> {
-            Request(method: "POST", url: path, body: ["armored_public_key": armoredPublicKey], id: "users/create-gpg-key-for-authenticated-user")
+            Request(path: path, method: "POST", body: ["armored_public_key": armoredPublicKey], id: "users/create-gpg-key-for-authenticated-user")
         }
     }
 }

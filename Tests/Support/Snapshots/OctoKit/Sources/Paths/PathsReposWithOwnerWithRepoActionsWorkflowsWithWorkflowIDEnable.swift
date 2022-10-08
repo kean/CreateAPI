@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Workflows.WithWorkflowID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#enable-a-workflow)
         public var put: Request<Void> {
-            Request(method: "PUT", url: path, id: "actions/enable-workflow")
+            Request(path: path, method: "PUT", id: "actions/enable-workflow")
         }
     }
 }

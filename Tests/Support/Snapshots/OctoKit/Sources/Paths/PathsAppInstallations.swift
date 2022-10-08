@@ -23,7 +23,7 @@ extension Paths.App {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#list-installations-for-the-authenticated-app)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Installation]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "apps/list-installations")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "apps/list-installations")
         }
 
         public enum GetResponseHeaders {

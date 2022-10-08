@@ -23,7 +23,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-an-organization-installation-for-the-authenticated-app)
         public var get: Request<OctoKit.Installation> {
-            Request(method: "GET", url: path, id: "apps/get-org-installation")
+            Request(path: path, method: "GET", id: "apps/get-org-installation")
         }
     }
 }

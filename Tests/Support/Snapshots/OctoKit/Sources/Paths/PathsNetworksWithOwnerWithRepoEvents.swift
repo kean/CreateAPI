@@ -19,7 +19,7 @@ extension Paths.Networks.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-public-events-for-a-network-of-repositories)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Event]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "activity/list-public-events-for-repo-network")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "activity/list-public-events-for-repo-network")
         }
 
         private func makeGetQuery(_ perPage: Int?, _ page: Int?) -> [(String, String?)] {

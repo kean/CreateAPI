@@ -16,7 +16,7 @@ extension Paths.Form {
 
         /// Form Object Explode True
         public func get(type: `Type`) -> Request<Void> {
-            Request(method: "GET", url: path, query: makeGetQuery(type))
+            Request(path: path, method: "GET", query: makeGetQuery(type))
         }
 
         private func makeGetQuery(_ type: `Type`) -> [(String, String?)] {
@@ -44,7 +44,7 @@ extension Paths.Form {
 
         /// Form Object Explode False
         public func post(type: `Type`) -> Request<Void> {
-            Request(method: "POST", url: path, query: makePostQuery(type))
+            Request(path: path, method: "POST", query: makePostQuery(type))
         }
 
         private func makePostQuery(_ type: `Type`) -> [(String, String?)] {

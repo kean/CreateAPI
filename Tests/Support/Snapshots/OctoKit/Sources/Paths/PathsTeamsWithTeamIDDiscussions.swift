@@ -24,7 +24,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-discussions-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.TeamDiscussion]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "teams/list-discussions-legacy")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "teams/list-discussions-legacy")
         }
 
         public enum GetResponseHeaders {
@@ -67,7 +67,7 @@ extension Paths.Teams.WithTeamID {
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-discussion-legacy)
         @available(*, deprecated, message: "Deprecated")
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamDiscussion> {
-            Request(method: "POST", url: path, body: body, id: "teams/create-discussion-legacy")
+            Request(path: path, method: "POST", body: body, id: "teams/create-discussion-legacy")
         }
 
         public struct PostRequest: Encodable {

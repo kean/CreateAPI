@@ -23,7 +23,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-github-actions-permissions-for-an-enterprise)
         public var get: Request<OctoKit.ActionsEnterprisePermissions> {
-            Request(method: "GET", url: path, id: "enterprise-admin/get-github-actions-permissions-enterprise")
+            Request(path: path, method: "GET", id: "enterprise-admin/get-github-actions-permissions-enterprise")
         }
 
         /// Set GitHub Actions permissions for an enterprise
@@ -34,7 +34,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#set-github-actions-permissions-for-an-enterprise)
         public func put(_ body: PutRequest) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "enterprise-admin/set-github-actions-permissions-enterprise")
+            Request(path: path, method: "PUT", body: body, id: "enterprise-admin/set-github-actions-permissions-enterprise")
         }
 
         public struct PutRequest: Encodable {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-a-workflow-run)
         public func get(excludePullRequests: Bool? = nil) -> Request<OctoKit.WorkflowRun> {
-            Request(method: "GET", url: path, query: makeGetQuery(excludePullRequests), id: "actions/get-workflow-run")
+            Request(path: path, method: "GET", query: makeGetQuery(excludePullRequests), id: "actions/get-workflow-run")
         }
 
         private func makeGetQuery(_ excludePullRequests: Bool?) -> [(String, String?)] {
@@ -38,7 +38,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-a-workflow-run)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/delete-workflow-run")
+            Request(path: path, method: "DELETE", id: "actions/delete-workflow-run")
         }
     }
 }

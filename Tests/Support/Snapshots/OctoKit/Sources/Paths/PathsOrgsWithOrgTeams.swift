@@ -21,7 +21,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#list-teams)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<[OctoKit.Team]> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "teams/list")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "teams/list")
         }
 
         public enum GetResponseHeaders {
@@ -43,7 +43,7 @@ extension Paths.Orgs.WithOrg {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#create-a-team)
         public func post(_ body: PostRequest) -> Request<OctoKit.TeamFull> {
-            Request(method: "POST", url: path, body: body, id: "teams/create")
+            Request(path: path, method: "POST", body: body, id: "teams/create")
         }
 
         public struct PostRequest: Encodable {

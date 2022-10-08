@@ -28,7 +28,7 @@ extension Paths.Users.WithUsername {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/users#get-contextual-information-for-a-user)
         public func get(subjectType: SubjectType? = nil, subjectID: String? = nil) -> Request<OctoKit.Hovercard> {
-            Request(method: "GET", url: path, query: makeGetQuery(subjectType, subjectID), id: "users/get-context-for-user")
+            Request(path: path, method: "GET", query: makeGetQuery(subjectType, subjectID), id: "users/get-context-for-user")
         }
 
         private func makeGetQuery(_ subjectType: SubjectType?, _ subjectID: String?) -> [(String, String?)] {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#list-pull-requests)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.PullRequestSimple]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "pulls/list")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "pulls/list")
         }
 
         public enum GetResponseHeaders {
@@ -90,7 +90,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/pulls#create-a-pull-request)
         public func post(_ body: PostRequest) -> Request<OctoKit.PullRequest> {
-            Request(method: "POST", url: path, body: body, id: "pulls/create")
+            Request(path: path, method: "POST", body: body, id: "pulls/create")
         }
 
         public enum PostResponseHeaders {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-an-artifact)
         public var get: Request<OctoKit.Artifact> {
-            Request(method: "GET", url: path, id: "actions/get-artifact")
+            Request(path: path, method: "GET", id: "actions/get-artifact")
         }
 
         /// Delete an artifact
@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#delete-an-artifact)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "actions/delete-artifact")
+            Request(path: path, method: "DELETE", id: "actions/delete-artifact")
         }
     }
 }

@@ -21,7 +21,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#check-a-token)
         public func post(accessToken: String) -> Request<OctoKit.Authorization> {
-            Request(method: "POST", url: path, body: ["access_token": accessToken], id: "apps/check-token")
+            Request(path: path, method: "POST", body: ["access_token": accessToken], id: "apps/check-token")
         }
 
         /// Reset a token
@@ -30,7 +30,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#reset-a-token)
         public func patch(accessToken: String) -> Request<OctoKit.Authorization> {
-            Request(method: "PATCH", url: path, body: ["access_token": accessToken], id: "apps/reset-token")
+            Request(path: path, method: "PATCH", body: ["access_token": accessToken], id: "apps/reset-token")
         }
 
         /// Delete an app token
@@ -39,7 +39,7 @@ extension Paths.Applications.WithClientID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#delete-an-app-token)
         public func delete(accessToken: String) -> Request<Void> {
-            Request(method: "DELETE", url: path, body: ["access_token": accessToken], id: "apps/delete-token")
+            Request(path: path, method: "DELETE", body: ["access_token": accessToken], id: "apps/delete-token")
         }
     }
 }

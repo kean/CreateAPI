@@ -30,7 +30,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#create-a-repository-dispatch-event)
         public func post(_ body: PostRequest) -> Request<Void> {
-            Request(method: "POST", url: path, body: body, id: "repos/create-dispatch-event")
+            Request(path: path, method: "POST", body: body, id: "repos/create-dispatch-event")
         }
 
         public struct PostRequest: Encodable {

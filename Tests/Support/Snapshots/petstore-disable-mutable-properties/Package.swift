@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "petstore-disable-mutable-properties", targets: ["petstore-disable-mutable-properties"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.2")
+        .package(url: "https://github.com/kean/Get", from: "2.1.0")
     ],
     targets: [
         .target(name: "petstore-disable-mutable-properties", dependencies: [

@@ -24,7 +24,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Artifacts.WithArtifactID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#download-an-artifact)
         public var get: Request<Void> {
-            Request(method: "GET", url: path, id: "actions/download-artifact")
+            Request(path: path, method: "GET", id: "actions/download-artifact")
         }
     }
 }

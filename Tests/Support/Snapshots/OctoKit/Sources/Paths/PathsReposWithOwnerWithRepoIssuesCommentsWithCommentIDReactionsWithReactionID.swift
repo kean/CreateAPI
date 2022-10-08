@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Issues.Comments.WithCommentID.Reactions
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/reactions#delete-an-issue-comment-reaction)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "reactions/delete-for-issue-comment")
+            Request(path: path, method: "DELETE", id: "reactions/delete-for-issue-comment")
         }
     }
 }

@@ -23,7 +23,7 @@ extension Paths.User.Codespaces.WithCodespaceName {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/codespaces#stop-a-codespace-for-the-authenticated-user)
         public var post: Request<OctoKit.Codespace> {
-            Request(method: "POST", url: path, id: "codespaces/stop-for-authenticated-user")
+            Request(path: path, method: "POST", id: "codespaces/stop-for-authenticated-user")
         }
     }
 }

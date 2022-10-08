@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Releases {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-latest-release)
         public var get: Request<OctoKit.Release> {
-            Request(method: "GET", url: path, id: "repos/get-latest-release")
+            Request(path: path, method: "GET", id: "repos/get-latest-release")
         }
     }
 }

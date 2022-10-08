@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Stats {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/repos#get-the-last-year-of-commit-activity)
         public var get: Request<[OctoKit.CommitActivity]> {
-            Request(method: "GET", url: path, id: "repos/get-commit-activity-stats")
+            Request(path: path, method: "GET", id: "repos/get-commit-activity-stats")
         }
     }
 }

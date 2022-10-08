@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-pending-deployments-for-a-workflow-run)
         public var get: Request<[OctoKit.PendingDeployment]> {
-            Request(method: "GET", url: path, id: "actions/get-pending-deployments-for-run")
+            Request(path: path, method: "GET", id: "actions/get-pending-deployments-for-run")
         }
 
         /// Review pending deployments for a workflow run
@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runs.WithRunID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#review-pending-deployments-for-a-workflow-run)
         public func post(_ body: PostRequest) -> Request<[OctoKit.Deployment]> {
-            Request(method: "POST", url: path, body: body, id: "actions/review-pending-deployments-for-run")
+            Request(path: path, method: "POST", body: body, id: "actions/review-pending-deployments-for-run")
         }
 
         public struct PostRequest: Encodable {

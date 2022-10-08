@@ -28,7 +28,7 @@ extension Paths.Search {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/search#search-commits)
         public func get(parameters: GetParameters) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: parameters.asQuery, id: "search/commits")
+            Request(path: path, method: "GET", query: parameters.asQuery, id: "search/commits")
         }
 
         public struct GetResponse: Decodable {

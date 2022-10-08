@@ -17,7 +17,7 @@ extension Paths.Pets {
 
         /// Info for a specific pet
         public var get: Request<petstore_single_threaded.Pet> {
-            Request(method: "GET", url: path, id: "showPetById")
+            Request(path: path, method: "GET", id: "showPetById")
         }
     }
 }

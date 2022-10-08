@@ -19,7 +19,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#list-project-cards)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.ProjectCard]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "projects/list-cards")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "projects/list-cards")
         }
 
         public enum GetResponseHeaders {
@@ -56,7 +56,7 @@ extension Paths.Projects.Columns.WithColumnID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/projects#create-a-project-card)
         public func post(_ body: PostRequest) -> Request<OctoKit.ProjectCard> {
-            Request(method: "POST", url: path, body: body, id: "projects/create-card")
+            Request(path: path, method: "POST", body: body, id: "projects/create-card")
         }
 
         public enum PostRequest: Encodable {

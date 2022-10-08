@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/activity#list-stargazers)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "activity/list-stargazers-for-repo")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "activity/list-stargazers-for-repo")
         }
 
         public struct GetResponse: Decodable {

@@ -24,7 +24,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#get-a-package-version-for-the-authenticated-user)
         public var get: Request<OctoKit.PackageVersion> {
-            Request(method: "GET", url: path, id: "packages/get-package-version-for-authenticated-user")
+            Request(path: path, method: "GET", id: "packages/get-package-version-for-authenticated-user")
         }
 
         /// Delete a package version for the authenticated user
@@ -36,7 +36,7 @@ extension Paths.User.Packages.WithPackageType.WithPackageName.Versions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/packages#delete-a-package-version-for-the-authenticated-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "packages/delete-package-version-for-authenticated-user")
+            Request(path: path, method: "DELETE", id: "packages/delete-package-version-for-authenticated-user")
         }
     }
 }

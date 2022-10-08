@@ -23,7 +23,7 @@ extension Paths.MarketplaceListing.Stubbed.Accounts {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#get-a-subscription-plan-for-an-account-stubbed)
         public var get: Request<OctoKit.MarketplacePurchase> {
-            Request(method: "GET", url: path, id: "apps/get-subscription-plan-for-account-stubbed")
+            Request(path: path, method: "GET", id: "apps/get-subscription-plan-for-account-stubbed")
         }
     }
 }

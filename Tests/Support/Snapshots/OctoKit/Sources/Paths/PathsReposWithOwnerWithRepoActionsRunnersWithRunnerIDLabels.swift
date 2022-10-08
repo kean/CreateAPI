@@ -24,7 +24,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-labels-for-a-self-hosted-runner-for-a-repository)
         public var get: Request<GetResponse> {
-            Request(method: "GET", url: path, id: "actions/list-labels-for-self-hosted-runner-for-repo")
+            Request(path: path, method: "GET", id: "actions/list-labels-for-self-hosted-runner-for-repo")
         }
 
         public struct GetResponse: Decodable {
@@ -52,7 +52,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#add-custom-labels-to-a-self-hosted-runner-for-a-repository)
         public func post(labels: [String]) -> Request<PostResponse> {
-            Request(method: "POST", url: path, body: ["labels": labels], id: "actions/add-custom-labels-to-self-hosted-runner-for-repo")
+            Request(path: path, method: "POST", body: ["labels": labels], id: "actions/add-custom-labels-to-self-hosted-runner-for-repo")
         }
 
         public struct PostResponse: Decodable {
@@ -81,7 +81,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-custom-labels-for-a-self-hosted-runner-for-a-repository)
         public func put(labels: [String]) -> Request<PutResponse> {
-            Request(method: "PUT", url: path, body: ["labels": labels], id: "actions/set-custom-labels-for-self-hosted-runner-for-repo")
+            Request(path: path, method: "PUT", body: ["labels": labels], id: "actions/set-custom-labels-for-self-hosted-runner-for-repo")
         }
 
         public struct PutResponse: Decodable {
@@ -110,7 +110,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Runners.WithRunnerID {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#remove-all-custom-labels-from-a-self-hosted-runner-for-a-repository)
         public var delete: Request<DeleteResponse> {
-            Request(method: "DELETE", url: path, id: "actions/remove-all-custom-labels-from-self-hosted-runner-for-repo")
+            Request(path: path, method: "DELETE", id: "actions/remove-all-custom-labels-from-self-hosted-runner-for-repo")
         }
 
         public struct DeleteResponse: Decodable {

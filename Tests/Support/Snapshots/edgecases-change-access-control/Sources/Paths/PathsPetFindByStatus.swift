@@ -20,7 +20,7 @@ extension Paths.Pet {
         ///
         /// Multiple status values can be provided with comma separated strings
         func get(status: [Status]) -> Request<[edgecases_change_access_control.Pet]> {
-            Request(method: "GET", url: path, query: makeGetQuery(status), id: "findPetsByStatus")
+            Request(path: path, method: "GET", query: makeGetQuery(status), id: "findPetsByStatus")
         }
 
         private func makeGetQuery(_ status: [Status]) -> [(String, String?)] {

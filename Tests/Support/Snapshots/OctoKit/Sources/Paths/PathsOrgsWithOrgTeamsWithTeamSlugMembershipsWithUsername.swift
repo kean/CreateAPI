@@ -30,7 +30,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#get-team-membership-for-a-user)
         public var get: Request<OctoKit.TeamMembership> {
-            Request(method: "GET", url: path, id: "teams/get-membership-for-user-in-org")
+            Request(path: path, method: "GET", id: "teams/get-membership-for-user-in-org")
         }
 
         /// Add or update team membership for a user
@@ -49,7 +49,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#add-or-update-team-membership-for-a-user)
         public func put(role: PutRequest.Role? = nil) -> Request<OctoKit.TeamMembership> {
-            Request(method: "PUT", url: path, body: PutRequest(role: role), id: "teams/add-or-update-membership-for-user-in-org")
+            Request(path: path, method: "PUT", body: PutRequest(role: role), id: "teams/add-or-update-membership-for-user-in-org")
         }
 
         public struct PutRequest: Encodable {
@@ -88,7 +88,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/teams#remove-team-membership-for-a-user)
         public var delete: Request<Void> {
-            Request(method: "DELETE", url: path, id: "teams/remove-membership-for-user-in-org")
+            Request(path: path, method: "DELETE", id: "teams/remove-membership-for-user-in-org")
         }
     }
 }

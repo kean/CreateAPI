@@ -23,7 +23,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#get-allowed-actions-for-a-repository)
         public var get: Request<OctoKit.SelectedActions> {
-            Request(method: "GET", url: path, id: "actions/get-allowed-actions-repository")
+            Request(path: path, method: "GET", id: "actions/get-allowed-actions-repository")
         }
 
         /// Set allowed actions for a repository
@@ -38,7 +38,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions.Permissions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#set-allowed-actions-for-a-repository)
         public func put(_ body: OctoKit.SelectedActions? = nil) -> Request<Void> {
-            Request(method: "PUT", url: path, body: body, id: "actions/set-allowed-actions-repository")
+            Request(path: path, method: "PUT", body: body, id: "actions/set-allowed-actions-repository")
         }
     }
 }

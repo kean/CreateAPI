@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "petstore-custom-imports", targets: ["petstore-custom-imports"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/kean/Get", from: "1.0.2"),
+        .package(url: "https://github.com/kean/Get", from: "2.1.0"),
         .package(url: "https://github.com/CreateAPI/HTTPHeaders", from: "0.1.0"),
         .package(url: "https://github.com/CreateAPI/URLQueryEncoder", from: "0.2.0")
     ],

@@ -21,7 +21,7 @@ extension Paths.Applications.WithClientID.Token {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/apps#create-a-scoped-access-token)
         public func post(_ body: PostRequest) -> Request<OctoKit.Authorization> {
-            Request(method: "POST", url: path, body: body, id: "apps/scope-token")
+            Request(path: path, method: "POST", body: body, id: "apps/scope-token")
         }
 
         public struct PostRequest: Encodable {

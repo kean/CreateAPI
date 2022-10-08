@@ -21,7 +21,7 @@ extension Paths.Enterprises.WithEnterprise {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/enterprise-admin#get-the-audit-log-for-an-enterprise)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.AuditLogEvent]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "enterprise-admin/get-audit-log")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "enterprise-admin/get-audit-log")
         }
 
         public struct GetParameters {

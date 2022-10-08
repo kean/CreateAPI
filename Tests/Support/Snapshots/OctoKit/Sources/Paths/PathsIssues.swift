@@ -29,7 +29,7 @@ extension Paths {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/issues#list-issues-assigned-to-the-authenticated-user)
         public func get(parameters: GetParameters? = nil) -> Request<[OctoKit.Issue]> {
-            Request(method: "GET", url: path, query: parameters?.asQuery, id: "issues/list")
+            Request(path: path, method: "GET", query: parameters?.asQuery, id: "issues/list")
         }
 
         public enum GetResponseHeaders {

@@ -21,7 +21,7 @@ extension Paths.Repos.WithOwner.WithRepo.Actions {
         ///
         /// [API method documentation](https://docs.github.com/rest/reference/actions#list-repository-secrets)
         public func get(perPage: Int? = nil, page: Int? = nil) -> Request<GetResponse> {
-            Request(method: "GET", url: path, query: makeGetQuery(perPage, page), id: "actions/list-repo-secrets")
+            Request(path: path, method: "GET", query: makeGetQuery(perPage, page), id: "actions/list-repo-secrets")
         }
 
         public struct GetResponse: Decodable {
