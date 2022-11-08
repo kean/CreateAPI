@@ -56,8 +56,6 @@ components:
         foo:
           type: string
 
-
-
     Container:
       type: object
       required:
