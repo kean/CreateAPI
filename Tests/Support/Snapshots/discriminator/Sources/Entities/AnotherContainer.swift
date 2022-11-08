@@ -7,7 +7,8 @@ public struct AnotherContainer: Codable {
     public var content: Content
 
     public enum Content: Codable {
-        case a(A)
+        case one(A)
+        case two(A)
         case three(Three)
 
         public init(from decoder: Decoder) throws {
@@ -20,8 +21,8 @@ public struct AnotherContainer: Codable {
             let discriminatorValue = try container.decode(Discriminator.self).kind
 
             switch discriminatorValue {
-            case "one": self = .a(try container.decode(A.self))
-            case "two": self = .a(try container.decode(A.self))
+            case "one": self = .one(try container.decode(A.self))
+            case "two": self = .two(try container.decode(A.self))
             case "three": self = .three(try container.decode(Three.self))
 
             default:
@@ -35,7 +36,8 @@ public struct AnotherContainer: Codable {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             switch self {
-            case .a(let value): try container.encode(value)
+            case .one(let value): try container.encode(value)
+            case .two(let value): try container.encode(value)
             case .three(let value): try container.encode(value)
             }
         }

@@ -55,10 +55,7 @@ components:
           type: string
         foo:
           type: string
-    Four:
-      allOf:
-        - $ref: "#/components/schemas/A"
-        - type: object
+
 
 
     Container:
@@ -95,18 +92,3 @@ components:
               one: "#/components/schemas/One"
               two: "#/components/schemas/Two"
               three: "#/components/schemas/Three"
-
-    ContainerWithDirectOneOf:
-      type: object
-      oneOf:
-        - $ref: "#/components/schemas/One"
-        - $ref: "#/components/schemas/Two"
-        - $ref: "#/components/schemas/Three"
-        - $ref: "#/components/schemas/Four"
-      discriminator:
-        propertyName: kind
-        mapping:
-          one: "#/components/schemas/One"
-          two: "#/components/schemas/Two"
-          three: "#/components/schemas/Three"
-          four: "#/components/schemas/Four"
