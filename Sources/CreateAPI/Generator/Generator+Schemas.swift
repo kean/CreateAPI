@@ -489,7 +489,7 @@ extension Generator {
             default:
                 return [try makeProperty(key: type, schema: schema, isRequired: true, in: context, isInlined: true)]
             }
-        }.removingDuplicates(by: \.name)
+        }
 
         // TODO: Improve this and adopt for other types (see Zoom spec)
         if properties.count == 1 {

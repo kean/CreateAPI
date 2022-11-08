@@ -1,6 +1,6 @@
 import XCTest
 
-private let openDiff = false
+private let openDiff = true
 
 func diff(expectedURL: URL, actualURL: URL) throws {
     func contents(at url: URL) throws -> [URL] {
