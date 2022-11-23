@@ -209,7 +209,7 @@ final class Templates {
 
     // MARK: Init
 
-    func initializer(properties: [Property]) -> String {
+    func initializer(properties: [Property], includeDefaultValues: Bool) -> String {
         guard !properties.isEmpty else {
             return "public init() {}"
         }
@@ -218,7 +218,7 @@ final class Templates {
         }.joined(separator: "\n")
         let arguments = properties.map {
             let argument = "\($0.name): \($0.type)\($0.isOptional ? "?" : "")"
-            guard options.entities.includeDefaultValues else { return argument }
+            guard includeDefaultValues else { return argument }
 
             var defaultValue = ""
             if let value = $0.defaultValue {
@@ -238,20 +238,26 @@ final class Templates {
 
     // MARK: Decodable
 
-    func decode(properties: [Property], isUsingCodingKeys: Bool) -> String {
+    func decode(properties: [Property], isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
         properties
-            .map { decode(property: $0, isUsingCodingKeys: isUsingCodingKeys) }
+            .map {
+                decode(
+                    property: $0,
+                    isUsingCodingKeys: isUsingCodingKeys,
+                    includeDefaultValues: includeDefaultValues
+                )
+            }
             .joined(separator: "\n")
     }
 
     /// Generates a decode statement.
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
-    func decode(property: Property, isUsingCodingKeys: Bool) -> String {
+    func decode(property: Property, isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         let key = isUsingCodingKeys ? ".\(property.name)" : "\"\(property.key)\""
         let statement = "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))"
-        guard options.entities.includeDefaultValues else { return statement }
+        guard includeDefaultValues else { return statement }
 
         var defaultValue = ""
         if property.isOptional, let value = property.defaultValue {
@@ -268,8 +274,8 @@ final class Templates {
         "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
     }
 
-    func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool) -> String {
-        initFromDecoder(contents: decode(properties: properties, isUsingCodingKeys: isUsingCodingKeys), isUsingCodingKeys: isUsingCodingKeys)
+    func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
+        initFromDecoder(contents: decode(properties: properties, isUsingCodingKeys: isUsingCodingKeys, includeDefaultValues: includeDefaultValues), isUsingCodingKeys: isUsingCodingKeys)
     }
 
     func initFromDecoder(contents: String, needsValues: Bool = true, isUsingCodingKeys: Bool) -> String {
@@ -282,10 +288,10 @@ final class Templates {
         """
     }
 
-    func initFromDecoderAnyOf(properties: [Property]) -> String {
+    func initFromDecoderAnyOf(properties: [Property], includeDefaultValues: Bool) -> String {
         let contents = properties.map {
             let statement = "try? container.decode(\($0.type).self)"
-            guard options.entities.includeDefaultValues && $0.isOptional, let defaultValue = $0.defaultValue else {
+            guard includeDefaultValues && $0.isOptional, let defaultValue = $0.defaultValue else {
                 return "self.\($0.name.accessor) = \(statement)"
             }
             return "self.\($0.name.accessor) = (\(statement)) ?? \(defaultValue)"

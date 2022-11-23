@@ -35,7 +35,12 @@ extension Generator {
             contents.append(templates.properties(properties, isReadonly: isReadOnly))
             contents += try decl.nested.map(render)
             if options.entities.includeInitializer {
-                contents.append(templates.initializer(properties: properties))
+                contents.append(
+                    templates.initializer(
+                        properties: properties,
+                        includeDefaultValues: options.entities.includeDefaultValues
+                    )
+                )
             }
         case .oneOf:
             contents.append(properties.map(templates.case).joined(separator: "\n"))
@@ -57,11 +62,23 @@ extension Generator {
                         contents.append(keys)
                     }
                     if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
-                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
+                        contents.append(
+                            templates.initFromDecoder(
+                                properties: properties,
+                                isUsingCodingKeys: true,
+                                includeDefaultValues: options.entities.includeDefaultValues
+                            )
+                        )
                     }
                 } else {
                     if decl.protocols.isDecodable, !properties.isEmpty, options.entities.alwaysIncludeDecodableImplementation {
-                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
+                        contents.append(
+                            templates.initFromDecoder(
+                                properties: properties,
+                                isUsingCodingKeys: false,
+                                includeDefaultValues: options.entities.includeDefaultValues
+                            )
+                        )
                     }
                     if decl.protocols.isEncodable, !properties.isEmpty, options.entities.alwaysIncludeEncodableImplementation {
                         contents.append(templates.encode(properties: properties))
@@ -69,7 +86,12 @@ extension Generator {
                 }
             case .anyOf:
                 if decl.protocols.isDecodable {
-                    contents.append(templates.initFromDecoderAnyOf(properties: properties))
+                    contents.append(
+                        templates.initFromDecoderAnyOf(
+                            properties: properties,
+                            includeDefaultValues: options.entities.includeDefaultValues
+                        )
+                    )
                 }
                 if decl.protocols.isEncodable {
                     contents.append(templates.encodeAnyOf(properties: properties))
@@ -81,7 +103,11 @@ extension Generator {
                         return templates.decodeFromDecoder(property: $0)
                     } else {
                         needsValues = true
-                        return templates.decode(property: $0, isUsingCodingKeys: false)
+                        return templates.decode(
+                            property: $0,
+                            isUsingCodingKeys: false,
+                            includeDefaultValues: options.entities.includeDefaultValues
+                        )
                     }
                 }.joined(separator: "\n")
                 if decl.protocols.isDecodable {
