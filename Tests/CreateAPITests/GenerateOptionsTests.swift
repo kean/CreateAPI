@@ -326,6 +326,17 @@ final class GenerateOptionsTests: GenerateTestCase {
         )
     }
     
+    func testEdgecasesDisableDefaultValues() throws {
+        try snapshot(
+            spec: .edgecases,
+            name: "edgecases-disable-default-values",
+            configuration: """
+            entities:
+                includeDefaultValues: false
+            """
+        )
+    }
+    
     func testEdgecasesRename() throws {
         try snapshot(
             spec: .edgecases,
