@@ -680,25 +680,19 @@ extension Generator {
             var defaultValue: String?
             if options.entities.includeDefaultValues {
                 if let defaultValueWrapper = info?.defaultValue {
-                    if type.isBool,
-                       let bool = defaultValueWrapper.value as? Bool {
+                    if type.isBool, let bool = defaultValueWrapper.value as? Bool {
                         defaultValue = bool ? "true" : "false"
-                    } else if type.isInteger,
-                              let integer = defaultValueWrapper.value as? Int {
+                    } else if type.isInteger, let integer = defaultValueWrapper.value as? Int {
                         // `Int` should be a large enough container to fit any of the recognized
                         // builtin integer types.
                         defaultValue = "\(integer)"
-                    } else if type.isDouble,
-                              let double = defaultValueWrapper.value as? Double {
+                    } else if type.isDouble, let double = defaultValueWrapper.value as? Double {
                         defaultValue = "\(double)"
-                    } else if type.isString,
-                              let string = defaultValueWrapper.value as? String {
+                    } else if type.isString, let string = defaultValueWrapper.value as? String {
                         // Surround the value in quotes, otherwise the string is rendered improperly.
                         defaultValue = "\"\(string)\""
                     }
-                } else if let enumDecl = nested as? EnumOfStringsDeclaration,
-                          enumDecl.cases.count == 1,
-                          let onlyCase = enumDecl.cases.first {
+                } else if let enumDecl = nested as? EnumOfStringsDeclaration, enumDecl.cases.count == 1, let onlyCase = enumDecl.cases.first {
                     // Offer a leading . so that the key is properly accessed as a symbol.
                     defaultValue = ".\(onlyCase.key)"
                 }

@@ -1000,11 +1000,17 @@ components:
       allOf:
         - $ref: "#/components/schemas/Animal"
         - type: object
+          required:
+            - birthday
           properties:
             birthday:
               type: string
               enum:
                 - januaryFirst
+            strength:
+              type: string
+              enum:
+                - extreme
             legCount:
               type: integer
               enum:

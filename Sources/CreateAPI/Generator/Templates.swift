@@ -217,14 +217,13 @@ final class Templates {
             "self.\($0.name.accessor) = \($0.name)"
         }.joined(separator: "\n")
         let arguments = properties.map {
-            let optional = $0.isOptional ? "?" : ""
             var defaultValue = ""
             if let value = $0.defaultValue {
                 defaultValue = " = \(value)"
             } else if $0.isOptional {
                 defaultValue = " = nil"
             }
-            return "\($0.name): \($0.type)\(optional)\(defaultValue)"
+            return "\($0.name): \($0.type)\($0.isOptional ? "?" : "")\(defaultValue)"
         }.joined(separator: ", ")
         return """
         \(access)init(\(arguments)) {
@@ -247,15 +246,11 @@ final class Templates {
     func decode(property: Property, isUsingCodingKeys: Bool) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         let key = isUsingCodingKeys ? ".\(property.name)" : "\"\(property.key)\""
-        let defaultValue = (property.isOptional && property.defaultValue != nil) ? " ?? \(property.defaultValue!)" : ""
-        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
-    }
-
-    func defaultValue(for property: Property) -> String {
-        guard let value = property.defaultValue, !value.isEmpty, property.isOptional else {
-            return ""
+        var defaultValue = ""
+        if property.isOptional, let value = property.defaultValue {
+            defaultValue = " ?? \(value)"
         }
-        return " ?? \(value)"
+        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
     }
 
     /// Generated decoding of the directly inlined nested object.
@@ -281,11 +276,10 @@ final class Templates {
 
     func initFromDecoderAnyOf(properties: [Property]) -> String {
         let contents = properties.map {
-            let defaultValue = self.defaultValue(for: $0)
-            if defaultValue.isEmpty {
-                return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
+            if $0.isOptional, let defaultValue = $0.defaultValue {
+                return "self.\($0.name.accessor) = (try? container.decode(\($0.type).self)) ?? \(defaultValue)"
             } else {
-                return "self.\($0.name.accessor) = (try? container.decode(\($0.type).self))\(defaultValue)"
+                return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
             }
         }.joined(separator: "\n")
         return """
@@ -427,8 +421,7 @@ final class Templates {
         if let metadata = property.metadata {
             output += comments(for: metadata, name: property.name.rawValue, isProperty: true)
         }
-        let isOptional = property.isOptional && property.defaultValue == nil
-        output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(isOptional ? "?" : "")"
+        output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
     }
 
