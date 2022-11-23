@@ -704,12 +704,13 @@ extension Generator {
                 }
 
                 if let value = info?.defaultValue.flatMap(describeDefaultValue(_:)), !value.isEmpty {
-                    if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == value.trimmingCharacters(in: .quotes) }) {
+                    let bareValue = value.trimmingCharacters(in: .quotes)
+                    if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == bareValue }) {
                         defaultValue = ".\(caseMatch.name)"
                     } else {
                         defaultValue = value
                     }
-                } else if let enumDecl = nested as? EnumOfStringsDeclaration, enumDecl.cases.count == 1, let onlyCase = enumDecl.cases.first {
+                } else if !isOptional, let enumDecl = nested as? EnumOfStringsDeclaration, enumDecl.cases.count == 1, let onlyCase = enumDecl.cases.first {
                     defaultValue = ".\(onlyCase.name)"
                 }
             }

@@ -20,7 +20,7 @@ struct Horse: Codable {
         case extreme
     }
 
-    init(className: String, color: String? = "red", birthday: Birthday = .januaryFirst, strength: Strength? = .extreme, legCount: Int? = nil) {
+    init(className: String, color: String? = "red", birthday: Birthday = .januaryFirst, strength: Strength? = nil, legCount: Int? = nil) {
         self.className = className
         self.color = color
         self.birthday = birthday
@@ -33,7 +33,7 @@ struct Horse: Codable {
         self.className = try values.decode(String.self, forKey: "className")
         self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
         self.birthday = try values.decode(Birthday.self, forKey: "birthday")
-        self.strength = try values.decodeIfPresent(Strength.self, forKey: "strength") ?? .extreme
+        self.strength = try values.decodeIfPresent(Strength.self, forKey: "strength")
         self.legCount = try values.decodeIfPresent(Int.self, forKey: "legCount")
     }
 

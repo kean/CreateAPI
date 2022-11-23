@@ -89,7 +89,7 @@ extension Paths.Orgs.WithOrg {
                 case repositories
             }
 
-            public init(repositories: [String], lockRepositories: Bool? = false, excludeAttachments: Bool? = false, excludeReleases: Bool? = false, excludeOwnerProjects: Bool? = false, exclude: [ExcludeItem]? = .repositories) {
+            public init(repositories: [String], lockRepositories: Bool? = false, excludeAttachments: Bool? = false, excludeReleases: Bool? = false, excludeOwnerProjects: Bool? = false, exclude: [ExcludeItem]? = nil) {
                 self.repositories = repositories
                 self.lockRepositories = lockRepositories
                 self.excludeAttachments = excludeAttachments
