@@ -10,7 +10,7 @@ public struct Dog: Codable {
     public var breed: String?
     public var image: Image?
 
-    public init(className: String, color: String? = nil, breed: String? = nil, image: Image? = nil) {
+    public init(className: String, color: String? = "red", breed: String? = nil, image: Image? = nil) {
         self.className = className
         self.color = color
         self.breed = breed
@@ -20,7 +20,7 @@ public struct Dog: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.className = try values.decode(String.self, forKey: "className")
-        self.color = try values.decodeIfPresent(String.self, forKey: "color")
+        self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }

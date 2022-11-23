@@ -47,7 +47,7 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
             public var visibility: Visibility?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool
+            public var allowsPublicRepositories: Bool?
 
             /// Visibility of a runner group. You can select all repositories, select individual repositories, or all private repositories. Can be one of: `all`, `selected`, or `private`.
             public enum Visibility: String, Codable, CaseIterable {
@@ -56,10 +56,10 @@ extension Paths.Orgs.WithOrg.Actions.RunnerGroups {
                 case `private`
             }
 
-            public init(name: String, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = nil) {
+            public init(name: String, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = false) {
                 self.name = name
                 self.visibility = visibility
-                self.allowsPublicRepositories = allowsPublicRepositories ?? false
+                self.allowsPublicRepositories = allowsPublicRepositories
             }
 
             public func encode(to encoder: Encoder) throws {

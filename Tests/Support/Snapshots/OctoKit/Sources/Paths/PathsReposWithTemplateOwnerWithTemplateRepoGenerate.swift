@@ -43,16 +43,16 @@ extension Paths.Repos.WithTemplateOwner.WithTemplateRepo {
             /// A short description of the new repository.
             public var description: String?
             /// Set to `true` to include the directory structure and files from all branches in the template repository, and not just the default branch. Default: `false`.
-            public var isIncludeAllBranches: Bool
+            public var isIncludeAllBranches: Bool?
             /// Either `true` to create a new private repository or `false` to create a new public one.
-            public var isPrivate: Bool
+            public var isPrivate: Bool?
 
-            public init(owner: String? = nil, name: String, description: String? = nil, isIncludeAllBranches: Bool? = nil, isPrivate: Bool? = nil) {
+            public init(owner: String? = nil, name: String, description: String? = nil, isIncludeAllBranches: Bool? = false, isPrivate: Bool? = false) {
                 self.owner = owner
                 self.name = name
                 self.description = description
-                self.isIncludeAllBranches = isIncludeAllBranches ?? false
-                self.isPrivate = isPrivate ?? false
+                self.isIncludeAllBranches = isIncludeAllBranches
+                self.isPrivate = isPrivate
             }
 
             public func encode(to encoder: Encoder) throws {

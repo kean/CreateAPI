@@ -256,7 +256,7 @@ public struct AppPermissions: Codable {
         case write
     }
 
-    public init(actions: Actions? = nil, administration: Administration? = nil, checks: Checks? = nil, contents: Contents? = nil, deployments: Deployments? = nil, environments: Environments? = nil, issues: Issues? = nil, metadata: Metadata? = nil, packages: Packages? = nil, pages: Pages? = nil, pullRequests: PullRequests? = nil, repositoryHooks: RepositoryHooks? = nil, repositoryProjects: RepositoryProjects? = nil, secretScanningAlerts: SecretScanningAlerts? = nil, secrets: Secrets? = nil, securityEvents: SecurityEvents? = nil, singleFile: SingleFile? = nil, statuses: Statuses? = nil, vulnerabilityAlerts: VulnerabilityAlerts? = nil, workflows: Workflows? = nil, members: Members? = nil, organizationAdministration: OrganizationAdministration? = nil, organizationHooks: OrganizationHooks? = nil, organizationPlan: OrganizationPlan? = nil, organizationProjects: OrganizationProjects? = nil, organizationPackages: OrganizationPackages? = nil, organizationSecrets: OrganizationSecrets? = nil, organizationSelfHostedRunners: OrganizationSelfHostedRunners? = nil, organizationUserBlocking: OrganizationUserBlocking? = nil, teamDiscussions: TeamDiscussions? = nil) {
+    public init(actions: Actions? = nil, administration: Administration? = nil, checks: Checks? = nil, contents: Contents? = nil, deployments: Deployments? = nil, environments: Environments? = nil, issues: Issues? = nil, metadata: Metadata? = nil, packages: Packages? = nil, pages: Pages? = nil, pullRequests: PullRequests? = nil, repositoryHooks: RepositoryHooks? = nil, repositoryProjects: RepositoryProjects? = nil, secretScanningAlerts: SecretScanningAlerts? = nil, secrets: Secrets? = nil, securityEvents: SecurityEvents? = nil, singleFile: SingleFile? = nil, statuses: Statuses? = nil, vulnerabilityAlerts: VulnerabilityAlerts? = nil, workflows: Workflows? = .write, members: Members? = nil, organizationAdministration: OrganizationAdministration? = nil, organizationHooks: OrganizationHooks? = nil, organizationPlan: OrganizationPlan? = .read, organizationProjects: OrganizationProjects? = nil, organizationPackages: OrganizationPackages? = nil, organizationSecrets: OrganizationSecrets? = nil, organizationSelfHostedRunners: OrganizationSelfHostedRunners? = nil, organizationUserBlocking: OrganizationUserBlocking? = nil, teamDiscussions: TeamDiscussions? = nil) {
         self.actions = actions
         self.administration = administration
         self.checks = checks
@@ -310,11 +310,11 @@ public struct AppPermissions: Codable {
         self.singleFile = try values.decodeIfPresent(SingleFile.self, forKey: "single_file")
         self.statuses = try values.decodeIfPresent(Statuses.self, forKey: "statuses")
         self.vulnerabilityAlerts = try values.decodeIfPresent(VulnerabilityAlerts.self, forKey: "vulnerability_alerts")
-        self.workflows = try values.decodeIfPresent(Workflows.self, forKey: "workflows")
+        self.workflows = try values.decodeIfPresent(Workflows.self, forKey: "workflows") ?? .write
         self.members = try values.decodeIfPresent(Members.self, forKey: "members")
         self.organizationAdministration = try values.decodeIfPresent(OrganizationAdministration.self, forKey: "organization_administration")
         self.organizationHooks = try values.decodeIfPresent(OrganizationHooks.self, forKey: "organization_hooks")
-        self.organizationPlan = try values.decodeIfPresent(OrganizationPlan.self, forKey: "organization_plan")
+        self.organizationPlan = try values.decodeIfPresent(OrganizationPlan.self, forKey: "organization_plan") ?? .read
         self.organizationProjects = try values.decodeIfPresent(OrganizationProjects.self, forKey: "organization_projects")
         self.organizationPackages = try values.decodeIfPresent(OrganizationPackages.self, forKey: "organization_packages")
         self.organizationSecrets = try values.decodeIfPresent(OrganizationSecrets.self, forKey: "organization_secrets")

@@ -63,7 +63,7 @@ public struct DeploymentStatus: Codable {
         case inProgress = "in_progress"
     }
 
-    public init(url: URL, id: Int, nodeID: String, state: State, creator: SimpleUser? = nil, description: String, environment: String? = nil, targetURL: URL, createdAt: Date, updatedAt: Date, deploymentURL: URL, repositoryURL: URL, environmentURL: URL? = nil, logURL: URL? = nil, performedViaGithubApp: Integration? = nil) {
+    public init(url: URL, id: Int, nodeID: String, state: State, creator: SimpleUser? = nil, description: String = "", environment: String? = "", targetURL: URL, createdAt: Date, updatedAt: Date, deploymentURL: URL, repositoryURL: URL, environmentURL: URL? = nil, logURL: URL? = nil, performedViaGithubApp: Integration? = nil) {
         self.url = url
         self.id = id
         self.nodeID = nodeID
@@ -89,7 +89,7 @@ public struct DeploymentStatus: Codable {
         self.state = try values.decode(State.self, forKey: "state")
         self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
         self.description = try values.decode(String.self, forKey: "description")
-        self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
+        self.environment = try values.decodeIfPresent(String.self, forKey: "environment") ?? ""
         self.targetURL = try values.decode(URL.self, forKey: "target_url")
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")

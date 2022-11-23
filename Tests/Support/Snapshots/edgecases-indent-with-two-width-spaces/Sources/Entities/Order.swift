@@ -11,7 +11,7 @@ public struct Order: Codable {
   public var shipDate: Date?
   /// Order Status
   public var status: Status?
-  public var isComplete: Bool
+  public var isComplete: Bool?
 
   /// Order Status
   public enum Status: String, Codable, CaseIterable {
@@ -20,13 +20,13 @@ public struct Order: Codable {
     case delivered
   }
 
-  public init(id: Int64? = nil, petID: Int64? = nil, quantity: Int32? = nil, shipDate: Date? = nil, status: Status? = nil, isComplete: Bool? = nil) {
+  public init(id: Int64? = nil, petID: Int64? = nil, quantity: Int32? = nil, shipDate: Date? = nil, status: Status? = nil, isComplete: Bool? = false) {
     self.id = id
     self.petID = petID
     self.quantity = quantity
     self.shipDate = shipDate
     self.status = status
-    self.isComplete = isComplete ?? false
+    self.isComplete = isComplete
   }
 
   public init(from decoder: Decoder) throws {

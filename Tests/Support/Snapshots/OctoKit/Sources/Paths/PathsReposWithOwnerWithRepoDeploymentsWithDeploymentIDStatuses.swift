@@ -84,7 +84,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
                 case qa
             }
 
-            public init(state: State, targetURL: String? = nil, logURL: String? = nil, description: String? = nil, environment: Environment? = nil, environmentURL: String? = nil, isAutoInactive: Bool? = nil) {
+            public init(state: State, targetURL: String? = "", logURL: String? = "", description: String? = "", environment: Environment? = nil, environmentURL: String? = "", isAutoInactive: Bool? = nil) {
                 self.state = state
                 self.targetURL = targetURL
                 self.logURL = logURL

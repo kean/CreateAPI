@@ -16,7 +16,7 @@ struct Dog: Codable {
         case small = "Small"
     }
 
-    init(className: String, color: String? = nil, breed: Breed? = nil, image: Image? = nil) {
+    init(className: String, color: String? = "red", breed: Breed? = nil, image: Image? = nil) {
         self.className = className
         self.color = color
         self.breed = breed
@@ -26,7 +26,7 @@ struct Dog: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.className = try values.decode(String.self, forKey: "className")
-        self.color = try values.decodeIfPresent(String.self, forKey: "color")
+        self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
         self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
     }

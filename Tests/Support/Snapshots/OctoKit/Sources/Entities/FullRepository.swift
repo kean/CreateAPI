@@ -182,7 +182,7 @@ public struct FullRepository: Codable {
     public var openIssues: Int
     public var watchers: Int
     /// Whether anonymous git access is allowed.
-    public var isAnonymousAccessEnabled: Bool
+    public var isAnonymousAccessEnabled: Bool?
     /// Code Of Conduct Simple
     ///
     /// Code of Conduct Simple
@@ -291,7 +291,7 @@ public struct FullRepository: Codable {
         }
     }
 
-    public init(id: Int, nodeID: String, name: String, fullName: String, owner: SimpleUser, isPrivate: Bool, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, archiveURL: String, assigneesURL: String, blobsURL: String, branchesURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, deploymentsURL: URL, downloadsURL: URL, eventsURL: URL, forksURL: URL, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, languagesURL: URL, mergesURL: URL, milestonesURL: String, notificationsURL: String, pullsURL: String, releasesURL: String, sshURL: String, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, tagsURL: URL, teamsURL: URL, treesURL: String, cloneURL: String, mirrorURL: URL? = nil, hooksURL: URL, svnURL: URL, homepage: URL? = nil, language: String? = nil, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, isTemplate: Bool? = nil, topics: [String]? = nil, hasIssues: Bool, hasProjects: Bool, hasWiki: Bool, hasPages: Bool, hasDownloads: Bool, isArchived: Bool, isDisabled: Bool, visibility: String? = nil, pushedAt: Date, createdAt: Date, updatedAt: Date, permissions: Permissions? = nil, allowRebaseMerge: Bool? = nil, templateRepository: Repository? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowForking: Bool? = nil, subscribersCount: Int, networkCount: Int, license: LicenseSimple? = nil, organization: SimpleUser? = nil, parent: Repository? = nil, source: Repository? = nil, forks: Int, masterBranch: String? = nil, openIssues: Int, watchers: Int, isAnonymousAccessEnabled: Bool? = nil, codeOfConduct: CodeOfConductSimple? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil) {
+    public init(id: Int, nodeID: String, name: String, fullName: String, owner: SimpleUser, isPrivate: Bool, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, archiveURL: String, assigneesURL: String, blobsURL: String, branchesURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, deploymentsURL: URL, downloadsURL: URL, eventsURL: URL, forksURL: URL, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, languagesURL: URL, mergesURL: URL, milestonesURL: String, notificationsURL: String, pullsURL: String, releasesURL: String, sshURL: String, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, tagsURL: URL, teamsURL: URL, treesURL: String, cloneURL: String, mirrorURL: URL? = nil, hooksURL: URL, svnURL: URL, homepage: URL? = nil, language: String? = nil, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, isTemplate: Bool? = nil, topics: [String]? = nil, hasIssues: Bool, hasProjects: Bool, hasWiki: Bool, hasPages: Bool, hasDownloads: Bool, isArchived: Bool, isDisabled: Bool, visibility: String? = nil, pushedAt: Date, createdAt: Date, updatedAt: Date, permissions: Permissions? = nil, allowRebaseMerge: Bool? = nil, templateRepository: Repository? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowForking: Bool? = nil, subscribersCount: Int, networkCount: Int, license: LicenseSimple? = nil, organization: SimpleUser? = nil, parent: Repository? = nil, source: Repository? = nil, forks: Int, masterBranch: String? = nil, openIssues: Int, watchers: Int, isAnonymousAccessEnabled: Bool? = true, codeOfConduct: CodeOfConductSimple? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil) {
         self.id = id
         self.nodeID = nodeID
         self.name = name
@@ -383,7 +383,7 @@ public struct FullRepository: Codable {
         self.masterBranch = masterBranch
         self.openIssues = openIssues
         self.watchers = watchers
-        self.isAnonymousAccessEnabled = isAnonymousAccessEnabled ?? true
+        self.isAnonymousAccessEnabled = isAnonymousAccessEnabled
         self.codeOfConduct = codeOfConduct
         self.securityAndAnalysis = securityAndAnalysis
     }

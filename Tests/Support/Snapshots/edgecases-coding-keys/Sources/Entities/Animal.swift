@@ -8,8 +8,14 @@ public struct Animal: Codable {
     public var className: String
     public var color: String?
 
-    public init(className: String, color: String? = nil) {
+    public init(className: String, color: String? = "red") {
         self.className = className
         self.color = color
+    }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        self.className = try values.decode(String.self, forKey: .className)
+        self.color = try values.decodeIfPresent(String.self, forKey: .color) ?? "red"
     }
 }

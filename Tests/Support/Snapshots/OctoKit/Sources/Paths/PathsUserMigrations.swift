@@ -74,7 +74,7 @@ extension Paths.User {
                 case repositories
             }
 
-            public init(lockRepositories: Bool? = nil, excludeAttachments: Bool? = nil, excludeReleases: Bool? = nil, excludeOwnerProjects: Bool? = nil, exclude: [ExcludeItem]? = nil, repositories: [String]) {
+            public init(lockRepositories: Bool? = nil, excludeAttachments: Bool? = nil, excludeReleases: Bool? = nil, excludeOwnerProjects: Bool? = nil, exclude: [ExcludeItem]? = .repositories, repositories: [String]) {
                 self.lockRepositories = lockRepositories
                 self.excludeAttachments = excludeAttachments
                 self.excludeReleases = excludeReleases

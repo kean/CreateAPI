@@ -116,7 +116,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Specifies a task to execute (e.g., `deploy` or `deploy:migrations`).
             public var task: String?
             /// Attempts to automatically merge the default branch into the requested ref, if it's behind the default branch.
-            public var isAutoMerge: Bool
+            public var isAutoMerge: Bool?
             /// The [status](https://docs.github.com/rest/reference/repos#statuses) contexts to verify against commit status checks. If you omit this parameter, GitHub verifies all unique contexts before creating a deployment. To bypass checking entirely, pass an empty array. Defaults to all unique contexts.
             public var requiredContexts: [String]?
             public var payload: Payload?
@@ -125,7 +125,7 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Short description of the deployment.
             public var description: String?
             /// Specifies if the given environment is specific to the deployment and will no longer exist at some point in the future. Default: `false`
-            public var isTransientEnvironment: Bool
+            public var isTransientEnvironment: Bool?
             /// Specifies if the given environment is one that end-users directly interact with. Default: `true` when `environment` is `production` and `false` otherwise.
             public var isProductionEnvironment: Bool?
 
@@ -142,15 +142,15 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public init(ref: String, task: String? = nil, isAutoMerge: Bool? = nil, requiredContexts: [String]? = nil, payload: Payload? = nil, environment: String? = nil, description: String? = nil, isTransientEnvironment: Bool? = nil, isProductionEnvironment: Bool? = nil) {
+            public init(ref: String, task: String? = "deploy", isAutoMerge: Bool? = true, requiredContexts: [String]? = nil, payload: Payload? = nil, environment: String? = "production", description: String? = "", isTransientEnvironment: Bool? = false, isProductionEnvironment: Bool? = nil) {
                 self.ref = ref
                 self.task = task
-                self.isAutoMerge = isAutoMerge ?? true
+                self.isAutoMerge = isAutoMerge
                 self.requiredContexts = requiredContexts
                 self.payload = payload
                 self.environment = environment
                 self.description = description
-                self.isTransientEnvironment = isTransientEnvironment ?? false
+                self.isTransientEnvironment = isTransientEnvironment
                 self.isProductionEnvironment = isProductionEnvironment
             }
 

@@ -9,7 +9,7 @@ public struct Cat: Codable {
   public var color: String?
   public var isDeclawed: Bool?
 
-  public init(className: String, color: String? = nil, isDeclawed: Bool? = nil) {
+  public init(className: String, color: String? = "red", isDeclawed: Bool? = nil) {
     self.className = className
     self.color = color
     self.isDeclawed = isDeclawed
@@ -18,7 +18,7 @@ public struct Cat: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: StringCodingKey.self)
     self.className = try values.decode(String.self, forKey: "className")
-    self.color = try values.decodeIfPresent(String.self, forKey: "color")
+    self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
     self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
   }
 

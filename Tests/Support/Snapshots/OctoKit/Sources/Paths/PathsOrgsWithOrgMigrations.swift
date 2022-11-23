@@ -70,31 +70,31 @@ extension Paths.Orgs.WithOrg {
             /// Indicates whether repositories should be locked (to prevent manipulation) while migrating data.
             ///
             /// Example: true
-            public var lockRepositories: Bool
+            public var lockRepositories: Bool?
             /// Indicates whether attachments should be excluded from the migration (to reduce migration archive file size).
             ///
             /// Example: true
-            public var excludeAttachments: Bool
+            public var excludeAttachments: Bool?
             /// Indicates whether releases should be excluded from the migration (to reduce migration archive file size).
             ///
             /// Example: true
-            public var excludeReleases: Bool
+            public var excludeReleases: Bool?
             /// Indicates whether projects owned by the organization or users should be excluded. from the migration.
             ///
             /// Example: true
-            public var excludeOwnerProjects: Bool
+            public var excludeOwnerProjects: Bool?
             public var exclude: [ExcludeItem]?
 
             public enum ExcludeItem: String, Codable, CaseIterable {
                 case repositories
             }
 
-            public init(repositories: [String], lockRepositories: Bool? = nil, excludeAttachments: Bool? = nil, excludeReleases: Bool? = nil, excludeOwnerProjects: Bool? = nil, exclude: [ExcludeItem]? = nil) {
+            public init(repositories: [String], lockRepositories: Bool? = false, excludeAttachments: Bool? = false, excludeReleases: Bool? = false, excludeOwnerProjects: Bool? = false, exclude: [ExcludeItem]? = .repositories) {
                 self.repositories = repositories
-                self.lockRepositories = lockRepositories ?? false
-                self.excludeAttachments = excludeAttachments ?? false
-                self.excludeReleases = excludeReleases ?? false
-                self.excludeOwnerProjects = excludeOwnerProjects ?? false
+                self.lockRepositories = lockRepositories
+                self.excludeAttachments = excludeAttachments
+                self.excludeReleases = excludeReleases
+                self.excludeOwnerProjects = excludeOwnerProjects
                 self.exclude = exclude
             }
 

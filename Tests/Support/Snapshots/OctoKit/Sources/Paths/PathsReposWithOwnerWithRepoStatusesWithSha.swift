@@ -50,7 +50,7 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
                 case success
             }
 
-            public init(state: State, targetURL: String? = nil, description: String? = nil, context: String? = nil) {
+            public init(state: State, targetURL: String? = nil, description: String? = nil, context: String? = "default") {
                 self.state = state
                 self.targetURL = targetURL
                 self.description = description
