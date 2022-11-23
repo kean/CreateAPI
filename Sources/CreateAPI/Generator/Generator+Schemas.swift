@@ -693,7 +693,6 @@ extension Generator {
                             return nil
                         }
                         // Surround the value in quotes, otherwise the string is rendered improperly.
-                        print("*** TAG: \(string) is a \(info?.formatString ?? "")")
                         return "\"\(string)\""
                     } else if let array = anyValue.value as? [AnyCodable] {
                         return "\(array.map(describeDefaultValue(_:)))"
