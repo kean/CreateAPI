@@ -18,6 +18,9 @@ indirect enum TypeIdentifier: CustomStringConvertible, Hashable {
     var isBool: Bool { builtinTypeName == "Bool" }
     var isVoid: Bool { builtinTypeName == "Void" }
     var isString: Bool { builtinTypeName == "String" }
+    var isDouble: Bool { builtinTypeName == "Double" }
+    var isInteger: Bool { ["Int", "Int32", "Int64"].contains(builtinTypeName) }
+    var isNumber: Bool { isDouble || isInteger }
 
     static let allGeneratedBuiltinTypes = Set<TypeName>(["String", "Bool", "Double", "Int", "Int32", "Int64", "Date", "URL", "Data"].map(TypeName.init))
 

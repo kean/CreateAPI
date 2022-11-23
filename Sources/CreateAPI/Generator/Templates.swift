@@ -214,11 +214,17 @@ final class Templates {
             return "public init() {}"
         }
         let statements = properties.map {
-            let defaultValue = ($0.isOptional && $0.defaultValue != nil) ? " ?? \($0.defaultValue!)" : ""
-            return "self.\($0.name.accessor) = \($0.name)\(defaultValue)"
+            "self.\($0.name.accessor) = \($0.name)"
         }.joined(separator: "\n")
         let arguments = properties.map {
-            "\($0.name): \($0.type)\($0.isOptional ? "? = nil" : "")"
+            let optional = $0.isOptional ? "?" : ""
+            var defaultValue = ""
+            if let value = $0.defaultValue {
+                defaultValue = " = \(value)"
+            } else if $0.isOptional {
+                defaultValue = " = nil"
+            }
+            return "\($0.name): \($0.type)\(optional)\(defaultValue)"
         }.joined(separator: ", ")
         return """
         \(access)init(\(arguments)) {
