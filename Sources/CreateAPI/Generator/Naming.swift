@@ -226,4 +226,5 @@ private let badCharacters = CharacterSet.alphanumerics.inverted
 
 extension CharacterSet {
     static let ticks = CharacterSet(charactersIn: "`")
+    static let quotes = CharacterSet(charactersIn: #"'""#)
 }

@@ -679,22 +679,39 @@ extension Generator {
 
             var defaultValue: String?
             if options.entities.includeDefaultValues {
-                if let defaultValueWrapper = info?.defaultValue {
-                    if type.isBool, let bool = defaultValueWrapper.value as? Bool {
-                        defaultValue = bool ? "true" : "false"
-                    } else if type.isInteger, let integer = defaultValueWrapper.value as? Int {
-                        // `Int` should be a large enough container to fit any of the recognized
-                        // builtin integer types.
-                        defaultValue = "\(integer)"
-                    } else if type.isDouble, let double = defaultValueWrapper.value as? Double {
-                        defaultValue = "\(double)"
-                    } else if type.isString, let string = defaultValueWrapper.value as? String {
+                func describeDefaultValue(_ anyValue: AnyCodable) -> String? {
+                    if let bool = anyValue.value as? Bool {
+                        return bool ? "true" : "false"
+                    } else if let int = anyValue.value as? Int {
+                        return "\(int)"
+                    } else if let uint = anyValue.value as? UInt {
+                        return "\(uint)"
+                    } else if let double = anyValue.value as? Double {
+                        return "\(double)"
+                    } else if let string = anyValue.value as? String {
+                        if let formatString = info?.formatString, !formatString.isEmpty {
+                            return nil
+                        }
                         // Surround the value in quotes, otherwise the string is rendered improperly.
-                        defaultValue = "\"\(string)\""
+                        print("*** TAG: \(string) is a \(info?.formatString ?? "")")
+                        return "\"\(string)\""
+                    } else if let array = anyValue.value as? [AnyCodable] {
+                        return "\(array.map(describeDefaultValue(_:)))"
+                    } else if let dictionary = anyValue.value as? [String: AnyCodable] {
+                        return "\(dictionary.mapValues(describeDefaultValue(_:)))"
+                    } else {
+                        return nil
+                    }
+                }
+
+                if let value = info?.defaultValue.flatMap(describeDefaultValue(_:)), !value.isEmpty {
+                    if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == value.trimmingCharacters(in: .quotes) }) {
+                        defaultValue = ".\(caseMatch.name)"
+                    } else {
+                        defaultValue = value
                     }
                 } else if let enumDecl = nested as? EnumOfStringsDeclaration, enumDecl.cases.count == 1, let onlyCase = enumDecl.cases.first {
-                    // Offer a leading . so that the key is properly accessed as a symbol.
-                    defaultValue = ".\(onlyCase.key)"
+                    defaultValue = ".\(onlyCase.name)"
                 }
             }
             
