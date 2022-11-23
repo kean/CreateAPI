@@ -83,7 +83,7 @@ extension Paths.Orgs.WithOrg.Actions {
                 case `private`
             }
 
-            public init(name: String, visibility: Visibility? = nil, selectedRepositoryIDs: [Int]? = nil, runners: [Int]? = nil, allowsPublicRepositories: Bool? = false) {
+            public init(name: String, visibility: Visibility? = .all, selectedRepositoryIDs: [Int]? = nil, runners: [Int]? = nil, allowsPublicRepositories: Bool? = false) {
                 self.name = name
                 self.visibility = visibility
                 self.selectedRepositoryIDs = selectedRepositoryIDs

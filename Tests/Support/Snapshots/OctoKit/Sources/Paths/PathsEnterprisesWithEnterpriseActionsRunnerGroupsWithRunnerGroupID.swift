@@ -51,7 +51,7 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
                 case all
             }
 
-            public init(name: String? = nil, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = false) {
+            public init(name: String? = nil, visibility: Visibility? = .all, allowsPublicRepositories: Bool? = false) {
                 self.name = name
                 self.visibility = visibility
                 self.allowsPublicRepositories = allowsPublicRepositories

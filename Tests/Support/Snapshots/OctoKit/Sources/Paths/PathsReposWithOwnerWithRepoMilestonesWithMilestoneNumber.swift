@@ -45,7 +45,7 @@ extension Paths.Repos.WithOwner.WithRepo.Milestones {
                 case closed
             }
 
-            public init(title: String? = nil, state: State? = nil, description: String? = nil, dueOn: Date? = nil) {
+            public init(title: String? = nil, state: State? = .`open`, description: String? = nil, dueOn: Date? = nil) {
                 self.title = title
                 self.state = state
                 self.description = description

@@ -95,7 +95,7 @@ extension Paths.Orgs.WithOrg {
                 case admin
             }
 
-            public init(name: String, description: String? = nil, maintainers: [String]? = nil, repoNames: [String]? = nil, privacy: Privacy? = nil, permission: Permission? = nil, parentTeamID: Int? = nil) {
+            public init(name: String, description: String? = nil, maintainers: [String]? = nil, repoNames: [String]? = nil, privacy: Privacy? = nil, permission: Permission? = .pull, parentTeamID: Int? = nil) {
                 self.name = name
                 self.description = description
                 self.maintainers = maintainers

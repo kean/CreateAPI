@@ -76,7 +76,7 @@ extension Paths.Repos.WithOwner.WithRepo.Collaborators {
                 case triage
             }
 
-            public init(permission: Permission? = nil, permissions: String? = nil) {
+            public init(permission: Permission? = .push, permissions: String? = nil) {
                 self.permission = permission
                 self.permissions = permissions
             }

@@ -95,7 +95,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 case closed
             }
 
-            public init(title: String, state: State? = nil, description: String? = nil, dueOn: Date? = nil) {
+            public init(title: String, state: State? = .`open`, description: String? = nil, dueOn: Date? = nil) {
                 self.title = title
                 self.state = state
                 self.description = description

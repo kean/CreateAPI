@@ -108,7 +108,7 @@ public struct ReviewComment: Codable {
         case right = "RIGHT"
     }
 
-    public init(url: URL, pullRequestReviewID: Int? = nil, id: Int, nodeID: String, diffHunk: String, path: String, position: Int? = nil, originalPosition: Int, commitID: String, originalCommitID: String, inReplyToID: Int? = nil, user: SimpleUser? = nil, body: String, createdAt: Date, updatedAt: Date, htmlURL: URL, pullRequestURL: URL, authorAssociation: AuthorAssociation, links: Links, bodyText: String? = nil, bodyHTML: String? = nil, reactions: ReactionRollup? = nil, side: Side? = nil, startSide: StartSide? = nil, line: Int? = nil, originalLine: Int? = nil, startLine: Int? = nil, originalStartLine: Int? = nil) {
+    public init(url: URL, pullRequestReviewID: Int? = nil, id: Int, nodeID: String, diffHunk: String, path: String, position: Int? = nil, originalPosition: Int, commitID: String, originalCommitID: String, inReplyToID: Int? = nil, user: SimpleUser? = nil, body: String, createdAt: Date, updatedAt: Date, htmlURL: URL, pullRequestURL: URL, authorAssociation: AuthorAssociation, links: Links, bodyText: String? = nil, bodyHTML: String? = nil, reactions: ReactionRollup? = nil, side: Side? = .right, startSide: StartSide? = .right, line: Int? = nil, originalLine: Int? = nil, startLine: Int? = nil, originalStartLine: Int? = nil) {
         self.url = url
         self.pullRequestReviewID = pullRequestReviewID
         self.id = id
@@ -163,8 +163,8 @@ public struct ReviewComment: Codable {
         self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
         self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
         self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
-        self.side = try values.decodeIfPresent(Side.self, forKey: "side")
-        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
+        self.side = try values.decodeIfPresent(Side.self, forKey: "side") ?? .right
+        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side") ?? .right
         self.line = try values.decodeIfPresent(Int.self, forKey: "line")
         self.originalLine = try values.decodeIfPresent(Int.self, forKey: "original_line")
         self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")

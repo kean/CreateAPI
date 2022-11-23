@@ -55,7 +55,7 @@ extension Paths.Orgs.WithOrg.Memberships {
                 case member
             }
 
-            public init(role: Role? = nil) {
+            public init(role: Role? = .member) {
                 self.role = role
             }
 

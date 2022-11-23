@@ -181,7 +181,7 @@ public struct PullRequestReviewComment: Codable {
         case right = "RIGHT"
     }
 
-    public init(url: String, pullRequestReviewID: Int? = nil, id: Int, nodeID: String, diffHunk: String, path: String, position: Int, originalPosition: Int, commitID: String, originalCommitID: String, inReplyToID: Int? = nil, user: SimpleUser, body: String, createdAt: Date, updatedAt: Date, htmlURL: URL, pullRequestURL: URL, authorAssociation: AuthorAssociation, links: Links, startLine: Int? = nil, originalStartLine: Int? = nil, startSide: StartSide? = nil, line: Int? = nil, originalLine: Int? = nil, side: Side? = nil, reactions: ReactionRollup? = nil, bodyHTML: String? = nil, bodyText: String? = nil) {
+    public init(url: String, pullRequestReviewID: Int? = nil, id: Int, nodeID: String, diffHunk: String, path: String, position: Int, originalPosition: Int, commitID: String, originalCommitID: String, inReplyToID: Int? = nil, user: SimpleUser, body: String, createdAt: Date, updatedAt: Date, htmlURL: URL, pullRequestURL: URL, authorAssociation: AuthorAssociation, links: Links, startLine: Int? = nil, originalStartLine: Int? = nil, startSide: StartSide? = .right, line: Int? = nil, originalLine: Int? = nil, side: Side? = .right, reactions: ReactionRollup? = nil, bodyHTML: String? = nil, bodyText: String? = nil) {
         self.url = url
         self.pullRequestReviewID = pullRequestReviewID
         self.id = id
@@ -235,10 +235,10 @@ public struct PullRequestReviewComment: Codable {
         self.links = try values.decode(Links.self, forKey: "_links")
         self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
         self.originalStartLine = try values.decodeIfPresent(Int.self, forKey: "original_start_line")
-        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
+        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side") ?? .right
         self.line = try values.decodeIfPresent(Int.self, forKey: "line")
         self.originalLine = try values.decodeIfPresent(Int.self, forKey: "original_line")
-        self.side = try values.decodeIfPresent(Side.self, forKey: "side")
+        self.side = try values.decodeIfPresent(Side.self, forKey: "side") ?? .right
         self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
         self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
         self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
