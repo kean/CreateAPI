@@ -995,6 +995,20 @@ components:
           properties:
             declawed:
               type: boolean
+    Horse:
+      description: Model for testing models with weird enum properties
+      allOf:
+        - $ref: "#/components/schemas/Animal"
+        - type: object
+          properties:
+            birthday:
+              type: string
+              enum:
+                - januaryFirst
+            legCount:
+              type: integer
+              enum:
+                - 4
     Animal:
       type: object
       discriminator:
