@@ -8,6 +8,7 @@ DerivedData/
 .swiftpm/config/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
+/.vscode
 
 # Custom ignores
 /Tests/Support/Snapshots/**/Package.resolved
