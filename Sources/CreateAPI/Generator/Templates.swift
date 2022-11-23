@@ -217,13 +217,17 @@ final class Templates {
             "self.\($0.name.accessor) = \($0.name)"
         }.joined(separator: "\n")
         let arguments = properties.map {
+            let argument = "\($0.name): \($0.type)\($0.isOptional ? "?" : "")"
+            guard options.entities.includeDefaultValues else { return argument }
+
             var defaultValue = ""
             if let value = $0.defaultValue {
                 defaultValue = " = \(value)"
             } else if $0.isOptional {
                 defaultValue = " = nil"
             }
-            return "\($0.name): \($0.type)\($0.isOptional ? "?" : "")\(defaultValue)"
+
+            return "\(argument)\(defaultValue)"
         }.joined(separator: ", ")
         return """
         \(access)init(\(arguments)) {
@@ -246,11 +250,15 @@ final class Templates {
     func decode(property: Property, isUsingCodingKeys: Bool) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         let key = isUsingCodingKeys ? ".\(property.name)" : "\"\(property.key)\""
+        let statement = "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))"
+        guard options.entities.includeDefaultValues else { return statement }
+
         var defaultValue = ""
         if property.isOptional, let value = property.defaultValue {
             defaultValue = " ?? \(value)"
         }
-        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
+
+        return "\(statement)\(defaultValue)"
     }
 
     /// Generated decoding of the directly inlined nested object.
@@ -276,11 +284,11 @@ final class Templates {
 
     func initFromDecoderAnyOf(properties: [Property]) -> String {
         let contents = properties.map {
-            if $0.isOptional, let defaultValue = $0.defaultValue {
-                return "self.\($0.name.accessor) = (try? container.decode(\($0.type).self)) ?? \(defaultValue)"
-            } else {
-                return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
+            let statement = "try? container.decode(\($0.type).self)"
+            guard options.entities.includeDefaultValues && $0.isOptional, let defaultValue = $0.defaultValue else {
+                return "self.\($0.name.accessor) = \(statement)"
             }
+            return "self.\($0.name.accessor) = (\(statement)) ?? \(defaultValue)"
         }.joined(separator: "\n")
         return """
         \(access)init(from decoder: Decoder) throws {
