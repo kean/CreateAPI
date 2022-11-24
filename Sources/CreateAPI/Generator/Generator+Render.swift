@@ -57,28 +57,32 @@ extension Generator {
         } else {
             switch decl.type {
             case .object:
-                let canDeriveCodable = {
-                    if properties.isEmpty { return false }
-                    return true
-                }()
-
-                var isUsingCodingKeys = false
-                if !options.entities.optimizeCodingKeys, let keys = templates.codingKeys(for: properties) {
-                    contents.append(keys)
-                    isUsingCodingKeys = true
-                }
-
-                if decl.protocols.isDecodable && (!canDeriveCodable || options.entities.alwaysIncludeDecodableImplementation) {
-                    contents.append(
-                        templates.initFromDecoder(
-                            properties: properties,
-                            isUsingCodingKeys: isUsingCodingKeys,
-                            includeDefaultValues: options.entities.includeDefaultValues
+                if !options.entities.optimizeCodingKeys {
+                    if let keys = templates.codingKeys(for: properties) {
+                        contents.append(keys)
+                    }
+                    if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
+                        contents.append(
+                            templates.initFromDecoder(
+                                properties: properties,
+                                isUsingCodingKeys: true,
+                                includeDefaultValues: options.entities.includeDefaultValues
+                            )
                         )
-                    )
-                }
-                if decl.protocols.isEncodable && (!canDeriveCodable || options.entities.alwaysIncludeEncodableImplementation) {
-                    contents.append(templates.encode(properties: properties))
+                    }
+                } else {
+                    if decl.protocols.isDecodable, !properties.isEmpty, options.entities.alwaysIncludeDecodableImplementation {
+                        contents.append(
+                            templates.initFromDecoder(
+                                properties: properties,
+                                isUsingCodingKeys: false,
+                                includeDefaultValues: options.entities.includeDefaultValues
+                            )
+                        )
+                    }
+                    if decl.protocols.isEncodable, !properties.isEmpty, options.entities.alwaysIncludeEncodableImplementation {
+                        contents.append(templates.encode(properties: properties))
+                    }
                 }
             case .anyOf:
                 if decl.protocols.isDecodable {
