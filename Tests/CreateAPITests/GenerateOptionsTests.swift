@@ -391,6 +391,7 @@ final class GenerateOptionsTests: GenerateTestCase {
               string:
                 date-time: AnyJSON
                 byte: String
+                uri: String
               integer:
                 int32: Double
                 int64: Int

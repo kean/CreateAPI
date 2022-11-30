@@ -85,7 +85,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 }
             }
 
-            public init(config: Config? = nil, events: [String]? = nil, addEvents: [String]? = nil, removeEvents: [String]? = nil, isActive: Bool? = true) {
+            public init(config: Config? = nil, events: [String]? = ["push"], addEvents: [String]? = nil, removeEvents: [String]? = nil, isActive: Bool? = true) {
                 self.config = config
                 self.events = events
                 self.addEvents = addEvents

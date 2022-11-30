@@ -96,7 +96,7 @@ extension Paths.Orgs.WithOrg {
                 }
             }
 
-            public init(name: String, config: Config, events: [String]? = nil, isActive: Bool? = true) {
+            public init(name: String, config: Config, events: [String]? = ["push"], isActive: Bool? = true) {
                 self.name = name
                 self.config = config
                 self.events = events

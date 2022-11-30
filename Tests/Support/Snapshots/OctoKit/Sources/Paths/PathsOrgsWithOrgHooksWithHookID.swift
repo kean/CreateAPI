@@ -75,7 +75,7 @@ extension Paths.Orgs.WithOrg.Hooks {
                 }
             }
 
-            public init(config: Config? = nil, events: [String]? = nil, isActive: Bool? = true, name: String? = nil) {
+            public init(config: Config? = nil, events: [String]? = ["push"], isActive: Bool? = true, name: String? = nil) {
                 self.config = config
                 self.events = events
                 self.isActive = isActive

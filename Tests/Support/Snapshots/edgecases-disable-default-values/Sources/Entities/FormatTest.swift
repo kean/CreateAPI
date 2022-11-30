@@ -13,13 +13,17 @@ public struct FormatTest: Codable {
     public var double: Double?
     public var string: String?
     public var byte: Data
-    public var binary: String?
+    public var binary: Data?
+    public var uri: URL?
+    public var uriReference: String?
+    public var uriDefault: URL?
+    public var uriRequired: URL
     public var date: NaiveDate
     public var dateTime: Date?
     public var uuid: UUID?
     public var password: String
 
-    public init(integer: Int?, int32: Int32?, int64: Int64?, number: Double, float: Float?, double: Double?, string: String?, byte: Data, binary: String?, date: NaiveDate, dateTime: Date?, uuid: UUID?, password: String) {
+    public init(integer: Int?, int32: Int32?, int64: Int64?, number: Double, float: Float?, double: Double?, string: String?, byte: Data, binary: Data?, uri: URL?, uriReference: String?, uriDefault: URL?, uriRequired: URL, date: NaiveDate, dateTime: Date?, uuid: UUID?, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -29,6 +33,10 @@ public struct FormatTest: Codable {
         self.string = string
         self.byte = byte
         self.binary = binary
+        self.uri = uri
+        self.uriReference = uriReference
+        self.uriDefault = uriDefault
+        self.uriRequired = uriRequired
         self.date = date
         self.dateTime = dateTime
         self.uuid = uuid
@@ -45,7 +53,11 @@ public struct FormatTest: Codable {
         self.double = try values.decodeIfPresent(Double.self, forKey: "double")
         self.string = try values.decodeIfPresent(String.self, forKey: "string")
         self.byte = try values.decode(Data.self, forKey: "byte")
-        self.binary = try values.decodeIfPresent(String.self, forKey: "binary")
+        self.binary = try values.decodeIfPresent(Data.self, forKey: "binary")
+        self.uri = try values.decodeIfPresent(URL.self, forKey: "uri")
+        self.uriReference = try values.decodeIfPresent(String.self, forKey: "uri_reference")
+        self.uriDefault = try values.decodeIfPresent(URL.self, forKey: "uri_default")
+        self.uriRequired = try values.decode(URL.self, forKey: "uri_required")
         self.date = try values.decode(NaiveDate.self, forKey: "date")
         self.dateTime = try values.decodeIfPresent(Date.self, forKey: "dateTime")
         self.uuid = try values.decodeIfPresent(UUID.self, forKey: "uuid")
@@ -63,6 +75,10 @@ public struct FormatTest: Codable {
         try values.encodeIfPresent(string, forKey: "string")
         try values.encode(byte, forKey: "byte")
         try values.encodeIfPresent(binary, forKey: "binary")
+        try values.encodeIfPresent(uri, forKey: "uri")
+        try values.encodeIfPresent(uriReference, forKey: "uri_reference")
+        try values.encodeIfPresent(uriDefault, forKey: "uri_default")
+        try values.encode(uriRequired, forKey: "uri_required")
         try values.encode(date, forKey: "date")
         try values.encodeIfPresent(dateTime, forKey: "dateTime")
         try values.encodeIfPresent(uuid, forKey: "uuid")

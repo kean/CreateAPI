@@ -9,12 +9,16 @@ public struct Dog: Codable {
     public var color: String?
     public var breed: String?
     public var image: Image?
+    public var goodBoy: String
+    public var family: String?
 
-    public init(className: String, color: String? = "red", breed: String? = nil, image: Image? = nil) {
+    public init(className: String, color: String? = "red", breed: String? = nil, image: Image? = nil, goodBoy: String, family: String? = nil) {
         self.className = className
         self.color = color
         self.breed = breed
         self.image = image
+        self.goodBoy = goodBoy
+        self.family = family
     }
 
     public init(from decoder: Decoder) throws {
@@ -23,6 +27,8 @@ public struct Dog: Codable {
         self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
         self.breed = try values.decodeIfPresent(String.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
+        self.goodBoy = try values.decode(String.self, forKey: "good_boy")
+        self.family = try values.decodeIfPresent(String.self, forKey: "family")
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -31,5 +37,7 @@ public struct Dog: Codable {
         try values.encodeIfPresent(color, forKey: "color")
         try values.encodeIfPresent(breed, forKey: "breed")
         try values.encodeIfPresent(image, forKey: "image")
+        try values.encode(goodBoy, forKey: "good_boy")
+        try values.encodeIfPresent(family, forKey: "family")
     }
 }

@@ -97,7 +97,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                 }
             }
 
-            public init(name: String? = nil, config: Config? = nil, events: [String]? = nil, isActive: Bool? = true) {
+            public init(name: String? = nil, config: Config? = nil, events: [String]? = ["push"], isActive: Bool? = true) {
                 self.name = name
                 self.config = config
                 self.events = events
