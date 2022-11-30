@@ -57,20 +57,7 @@ extension Generator {
         } else {
             switch decl.type {
             case .object:
-                if !options.entities.optimizeCodingKeys {
-                    if let keys = templates.codingKeys(for: properties) {
-                        contents.append(keys)
-                    }
-                    if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
-                        contents.append(
-                            templates.initFromDecoder(
-                                properties: properties,
-                                isUsingCodingKeys: true,
-                                includeDefaultValues: options.entities.includeDefaultValues
-                            )
-                        )
-                    }
-                } else {
+                if options.entities.optimizeCodingKeys {
                     if decl.protocols.isDecodable, !properties.isEmpty, options.entities.alwaysIncludeDecodableImplementation {
                         contents.append(
                             templates.initFromDecoder(
@@ -83,6 +70,8 @@ extension Generator {
                     if decl.protocols.isEncodable, !properties.isEmpty, options.entities.alwaysIncludeEncodableImplementation {
                         contents.append(templates.encode(properties: properties))
                     }
+                } else if let keys = templates.codingKeys(for: properties) {
+                    contents.append(keys)
                 }
             case .anyOf:
                 if decl.protocols.isDecodable {
