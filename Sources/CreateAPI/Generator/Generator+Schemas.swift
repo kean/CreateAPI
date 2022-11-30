@@ -680,32 +680,24 @@ extension Generator {
             var defaultValue: String?
             if options.entities.includeDefaultValues {
                 func describeDefaultValue(_ anyValue: AnyCodable) -> String? {
-                    if let bool = anyValue.value as? Bool {
-                        return bool ? "true" : "false"
-                    } else if let int = anyValue.value as? Int {
-                        return "\(int)"
-                    } else if let uint = anyValue.value as? UInt {
-                        return "\(uint)"
-                    } else if let double = anyValue.value as? Double {
-                        return "\(double)"
-                    } else if let string = anyValue.value as? String {
-                        if let formatString = info?.formatString, !formatString.isEmpty {
+                    if let array = anyValue.value as? [AnyCodable] {
+                        return "\(array.compactMap(describeDefaultValue(_:)))"
+                    } else if let dictionary = anyValue.value as? [String: AnyCodable] {
+                        return "\(dictionary.compactMapValues(describeDefaultValue(_:)))"
+                    } else if let value = anyValue.value as? CustomStringConvertible {
+                        if !type.isString, let formatString: String = info?.formatString, !formatString.isEmpty {
                             return nil
                         }
-                        // Surround the value in quotes, otherwise the string is rendered improperly.
-                        return "\"\(string)\""
-                    } else if let array = anyValue.value as? [AnyCodable] {
-                        return "\(array.map(describeDefaultValue(_:)))"
-                    } else if let dictionary = anyValue.value as? [String: AnyCodable] {
-                        return "\(dictionary.mapValues(describeDefaultValue(_:)))"
+                        return String(describing: value)
                     } else {
                         return nil
                     }
                 }
 
-                if let value = info?.defaultValue.flatMap(describeDefaultValue(_:)), !value.isEmpty {
-                    let bareValue = value.trimmingCharacters(in: .quotes)
-                    if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == bareValue }) {
+                if let value = info?.defaultValue.flatMap(describeDefaultValue(_:)) {
+                    if type.isString {
+                        defaultValue = "\"\(value)\""
+                    } else if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == value }) {
                         defaultValue = ".\(caseMatch.name)"
                     } else {
                         defaultValue = value
