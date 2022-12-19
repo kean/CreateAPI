@@ -374,7 +374,7 @@ public struct ConfigOptions: ParsableConfiguration {
         /// </details>
         @Option public var typeOverrides: [String: EntityType] = [:]
         
-        /// A dictionary map that describes the Swift type of individual properties on entities given the schema property name.
+        /// A dictionary map that describes the Swift type of individual properties on entities given the schema property name. This takes precedence over the `datatypes` configuration option and allows fine control per entity property.
         ///
         /// It is your responsibility to ensure that the replacement type conforms to `Codable` and can properly decode and encode to the original primitive type.
         ///
@@ -384,6 +384,7 @@ public struct ConfigOptions: ParsableConfiguration {
         /// ```yaml
         /// entities:
         ///   propertyTypeOverrides:
+        ///     tag: UUID # all properties with schema name `tag` will be of type UUID
         ///     Pet.id: UUID
         ///     Store.store-type: StoreType # imported type
         /// ```
