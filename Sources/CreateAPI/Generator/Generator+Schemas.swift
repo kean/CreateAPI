@@ -697,12 +697,19 @@ extension Generator {
             
             var propertyName = propertyName
             
-            if let parentType = parentType,
-                let propertyTypeOverride = options.entities.propertyTypeOverrides
+            if let parentType = parentType {
+                let entityPropertyPairs = options.entities.propertyTypeOverrides
                     .compactMapKeys({ EntityPropertyPair(rawValue: $0) })
-                    .first(where: { $0.key.name == parentType.rawValue && $0.key.property == propertyName.rawValue }
-                ) {
-                type = .userDefined(name: .init(propertyTypeOverride.value))
+                
+                // Check for specific override
+                if let propertyTypeOverride = entityPropertyPairs
+                    .first(where: { $0.key.name == parentType.rawValue && $0.key.property == propertyName.rawValue }) {
+                    type = .userDefined(name: .init(propertyTypeOverride.value))
+                } else if let generalOverride = entityPropertyPairs
+                    .filter({ $0.key.property == nil })
+                    .first(where: { $0.key.name == propertyName.rawValue }) {
+                    type = .userDefined(name: .init(generalOverride.value))
+                }
             }
             
             if type.isBool && options.useSwiftyPropertyNames {
