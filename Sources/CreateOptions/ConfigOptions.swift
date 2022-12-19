@@ -240,7 +240,7 @@ public struct ConfigOptions: ParsableConfiguration {
     ///
     /// You can use this option in combination with [`entities.imports`](#entitiesimports), [`paths.imports`](#pathsimports), and [`package.dependencies`](#packagedependencies) for mapping to types that the default library does not provide.
     ///
-    /// It is your responsibility to ensure that the replacement type conforms to `Codable` and can properly decode and encode to the original primative type.
+    /// It is your responsibility to ensure that the replacement type conforms to `Codable` and can properly decode and encode to the original primitive type.
     ///
     /// <details>
     /// <summary>Examples</summary>
@@ -373,6 +373,23 @@ public struct ConfigOptions: ParsableConfiguration {
         ///
         /// </details>
         @Option public var typeOverrides: [String: EntityType] = [:]
+        
+        /// A dictionary map that describes the Swift type of individual properties on entities given the schema property name.
+        ///
+        /// It is your responsibility to ensure that the replacement type conforms to `Codable` and can properly decode and encode to the original primitive type.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// ```yaml
+        /// entities:
+        ///   propertyTypeOverrides:
+        ///     Pet.id: UUID
+        ///     Store.store-type: StoreType # imported type
+        /// ```
+        ///
+        /// </details>
+        @Option public var propertyTypeOverrides: [String: String] = [:]
 
         /// Modules to be imported within the source files for generated entities
         @Option public var imports: Set<String> = []
@@ -530,7 +547,7 @@ public struct ConfigOptions: ParsableConfiguration {
         /// ```
         ///
         /// </details>
-        @Option public var exclude: Set<EntityExclude> = []
+        @Option public var exclude: Set<EntityPropertyPair> = []
 
         /// When set to a non-empty value, only entities matching the given names will be generated.
         /// This cannot be used in conjunction with [`exclude`](#entitiesexclude).
