@@ -317,7 +317,9 @@ extension Generator {
             try handle(warning: "Invalid entity exclude '\(type.rawValue).\(diff)'. Property '\(diff) does not exist on schema '\(type.rawValue)'")
         }
         
-        var properties = try object.properties.keys.compactMap { key in
+        var properties = try object.properties.keys
+            .filter { !excludedProperties.contains($0) }
+            .compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
