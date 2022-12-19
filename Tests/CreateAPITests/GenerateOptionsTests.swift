@@ -605,4 +605,18 @@ final class GenerateOptionsTests: GenerateTestCase {
             """
         )
     }
+    
+    func testPetstoreGeneralPropertyTypeOverride() throws {
+        try snapshot(
+            spec: .petstore,
+            name: "petstore-general-property-type-override",
+            configuration: """
+            generate: [entities]
+            entities:
+              propertyTypeOverrides:
+                tag: UUID
+                Store.pets: "[String]"
+            """
+        )
+    }
 }
