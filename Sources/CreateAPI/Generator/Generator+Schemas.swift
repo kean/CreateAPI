@@ -319,7 +319,7 @@ extension Generator {
         
         let keys = object.properties.keys.filter { !excludedProperties.contains($0) }
         
-        var properties = try keys.compactMap { key in
+        var properties: [Property] = try keys.compactMap { key in
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
