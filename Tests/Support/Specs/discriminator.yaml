@@ -42,6 +42,7 @@ components:
     One:
       allOf:
         - $ref: "#/components/schemas/A"
+        - type: object
     Two:
       allOf:
         - $ref: "#/components/schemas/A"
