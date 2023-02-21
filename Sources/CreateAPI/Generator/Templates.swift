@@ -256,15 +256,8 @@ final class Templates {
     func decode(property: Property, isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         let key = isUsingCodingKeys ? ".\(property.name)" : "\"\(property.key)\""
-        let statement = "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))"
-        guard includeDefaultValues else { return statement }
 
-        var defaultValue = ""
-        if property.isOptional, let value = property.defaultValue {
-            defaultValue = " ?? \(value)"
-        }
-
-        return "\(statement)\(defaultValue)"
+        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))"
     }
 
     /// Generated decoding of the directly inlined nested object.
@@ -290,11 +283,7 @@ final class Templates {
 
     func initFromDecoderAnyOf(properties: [Property], includeDefaultValues: Bool) -> String {
         let contents = properties.map {
-            let statement = "try? container.decode(\($0.type).self)"
-            guard includeDefaultValues && $0.isOptional, let defaultValue = $0.defaultValue else {
-                return "self.\($0.name.accessor) = \(statement)"
-            }
-            return "self.\($0.name.accessor) = (\(statement)) ?? \(defaultValue)"
+            return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
         }.joined(separator: "\n")
         return """
         \(access)init(from decoder: Decoder) throws {

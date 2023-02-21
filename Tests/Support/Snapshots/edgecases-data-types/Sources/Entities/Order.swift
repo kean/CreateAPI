@@ -36,7 +36,7 @@ public struct Order: Codable {
         self.quantity = try values.decodeIfPresent(Double.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(AnyJSON.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
-        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete") ?? false
+        self.isComplete = try values.decodeIfPresent(Bool.self, forKey: "complete")
     }
 
     public func encode(to encoder: Encoder) throws {

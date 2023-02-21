@@ -38,7 +38,7 @@ public struct Dog: Codable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.className = try values.decode(String.self, forKey: "className")
-        self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
+        self.color = try values.decodeIfPresent(String.self, forKey: "color")
         self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
         self.image = try values.decodeIfPresent(Image.self, forKey: "image")
         self.goodBoy = try values.decode(GoodBoy.self, forKey: "good_boy")

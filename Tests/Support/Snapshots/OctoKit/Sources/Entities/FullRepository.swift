@@ -481,7 +481,7 @@ public struct FullRepository: Codable {
         self.masterBranch = try values.decodeIfPresent(String.self, forKey: "master_branch")
         self.openIssues = try values.decode(Int.self, forKey: "open_issues")
         self.watchers = try values.decode(Int.self, forKey: "watchers")
-        self.isAnonymousAccessEnabled = try values.decodeIfPresent(Bool.self, forKey: "anonymous_access_enabled") ?? true
+        self.isAnonymousAccessEnabled = try values.decodeIfPresent(Bool.self, forKey: "anonymous_access_enabled")
         self.codeOfConduct = try values.decodeIfPresent(CodeOfConductSimple.self, forKey: "code_of_conduct")
         self.securityAndAnalysis = try values.decodeIfPresent(SecurityAndAnalysis.self, forKey: "security_and_analysis")
     }

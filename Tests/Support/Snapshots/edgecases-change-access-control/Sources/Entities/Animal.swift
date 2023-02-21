@@ -16,7 +16,7 @@ struct Animal: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: StringCodingKey.self)
         self.className = try values.decode(String.self, forKey: "className")
-        self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
+        self.color = try values.decodeIfPresent(String.self, forKey: "color")
     }
 
     func encode(to encoder: Encoder) throws {

@@ -235,10 +235,10 @@ public struct PullRequestReviewComment: Codable {
         self.links = try values.decode(Links.self, forKey: "_links")
         self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
         self.originalStartLine = try values.decodeIfPresent(Int.self, forKey: "original_start_line")
-        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side") ?? .right
+        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
         self.line = try values.decodeIfPresent(Int.self, forKey: "line")
         self.originalLine = try values.decodeIfPresent(Int.self, forKey: "original_line")
-        self.side = try values.decodeIfPresent(Side.self, forKey: "side") ?? .right
+        self.side = try values.decodeIfPresent(Side.self, forKey: "side")
         self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
         self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
         self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")

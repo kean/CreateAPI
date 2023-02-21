@@ -18,7 +18,7 @@ public struct Cat: Codable {
 	public init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: StringCodingKey.self)
 		self.className = try values.decode(String.self, forKey: "className")
-		self.color = try values.decodeIfPresent(String.self, forKey: "color") ?? "red"
+		self.color = try values.decodeIfPresent(String.self, forKey: "color")
 		self.isDeclawed = try values.decodeIfPresent(Bool.self, forKey: "declawed")
 	}
 

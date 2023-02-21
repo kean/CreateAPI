@@ -56,7 +56,7 @@ public struct FormatTest: Codable {
         self.binary = try values.decodeIfPresent(Data.self, forKey: "binary")
         self.uri = try values.decodeIfPresent(String.self, forKey: "uri")
         self.uriReference = try values.decodeIfPresent(String.self, forKey: "uri_reference")
-        self.uriDefault = try values.decodeIfPresent(String.self, forKey: "uri_default") ?? "https://www.swift.org/"
+        self.uriDefault = try values.decodeIfPresent(String.self, forKey: "uri_default")
         self.uriRequired = try values.decode(String.self, forKey: "uri_required")
         self.date = try values.decode(NaiveDate.self, forKey: "date")
         self.dateTime = try values.decodeIfPresent(AnyJSON.self, forKey: "dateTime")

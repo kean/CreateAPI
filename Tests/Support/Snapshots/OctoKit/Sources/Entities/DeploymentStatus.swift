@@ -89,7 +89,7 @@ public struct DeploymentStatus: Codable {
         self.state = try values.decode(State.self, forKey: "state")
         self.creator = try values.decodeIfPresent(SimpleUser.self, forKey: "creator")
         self.description = try values.decode(String.self, forKey: "description")
-        self.environment = try values.decodeIfPresent(String.self, forKey: "environment") ?? ""
+        self.environment = try values.decodeIfPresent(String.self, forKey: "environment")
         self.targetURL = try values.decode(URL.self, forKey: "target_url")
         self.createdAt = try values.decode(Date.self, forKey: "created_at")
         self.updatedAt = try values.decode(Date.self, forKey: "updated_at")

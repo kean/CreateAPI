@@ -163,8 +163,8 @@ public struct ReviewComment: Codable {
         self.bodyText = try values.decodeIfPresent(String.self, forKey: "body_text")
         self.bodyHTML = try values.decodeIfPresent(String.self, forKey: "body_html")
         self.reactions = try values.decodeIfPresent(ReactionRollup.self, forKey: "reactions")
-        self.side = try values.decodeIfPresent(Side.self, forKey: "side") ?? .right
-        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side") ?? .right
+        self.side = try values.decodeIfPresent(Side.self, forKey: "side")
+        self.startSide = try values.decodeIfPresent(StartSide.self, forKey: "start_side")
         self.line = try values.decodeIfPresent(Int.self, forKey: "line")
         self.originalLine = try values.decodeIfPresent(Int.self, forKey: "original_line")
         self.startLine = try values.decodeIfPresent(Int.self, forKey: "start_line")
