@@ -9,6 +9,7 @@ public struct AnotherContainer: Codable {
     public enum Content: Codable {
         case a(A)
         case three(Three)
+        case string(String)
 
         public init(from decoder: Decoder) throws {
 
@@ -23,11 +24,12 @@ public struct AnotherContainer: Codable {
             case "one": self = .a(try container.decode(A.self))
             case "two": self = .a(try container.decode(A.self))
             case "three": self = .three(try container.decode(Three.self))
+            case "four": self = .string(try container.decode(String.self))
 
             default:
                 throw DecodingError.dataCorruptedError(
                     in: container,
-                    debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (one, two, three)."
+                    debugDescription: "Discriminator value '\(discriminatorValue)' does not match any expected values (one, two, three, four)."
                 )
             }
         }
@@ -37,6 +39,7 @@ public struct AnotherContainer: Codable {
             switch self {
             case .a(let value): try container.encode(value)
             case .three(let value): try container.encode(value)
+            case .string(let value): try container.encode(value)
             }
         }
     }
