@@ -1338,3 +1338,14 @@ components:
                 - b
             rename-me:
               type: string
+    SortSwiftyProperties:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+        likesMeat:
+          type: boolean
+        allergic:
+          type: boolean
