@@ -82,6 +82,8 @@ Below you can find the complete documentation for all available options.
   - [include](#entitiesinclude)
   - [nameTemplate](#entitiesnametemplate)
   - [filenameTemplate](#entitiesfilenametemplate)
+- [enums](#enums)
+  - [protocols](#enumsprotocols)
 - [paths](#paths)
   - [style](#pathsstyle)
   - [namespace](#pathsnamespace)
@@ -824,6 +826,24 @@ entities:
 ```
 
 </details>
+
+<br/>
+
+
+# Enums
+
+Options specifically related to generating enums of strings.
+
+Note: these options do not apply to other enums, such as `CodingKey` conformances or
+`ResponseHeaders`.
+
+
+## enums.protocols
+
+**Type:** Set<String><br />
+**Default:** `["Codable", "CaseIterable"]`
+
+Protocols to be adopted by each generated enum
 
 <br/>
 

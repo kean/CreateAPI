@@ -177,6 +177,7 @@ struct EnumOfStringsDeclaration: Declaration {
     let name: TypeName
     let cases: [Case]
     let metadata: DeclarationMetadata
+    var protocols = Protocols()
 
     struct Case {
         let name: String
