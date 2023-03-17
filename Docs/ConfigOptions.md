@@ -832,9 +832,9 @@ entities:
 
 # Enums
 
-Options specifically related to generating enums of strings.
+Options specifically related to enums generated from schemas.
 
-Note: these options do not apply to other enums, such as `CodingKey` conformances or
+> **Note**: these options do not apply to other enums, such as `CodingKey` conformances or
 `ResponseHeaders`.
 
 
@@ -843,7 +843,7 @@ Note: these options do not apply to other enums, such as `CodingKey` conformance
 **Type:** Set<String><br />
 **Default:** `["Codable", "CaseIterable"]`
 
-Protocols to be adopted by each generated enum
+Protocols to be adopted by each generated enum of strings.
 
 <br/>
 

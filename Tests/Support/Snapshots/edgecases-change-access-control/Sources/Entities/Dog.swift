@@ -12,7 +12,7 @@ struct Dog: Codable {
     var goodBoy: GoodBoy
     var family: Family?
 
-    enum Breed: String, Codable, CaseIterable {
+    enum Breed: String, CaseIterable, Codable {
         case large = "Large"
         case medium = "Medium"
         case small = "Small"
