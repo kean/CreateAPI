@@ -666,8 +666,9 @@ extension Generator {
 
             propertyIdentifier = String(ownName.dropFirst(prefix.count))
         }
-        
-        let propertyName = makePropertyName(rename(key: propertyIdentifier))
+
+        let renamed = rename(key: propertyIdentifier)
+        let propertyName = makePropertyName(renamed, wasRename: renamed != propertyIdentifier)
 
         func property(type: TypeIdentifier, info: JSONSchemaContext?, nested: Declaration? = nil) -> Property {
             let nullable = info?.nullable ?? false

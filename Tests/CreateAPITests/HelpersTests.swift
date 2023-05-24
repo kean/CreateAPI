@@ -4,10 +4,12 @@ import XCTest
 
 final class HelpersTests: XCTestCase {    
     func testTypeName() {
-        let options = GenerateOptions()
+        var configOptions = ConfigOptions.default
+        configOptions.rename.sanitizeRenames = false
+        let options = GenerateOptions(configOptions: configOptions)
 
-        func typeName(_ rawString: String) -> String {
-            TypeName(processing: rawString, options: options).rawValue
+        func typeName(_ rawString: String, wasRename: Bool = false) -> String {
+            TypeName(processing: rawString, wasRename: wasRename, options: options).rawValue
         }
         
         XCTAssertEqual(typeName("app"), "App")
@@ -55,13 +57,17 @@ final class HelpersTests: XCTestCase {
         
         // Replacements
         XCTAssertEqual(typeName(">="), "GreaterThanOrEqualTo")
+
+        /// `configOption.rename.sanitizeRenames = false`
+        XCTAssertEqual(typeName("Measurement<UnitDuration>", wasRename: false), "MeasurementUnitDurationGreaterThan")
+        XCTAssertEqual(typeName("Measurement<UnitDuration>", wasRename: true), "Measurement<UnitDuration>")
     }
     
     func testPropertyName() {
         let options = GenerateOptions()
 
-        func propertyName(_ rawString: String) -> String {
-            PropertyName(processing: rawString, options: options).rawValue
+        func propertyName(_ rawString: String, wasRename: Bool = false) -> String {
+            PropertyName(processing: rawString, wasRename: wasRename, options: options).rawValue
         }
         
         XCTAssertEqual(propertyName("CamelCase"), "camelCase")
@@ -101,13 +107,14 @@ final class HelpersTests: XCTestCase {
         
         // Replacements
         XCTAssertEqual(propertyName(">="), "greaterThanOrEqualTo")
+
     }
     
     func testAsBoolean() {
         let options = GenerateOptions()
         
         func asBoolean(_ name: String) -> String {
-            PropertyName(processing: name, options: options).asBoolean(options).rawValue
+            PropertyName(processing: name, wasRename: false, options: options).asBoolean(options).rawValue
         }
         
         // Simple
