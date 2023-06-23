@@ -103,6 +103,7 @@ Need some inspiration? Check out the list of projects below that are already usi
 
 - [appstoreconnect-swift-sdk](https://github.com/AvdLee/appstoreconnect-swift-sdk)
 - [jellyfin-sdk-swift](https://github.com/jellyfin/jellyfin-sdk-swift)
+- [MareaAPI](https://github.com/bouwman/MareaAPI)
 
 Are you using CreateAPI in your own open-source project? Let us know by [adding it](https://github.com/CreateAPI/CreateAPI/edit/main/README.md) to the list above!
 
