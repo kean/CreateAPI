@@ -638,14 +638,16 @@ final class Templates {
     var anyJSON: String {
         """
         \(access)enum AnyJSON: Equatable, Codable {
+            case null
             case string(String)
             case number(Double)
             case object([String: AnyJSON])
             case array([AnyJSON])
             case bool(Bool)
 
-            var value: Any {
+            var value: Any? {
                 switch self {
+                case .null: return nil
                 case .string(let string): return string
                 case .number(let double): return double
                 case .object(let dictionary): return dictionary
@@ -657,6 +659,7 @@ final class Templates {
             \(access)func encode(to encoder: Encoder) throws {
                 var container = encoder.singleValueContainer()
                 switch self {
+                case .null: try container.encodeNil()
                 case let .array(array): try container.encode(array)
                 case let .object(object): try container.encode(object)
                 case let .string(string): try container.encode(string)
@@ -667,7 +670,9 @@ final class Templates {
 
             \(access)init(from decoder: Decoder) throws {
                 let container = try decoder.singleValueContainer()
-                if let object = try? container.decode([String: AnyJSON].self) {
+                if container.decodeNil() {
+                    self = .null
+                } else if let object = try? container.decode([String: AnyJSON].self) {
                     self = .object(object)
                 } else if let array = try? container.decode([AnyJSON].self) {
                     self = .array(array)
