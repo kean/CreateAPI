@@ -1,6 +1,6 @@
 import Foundation
     
-public struct EntityExclude: RawRepresentable, Codable, Hashable {
+public struct EntityPropertyPair: RawRepresentable, Codable, Hashable {
     public var name: String
     public var property: String?
 

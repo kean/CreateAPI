@@ -138,7 +138,7 @@ struct Generate: ParsableCommand {
                 let template = Template(options.entities.nameTemplate)
                 options.entities.include = Set(options.entities.include.map { template.substitute($0) })
                 options.entities.exclude = Set(options.entities.exclude.map {
-                    EntityExclude(name: template.substitute($0.name), property: $0.property)
+                    EntityPropertyPair(name: template.substitute($0.name), property: $0.property)
                 })
             }
 

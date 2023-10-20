@@ -1,6 +1,7 @@
 import OpenAPIKit30
 import Foundation
 import GrammaticalNumber
+import CreateOptions
 
 // TODO: Add Read-Only and Write-Only Properties support
 // TODO: stirng with format "binary"?
@@ -323,7 +324,7 @@ extension Generator {
             let schema = object.properties[key]!
             let isRequired = object.requiredProperties.contains(key)
             do {
-                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context, isInlined: true)
+                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context, isInlined: true, parentType: type)
             } catch {
                 return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
             }
@@ -610,7 +611,7 @@ extension Generator {
 
     // MARK: - Property
 
-    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool? = nil) throws -> Property {
+    func makeProperty(key: String, schema: JSONSchema, isRequired: Bool, in context: Context, isInlined: Bool? = nil, parentType: TypeName? = nil) throws -> Property {
         func rename(key: String) -> String {
             if !options.rename.properties.isEmpty {
                 let names = context.parents.map { $0.name.rawValue } + [key]
@@ -684,6 +685,21 @@ extension Generator {
             }
             
             var propertyName = propertyName
+            
+            if let parentType = parentType {
+                let entityPropertyPairs = options.entities.propertyTypeOverrides
+                    .compactMapKeys({ EntityPropertyPair(rawValue: $0) })
+                
+                // Check for specific override
+                if let propertyTypeOverride = entityPropertyPairs
+                    .first(where: { $0.key.name == parentType.rawValue && $0.key.property == propertyName.rawValue }) {
+                    type = .userDefined(name: .init(propertyTypeOverride.value))
+                } else if let generalOverride = entityPropertyPairs
+                    .filter({ $0.key.property == nil })
+                    .first(where: { $0.key.name == propertyName.rawValue }) {
+                    type = .userDefined(name: .init(generalOverride.value))
+                }
+            }
             
             if type.isBool && options.useSwiftyPropertyNames {
                 propertyName = propertyName.asBoolean(options)
