@@ -578,7 +578,7 @@ extension Generator {
 
     func makeStringEnum(name: TypeName, info: JSONSchemaContext) throws -> Declaration {
         let values = (info.allowedValues ?? []).map(\.value).compactMap { $0 as? String }
-        guard !values.isEmpty else {
+        guard !values.isEmpty else { // TODO: Relax this rule when rendering as a struct
             throw GeneratorError("Enum \"\(name)\" has no values")
         }
 
