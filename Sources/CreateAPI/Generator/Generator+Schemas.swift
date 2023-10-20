@@ -317,17 +317,23 @@ extension Generator {
             try handle(warning: "Invalid entity exclude '\(type.rawValue).\(diff)'. Property '\(diff) does not exist on schema '\(type.rawValue)'")
         }
         
-        var keys = object.properties.keys.filter { !excludedProperties.contains($0) }
-        if options.entities.sortPropertiesAlphabetically { keys.sort() }
-        return try keys.compactMap { key in
-            let schema = object.properties[key]!
-            let isRequired = object.requiredProperties.contains(key)
-            do {
-                return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context, isInlined: true)
-            } catch {
-                return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
+        var properties: [Property] = try object.properties.keys
+            .filter { !excludedProperties.contains($0) }
+            .compactMap { key in
+                let schema = object.properties[key]!
+                let isRequired = object.requiredProperties.contains(key)
+                do {
+                    return try makeProperty(key: key, schema: schema, isRequired: isRequired, in: context, isInlined: true)
+                } catch {
+                    return try handle(error: "Failed to generate property \"\(key)\" in \"\(type)\". \(error).")
+                }
             }
+        
+        if options.entities.sortPropertiesAlphabetically {
+            properties = properties.sorted(by: { $0.name.rawValue < $1.name.rawValue })
         }
+        
+        return properties
     }
 
     private func makeNestedElementTypeName(for key: String, context: Context) -> TypeName {

@@ -575,4 +575,18 @@ final class GenerateOptionsTests: GenerateTestCase {
             """
         )
     }
+    
+    func testSortPropertiesAlphabetically() throws {
+        try snapshot(
+            spec: .edgecases,
+            name: "sort-properties-alphabetically",
+            configuration: """
+            generate: [entities]
+            entities:
+              sortPropertiesAlphabetically: true
+              include:
+              - SortSwiftyProperties
+            """
+        )
+    }
 }
