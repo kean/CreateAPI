@@ -586,7 +586,7 @@ extension Generator {
             return name
         }
 
-        let name = getPropertyName(for: makePropertyName(parameter.name), type: type.type)
+        let name = getPropertyName(for: makePropertyName(parameter.name, wasRename: false), type: type.type)
         return Property(name: name, type: type.type, isOptional: !parameter.required, key: parameter.name, explode: schemaContext.explode, style: schemaContext.style, metadata: .init(schema.coreContext), nested: type.nested)
     }
 

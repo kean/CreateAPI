@@ -10,8 +10,8 @@ protocol DeclarationName: CustomStringConvertible {}
 struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
 
-    init(processing rawValue: String, options: GenerateOptions) {
-        self.rawValue = rawValue.process(isProperty: false, options: options)
+    init(processing rawValue: String, wasRename: Bool = false, options: GenerateOptions) {
+        self.rawValue = rawValue.process(isProperty: false, wasRename: wasRename, options: options)
     }
 
     init(_ rawValue: String) {
@@ -36,8 +36,8 @@ struct TypeName: CustomStringConvertible, Hashable, DeclarationName {
 struct PropertyName: CustomStringConvertible, Hashable, DeclarationName {
     let rawValue: String
 
-    init(processing rawValue: String, options: GenerateOptions) {
-        self.rawValue = rawValue.process(isProperty: true, options: options)
+    init(processing rawValue: String, wasRename: Bool, options: GenerateOptions) {
+        self.rawValue = rawValue.process(isProperty: true, wasRename: wasRename, options: options)
     }
 
     init(_ rawValue: String) {
@@ -130,13 +130,18 @@ extension String {
         return self
     }
 
-    func process(isProperty: Bool, options: GenerateOptions) -> String {
-        // Special-case: remove `'` from words like "won't"
-        var components = sanitized.replacingOccurrences(of: "'", with: "")
-            .components(separatedBy: badCharacters)
-        // If all letters are uppercased (but skip one-letter words)
-        if !components.contains(where: { $0.count > 1 && $0.contains(where: { $0.isLowercase }) }) {
-            components = components.map { $0.lowercased() }
+    func process(isProperty: Bool, wasRename: Bool, options: GenerateOptions) -> String {
+        var components: [String]
+        if (wasRename && !options.rename.sanitizeRenames) {
+            components = [self]
+        } else {
+            // Special-case: remove `'` from words like "won't"
+            components = sanitized.replacingOccurrences(of: "'", with: "")
+                .components(separatedBy: badCharacters)
+            // If all letters are uppercased (but skip one-letter words)
+            if !components.contains(where: { $0.count > 1 && $0.contains(where: { $0.isLowercase }) }) {
+                components = components.map { $0.lowercased() }
+            }
         }
         // To camelCase
         var output = components

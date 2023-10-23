@@ -719,6 +719,9 @@ public struct ConfigOptions: ParsableConfiguration {
 
         /// Rename anonymous collection elements. By default, use a singularized form of the property name
         @Option public var collectionElements: [String: String] = [:]
+
+        /// Whether the renames should be sanitized when processed, removing reserved keywords and such
+        @Option public var sanitizeRenames: Bool = true
     }
 }
 

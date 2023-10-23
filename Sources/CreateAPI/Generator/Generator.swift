@@ -32,8 +32,8 @@ final class Generator {
 
     // MARK: Misc
 
-    func makePropertyName(_ rawValue: String) -> PropertyName {
-        PropertyName(processing: rawValue, options: options)
+    func makePropertyName(_ rawValue: String, wasRename: Bool = false) -> PropertyName {
+        PropertyName(processing: rawValue, wasRename: wasRename, options: options)
     }
 
     func makeTypeName(_ rawValue: String) -> TypeName {

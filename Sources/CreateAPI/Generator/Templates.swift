@@ -557,7 +557,7 @@ final class Templates {
     func header(for property: Property, header: OpenAPI.Header) -> String {
         var name = property.name.rawValue
         if property.key.hasPrefix("x-") || property.key.hasPrefix("X-") {
-            name = PropertyName(processing: String(property.key.dropFirst(2)), options: options).rawValue
+            name = PropertyName(processing: String(property.key.dropFirst(2)), wasRename: false, options: options).rawValue
         }
         var output = ""
         if options.commentsEnabled, options.commentOptions.contains(.description),
@@ -607,7 +607,7 @@ final class Templates {
         } else {
             return """
             extension \(extensionOf) {
-                \(access)\(stat)var \(PropertyName(processing: type.rawValue, options: options)): \(type) {
+                \(access)\(stat)var \(PropertyName(processing: type.rawValue, wasRename: false, options: options)): \(type) {
                     \(type)(path: \(isTopLevel ? "\"\(path)\"" : ("path + \"/\(component)\"")))
                 }
 
