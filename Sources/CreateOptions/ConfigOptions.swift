@@ -331,6 +331,8 @@ public struct ConfigOptions: ParsableConfiguration {
         /// ```
         /// </details>
         @Option public var dependencies: [PackageDeclaration] = []
+
+        @Option public var pathDependencies: [PathPackageDeclaration] = []
     }
 
     @Option public var entities: Entities

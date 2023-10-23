@@ -15,12 +15,15 @@ extension Generator {
             .appending(.naiveDate, if: isNaiveDateNeeded)
             .appending(.urlQueryEncoder, if: isQueryEncoderNeeded)
         
-        let packagesDeclaration: String = allPackages
-            .map(\.packageDeclaration)
+        let urlPackagesDeclaration = allPackages.map(\.packageDeclaration)
+        let pathPackageDeclaration = options.package.pathDependencies.map(\.packageDeclaration)
+        let packagesDeclaration = (urlPackagesDeclaration + pathPackageDeclaration)
             .joined(separator: ",\n")
 
-        let dependenciesDeclaration = allPackages
-            .map(\.productDeclarations)
+        let urlDependenciesDeclaration = allPackages.map(\.productDeclarations)
+        let pathDependenciesDeclaration = options.package.pathDependencies.map(\.productDeclarations)
+
+        let dependenciesDeclaration = (urlDependenciesDeclaration + pathDependenciesDeclaration)
             .reduce(Array<String>()) { partialResult, currentImports in
                 return partialResult.appending(contentsOf: currentImports)
             }

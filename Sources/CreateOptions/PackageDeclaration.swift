@@ -1,6 +1,11 @@
 import Foundation
 
-public struct PackageDeclaration: Decodable {
+public protocol PackageDeclarationType: Decodable {
+    var packageDeclaration: String { get }
+    var productDeclarations: [String] { get }
+}
+
+public struct PackageDeclaration: PackageDeclarationType, Decodable {
     
     let url: URL
     let products: [String]
@@ -66,4 +71,18 @@ public struct PackageDeclaration: Decodable {
         }
     }
 
+}
+
+public struct PathPackageDeclaration: PackageDeclarationType, Decodable {
+    let packageName: String
+    let productName: String
+    let path: String
+
+    public var packageDeclaration: String {
+        ".package(path: \"\(path)\")"
+    }
+
+    public var productDeclarations: [String] {
+        [".product(name: \"\(productName)\", package: \"\(packageName)\")"]
+    }
 }
