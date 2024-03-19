@@ -49,7 +49,7 @@ extension Paths.Repos.WithOwner.WithRepo {
                     case docs = "/docs"
                 }
 
-                public init(branch: String, path: Path? = nil) {
+                public init(branch: String, path: Path? = .slash) {
                     self.branch = branch
                     self.path = path
                 }

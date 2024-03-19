@@ -62,23 +62,23 @@ extension Paths.Repos.WithOwner.WithRepo {
             /// Text describing the contents of the tag.
             public var body: String?
             /// `true` to create a draft (unpublished) release, `false` to create a published one.
-            public var isDraft: Bool
+            public var isDraft: Bool?
             /// `true` to identify the release as a prerelease. `false` to identify the release as a full release.
-            public var isPrerelease: Bool
+            public var isPrerelease: Bool?
             /// If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see "[Managing categories for discussions in your repository](https://docs.github.com/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository)."
             public var discussionCategoryName: String?
             /// Whether to automatically generate the name and body for this release. If `name` is specified, the specified name will be used; otherwise, a name will be automatically generated. If `body` is specified, the body will be pre-pended to the automatically generated notes.
-            public var isGenerateReleaseNotes: Bool
+            public var isGenerateReleaseNotes: Bool?
 
-            public init(tagName: String, targetCommitish: String? = nil, name: String? = nil, body: String? = nil, isDraft: Bool? = nil, isPrerelease: Bool? = nil, discussionCategoryName: String? = nil, isGenerateReleaseNotes: Bool? = nil) {
+            public init(tagName: String, targetCommitish: String? = nil, name: String? = nil, body: String? = nil, isDraft: Bool? = false, isPrerelease: Bool? = false, discussionCategoryName: String? = nil, isGenerateReleaseNotes: Bool? = false) {
                 self.tagName = tagName
                 self.targetCommitish = targetCommitish
                 self.name = name
                 self.body = body
-                self.isDraft = isDraft ?? false
-                self.isPrerelease = isPrerelease ?? false
+                self.isDraft = isDraft
+                self.isPrerelease = isPrerelease
                 self.discussionCategoryName = discussionCategoryName
-                self.isGenerateReleaseNotes = isGenerateReleaseNotes ?? false
+                self.isGenerateReleaseNotes = isGenerateReleaseNotes
             }
 
             public func encode(to encoder: Encoder) throws {

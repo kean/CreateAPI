@@ -65,7 +65,7 @@ public struct Page: Codable {
         case unverified
     }
 
-    public init(url: URL, status: Status? = nil, cname: String? = nil, protectedDomainState: ProtectedDomainState? = nil, pendingDomainUnverifiedAt: Date? = nil, isCustom404: Bool, htmlURL: URL? = nil, source: PagesSourceHash? = nil, isPublic: Bool, httpsCertificate: PagesHTTPSCertificate? = nil, isHTTPSEnforced: Bool? = nil) {
+    public init(url: URL, status: Status? = nil, cname: String? = nil, protectedDomainState: ProtectedDomainState? = nil, pendingDomainUnverifiedAt: Date? = nil, isCustom404: Bool = false, htmlURL: URL? = nil, source: PagesSourceHash? = nil, isPublic: Bool, httpsCertificate: PagesHTTPSCertificate? = nil, isHTTPSEnforced: Bool? = nil) {
         self.url = url
         self.status = status
         self.cname = cname

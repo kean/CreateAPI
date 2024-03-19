@@ -69,7 +69,7 @@ extension Paths.Orgs.WithOrg {
                 case billingManager = "billing_manager"
             }
 
-            public init(inviteeID: Int? = nil, email: String? = nil, role: Role? = nil, teamIDs: [Int]? = nil) {
+            public init(inviteeID: Int? = nil, email: String? = nil, role: Role? = .directMember, teamIDs: [Int]? = nil) {
                 self.inviteeID = inviteeID
                 self.email = email
                 self.role = role

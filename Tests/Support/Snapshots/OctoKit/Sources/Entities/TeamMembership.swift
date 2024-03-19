@@ -27,7 +27,7 @@ public struct TeamMembership: Codable {
         case pending
     }
 
-    public init(url: URL, role: Role, state: State) {
+    public init(url: URL, role: Role = .member, state: State) {
         self.url = url
         self.role = role
         self.state = state

@@ -11,7 +11,7 @@ public struct Order: Codable {
     public var shipDate: Date?
     /// Order Status
     public var status: Status?
-    public var isDone: Bool
+    public var isDone: Bool?
 
     /// Order Status
     public enum Status: String, Codable, CaseIterable {
@@ -20,13 +20,13 @@ public struct Order: Codable {
         case delivered
     }
 
-    public init(identifier: Int64? = nil, petID: Int64? = nil, quantity: Int32? = nil, shipDate: Date? = nil, status: Status? = nil, isDone: Bool? = nil) {
+    public init(identifier: Int64? = nil, petID: Int64? = nil, quantity: Int32? = nil, shipDate: Date? = nil, status: Status? = nil, isDone: Bool? = false) {
         self.identifier = identifier
         self.petID = petID
         self.quantity = quantity
         self.shipDate = shipDate
         self.status = status
-        self.isDone = isDone ?? false
+        self.isDone = isDone
     }
 
     public init(from decoder: Decoder) throws {
@@ -36,7 +36,7 @@ public struct Order: Codable {
         self.quantity = try values.decodeIfPresent(Int32.self, forKey: "quantity")
         self.shipDate = try values.decodeIfPresent(Date.self, forKey: "shipDate")
         self.status = try values.decodeIfPresent(Status.self, forKey: "status")
-        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete") ?? false
+        self.isDone = try values.decodeIfPresent(Bool.self, forKey: "complete")
     }
 
     public func encode(to encoder: Encoder) throws {

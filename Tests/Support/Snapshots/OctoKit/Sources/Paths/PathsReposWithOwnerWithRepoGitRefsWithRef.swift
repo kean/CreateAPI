@@ -26,11 +26,11 @@ extension Paths.Repos.WithOwner.WithRepo.Git.Refs {
             /// The SHA1 value to set this reference to
             public var sha: String
             /// Indicates whether to force the update or to make sure the update is a fast-forward update. Leaving this out or setting it to `false` will make sure you're not overwriting work.
-            public var isForce: Bool
+            public var isForce: Bool?
 
-            public init(sha: String, isForce: Bool? = nil) {
+            public init(sha: String, isForce: Bool? = false) {
                 self.sha = sha
-                self.isForce = isForce ?? false
+                self.isForce = isForce
             }
 
             public func encode(to encoder: Encoder) throws {

@@ -72,7 +72,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Repos.WithOwner {
                 case triage
             }
 
-            public init(permission: Permission? = nil) {
+            public init(permission: Permission? = .push) {
                 self.permission = permission
             }
 

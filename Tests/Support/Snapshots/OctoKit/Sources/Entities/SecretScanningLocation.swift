@@ -18,7 +18,7 @@ public struct SecretScanningLocation: Codable {
         case commit
     }
 
-    public init(type: `Type`, details: SecretScanningLocationCommit) {
+    public init(type: `Type` = .commit, details: SecretScanningLocationCommit) {
         self.type = type
         self.details = details
     }

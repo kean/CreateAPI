@@ -38,7 +38,7 @@ extension Paths.User.Memberships.Orgs {
                 case active
             }
 
-            public init(state: State) {
+            public init(state: State = .active) {
                 self.state = state
             }
 
