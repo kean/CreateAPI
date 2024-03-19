@@ -94,9 +94,9 @@ final class Templates {
         }
     }
 
-    func enumOfStrings(name: TypeName, contents: String) -> String {
+    func enumOfStrings(name: TypeName, contents: String, protocols: Protocols) -> String {
         return """
-        \(access)enum \(name): String, Codable, CaseIterable {
+        \(access)enum \(name): String, \(protocols.sorted().joined(separator: ", ")) {
         \(contents.indented)
         }
         """
@@ -209,16 +209,25 @@ final class Templates {
 
     // MARK: Init
 
-    func initializer(properties: [Property]) -> String {
+    func initializer(properties: [Property], includeDefaultValues: Bool) -> String {
         guard !properties.isEmpty else {
             return "public init() {}"
         }
         let statements = properties.map {
-            let defaultValue = ($0.isOptional && $0.defaultValue != nil) ? " ?? \($0.defaultValue!)" : ""
-            return "self.\($0.name.accessor) = \($0.name)\(defaultValue)"
+            "self.\($0.name.accessor) = \($0.name)"
         }.joined(separator: "\n")
         let arguments = properties.map {
-            "\($0.name): \($0.type)\($0.isOptional ? "? = nil" : "")"
+            let argument = "\($0.name): \($0.type)\($0.isOptional ? "?" : "")"
+            guard includeDefaultValues else { return argument }
+
+            var defaultValue = ""
+            if let value = $0.defaultValue {
+                defaultValue = " = \(value)"
+            } else if $0.isOptional {
+                defaultValue = " = nil"
+            }
+
+            return "\(argument)\(defaultValue)"
         }.joined(separator: ", ")
         return """
         \(access)init(\(arguments)) {
@@ -229,27 +238,26 @@ final class Templates {
 
     // MARK: Decodable
 
-    func decode(properties: [Property], isUsingCodingKeys: Bool) -> String {
+    func decode(properties: [Property], isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
         properties
-            .map { decode(property: $0, isUsingCodingKeys: isUsingCodingKeys) }
+            .map {
+                decode(
+                    property: $0,
+                    isUsingCodingKeys: isUsingCodingKeys,
+                    includeDefaultValues: includeDefaultValues
+                )
+            }
             .joined(separator: "\n")
     }
 
     /// Generates a decode statement.
     ///
     ///     self.id = values.decode(Int.self, forKey: "id")
-    func decode(property: Property, isUsingCodingKeys: Bool) -> String {
+    func decode(property: Property, isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
         let decode = property.isOptional ? "decodeIfPresent" : "decode"
         let key = isUsingCodingKeys ? ".\(property.name)" : "\"\(property.key)\""
-        let defaultValue = (property.isOptional && property.defaultValue != nil) ? " ?? \(property.defaultValue!)" : ""
-        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))\(defaultValue)"
-    }
 
-    func defaultValue(for property: Property) -> String {
-        guard let value = property.defaultValue, !value.isEmpty, property.isOptional else {
-            return ""
-        }
-        return " ?? \(value)"
+        return "self.\(property.name.accessor) = try values.\(decode)(\(property.type).self, forKey: \(key))"
     }
 
     /// Generated decoding of the directly inlined nested object.
@@ -259,8 +267,8 @@ final class Templates {
         "self.\(property.name.accessor) = try \(property.type)(from: decoder)"
     }
 
-    func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool) -> String {
-        initFromDecoder(contents: decode(properties: properties, isUsingCodingKeys: isUsingCodingKeys), isUsingCodingKeys: isUsingCodingKeys)
+    func initFromDecoder(properties: [Property], isUsingCodingKeys: Bool, includeDefaultValues: Bool) -> String {
+        initFromDecoder(contents: decode(properties: properties, isUsingCodingKeys: isUsingCodingKeys, includeDefaultValues: includeDefaultValues), isUsingCodingKeys: isUsingCodingKeys)
     }
 
     func initFromDecoder(contents: String, needsValues: Bool = true, isUsingCodingKeys: Bool) -> String {
@@ -273,14 +281,9 @@ final class Templates {
         """
     }
 
-    func initFromDecoderAnyOf(properties: [Property]) -> String {
+    func initFromDecoderAnyOf(properties: [Property], includeDefaultValues: Bool) -> String {
         let contents = properties.map {
-            let defaultValue = self.defaultValue(for: $0)
-            if defaultValue.isEmpty {
-                return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
-            } else {
-                return "self.\($0.name.accessor) = (try? container.decode(\($0.type).self))\(defaultValue)"
-            }
+            return "self.\($0.name.accessor) = try? container.decode(\($0.type).self)"
         }.joined(separator: "\n")
         return """
         \(access)init(from decoder: Decoder) throws {
@@ -421,8 +424,7 @@ final class Templates {
         if let metadata = property.metadata {
             output += comments(for: metadata, name: property.name.rawValue, isProperty: true)
         }
-        let isOptional = property.isOptional && property.defaultValue == nil
-        output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(isOptional ? "?" : "")"
+        output += "\(access)\(isReadonly ? "let" : "var") \(property.name): \(property.type)\(property.isOptional ? "?" : "")"
         return output
     }
 
@@ -637,7 +639,7 @@ final class Templates {
 
     var anyJSON: String {
         """
-        \(access)enum AnyJSON: Equatable, Codable {
+        \(access)enum AnyJSON: Codable, Equatable, Sendable {
             case string(String)
             case number(Double)
             case object([String: AnyJSON])

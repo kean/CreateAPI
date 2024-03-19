@@ -43,14 +43,14 @@ extension Paths.Repos.WithOwner.WithRepo.Statuses {
             public var context: String?
 
             /// The state of the status. Can be one of `error`, `failure`, `pending`, or `success`.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case error
                 case failure
                 case pending
                 case success
             }
 
-            public init(state: State, targetURL: String? = nil, description: String? = nil, context: String? = nil) {
+            public init(state: State, targetURL: String? = nil, description: String? = nil, context: String? = "default") {
                 self.state = state
                 self.targetURL = targetURL
                 self.description = description

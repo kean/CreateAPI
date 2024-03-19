@@ -43,18 +43,18 @@ extension Paths.Enterprises.WithEnterprise.Actions.RunnerGroups {
             /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
             public var visibility: Visibility?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool
+            public var allowsPublicRepositories: Bool?
 
             /// Visibility of a runner group. You can select all organizations or select individual organizations. Can be one of: `all` or `selected`
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case selected
                 case all
             }
 
-            public init(name: String? = nil, visibility: Visibility? = nil, allowsPublicRepositories: Bool? = nil) {
+            public init(name: String? = nil, visibility: Visibility? = .all, allowsPublicRepositories: Bool? = false) {
                 self.name = name
                 self.visibility = visibility
-                self.allowsPublicRepositories = allowsPublicRepositories ?? false
+                self.allowsPublicRepositories = allowsPublicRepositories
             }
 
             public func encode(to encoder: Encoder) throws {

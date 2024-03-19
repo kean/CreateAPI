@@ -82,6 +82,8 @@ Below you can find the complete documentation for all available options.
   - [include](#entitiesinclude)
   - [nameTemplate](#entitiesnametemplate)
   - [filenameTemplate](#entitiesfilenametemplate)
+- [enums](#enums)
+  - [protocols](#enumsprotocols)
 - [paths](#paths)
   - [style](#pathsstyle)
   - [namespace](#pathsnamespace)
@@ -578,7 +580,108 @@ For schemas with a large number of entities, this approach significantly reduces
 **Type:** Bool<br />
 **Default:** `true`
 
-If set to `true`, uses the `default` value from the schema for the generated property for booleans
+If set to `true`, uses the `default` value from the schema for the generated property.
+
+<details>
+<summary>Examples</summary>
+
+With the following schema:
+
+```yaml
+components:
+  schemas:
+    Animal:
+      properties:
+        color:
+          type: string
+          default: red
+        legsCount:
+          type: integer
+          default: 4
+        shape:
+          type: string
+          enum:
+            - circle
+            - square
+            - triangle
+```
+
+When this property is set to `true` (the default):
+
+```swift
+struct Animal: Codable {
+    var color: String?
+    var legsCount: Int?
+    var shape: Shape?
+
+    enum Shape: String, Codable, CaseIterable {
+      case circle
+      case square
+      case triangle
+    }
+
+    init(color: String? = "red", legsCount: Int? = 4, shape: Shape? = nil) {
+      self.color = color
+      self.legsCount = legsCount
+      self.shape = shape
+    }
+}
+```
+
+However setting this property to `false` results results in the following:
+
+```swift
+struct Animal: Codable {
+    var color: String?
+    var legsCount: Int?
+    var shape: Shape?
+
+    enum Shape: String, Codable, CaseIterable {
+      case circle
+      case square
+      case triangle
+    }
+
+    init(color: String?, legsCount: Int?, shape: Shape?) {
+      self.color = color
+      self.legsCount = legsCount
+      self.shape = shape
+    }
+}
+```
+
+In addition, a schema containing a required enum property with only one case, such as the following:
+
+```yaml
+components:
+  schemas:
+    Animal:
+      required:
+        - personality
+      properties:
+        personality:
+          type: string
+          enum:
+            - goodBoy
+```
+
+When this property is set to `true`:
+
+```swift
+struct Animal: Codable {
+    var personality: Personality
+
+    enum Personality: String, Codable, CaseIterable {
+      case goodBoy
+    }
+
+    init(personality: Personality = .goodBoy) {
+      self.personality = personality
+    }
+}
+```
+
+</details>
 
 <br/>
 
@@ -723,6 +826,24 @@ entities:
 ```
 
 </details>
+
+<br/>
+
+
+# Enums
+
+Options specifically related to enums generated from schemas.
+
+> **Note**: these options do not apply to other enums, such as `CodingKey` conformances or
+`ResponseHeaders`.
+
+
+## enums.protocols
+
+**Type:** Set<String><br />
+**Default:** `["Codable", "CaseIterable"]`
+
+Protocols to be adopted by each generated enum of strings.
 
 <br/>
 

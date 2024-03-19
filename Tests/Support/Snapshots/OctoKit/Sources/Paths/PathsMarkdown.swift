@@ -41,12 +41,12 @@ extension Paths {
             /// The rendering mode. Can be either `markdown` or `gfm`.
             ///
             /// Example: "markdown"
-            public enum Mode: String, Codable, CaseIterable {
+            public enum Mode: String, CaseIterable, Codable {
                 case markdown
                 case gfm
             }
 
-            public init(text: String, mode: Mode? = nil, context: String? = nil) {
+            public init(text: String, mode: Mode? = .markdown, context: String? = nil) {
                 self.text = text
                 self.mode = mode
                 self.context = context

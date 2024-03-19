@@ -32,7 +32,7 @@ extension Paths.Repos.WithOwner.WithRepo.Git {
             /// The encoding used for `content`. Currently, `"utf-8"` and `"base64"` are supported.
             public var encoding: String?
 
-            public init(content: String, encoding: String? = nil) {
+            public init(content: String, encoding: String? = "utf-8") {
                 self.content = content
                 self.encoding = encoding
             }

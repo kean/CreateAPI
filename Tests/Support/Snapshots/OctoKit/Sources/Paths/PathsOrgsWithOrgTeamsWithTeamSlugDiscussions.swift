@@ -36,7 +36,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             public var page: Int?
             public var pinned: String?
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }
@@ -77,12 +77,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug {
             /// The discussion post's body text.
             public var body: String
             /// Private posts are only visible to team members, organization owners, and team maintainers. Public posts are visible to all members of the organization. Set to `true` to create a private post.
-            public var isPrivate: Bool
+            public var isPrivate: Bool?
 
-            public init(title: String, body: String, isPrivate: Bool? = nil) {
+            public init(title: String, body: String, isPrivate: Bool? = false) {
                 self.title = title
                 self.body = body
-                self.isPrivate = isPrivate ?? false
+                self.isPrivate = isPrivate
             }
 
             public func encode(to encoder: Encoder) throws {

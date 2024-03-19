@@ -39,7 +39,7 @@ extension Paths.Orgs.WithOrg.Hooks {
             /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
             public var events: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool
+            public var isActive: Bool?
             /// Example: "web"
             public var name: String?
 
@@ -75,10 +75,10 @@ extension Paths.Orgs.WithOrg.Hooks {
                 }
             }
 
-            public init(config: Config? = nil, events: [String]? = nil, isActive: Bool? = nil, name: String? = nil) {
+            public init(config: Config? = nil, events: [String]? = ["push"], isActive: Bool? = true, name: String? = nil) {
                 self.config = config
                 self.events = events
-                self.isActive = isActive ?? true
+                self.isActive = isActive
                 self.name = name
             }
 

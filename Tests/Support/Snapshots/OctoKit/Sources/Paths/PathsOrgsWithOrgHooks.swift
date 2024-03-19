@@ -54,7 +54,7 @@ extension Paths.Orgs.WithOrg {
             /// Determines what [events](https://docs.github.com/webhooks/event-payloads) the hook is triggered for.
             public var events: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool
+            public var isActive: Bool?
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/orgs#create-hook-config-params).
             public struct Config: Encodable {
@@ -96,11 +96,11 @@ extension Paths.Orgs.WithOrg {
                 }
             }
 
-            public init(name: String, config: Config, events: [String]? = nil, isActive: Bool? = nil) {
+            public init(name: String, config: Config, events: [String]? = ["push"], isActive: Bool? = true) {
                 self.name = name
                 self.config = config
                 self.events = events
-                self.isActive = isActive ?? true
+                self.isActive = isActive
             }
 
             public func encode(to encoder: Encoder) throws {

@@ -61,12 +61,12 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
             /// The role that this user should have in the team. Can be one of:  
             /// \* `member` - a normal member of the team.  
             /// \* `maintainer` - a team maintainer. Able to add/remove other team members, promote other team members to team maintainer, and edit the team's name and description.
-            public enum Role: String, Codable, CaseIterable {
+            public enum Role: String, CaseIterable, Codable {
                 case member
                 case maintainer
             }
 
-            public init(role: Role? = nil) {
+            public init(role: Role? = .member) {
                 self.role = role
             }
 

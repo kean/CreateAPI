@@ -601,7 +601,12 @@ extension Generator {
             let caseName = deduplicator.add(name: name.rawValue)
             return EnumOfStringsDeclaration.Case(name: caseName, key: value)
         }
-        return EnumOfStringsDeclaration(name: name, cases: cases, metadata: .init(info))
+        return EnumOfStringsDeclaration(
+            name: name,
+            cases: cases,
+            metadata: .init(info),
+            protocols: Protocols(options.enums.protocols)
+        )
     }
 
     private func isEnum(_ info: JSONSchemaContext) -> Bool {
@@ -676,10 +681,34 @@ extension Generator {
             if context.isPatch && isOptional && options.paths.makeOptionalPatchParametersDoubleOptional {
                 type = type.asPatchParameter()
             }
+
             var defaultValue: String?
             if options.entities.includeDefaultValues {
-                if type.isBool {
-                    defaultValue = (info?.defaultValue?.value as? Bool).map { $0 ? "true" : "false" }
+                func describeDefaultValue(_ anyValue: AnyCodable) -> String? {
+                    if let array = anyValue.value as? [AnyCodable] {
+                        return "\(array.compactMap(describeDefaultValue(_:)))"
+                    } else if let dictionary = anyValue.value as? [String: AnyCodable] {
+                        return "\(dictionary.compactMapValues(describeDefaultValue(_:)))"
+                    } else if let value = anyValue.value as? CustomStringConvertible {
+                        if !type.isString, let formatString: String = info?.formatString, !formatString.isEmpty {
+                            return nil
+                        }
+                        return String(describing: value)
+                    } else {
+                        return nil
+                    }
+                }
+
+                if let value = info?.defaultValue.flatMap(describeDefaultValue(_:)) {
+                    if type.isString {
+                        defaultValue = "\"\(value)\""
+                    } else if let enumDecl = nested as? EnumOfStringsDeclaration, let caseMatch = enumDecl.cases.first(where: { $0.key == value }) {
+                        defaultValue = ".\(caseMatch.name)"
+                    } else {
+                        defaultValue = value
+                    }
+                } else if !isOptional, let enumDecl = nested as? EnumOfStringsDeclaration, enumDecl.cases.count == 1, let onlyCase = enumDecl.cases.first {
+                    defaultValue = ".\(onlyCase.name)"
                 }
             }
             

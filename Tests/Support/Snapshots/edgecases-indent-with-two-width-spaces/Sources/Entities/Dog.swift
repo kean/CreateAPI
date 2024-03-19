@@ -9,18 +9,30 @@ public struct Dog: Codable {
   public var color: String?
   public var breed: Breed?
   public var image: Image?
+  public var goodBoy: GoodBoy
+  public var family: Family?
 
-  public enum Breed: String, Codable, CaseIterable {
+  public enum Breed: String, CaseIterable, Codable {
     case large = "Large"
     case medium = "Medium"
     case small = "Small"
   }
 
-  public init(className: String, color: String? = nil, breed: Breed? = nil, image: Image? = nil) {
+  public enum GoodBoy: String, Codable, CaseIterable {
+    case yes
+  }
+
+  public enum Family: String, Codable, CaseIterable {
+    case canine
+  }
+
+  public init(className: String, color: String? = "red", breed: Breed? = nil, image: Image? = nil, goodBoy: GoodBoy = .yes, family: Family? = nil) {
     self.className = className
     self.color = color
     self.breed = breed
     self.image = image
+    self.goodBoy = goodBoy
+    self.family = family
   }
 
   public init(from decoder: Decoder) throws {
@@ -29,6 +41,8 @@ public struct Dog: Codable {
     self.color = try values.decodeIfPresent(String.self, forKey: "color")
     self.breed = try values.decodeIfPresent(Breed.self, forKey: "breed")
     self.image = try values.decodeIfPresent(Image.self, forKey: "image")
+    self.goodBoy = try values.decode(GoodBoy.self, forKey: "good_boy")
+    self.family = try values.decodeIfPresent(Family.self, forKey: "family")
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -37,5 +51,7 @@ public struct Dog: Codable {
     try values.encodeIfPresent(color, forKey: "color")
     try values.encodeIfPresent(breed, forKey: "breed")
     try values.encodeIfPresent(image, forKey: "image")
+    try values.encode(goodBoy, forKey: "good_boy")
+    try values.encodeIfPresent(family, forKey: "family")
   }
 }

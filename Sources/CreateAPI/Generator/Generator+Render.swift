@@ -18,7 +18,11 @@ extension Generator {
         let cases = decl.cases.map {
             templates.case(name: $0.name, value: $0.key)
         }.joined(separator: "\n")
-        return comments + templates.enumOfStrings(name: decl.name, contents: cases)
+        return comments + templates.enumOfStrings(
+            name: decl.name,
+            contents: cases,
+            protocols: decl.protocols
+        )
     }
 
     private func render(_ decl: EntityDeclaration) throws -> String {
@@ -35,7 +39,12 @@ extension Generator {
             contents.append(templates.properties(properties, isReadonly: isReadOnly))
             contents += try decl.nested.map(render)
             if options.entities.includeInitializer {
-                contents.append(templates.initializer(properties: properties))
+                contents.append(
+                    templates.initializer(
+                        properties: properties,
+                        includeDefaultValues: options.entities.includeDefaultValues
+                    )
+                )
             }
         case .oneOf:
             contents.append(properties.map(templates.case).joined(separator: "\n"))
@@ -52,24 +61,30 @@ extension Generator {
         } else {
             switch decl.type {
             case .object:
-                if !options.entities.optimizeCodingKeys {
-                    if let keys = templates.codingKeys(for: properties) {
-                        contents.append(keys)
-                    }
-                    if decl.protocols.isDecodable, properties.contains(where: { $0.defaultValue != nil }) {
-                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: true))
-                    }
-                } else {
+                if options.entities.optimizeCodingKeys {
                     if decl.protocols.isDecodable, !properties.isEmpty, options.entities.alwaysIncludeDecodableImplementation {
-                        contents.append(templates.initFromDecoder(properties: properties, isUsingCodingKeys: false))
+                        contents.append(
+                            templates.initFromDecoder(
+                                properties: properties,
+                                isUsingCodingKeys: false,
+                                includeDefaultValues: options.entities.includeDefaultValues
+                            )
+                        )
                     }
                     if decl.protocols.isEncodable, !properties.isEmpty, options.entities.alwaysIncludeEncodableImplementation {
                         contents.append(templates.encode(properties: properties))
                     }
+                } else if let keys = templates.codingKeys(for: properties) {
+                    contents.append(keys)
                 }
             case .anyOf:
                 if decl.protocols.isDecodable {
-                    contents.append(templates.initFromDecoderAnyOf(properties: properties))
+                    contents.append(
+                        templates.initFromDecoderAnyOf(
+                            properties: properties,
+                            includeDefaultValues: options.entities.includeDefaultValues
+                        )
+                    )
                 }
                 if decl.protocols.isEncodable {
                     contents.append(templates.encodeAnyOf(properties: properties))
@@ -81,7 +96,11 @@ extension Generator {
                         return templates.decodeFromDecoder(property: $0)
                     } else {
                         needsValues = true
-                        return templates.decode(property: $0, isUsingCodingKeys: false)
+                        return templates.decode(
+                            property: $0,
+                            isUsingCodingKeys: false,
+                            includeDefaultValues: options.entities.includeDefaultValues
+                        )
                     }
                 }.joined(separator: "\n")
                 if decl.protocols.isDecodable {

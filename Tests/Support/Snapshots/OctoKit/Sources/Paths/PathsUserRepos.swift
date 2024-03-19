@@ -37,13 +37,13 @@ extension Paths.User {
             public var since: Date?
             public var before: Date?
 
-            public enum Visibility: String, Codable, CaseIterable {
+            public enum Visibility: String, CaseIterable, Codable {
                 case all
                 case `public`
                 case `private`
             }
 
-            public enum `Type`: String, Codable, CaseIterable {
+            public enum `Type`: String, CaseIterable, Codable {
                 case all
                 case owner
                 case `public`
@@ -51,14 +51,14 @@ extension Paths.User {
                 case member
             }
 
-            public enum Sort: String, Codable, CaseIterable {
+            public enum Sort: String, CaseIterable, Codable {
                 case created
                 case updated
                 case pushed
                 case fullName = "full_name"
             }
 
-            public enum Direction: String, Codable, CaseIterable {
+            public enum Direction: String, CaseIterable, Codable {
                 case asc
                 case desc
             }
@@ -120,23 +120,23 @@ extension Paths.User {
             /// A URL with more information about the repository.
             public var homepage: String?
             /// Whether the repository is private.
-            public var isPrivate: Bool
+            public var isPrivate: Bool?
             /// Whether issues are enabled.
             ///
             /// Example: true
-            public var hasIssues: Bool
+            public var hasIssues: Bool?
             /// Whether projects are enabled.
             ///
             /// Example: true
-            public var hasProjects: Bool
+            public var hasProjects: Bool?
             /// Whether the wiki is enabled.
             ///
             /// Example: true
-            public var hasWiki: Bool
+            public var hasWiki: Bool?
             /// The id of the team that will be granted access to this repository. This is only valid when creating a repository in an organization.
             public var teamID: Int?
             /// Whether the repository is initialized with a minimal README.
-            public var isAutoInit: Bool
+            public var isAutoInit: Bool?
             /// The desired language or platform to apply to the .gitignore.
             ///
             /// Example: "Haskell"
@@ -148,51 +148,51 @@ extension Paths.User {
             /// Whether to allow squash merges for pull requests.
             ///
             /// Example: true
-            public var allowSquashMerge: Bool
+            public var allowSquashMerge: Bool?
             /// Whether to allow merge commits for pull requests.
             ///
             /// Example: true
-            public var allowMergeCommit: Bool
+            public var allowMergeCommit: Bool?
             /// Whether to allow rebase merges for pull requests.
             ///
             /// Example: true
-            public var allowRebaseMerge: Bool
+            public var allowRebaseMerge: Bool?
             /// Whether to allow Auto-merge to be used on pull requests.
             ///
             /// Example: false
-            public var allowAutoMerge: Bool
+            public var allowAutoMerge: Bool?
             /// Whether to delete head branches when pull requests are merged
             ///
             /// Example: false
-            public var deleteBranchOnMerge: Bool
+            public var deleteBranchOnMerge: Bool?
             /// Whether downloads are enabled.
             ///
             /// Example: true
-            public var hasDownloads: Bool
+            public var hasDownloads: Bool?
             /// Whether this repository acts as a template that can be used to generate new repositories.
             ///
             /// Example: true
-            public var isTemplate: Bool
+            public var isTemplate: Bool?
 
-            public init(name: String, description: String? = nil, homepage: String? = nil, isPrivate: Bool? = nil, hasIssues: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, teamID: Int? = nil, isAutoInit: Bool? = nil, gitignoreTemplate: String? = nil, licenseTemplate: String? = nil, allowSquashMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, hasDownloads: Bool? = nil, isTemplate: Bool? = nil) {
+            public init(name: String, description: String? = nil, homepage: String? = nil, isPrivate: Bool? = false, hasIssues: Bool? = true, hasProjects: Bool? = true, hasWiki: Bool? = true, teamID: Int? = nil, isAutoInit: Bool? = false, gitignoreTemplate: String? = nil, licenseTemplate: String? = nil, allowSquashMerge: Bool? = true, allowMergeCommit: Bool? = true, allowRebaseMerge: Bool? = true, allowAutoMerge: Bool? = false, deleteBranchOnMerge: Bool? = false, hasDownloads: Bool? = true, isTemplate: Bool? = false) {
                 self.name = name
                 self.description = description
                 self.homepage = homepage
-                self.isPrivate = isPrivate ?? false
-                self.hasIssues = hasIssues ?? true
-                self.hasProjects = hasProjects ?? true
-                self.hasWiki = hasWiki ?? true
+                self.isPrivate = isPrivate
+                self.hasIssues = hasIssues
+                self.hasProjects = hasProjects
+                self.hasWiki = hasWiki
                 self.teamID = teamID
-                self.isAutoInit = isAutoInit ?? false
+                self.isAutoInit = isAutoInit
                 self.gitignoreTemplate = gitignoreTemplate
                 self.licenseTemplate = licenseTemplate
-                self.allowSquashMerge = allowSquashMerge ?? true
-                self.allowMergeCommit = allowMergeCommit ?? true
-                self.allowRebaseMerge = allowRebaseMerge ?? true
-                self.allowAutoMerge = allowAutoMerge ?? false
-                self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
-                self.hasDownloads = hasDownloads ?? true
-                self.isTemplate = isTemplate ?? false
+                self.allowSquashMerge = allowSquashMerge
+                self.allowMergeCommit = allowMergeCommit
+                self.allowRebaseMerge = allowRebaseMerge
+                self.allowAutoMerge = allowAutoMerge
+                self.deleteBranchOnMerge = deleteBranchOnMerge
+                self.hasDownloads = hasDownloads
+                self.isTemplate = isTemplate
             }
 
             public func encode(to encoder: Encoder) throws {

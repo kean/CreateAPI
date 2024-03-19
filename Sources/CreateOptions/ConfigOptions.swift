@@ -456,7 +456,108 @@ public struct ConfigOptions: ParsableConfiguration {
         /// For schemas with a large number of entities, this approach significantly reduces the binary size of the compiled code ([apple/swift#60287](https://github.com/apple/swift/issues/60287))
         @Option public var optimizeCodingKeys: Bool = true
 
-        /// If set to `true`, uses the `default` value from the schema for the generated property for booleans
+        /// If set to `true`, uses the `default` value from the schema for the generated property.
+        ///
+        /// <details>
+        /// <summary>Examples</summary>
+        ///
+        /// With the following schema:
+        ///
+        /// ```yaml
+        /// components:
+        ///   schemas:
+        ///     Animal:
+        ///       properties:
+        ///         color:
+        ///           type: string
+        ///           default: red
+        ///         legsCount:
+        ///           type: integer
+        ///           default: 4
+        ///         shape:
+        ///           type: string
+        ///           enum:
+        ///             - circle
+        ///             - square
+        ///             - triangle
+        /// ```
+        ///
+        /// When this property is set to `true` (the default):
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var color: String?
+        ///     var legsCount: Int?
+        ///     var shape: Shape?
+        ///
+        ///     enum Shape: String, Codable, CaseIterable {
+        ///       case circle
+        ///       case square
+        ///       case triangle
+        ///     }
+        ///
+        ///     init(color: String? = "red", legsCount: Int? = 4, shape: Shape? = nil) {
+        ///       self.color = color
+        ///       self.legsCount = legsCount
+        ///       self.shape = shape
+        ///     }
+        /// }
+        /// ```
+        ///
+        /// However setting this property to `false` results results in the following:
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var color: String?
+        ///     var legsCount: Int?
+        ///     var shape: Shape?
+        ///
+        ///     enum Shape: String, Codable, CaseIterable {
+        ///       case circle
+        ///       case square
+        ///       case triangle
+        ///     }
+        ///
+        ///     init(color: String?, legsCount: Int?, shape: Shape?) {
+        ///       self.color = color
+        ///       self.legsCount = legsCount
+        ///       self.shape = shape
+        ///     }
+        /// }
+        /// ```
+        ///
+        /// In addition, a schema containing a required enum property with only one case, such as the following:
+        ///
+        /// ```yaml
+        /// components:
+        ///   schemas:
+        ///     Animal:
+        ///       required:
+        ///         - personality
+        ///       properties:
+        ///         personality:
+        ///           type: string
+        ///           enum:
+        ///             - goodBoy
+        /// ```
+        ///
+        /// When this property is set to `true`:
+        ///
+        /// ```swift
+        /// struct Animal: Codable {
+        ///     var personality: Personality
+        ///
+        ///     enum Personality: String, Codable, CaseIterable {
+        ///       case goodBoy
+        ///     }
+        ///
+        ///     init(personality: Personality = .goodBoy) {
+        ///       self.personality = personality
+        ///     }
+        /// }
+        /// ```
+        ///
+        /// </details>
         @Option public var includeDefaultValues: Bool = true
 
         /// Controls the behaviour when generating entities from nested `allOf` schemas.
@@ -566,6 +667,20 @@ public struct ConfigOptions: ParsableConfiguration {
         ///
         /// </details>
         @Option public var filenameTemplate: String = "%0.swift"
+    }
+
+    @Option public var enums: Enums
+
+    // sourcery: document,
+    /// Options specifically related to enums generated from schemas.
+    ///
+    /// > **Note**: these options do not apply to other enums, such as `CodingKey` conformances or
+    /// `ResponseHeaders`.
+    public struct Enums: ParsableConfiguration {
+        /// Protocols to be adopted by each generated enum of strings.
+        @Option public var protocols: Set<String> = ["Codable", "CaseIterable"]
+
+        public init() { }
     }
 
     @Option public var paths: Paths

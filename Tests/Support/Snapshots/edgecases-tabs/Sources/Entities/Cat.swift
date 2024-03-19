@@ -9,7 +9,7 @@ public struct Cat: Codable {
 	public var color: String?
 	public var isDeclawed: Bool?
 
-	public init(className: String, color: String? = nil, isDeclawed: Bool? = nil) {
+	public init(className: String, color: String? = "red", isDeclawed: Bool? = nil) {
 		self.className = className
 		self.color = color
 		self.isDeclawed = isDeclawed

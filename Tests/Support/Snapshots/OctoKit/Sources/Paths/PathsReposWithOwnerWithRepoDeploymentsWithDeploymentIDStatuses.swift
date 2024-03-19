@@ -67,7 +67,7 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
             public var isAutoInactive: Bool?
 
             /// The state of the status. Can be one of `error`, `failure`, `inactive`, `in_progress`, `queued`, `pending`, or `success`. When you set a transient deployment to `inactive`, the deployment will be shown as `destroyed` in GitHub.
-            public enum State: String, Codable, CaseIterable {
+            public enum State: String, CaseIterable, Codable {
                 case error
                 case failure
                 case inactive
@@ -78,13 +78,13 @@ extension Paths.Repos.WithOwner.WithRepo.Deployments.WithDeploymentID {
             }
 
             /// Name for the target deployment environment, which can be changed when setting a deploy status. For example, `production`, `staging`, or `qa`.
-            public enum Environment: String, Codable, CaseIterable {
+            public enum Environment: String, CaseIterable, Codable {
                 case production
                 case staging
                 case qa
             }
 
-            public init(state: State, targetURL: String? = nil, logURL: String? = nil, description: String? = nil, environment: Environment? = nil, environmentURL: String? = nil, isAutoInactive: Bool? = nil) {
+            public init(state: State, targetURL: String? = "", logURL: String? = "", description: String? = "", environment: Environment? = nil, environmentURL: String? = "", isAutoInactive: Bool? = nil) {
                 self.state = state
                 self.targetURL = targetURL
                 self.logURL = logURL

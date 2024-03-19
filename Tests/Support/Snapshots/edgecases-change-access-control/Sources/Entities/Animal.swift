@@ -8,7 +8,7 @@ struct Animal: Codable {
     var className: String
     var color: String?
 
-    init(className: String, color: String? = nil) {
+    init(className: String, color: String? = "red") {
         self.className = className
         self.color = color
     }

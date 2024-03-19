@@ -34,7 +34,7 @@ extension Paths.Repos.WithOwner.WithRepo.CheckSuites {
                 /// Set to `true` to enable automatic creation of CheckSuite events upon pushes to the repository, or `false` to disable them.
                 public var isSetting: Bool
 
-                public init(appID: Int, isSetting: Bool) {
+                public init(appID: Int, isSetting: Bool = true) {
                     self.appID = appID
                     self.isSetting = isSetting
                 }

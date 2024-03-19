@@ -53,7 +53,7 @@ public struct DeploymentStatus: Codable {
     /// The state of the status.
     ///
     /// Example: "success"
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case error
         case failure
         case inactive
@@ -63,7 +63,7 @@ public struct DeploymentStatus: Codable {
         case inProgress = "in_progress"
     }
 
-    public init(url: URL, id: Int, nodeID: String, state: State, creator: SimpleUser? = nil, description: String, environment: String? = nil, targetURL: URL, createdAt: Date, updatedAt: Date, deploymentURL: URL, repositoryURL: URL, environmentURL: URL? = nil, logURL: URL? = nil, performedViaGithubApp: Integration? = nil) {
+    public init(url: URL, id: Int, nodeID: String, state: State, creator: SimpleUser? = nil, description: String = "", environment: String? = "", targetURL: URL, createdAt: Date, updatedAt: Date, deploymentURL: URL, repositoryURL: URL, environmentURL: URL? = nil, logURL: URL? = nil, performedViaGithubApp: Integration? = nil) {
         self.url = url
         self.id = id
         self.nodeID = nodeID

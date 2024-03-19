@@ -67,7 +67,7 @@ extension Paths.Orgs {
             /// \* `false` - only organization owners can create repositories.  
             /// Default: `true`  
             /// **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details. **Note:** A parameter can override this parameter. See `members_allowed_repository_creation_type` in this table for details.
-            public var membersCanCreateRepositories: Bool
+            public var membersCanCreateRepositories: Bool?
             /// Toggles whether organization members can create internal repositories, which are visible to all enterprise members. You can only allow members to create internal repositories if your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+. Can be one of:  
             /// \* `true` - all organization members can create internal repositories.  
             /// \* `false` - only organization owners can create internal repositories.  
@@ -92,19 +92,19 @@ extension Paths.Orgs {
             /// Toggles whether organization members can create GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create GitHub Pages sites.  
             /// \* `false` - no organization members can create GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePages: Bool
+            public var membersCanCreatePages: Bool?
             /// Toggles whether organization members can create public GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create public GitHub Pages sites.  
             /// \* `false` - no organization members can create public GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePublicPages: Bool
+            public var membersCanCreatePublicPages: Bool?
             /// Toggles whether organization members can create private GitHub Pages sites. Can be one of:  
             /// \* `true` - all organization members can create private GitHub Pages sites.  
             /// \* `false` - no organization members can create private GitHub Pages sites. Existing published sites will not be impacted.
-            public var membersCanCreatePrivatePages: Bool
+            public var membersCanCreatePrivatePages: Bool?
             /// Toggles whether organization members can fork private organization repositories. Can be one of:  
             /// \* `true` - all organization members can fork private repositories within the organization.  
             /// \* `false` - no organization members can fork private repositories within the organization.
-            public var membersCanForkPrivateRepositories: Bool
+            public var membersCanForkPrivateRepositories: Bool?
             /// Example: "http://github.blog"
             public var blog: String?
 
@@ -113,7 +113,7 @@ extension Paths.Orgs {
             /// \* `write` - can pull and push, but not administer this repository.  
             /// \* `admin` - can pull, push, and administer this repository.  
             /// \* `none` - no permissions granted by default.
-            public enum DefaultRepositoryPermission: String, Codable, CaseIterable {
+            public enum DefaultRepositoryPermission: String, CaseIterable, Codable {
                 case read
                 case write
                 case admin
@@ -125,13 +125,13 @@ extension Paths.Orgs {
             /// \* `private` - members can create private repositories. This option is only available to repositories that are part of an organization on GitHub Enterprise Cloud.  
             /// \* `none` - only admin members can create repositories.  
             /// **Note:** This parameter is deprecated and will be removed in the future. Its return value ignores internal repositories. Using this parameter overrides values set in `members_can_create_repositories`. See the parameter deprecation notice in the operation description for details.
-            public enum MembersAllowedRepositoryCreationType: String, Codable, CaseIterable {
+            public enum MembersAllowedRepositoryCreationType: String, CaseIterable, Codable {
                 case all
                 case `private`
                 case `none`
             }
 
-            public init(billingEmail: String? = nil, company: String? = nil, email: String? = nil, twitterUsername: String? = nil, location: String? = nil, name: String? = nil, description: String? = nil, hasOrganizationProjects: Bool? = nil, hasRepositoryProjects: Bool? = nil, defaultRepositoryPermission: DefaultRepositoryPermission? = nil, membersCanCreateRepositories: Bool? = nil, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersAllowedRepositoryCreationType: MembersAllowedRepositoryCreationType? = nil, membersCanCreatePages: Bool? = nil, membersCanCreatePublicPages: Bool? = nil, membersCanCreatePrivatePages: Bool? = nil, membersCanForkPrivateRepositories: Bool? = nil, blog: String? = nil) {
+            public init(billingEmail: String? = nil, company: String? = nil, email: String? = nil, twitterUsername: String? = nil, location: String? = nil, name: String? = nil, description: String? = nil, hasOrganizationProjects: Bool? = nil, hasRepositoryProjects: Bool? = nil, defaultRepositoryPermission: DefaultRepositoryPermission? = .read, membersCanCreateRepositories: Bool? = true, membersCanCreateInternalRepositories: Bool? = nil, membersCanCreatePrivateRepositories: Bool? = nil, membersCanCreatePublicRepositories: Bool? = nil, membersAllowedRepositoryCreationType: MembersAllowedRepositoryCreationType? = nil, membersCanCreatePages: Bool? = true, membersCanCreatePublicPages: Bool? = true, membersCanCreatePrivatePages: Bool? = true, membersCanForkPrivateRepositories: Bool? = false, blog: String? = nil) {
                 self.billingEmail = billingEmail
                 self.company = company
                 self.email = email
@@ -142,15 +142,15 @@ extension Paths.Orgs {
                 self.hasOrganizationProjects = hasOrganizationProjects
                 self.hasRepositoryProjects = hasRepositoryProjects
                 self.defaultRepositoryPermission = defaultRepositoryPermission
-                self.membersCanCreateRepositories = membersCanCreateRepositories ?? true
+                self.membersCanCreateRepositories = membersCanCreateRepositories
                 self.membersCanCreateInternalRepositories = membersCanCreateInternalRepositories
                 self.membersCanCreatePrivateRepositories = membersCanCreatePrivateRepositories
                 self.membersCanCreatePublicRepositories = membersCanCreatePublicRepositories
                 self.membersAllowedRepositoryCreationType = membersAllowedRepositoryCreationType
-                self.membersCanCreatePages = membersCanCreatePages ?? true
-                self.membersCanCreatePublicPages = membersCanCreatePublicPages ?? true
-                self.membersCanCreatePrivatePages = membersCanCreatePrivatePages ?? true
-                self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories ?? false
+                self.membersCanCreatePages = membersCanCreatePages
+                self.membersCanCreatePublicPages = membersCanCreatePublicPages
+                self.membersCanCreatePrivatePages = membersCanCreatePrivatePages
+                self.membersCanForkPrivateRepositories = membersCanForkPrivateRepositories
                 self.blog = blog
             }
 

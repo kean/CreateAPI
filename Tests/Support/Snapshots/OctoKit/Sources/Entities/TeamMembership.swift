@@ -16,18 +16,18 @@ public struct TeamMembership: Codable {
     /// The role of the user in the team.
     ///
     /// Example: "member"
-    public enum Role: String, Codable, CaseIterable {
+    public enum Role: String, CaseIterable, Codable {
         case member
         case maintainer
     }
 
     /// The state of the user's membership in the team.
-    public enum State: String, Codable, CaseIterable {
+    public enum State: String, CaseIterable, Codable {
         case active
         case pending
     }
 
-    public init(url: URL, role: Role, state: State) {
+    public init(url: URL, role: Role = .member, state: State) {
         self.url = url
         self.role = role
         self.state = state
