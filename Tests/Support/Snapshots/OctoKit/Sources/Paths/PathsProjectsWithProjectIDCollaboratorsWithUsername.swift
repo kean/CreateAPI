@@ -39,7 +39,7 @@ extension Paths.Projects.WithProjectID.Collaborators {
                 case admin
             }
 
-            public init(permission: Permission? = nil) {
+            public init(permission: Permission? = .write) {
                 self.permission = permission
             }
 

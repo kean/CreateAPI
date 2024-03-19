@@ -66,7 +66,7 @@ extension Paths.Orgs.WithOrg.Teams.WithTeamSlug.Memberships {
                 case maintainer
             }
 
-            public init(role: Role? = nil) {
+            public init(role: Role? = .member) {
                 self.role = role
             }
 

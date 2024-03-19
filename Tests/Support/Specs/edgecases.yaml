@@ -979,6 +979,8 @@ components:
       allOf:
         - $ref: "#/components/schemas/Animal"
         - type: object
+          required:
+            - good_boy
           properties:
             breed:
               type: string
@@ -988,6 +990,14 @@ components:
                 - "Small"
             image:
               $ref: "#/components/schemas/Image"
+            good_boy:
+              type: string
+              enum:
+                - 'yes'
+            family:
+              type: string
+              enum:
+                - canine
     Cat:
       allOf:
         - $ref: "#/components/schemas/Animal"
@@ -1028,6 +1038,7 @@ components:
         - byte
         - date
         - password
+        - uri_required
       properties:
         integer:
           type: integer
@@ -1064,6 +1075,20 @@ components:
         binary:
           type: string
           format: binary
+        uri:
+          type: string
+          format: uri
+        uri_reference:
+          type: string
+          format: uri-reference
+        uri_default:
+          type: string
+          format: uri
+          default: https://www.swift.org/
+        uri_required:
+          type: string
+          format: uri
+          default: https://www.swift.org/
         date:
           type: string
           format: date

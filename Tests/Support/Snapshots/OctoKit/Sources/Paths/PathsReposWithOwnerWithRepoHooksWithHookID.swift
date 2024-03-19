@@ -43,7 +43,7 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
             /// Determines a list of events to be removed from the list of events that the Hook triggers for.
             public var removeEvents: [String]?
             /// Determines if notifications are sent when the webhook is triggered. Set to `true` to send notifications.
-            public var isActive: Bool
+            public var isActive: Bool?
 
             /// Key/value pairs to provide settings for this webhook. [These are defined below](https://docs.github.com/rest/reference/repos#create-hook-config-params).
             public struct Config: Encodable {
@@ -85,12 +85,12 @@ extension Paths.Repos.WithOwner.WithRepo.Hooks {
                 }
             }
 
-            public init(config: Config? = nil, events: [String]? = nil, addEvents: [String]? = nil, removeEvents: [String]? = nil, isActive: Bool? = nil) {
+            public init(config: Config? = nil, events: [String]? = ["push"], addEvents: [String]? = nil, removeEvents: [String]? = nil, isActive: Bool? = true) {
                 self.config = config
                 self.events = events
                 self.addEvents = addEvents
                 self.removeEvents = removeEvents
-                self.isActive = isActive ?? true
+                self.isActive = isActive
             }
 
             public func encode(to encoder: Encoder) throws {

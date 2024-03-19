@@ -78,7 +78,7 @@ extension Paths.Orgs.WithOrg.Teams {
                 case admin
             }
 
-            public init(name: String? = nil, description: String? = nil, privacy: Privacy? = nil, permission: Permission? = nil, parentTeamID: Int? = nil) {
+            public init(name: String? = nil, description: String? = nil, privacy: Privacy? = nil, permission: Permission? = .pull, parentTeamID: Int? = nil) {
                 self.name = name
                 self.description = description
                 self.privacy = privacy

@@ -42,35 +42,35 @@ extension Paths.Repos.WithOwner {
             public var homepage: String?
             /// Either `true` to make the repository private or `false` to make it public. Default: `false`.  
             /// **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private. **Note**: You will get a `422` error if the organization restricts [changing repository visibility](https://help.github.com/articles/repository-permission-levels-for-an-organization#changing-the-visibility-of-repositories) to organization owners and a non-owner tries to change the value of private.
-            public var isPrivate: Bool
+            public var isPrivate: Bool?
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
             public var visibility: Visibility?
             /// Specify which security and analysis features to enable or disable. For example, to enable GitHub Advanced Security, use this data in the body of the PATCH request: `{"security_and_analysis": {"advanced_security": {"status": "enabled"}}}`. If you have admin permissions for a private repository covered by an Advanced Security license, you can check which security and analysis features are currently enabled by using a `GET /repos/{owner}/{repo}` request.
             public var securityAndAnalysis: SecurityAndAnalysis?
             /// Either `true` to enable issues for this repository or `false` to disable them.
-            public var hasIssues: Bool
+            public var hasIssues: Bool?
             /// Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error.
-            public var hasProjects: Bool
+            public var hasProjects: Bool?
             /// Either `true` to enable the wiki for this repository or `false` to disable it.
-            public var hasWiki: Bool
+            public var hasWiki: Bool?
             /// Either `true` to make this repo available as a template repository or `false` to prevent it.
-            public var isTemplate: Bool
+            public var isTemplate: Bool?
             /// Updates the default branch for this repository.
             public var defaultBranch: String?
             /// Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging.
-            public var allowSquashMerge: Bool
+            public var allowSquashMerge: Bool?
             /// Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits.
-            public var allowMergeCommit: Bool
+            public var allowMergeCommit: Bool?
             /// Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging.
-            public var allowRebaseMerge: Bool
+            public var allowRebaseMerge: Bool?
             /// Either `true` to allow auto-merge on pull requests, or `false` to disallow auto-merge.
-            public var allowAutoMerge: Bool
+            public var allowAutoMerge: Bool?
             /// Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion.
-            public var deleteBranchOnMerge: Bool
+            public var deleteBranchOnMerge: Bool?
             /// `true` to archive this repository. **Note**: You cannot unarchive repositories through the API.
-            public var isArchived: Bool
+            public var isArchived: Bool?
             /// Either `true` to allow private forks, or `false` to prevent private forks.
-            public var allowForking: Bool
+            public var allowForking: Bool?
 
             /// Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`."
             public enum Visibility: String, Codable, CaseIterable {
@@ -128,25 +128,25 @@ extension Paths.Repos.WithOwner {
                 }
             }
 
-            public init(name: String? = nil, description: String? = nil, homepage: String? = nil, isPrivate: Bool? = nil, visibility: Visibility? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil, hasIssues: Bool? = nil, hasProjects: Bool? = nil, hasWiki: Bool? = nil, isTemplate: Bool? = nil, defaultBranch: String? = nil, allowSquashMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowRebaseMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, isArchived: Bool? = nil, allowForking: Bool? = nil) {
+            public init(name: String? = nil, description: String? = nil, homepage: String? = nil, isPrivate: Bool? = false, visibility: Visibility? = nil, securityAndAnalysis: SecurityAndAnalysis? = nil, hasIssues: Bool? = true, hasProjects: Bool? = true, hasWiki: Bool? = true, isTemplate: Bool? = false, defaultBranch: String? = nil, allowSquashMerge: Bool? = true, allowMergeCommit: Bool? = true, allowRebaseMerge: Bool? = true, allowAutoMerge: Bool? = false, deleteBranchOnMerge: Bool? = false, isArchived: Bool? = false, allowForking: Bool? = false) {
                 self.name = name
                 self.description = description
                 self.homepage = homepage
-                self.isPrivate = isPrivate ?? false
+                self.isPrivate = isPrivate
                 self.visibility = visibility
                 self.securityAndAnalysis = securityAndAnalysis
-                self.hasIssues = hasIssues ?? true
-                self.hasProjects = hasProjects ?? true
-                self.hasWiki = hasWiki ?? true
-                self.isTemplate = isTemplate ?? false
+                self.hasIssues = hasIssues
+                self.hasProjects = hasProjects
+                self.hasWiki = hasWiki
+                self.isTemplate = isTemplate
                 self.defaultBranch = defaultBranch
-                self.allowSquashMerge = allowSquashMerge ?? true
-                self.allowMergeCommit = allowMergeCommit ?? true
-                self.allowRebaseMerge = allowRebaseMerge ?? true
-                self.allowAutoMerge = allowAutoMerge ?? false
-                self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
-                self.isArchived = isArchived ?? false
-                self.allowForking = allowForking ?? false
+                self.allowSquashMerge = allowSquashMerge
+                self.allowMergeCommit = allowMergeCommit
+                self.allowRebaseMerge = allowRebaseMerge
+                self.allowAutoMerge = allowAutoMerge
+                self.deleteBranchOnMerge = deleteBranchOnMerge
+                self.isArchived = isArchived
+                self.allowForking = allowForking
             }
 
             public func encode(to encoder: Encoder) throws {

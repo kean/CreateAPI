@@ -70,7 +70,7 @@ extension Paths.Enterprises.WithEnterprise.Actions {
             /// List of runner IDs to add to the runner group.
             public var runners: [Int]?
             /// Whether the runner group can be used by `public` repositories.
-            public var allowsPublicRepositories: Bool
+            public var allowsPublicRepositories: Bool?
 
             /// Visibility of a runner group. You can select all organizations or select individual organization. Can be one of: `all` or `selected`
             public enum Visibility: String, Codable, CaseIterable {
@@ -78,12 +78,12 @@ extension Paths.Enterprises.WithEnterprise.Actions {
                 case all
             }
 
-            public init(name: String, visibility: Visibility? = nil, selectedOrganizationIDs: [Int]? = nil, runners: [Int]? = nil, allowsPublicRepositories: Bool? = nil) {
+            public init(name: String, visibility: Visibility? = nil, selectedOrganizationIDs: [Int]? = nil, runners: [Int]? = nil, allowsPublicRepositories: Bool? = false) {
                 self.name = name
                 self.visibility = visibility
                 self.selectedOrganizationIDs = selectedOrganizationIDs
                 self.runners = runners
-                self.allowsPublicRepositories = allowsPublicRepositories ?? false
+                self.allowsPublicRepositories = allowsPublicRepositories
             }
 
             public func encode(to encoder: Encoder) throws {

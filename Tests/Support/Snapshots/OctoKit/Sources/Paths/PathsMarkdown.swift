@@ -46,7 +46,7 @@ extension Paths {
                 case gfm
             }
 
-            public init(text: String, mode: Mode? = nil, context: String? = nil) {
+            public init(text: String, mode: Mode? = .markdown, context: String? = nil) {
                 self.text = text
                 self.mode = mode
                 self.context = context

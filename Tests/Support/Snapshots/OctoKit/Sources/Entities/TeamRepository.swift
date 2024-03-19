@@ -135,7 +135,7 @@ public struct TeamRepository: Codable {
     /// Whether this repository acts as a template that can be used to generate new repositories.
     ///
     /// Example: true
-    public var isTemplate: Bool
+    public var isTemplate: Bool?
     public var topics: [String]?
     /// Whether issues are enabled.
     ///
@@ -169,7 +169,7 @@ public struct TeamRepository: Codable {
     /// Whether to allow rebase merges for pull requests.
     ///
     /// Example: true
-    public var allowRebaseMerge: Bool
+    public var allowRebaseMerge: Bool?
     /// Repository
     ///
     /// A git repository
@@ -178,23 +178,23 @@ public struct TeamRepository: Codable {
     /// Whether to allow squash merges for pull requests.
     ///
     /// Example: true
-    public var allowSquashMerge: Bool
+    public var allowSquashMerge: Bool?
     /// Whether to allow Auto-merge to be used on pull requests.
     ///
     /// Example: false
-    public var allowAutoMerge: Bool
+    public var allowAutoMerge: Bool?
     /// Whether to delete head branches when pull requests are merged
     ///
     /// Example: false
-    public var deleteBranchOnMerge: Bool
+    public var deleteBranchOnMerge: Bool?
     /// Whether to allow merge commits for pull requests.
     ///
     /// Example: true
-    public var allowMergeCommit: Bool
+    public var allowMergeCommit: Bool?
     /// Whether to allow forking this repo
     ///
     /// Example: false
-    public var allowForking: Bool
+    public var allowForking: Bool?
     public var subscribersCount: Int?
     public var networkCount: Int?
     public var openIssues: Int
@@ -235,7 +235,7 @@ public struct TeamRepository: Codable {
         }
     }
 
-    public init(id: Int, nodeID: String, name: String, fullName: String, license: LicenseSimple? = nil, forks: Int, permissions: Permissions? = nil, roleName: String? = nil, owner: SimpleUser? = nil, isPrivate: Bool, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, archiveURL: String, assigneesURL: String, blobsURL: String, branchesURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, deploymentsURL: URL, downloadsURL: URL, eventsURL: URL, forksURL: URL, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, languagesURL: URL, mergesURL: URL, milestonesURL: String, notificationsURL: String, pullsURL: String, releasesURL: String, sshURL: String, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, tagsURL: URL, teamsURL: URL, treesURL: String, cloneURL: String, mirrorURL: URL? = nil, hooksURL: URL, svnURL: URL, homepage: URL? = nil, language: String? = nil, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, isTemplate: Bool? = nil, topics: [String]? = nil, hasIssues: Bool, hasProjects: Bool, hasWiki: Bool, hasPages: Bool, hasDownloads: Bool, isArchived: Bool, isDisabled: Bool, visibility: String? = nil, pushedAt: Date? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, allowRebaseMerge: Bool? = nil, templateRepository: Repository? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = nil, allowAutoMerge: Bool? = nil, deleteBranchOnMerge: Bool? = nil, allowMergeCommit: Bool? = nil, allowForking: Bool? = nil, subscribersCount: Int? = nil, networkCount: Int? = nil, openIssues: Int, watchers: Int, masterBranch: String? = nil) {
+    public init(id: Int, nodeID: String, name: String, fullName: String, license: LicenseSimple? = nil, forks: Int, permissions: Permissions? = nil, roleName: String? = nil, owner: SimpleUser? = nil, isPrivate: Bool = false, htmlURL: URL, description: String? = nil, isFork: Bool, url: URL, archiveURL: String, assigneesURL: String, blobsURL: String, branchesURL: String, collaboratorsURL: String, commentsURL: String, commitsURL: String, compareURL: String, contentsURL: String, contributorsURL: URL, deploymentsURL: URL, downloadsURL: URL, eventsURL: URL, forksURL: URL, gitCommitsURL: String, gitRefsURL: String, gitTagsURL: String, gitURL: String, issueCommentURL: String, issueEventsURL: String, issuesURL: String, keysURL: String, labelsURL: String, languagesURL: URL, mergesURL: URL, milestonesURL: String, notificationsURL: String, pullsURL: String, releasesURL: String, sshURL: String, stargazersURL: URL, statusesURL: String, subscribersURL: URL, subscriptionURL: URL, tagsURL: URL, teamsURL: URL, treesURL: String, cloneURL: String, mirrorURL: URL? = nil, hooksURL: URL, svnURL: URL, homepage: URL? = nil, language: String? = nil, forksCount: Int, stargazersCount: Int, watchersCount: Int, size: Int, defaultBranch: String, openIssuesCount: Int, isTemplate: Bool? = false, topics: [String]? = nil, hasIssues: Bool = true, hasProjects: Bool = true, hasWiki: Bool = true, hasPages: Bool, hasDownloads: Bool = true, isArchived: Bool = false, isDisabled: Bool, visibility: String? = "public", pushedAt: Date? = nil, createdAt: Date? = nil, updatedAt: Date? = nil, allowRebaseMerge: Bool? = true, templateRepository: Repository? = nil, tempCloneToken: String? = nil, allowSquashMerge: Bool? = true, allowAutoMerge: Bool? = false, deleteBranchOnMerge: Bool? = false, allowMergeCommit: Bool? = true, allowForking: Bool? = false, subscribersCount: Int? = nil, networkCount: Int? = nil, openIssues: Int, watchers: Int, masterBranch: String? = nil) {
         self.id = id
         self.nodeID = nodeID
         self.name = name
@@ -299,7 +299,7 @@ public struct TeamRepository: Codable {
         self.size = size
         self.defaultBranch = defaultBranch
         self.openIssuesCount = openIssuesCount
-        self.isTemplate = isTemplate ?? false
+        self.isTemplate = isTemplate
         self.topics = topics
         self.hasIssues = hasIssues
         self.hasProjects = hasProjects
@@ -312,14 +312,14 @@ public struct TeamRepository: Codable {
         self.pushedAt = pushedAt
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.allowRebaseMerge = allowRebaseMerge ?? true
+        self.allowRebaseMerge = allowRebaseMerge
         self.templateRepository = templateRepository
         self.tempCloneToken = tempCloneToken
-        self.allowSquashMerge = allowSquashMerge ?? true
-        self.allowAutoMerge = allowAutoMerge ?? false
-        self.deleteBranchOnMerge = deleteBranchOnMerge ?? false
-        self.allowMergeCommit = allowMergeCommit ?? true
-        self.allowForking = allowForking ?? false
+        self.allowSquashMerge = allowSquashMerge
+        self.allowAutoMerge = allowAutoMerge
+        self.deleteBranchOnMerge = deleteBranchOnMerge
+        self.allowMergeCommit = allowMergeCommit
+        self.allowForking = allowForking
         self.subscribersCount = subscribersCount
         self.networkCount = networkCount
         self.openIssues = openIssues
@@ -392,7 +392,7 @@ public struct TeamRepository: Codable {
         self.size = try values.decode(Int.self, forKey: "size")
         self.defaultBranch = try values.decode(String.self, forKey: "default_branch")
         self.openIssuesCount = try values.decode(Int.self, forKey: "open_issues_count")
-        self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template") ?? false
+        self.isTemplate = try values.decodeIfPresent(Bool.self, forKey: "is_template")
         self.topics = try values.decodeIfPresent([String].self, forKey: "topics")
         self.hasIssues = try values.decode(Bool.self, forKey: "has_issues")
         self.hasProjects = try values.decode(Bool.self, forKey: "has_projects")
@@ -405,14 +405,14 @@ public struct TeamRepository: Codable {
         self.pushedAt = try values.decodeIfPresent(Date.self, forKey: "pushed_at")
         self.createdAt = try values.decodeIfPresent(Date.self, forKey: "created_at")
         self.updatedAt = try values.decodeIfPresent(Date.self, forKey: "updated_at")
-        self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge") ?? true
+        self.allowRebaseMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_rebase_merge")
         self.templateRepository = try values.decodeIfPresent(Repository.self, forKey: "template_repository")
         self.tempCloneToken = try values.decodeIfPresent(String.self, forKey: "temp_clone_token")
-        self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge") ?? true
-        self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge") ?? false
-        self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge") ?? false
-        self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit") ?? true
-        self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking") ?? false
+        self.allowSquashMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_squash_merge")
+        self.allowAutoMerge = try values.decodeIfPresent(Bool.self, forKey: "allow_auto_merge")
+        self.deleteBranchOnMerge = try values.decodeIfPresent(Bool.self, forKey: "delete_branch_on_merge")
+        self.allowMergeCommit = try values.decodeIfPresent(Bool.self, forKey: "allow_merge_commit")
+        self.allowForking = try values.decodeIfPresent(Bool.self, forKey: "allow_forking")
         self.subscribersCount = try values.decodeIfPresent(Int.self, forKey: "subscribers_count")
         self.networkCount = try values.decodeIfPresent(Int.self, forKey: "network_count")
         self.openIssues = try values.decode(Int.self, forKey: "open_issues")

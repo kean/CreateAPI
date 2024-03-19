@@ -14,12 +14,16 @@ public struct FormatTest: Codable {
     public var string: String?
     public var byte: Data
     public var binary: Data?
+    public var uri: URL?
+    public var uriReference: String?
+    public var uriDefault: URL?
+    public var uriRequired: URL
     public var date: NaiveDate
     public var dateTime: Date?
     public var uuid: UUID?
     public var password: String
 
-    public init(integer: Int? = nil, int32: Int32? = nil, int64: Int64? = nil, number: Double, float: Float? = nil, double: Double? = nil, string: String? = nil, byte: Data, binary: Data? = nil, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
+    public init(integer: Int? = nil, int32: Int32? = nil, int64: Int64? = nil, number: Double, float: Float? = nil, double: Double? = nil, string: String? = nil, byte: Data, binary: Data? = nil, uri: URL? = nil, uriReference: String? = nil, uriDefault: URL? = nil, uriRequired: URL, date: NaiveDate, dateTime: Date? = nil, uuid: UUID? = nil, password: String) {
         self.integer = integer
         self.int32 = int32
         self.int64 = int64
@@ -29,9 +33,33 @@ public struct FormatTest: Codable {
         self.string = string
         self.byte = byte
         self.binary = binary
+        self.uri = uri
+        self.uriReference = uriReference
+        self.uriDefault = uriDefault
+        self.uriRequired = uriRequired
         self.date = date
         self.dateTime = dateTime
         self.uuid = uuid
         self.password = password
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case integer
+        case int32
+        case int64
+        case number
+        case float
+        case double
+        case string
+        case byte
+        case binary
+        case uri
+        case uriReference = "uri_reference"
+        case uriDefault = "uri_default"
+        case uriRequired = "uri_required"
+        case date
+        case dateTime
+        case uuid
+        case password
     }
 }

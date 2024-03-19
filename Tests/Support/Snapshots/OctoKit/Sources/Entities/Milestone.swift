@@ -51,7 +51,7 @@ public struct Milestone: Codable {
         case closed
     }
 
-    public init(url: URL, htmlURL: URL, labelsURL: URL, id: Int, nodeID: String, number: Int, state: State, title: String, description: String? = nil, creator: SimpleUser? = nil, openIssues: Int, closedIssues: Int, createdAt: Date, updatedAt: Date, closedAt: Date? = nil, dueOn: Date? = nil) {
+    public init(url: URL, htmlURL: URL, labelsURL: URL, id: Int, nodeID: String, number: Int, state: State = .`open`, title: String, description: String? = nil, creator: SimpleUser? = nil, openIssues: Int, closedIssues: Int, createdAt: Date, updatedAt: Date, closedAt: Date? = nil, dueOn: Date? = nil) {
         self.url = url
         self.htmlURL = htmlURL
         self.labelsURL = labelsURL
