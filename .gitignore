@@ -11,3 +11,4 @@ DerivedData/
 
 # Custom ignores
 /Tests/Support/Snapshots/**/Package.resolved
+/.vscode
