@@ -110,11 +110,11 @@ Below you can find the complete documentation for all available options.
 ## generate
 
 **Type:** Set<Generate><br />
-**Default:** `[.entities, .paths, .enums, .package]`
+**Default:** `[entities, paths, enums, package]`
 
 Different components that CreateAPI should generate.
 
-Available options are `.entities`, `.paths`, `.enums` and `.package`.
+Available options are `entities`, `paths`, `enums` and `package`.
 Defaults to `[entities, paths, enums, package]`.
 
 <br/>
