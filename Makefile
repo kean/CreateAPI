@@ -8,11 +8,11 @@ build:
 	swift build $(SWIFT_BUILD_FLAGS)
 
 install: build
-	sudo install -d "$(BINARIES_PATH)"
-	sudo install "$(EXECUTABLE_PATH)" "$(BINARIES_PATH)"
+	install -d "$(BINARIES_PATH)"
+	install "$(EXECUTABLE_PATH)" "$(BINARIES_PATH)"
 
 uninstall:
-	sudo rm -f "$(BINARIES_PATH)/create-api"
+	rm -f "$(BINARIES_PATH)/create-api"
 
 artifactbundle: build
 	scripts/artifactbundle.sh "$(version)" "$(EXECUTABLE_PATH)"
