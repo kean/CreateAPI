@@ -637,7 +637,7 @@ final class Templates {
 
     var anyJSON: String {
         """
-        \(access)enum AnyJSON: Equatable, Codable {
+        \(access)enum AnyJSON: Equatable, Codable, Hashable {
             case string(String)
             case number(Double)
             case object([String: AnyJSON])
